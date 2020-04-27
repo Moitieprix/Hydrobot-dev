@@ -18,7 +18,7 @@ module.exports = async (client, oldMessage, newMessage) => {
     if (oldMessage.partial) await oldMessage.fetch()
     if (newMessage.partial) await newMessage.fetch()
 
-    const channelSend = client.channels.cache.get(channel)
+    const channelSend = newMessage.guild.channels.cache.get(channel)
 
     if (oldMessage.content !== newMessage.content) {
       if (oldMessage.content.length < 1023 || newMessage.content.length < 1023) {
