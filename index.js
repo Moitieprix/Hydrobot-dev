@@ -29,8 +29,8 @@ class Hydrobot extends Client {
       password: '4162'
     })
 
-    this.commands = {}
-    this.aliases = {}
+    this.commands = []
+    this.aliases = []
 
     this.config = require('./config.js')
     this.logger = require('./utils/logger.js')
@@ -42,7 +42,7 @@ class Hydrobot extends Client {
    *
    * @param commandPath
    * @param commandName
-   * @returns {*} string ou boolean
+   * @returns {*}
    */
 
   loadCommand (commandPath, commandName) {
@@ -66,7 +66,7 @@ class Hydrobot extends Client {
    *
    * @param commandPath
    * @param commandName
-   * @returns {*} string et boolean
+   * @returns {*}
    */
 
   unloadCommand (commandPath, commandName) {
