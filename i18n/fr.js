@@ -175,6 +175,12 @@ module.exports = class {
           'Utilisateur :'
         ],
 
+        EMOJI_CREATED: [
+          ':inbox_tray: • Emoji ajouté',
+          'Nom :',
+          'ID :'
+        ],
+
       },
 
       // Paramètres commandes
