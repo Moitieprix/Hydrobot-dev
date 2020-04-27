@@ -97,8 +97,7 @@ const client = new Hydrobot({
   messageCacheLifetime: 900,
   messageCacheMaxSize: 300,
   messageSweepInterval: 180,
-  partials: ['MESSAGE', 'GUILD_MEMBER', 'USER'],
-  disabledEvents: ['TYPING_START', 'WEBHOOKS_UPDATE', 'PRESENCE_UPDATE']
+  partials: ['MESSAGE', 'GUILD_MEMBER', 'USER']
 
 })
 
