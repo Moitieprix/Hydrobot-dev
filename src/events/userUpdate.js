@@ -8,7 +8,7 @@ module.exports = async (client, oldUser, newUser) => {
 
   if (oldUser.lastMessage !== newUser.lastMessage || oldUser.presence !== newUser.presence) return
 
-  const guildsArray = []
+  let guildsArray = []
 
   client.guilds.cache.forEach(async currentGuild => {
     const fetchMembers = await currentGuild.members.fetch()
