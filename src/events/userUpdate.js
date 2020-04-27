@@ -19,7 +19,7 @@ module.exports = async (client, oldUser, newUser) => {
   })
 
   for (let i = 0; i < guildsArray.length; i++) {
-    client.database.query('SELECT * FROM settings WHERE id = $1', [guildsArray[i]], async (err, res) => {
+    const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [guildsArray[i]])
 
       if (res.rows.length === 0) continue
 
@@ -56,8 +56,6 @@ module.exports = async (client, oldUser, newUser) => {
       }
 
       client.channels.cache.get(channel).send(embed)
-
-    })
   }
 
 }
