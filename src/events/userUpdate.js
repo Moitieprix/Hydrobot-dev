@@ -8,29 +8,21 @@ module.exports = async (client, oldUser, newUser) => {
 
   if (oldUser.lastMessage !== newUser.lastMessage || oldUser.presence !== newUser.presence) return
 
-  let guildsArray = []
+  client.guilds.cache.filter(async guild => {
+    const fetchMembers = await guild.members.fetch()
 
-  client.guilds.cache.forEach(async currentGuild => {
-    const fetchMembers = await currentGuild.members.fetch()
+    fetchMembers.has(newUser.id)
+  }).forEach(guild => {
+    client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
 
-    if(fetchMembers.has(oldUser.id)) {
-      guildsArray.push(currentGuild.id)
-    }
-  })
-
-  for (let i = 0; i < guildsArray.length; i++) {
-    const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [guildsArray[i]])
-
-      if (res.rows.length === 0) continue
-
-      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) continue
-
+      if (res.rows.length === 0) return
+      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return
 
       const channel = res.rows[0].channels.logs
 
-      if (channel === '0') continue
-      if (!client.guilds.cache.get(guildsArray[i]).channels.cache.some(ch => ch.id === channel)) continue
-      if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) continue
+      if (channel === '0') return
+      if (!guild.channels.cache.some(ch => ch.id === channel)) return
+      if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
 
       const language = new (require(`../../i18n/${res.rows[0].language}`))
 
@@ -55,7 +47,8 @@ module.exports = async (client, oldUser, newUser) => {
         embed.addField(language.get('LOGS').USER_UPDATED[7], `[[${language.get('LOGS').USER_UPDATED[8]}]](${oldUser.displayAvatarURL({dynamic: true})}) → [[${language.get('LOGS').USER_UPDATED[9]}]](${newUser.displayAvatarURL({dynamic: true})})`)
       }
 
-      client.channels.cache.get(channel).send(embed)
-  }
+      return guild.channels.cache.get(channel).send(embed)
+    })
+  })
 
 }
