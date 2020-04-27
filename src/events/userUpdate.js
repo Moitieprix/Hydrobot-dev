@@ -10,8 +10,8 @@ module.exports = async (client, oldUser, newUser) => {
 
   client.guilds.cache.forEach(async guild => {
     const fetchMembers = await guild.members.fetch()
-    if (!fetchMembers.has('537979556259430411')) return
-    
+    if (!fetchMembers.has(oldUser.id)) return
+
     client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
 
       if (res.rows.length === 0) return
