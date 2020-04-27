@@ -1,0 +1,35 @@
+'use strict'
+
+const Command = require('../../../core/Command.js')
+const {MessageEmbed} = require('discord.js')
+
+module.exports = class Roll extends Command {
+  constructor (client) {
+    super(client, {
+      name: 'roll',
+      cooldown: 3,
+      enabled: true,
+      owner: false,
+      nsfw: false,
+      plugin: false,
+      aliases: [],
+      permission: [],
+      botpermissions: ['EMBED_LINKS'],
+      description: (language) => language.get('ROLL_DESC'),
+      usage: (language, prefix) => language.get('ROLL_USAGE', prefix),
+      category: (language) => language.get('UTILS').FUN_CATEGORIE,
+      examples: (language, prefix) => language.get('ROLL_USAGE', prefix)
+    })
+  }
+
+  async run (message) {
+
+    const embed = new MessageEmbed()
+      .setColor(this.client.config.embed.color)
+      .setTimestamp()
+      .addField(message.language.get('ROLL_EMBED'), this.client.functions.getRandomInt(1, 6))
+      .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+      return message.channel.send({ embed: embed })
+  }
+}

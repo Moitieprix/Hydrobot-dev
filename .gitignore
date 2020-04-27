@@ -1,0 +1,7 @@
+.idea/
+db.sql
+config.js
+
+# Node modules
+node_modules
+package-lock.json
