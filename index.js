@@ -48,7 +48,6 @@ class Hydrobot extends Client {
   loadCommand (commandPath, commandName) {
     try {
       const command = new (require(`${commandPath}/${commandName}`))(this)
-      //this.logger.info(`Commande chargé : ${command.help.name}`)
       this.commands[command.help.name] = command
 
       command.conf.location = commandPath
