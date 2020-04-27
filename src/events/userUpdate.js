@@ -12,7 +12,7 @@ module.exports = async (client, oldUser, newUser) => {
     const fetchMembers = await guild.members.fetch()
     if (!fetchMembers.has(oldUser.id)) return
 
-    client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
+    const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id])
 
       if (res.rows.length === 0) return
       if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return
@@ -48,6 +48,4 @@ module.exports = async (client, oldUser, newUser) => {
 
       return guild.channels.cache.get(channel).send(embed)
     })
-  })
-
 }
