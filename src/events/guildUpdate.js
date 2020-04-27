@@ -65,7 +65,7 @@ module.exports = async (client, oldGuild, newGuild) => {
 
     if (oldGuild.verificationLevel !== newGuild.verificationLevel) embed.addField(language.get('LOGS').GUILD_UPDATED[32], `${language.get('LOGS').GUILD_UPDATED[33]} **${language.get('UTILS').VERIFICATION_LEVEL[oldGuild.verificationLevel]}** \n${language.get('LOGS').GUILD_UPDATED[34]} **${language.get('UTILS').VERIFICATION_LEVEL[newGuild.verificationLevel]}**`)
 
-    return client.channels.cache.get(channel).send(embed)
+    return newGuild.channels.cache.get(channel).send(embed)
 
   })
 }
