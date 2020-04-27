@@ -96,8 +96,10 @@ const client = new Hydrobot({
   messageCacheLifetime: 900,
   messageCacheMaxSize: 300,
   messageSweepInterval: 180,
-  partials: ['MESSAGE', 'GUILD_MEMBER', 'USER']
-
+  partials: ['MESSAGE', 'GUILD_MEMBER', 'USER'],
+  ws: {
+    intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS']
+  }
 })
 
 /**
