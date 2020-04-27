@@ -15,14 +15,16 @@ module.exports = async (client, messages) => {
     if (!messagesArray[1].guild.channels.cache.some(ch => ch.id === channel)) return
     if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
 
+    const language = new (require(`../../i18n/${res.rows[0].language}`))
+
     const messagesContent = messagesArray.map(message => `**[${message.author.tag} • ${message.author.id}]** \n${message.content}`).join('\n\n')
 
     if (messagesContent.length < 2000) {
       const embed = new MessageEmbed()
         .setColor(client.config.embed.color)
         .setTimestamp()
-        .setTitle(messagesArray[1].language.get('LOGS').MSG_DELETE_BULK[0])
-        .setDescription(`${messagesArray[0].language.get('LOGS').MSG_DELETE_BULK[1]} ${messagesArray.length} \n${messagesArray[0].language.get('LOGS').MSG_DELETE_BULK[2]} <#${messagesArray[0].channel.id}> \n\n${messagesContent}`)
+        .setTitle(language.get('LOGS').MSG_DELETE_BULK[0])
+        .setDescription(`${language.get('LOGS').MSG_DELETE_BULK[1]} ${messagesArray.length} \n${language.get('LOGS').MSG_DELETE_BULK[2]} <#${channel.id}> \n\n${messagesContent}`)
         .setFooter(client.user.username, client.user.avatarURL());
 
       return client.channels.cache.get(channel).send(embed)
@@ -30,8 +32,8 @@ module.exports = async (client, messages) => {
       const embed = new MessageEmbed()
         .setColor(client.config.embed.color)
         .setTimestamp()
-        .setTitle(messagesArray[1].language.get('LOGS').MSG_DELETE_BULK[0])
-        .setDescription(`${messagesArray[0].language.get('LOGS').MSG_DELETE_BULK[1]} ${messagesArray.length} \\n${messagesArray[0].language.get('LOGS').MSG_DELETE_BULK[2]} <#${messagesArray[0].channel.id}>`)
+        .setTitle(language.get('LOGS').MSG_DELETE_BULK[0])
+        .setDescription(`${language.get('LOGS').MSG_DELETE_BULK[1]} ${messagesArray.length} \\n${language.get('LOGS').MSG_DELETE_BULK[2]} <#${messagesArray[0].channel.id}>`)
         .attachFiles([{ name: 'messageDeleteBulk.txt', attachment: Buffer.from(messagesContent, 'utf8') }])
         .setFooter(client.user.username, client.user.avatarURL());
 
