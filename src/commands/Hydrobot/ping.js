@@ -36,7 +36,7 @@ module.exports = class Ping extends Command {
       .setColor(this.client.config.embed.color)
       .setTitle(':ping_pong: • Pong !')
       .addField(message.language.get('LATENCE_BOT'), `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
-      .addField(message.language.get('LATENCE_API'), '`' + Math.round(client.ws.ping) + 'ms`', true)
+      .addField(message.language.get('LATENCE_API'), '`' + Math.round(this.client.ws.ping) + 'ms`', true)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
