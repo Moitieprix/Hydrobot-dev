@@ -15,7 +15,7 @@ module.exports = async (client, message) => {
 
     if (message.partial) await message.fetch()
 
-    const channelSend = client.channels.cache.get(channel)
+    const channelSend = message.guild.channels.cache.get(channel)
 
     if (message.content.length < 1023) {
       const embed = new MessageEmbed()
