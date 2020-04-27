@@ -128,7 +128,7 @@ module.exports = async (client, message) => {
 
       commandsCooldowns[message.member.user.id][cmd.help.name] = Date.now() + cmd.conf.cooldown * 1000
     }
-
+    
     try {
       cmd.run(message, args)
     } catch (error) {
