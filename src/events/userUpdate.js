@@ -9,9 +9,7 @@ module.exports = async (client, oldUser, newUser) => {
   if (oldUser.lastMessage !== newUser.lastMessage || oldUser.presence !== newUser.presence) return
 
   client.guilds.cache.filter(async guild => {
-    const fetchMembers = await guild.members.fetch()
-
-    fetchMembers.has(newUser.id)
+    guild.members.cache.has(oldUser.id) && guild.members.cache.has(this.client.user.id)
   }).forEach(guild => {
     client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
 
