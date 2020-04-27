@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
     // Automodération//
     /// ///////////////
 
-    if (!message.content.startsWith(res.rows[0].prefix) && message.guild.member(client.user).hasPermission('MANAGE_MESSAGES')) {
+    if (!message.content.startsWith(res.rows[0].prefix) && message.guild.me.hasPermission('MANAGE_MESSAGES')) {
 
       const dataBadwords = JSON.parse(res.rows[0].badwords[0])
       if (res.rows[0].system.badwords === true) {
