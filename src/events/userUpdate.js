@@ -14,14 +14,14 @@ module.exports = async (client, oldUser, newUser) => {
 
     const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id])
 
-      if (res.rows.length === 0) return
-      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return
+      if (res.rows.length === 0) return console.log('1')
+      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return console.log('2')
 
       const channel = res.rows[0].channels.logs
 
-      if (channel === '0') return
-      if (!guild.channels.cache.some(ch => ch.id === channel)) return
-      if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
+      if (channel === '0') return console.log('3')
+      if (!guild.channels.cache.some(ch => ch.id === channel)) return console.log('4')
+      if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return console.log('5')
 
       const language = new (require(`../../i18n/${res.rows[0].language}`))
 
