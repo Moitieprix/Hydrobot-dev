@@ -8,12 +8,18 @@ module.exports = async (client, oldUser, newUser) => {
 
   if (oldUser.lastMessage !== newUser.lastMessage || oldUser.presence !== newUser.presence) return
 
-  client.guilds.cache.filter(async guild => {
-    const fetchMembers = await guild.members.fetch()
+  const guildsArray = []
 
-    fetchMembers.has(newUser.id)
-  }).forEach(guild => {
-    client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
+  client.guilds.cache.forEach(async currentGuild => {
+    const fetchMembers = await currentGuild.members.fetch()
+
+    if(fetchMembers.has(oldUser.id)) {
+      guildsArray.push(currentGuild.id)
+    }
+  })
+
+  for (let i = 0; i < guildsArray.length; i++) {
+    client.database.query('SELECT * FROM settings WHERE id = $1', [guildsArray[i]], async (err, res) => {
 
       if (res.rows.length === 0) return
       if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return
@@ -21,7 +27,7 @@ module.exports = async (client, oldUser, newUser) => {
       const channel = res.rows[0].channels.logs
 
       if (channel === '0') return
-      if (!guild.channels.cache.some(ch => ch.id === channel)) return
+      if (!client.guilds.cache.get(guildsArray[i]).channels.cache.some(ch => ch.id === channel)) return
       if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
 
       const language = new (require(`../../i18n/${res.rows[0].language}`))
@@ -47,8 +53,9 @@ module.exports = async (client, oldUser, newUser) => {
         embed.addField(language.get('LOGS').USER_UPDATED[7], `[[${language.get('LOGS').USER_UPDATED[8]}]](${oldUser.displayAvatarURL({dynamic: true})}) → [[${language.get('LOGS').USER_UPDATED[9]}]](${newUser.displayAvatarURL({dynamic: true})})`)
       }
 
-      return guild.channels.cache.get(channel).send(embed)
+      return client.channels.cache.get(channel).send(embed)
+
     })
-  })
+  }
 
 }
