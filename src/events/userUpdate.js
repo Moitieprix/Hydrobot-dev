@@ -6,8 +6,6 @@ module.exports = async (client, oldUser, newUser) => {
 
   if (oldUser.bot) return
 
-  if (oldUser.lastMessage !== newUser.lastMessage || oldUser.presence !== newUser.presence) return
-
   client.guilds.cache.forEach(async guild => {
     const fetchMembers = await guild.members.fetch()
     if (!fetchMembers.has(oldUser.id)) return
