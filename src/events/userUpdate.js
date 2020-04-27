@@ -47,7 +47,7 @@ module.exports = async (client, oldUser, newUser) => {
         embed.addField(language.get('LOGS').USER_UPDATED[7], `[[${language.get('LOGS').USER_UPDATED[8]}]](${oldUser.displayAvatarURL({dynamic: true})}) → [[${language.get('LOGS').USER_UPDATED[9]}]](${newUser.displayAvatarURL({dynamic: true})})`)
       }
 
-      return client.channels.cache.get(channel).send(embed)
+      return guild.channels.cache.get(channel).send(embed)
     })
   })
 
