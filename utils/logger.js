@@ -55,25 +55,15 @@ function getDate () {
   let second = new Date().getSeconds()
   const year = new Date().getFullYear()
 
-  if (date < 10) {
-    date = `0${date}`
-  }
+  if (date < 10) date = `0${date}`
 
-  if (month < 10) {
-    month = `0${month}`
-  }
+  if (month < 10) month = `0${month}`
 
-  if (hour < 10) {
-    hour = `0${hour}`
-  }
+  if (hour < 10) hour = `0${hour}`
 
-  if (minute < 10) {
-    minute = `0${minute}`
-  }
+  if (minute < 10) minute = `0${minute}`
 
-  if (second < 10) {
-    second = `0${second}`
-  }
+  if (second < 10) second = `0${second}`
 
   return `${date}/${month}/${year} ${hour}:${minute}:${second}`
 }
