@@ -21,14 +21,16 @@ module.exports = async (client, oldUser, newUser) => {
   for (let i = 0; i < guildsArray.length; i++) {
     client.database.query('SELECT * FROM settings WHERE id = $1', [guildsArray[i]], async (err, res) => {
 
-      if (res.rows.length === 0) return
-      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return
+      if (res.rows.length === 0) continue
+
+      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) continue
+
 
       const channel = res.rows[0].channels.logs
 
-      if (channel === '0') return
-      if (!client.guilds.cache.get(guildsArray[i]).channels.cache.some(ch => ch.id === channel)) return
-      if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
+      if (channel === '0') continue
+      if (!client.guilds.cache.get(guildsArray[i]).channels.cache.some(ch => ch.id === channel)) continue
+      if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) continue
 
       const language = new (require(`../../i18n/${res.rows[0].language}`))
 
@@ -53,7 +55,7 @@ module.exports = async (client, oldUser, newUser) => {
         embed.addField(language.get('LOGS').USER_UPDATED[7], `[[${language.get('LOGS').USER_UPDATED[8]}]](${oldUser.displayAvatarURL({dynamic: true})}) → [[${language.get('LOGS').USER_UPDATED[9]}]](${newUser.displayAvatarURL({dynamic: true})})`)
       }
 
-      return client.channels.cache.get(channel).send(embed)
+      client.channels.cache.get(channel).send(embed)
 
     })
   }
