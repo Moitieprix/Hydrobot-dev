@@ -51,7 +51,7 @@ module.exports = async (client, oldMember, newMember) => {
         }
       }
 
-      return client.channels.cache.get(channel).send(embed)
+      return newMember.guild.channels.cache.get(channel).send(embed)
     })
   }
 }
