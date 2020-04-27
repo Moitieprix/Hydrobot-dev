@@ -1,8 +1,8 @@
 'use strict'
 
-const {Client} = require('discord.js'),
-  {readdir} = require('fs'),
-  PostgreSQL = require('pg')
+const {Client} = require('discord.js')
+const {readdir} = require('fs')
+const PostgreSQL = require('pg')
 
 /**
  * @class Hydrobot
