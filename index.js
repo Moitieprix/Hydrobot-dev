@@ -22,12 +22,6 @@ class Hydrobot extends Client {
       throw new Error('Options cannot be empty')
     }
 
-    this.database = new PostgreSQL.Client({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'postgres',
-      password: '4162'
-    })
 
     this.commands = []
     this.aliases = []
@@ -36,6 +30,13 @@ class Hydrobot extends Client {
     this.logger = require('./utils/logger.js')
     this.functions = require('./utils/function.js')
     this.emote = require('./utils/emotes.js')
+
+    this.database = new PostgreSQL.Client({
+      user: this.config.database.user,
+      host: this.config.database.host,
+      database: this.config.database.database,
+      password: this.config.database.password
+    })
   }
 
   /**
