@@ -44,7 +44,9 @@ module.exports = class Eval extends Command {
 
       const start = process.hrtime()
       const diff = process.hrtime(start)
-      const evaluation_time = `${diff[0] > 0 ? `${diff[0]}s ` : ''}${diff[1]}`
+      const evaluation_time = `${diff[0] > 0 ? diff[0] : ''}${diff[1]}`
+
+      console.log(`${diff} | ${evaluation_time}`)
 
       let evalTime
 
@@ -56,7 +58,7 @@ module.exports = class Eval extends Command {
         evalTime = Math.round(evaluation_time / 1000000) + 'ms'
       }
 
-      if (message.channel.permissionsFor(this.client).has('ADD_REACTIONS')) message.react('601815694467792935')
+      if (message.channel.permissionsFor(this.client.user).has('ADD_REACTIONS')) message.react('601815694467792935')
 
       const embed = new MessageEmbed()
         .setColor(this.client.config.embed.color)
