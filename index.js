@@ -26,7 +26,7 @@ class Hydrobot extends Client {
       user: 'postgres',
       host: 'localhost',
       database: 'postgres',
-      password: '4162'
+      password: ''
     })
 
     this.commands = []
