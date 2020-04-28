@@ -1,5 +1,7 @@
 'use strict'
 
+const {MessageEmbed} = require('discord.js')
+
 module.exports = {
 
   /**
@@ -175,53 +177,22 @@ module.exports = {
    * @param cmd
    * @param message
    * @param config
-   * @returns {{color: *, description: string, author: {name: string | number, icon_url: string | *}, fields: *[], timestamp: Date}}
+   * @returns {MessageEmbed}
    */
   messageCommandRun (cmd, message, config) {
-    return {
-      color: config.embed.color,
-      description: `Commande \`${cmd}\` effectuée`,
-      thumbnail: {
-        url: message.author.avatarURL()
-      },
-      author: {
-        name: message.author.tag,
-        icon_url: message.author.avatarURL()
-      },
-      fields: [
-        {
-          name: 'Auteur :',
-          value: `${message.author.tag} (${message.author.id})`,
-          inline: true
-        },
-        {
-          name: 'Serveur :',
-          value: `${message.guild.name} (${message.guild.id})`,
-          inline: true
-        },
-        {
-          name: 'Salon :',
-          value: `${message.channel.name} (${message.channel.id})`,
-          inline: true
-        },
-        {
-          name: 'Contenu :',
-          value: message.content,
-          inline: true
-        },
-        {
-          name: 'Date :',
-          value: getDate(),
-          inline: true
-        },
-        {
-          name: 'Shard :',
-          value: message.guild.shard.id,
-          inline: true
-        }
-      ],
-      timestamp: new Date()
-    }
+
+      return new MessageEmbed()
+        .setColor(config.embed.color)
+        .setDescription(`Command \`${cmd}\` executed`)
+        .setThumbnail(message.author.displayAvatarURL())
+        .setAuthor(message.author.tag, message.author.displayAvatarURL())
+        .addField('Author :', `${message.author.tag} (${message.author.id})`, true)
+        .addField('Guild :', `${message.guild.name} (${message.guild.id})`, true)
+        .addField('Channel :'`${message.channel.name} (${message.channel.id})`, true)
+        .addField('Content :', message.content, true)
+        .addField('Date :', getDate(), true)
+        .addField('Shard :', message.guild.shard)
+        .setTimestamp()
   },
 
   /**
