@@ -27,15 +27,15 @@ module.exports = class Encode extends Command {
 
     if (!args[0]) return message.channel.send(message.language.get('ENCODE_ARGS'))
 
-    if (args.join(' ').length > 100) return message.channel.send(message.language.get('ENCODE_LENGTH'))
+    if (args.join(' ').length > 750) return message.channel.send(message.language.get('ENCODE_LENGTH'))
 
     const text = args.join(' ')
-    const s = Base64.encode(text)
+    const encodeText = Base64.encode(text)
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .addField(`${message.language.get('ENCODE_ENTREE')}`, `\`\`\`${text}\`\`\``)
-      .addField(`${message.language.get('ENCODE_SORTIE')}`, `\`\`\`${s}\`\`\``)
+      .addField(`${message.language.get('ENCODE_SORTIE')}`, `\`\`\`${encodeText}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
