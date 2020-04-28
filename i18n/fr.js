@@ -454,7 +454,7 @@ module.exports = class {
       ENCODE_USAGE: prefix => `${prefix}encode <texte>`,
       ENCODE_EXEMPLE: prefix => `${prefix}encode Comment vas-tu ?`,
       ENCODE_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
-      ENCODE_LENGTH: `${emote.others.no} • Le texte est trop long ! (100 caractères max.)`,
+      ENCODE_LENGTH: `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
       ENCODE_ENTREE: ':inbox_tray: • Entrée :',
       ENCODE_SORTIE: ':outbox_tray: • Sortie :',
 
@@ -463,9 +463,10 @@ module.exports = class {
       DECODE_USAGE: prefix => `${prefix}decode <texte>`,
       DECODE_EXEMPLE: prefix => `${prefix}decode Q29tbWVudCB2YXMtdHUgPw==`,
       DECODE_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte à déchiffer !`,
-      DECODE_LENGTH: '${emote.others.no} • Le texte est trop long ! (100 caractères max.)',
+      DECODE_LENGTH: '${emote.others.no} • Le texte est trop long ! (750 caractères max.)',
       DECODE_ENTREE: ':inbox_tray: • Entrée :',
       DECODE_SORTIE: ':outbox_tray: • Sortie :',
+      DECODE_NOT_VALID: 'Base64 non valide !',
 
       // Tableflip
       TABLE_DESC: 'Tableflip ¯\\_(ツ)_/¯',
