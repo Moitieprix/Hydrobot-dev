@@ -7,7 +7,7 @@ module.exports = class Achievement extends Command {
     super(client, {
       name: 'achievement',
       cooldown: 5,
-      enabled: false,
+      enabled: true,
       owner: false,
       nsfw: false,
       plugin: 'image',
@@ -25,6 +25,8 @@ module.exports = class Achievement extends Command {
     const number = this.client.functions.getRandomInt(1, 39)
 
     if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
+
+    if (message.content.match(new RegExp(/[^\w \xC0-\xFF]/))) return message.channel.send(message.language.get('ACHIEVEMENT_ASCII'))
 
 
     return message.channel.send({
