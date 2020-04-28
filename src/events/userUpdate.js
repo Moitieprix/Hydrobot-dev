@@ -13,11 +13,10 @@ module.exports = async (client, oldUser, newUser) => {
     const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id])
 
       if (res.rows.length === 0) return
-      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate']) return
 
       const channel = res.rows[0].channels.logs
-
-      if (channel === '0') return
+    
+      if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate'] || channel === '0') return
       if (!guild.channels.cache.some(ch => ch.id === channel)) return
       if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
 
