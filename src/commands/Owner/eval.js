@@ -44,19 +44,8 @@ module.exports = class Eval extends Command {
 
       const start = process.hrtime()
       const diff = process.hrtime(start)
-      const evaluation_time = `${diff[0] > 0 ? diff[0] : ''}${diff[1]}`
 
-      console.log(`${diff} | ${evaluation_time}`)
-
-      let evalTime
-
-      if (evaluation_time < 100000) {
-        evalTime = (evaluation_time / 1000).toPrecision(3) + 'μs'
-      } else if (evaluation_time < 1e+9) {
-        evalTime = (evaluation_time / 1000000).toPrecision(3) + 'ms'
-      } else {
-        evalTime = Math.round(evaluation_time / 1000000) + 'ms'
-      }
+      const evalTime = diff[1] < 100000 ? (diff[1] / 1000).toPrecision(3) + 'μs' : (diff[1] / 1000000).toPrecision(3) + 'ms'
 
       if (message.channel.permissionsFor(this.client.user).has('ADD_REACTIONS')) message.react('601815694467792935')
 
