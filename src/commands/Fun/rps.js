@@ -26,52 +26,50 @@ module.exports = class Rps extends Command {
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
+      .setTitle(message.language.get('RPS_TITLE'))
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
     const reponse = this.client.functions.getRandomInt(1, 3)
 
-    if (args.join(' ') === 'rock') {
-      embed.setTitle(message.language.get('RPS_TITLE'))
+    if (args[0] === 'rock') {
       switch (reponse) {
-        case '1':
+        case 1:
           embed.setDescription(message.language.get('RPS_REPONSES')[0])
           break
-        case '2':
+        case 2:
           embed.setDescription(message.language.get('RPS_REPONSES')[1])
           break
-        case '3':
+        case 3:
           embed.setDescription(message.language.get('RPS_REPONSES')[2])
           break
       }
-    } else if (args.join(' ') === 'paper') {
-      embed.setTitle(message.language.get('RPS_TITLE'))
+    } else if (args[0] === 'paper') {
       switch (reponse) {
-        case '1':
+        case 1:
           embed.setDescription(message.language.get('RPS_REPONSES')[3])
           break
-        case '2':
+        case 2:
           embed.setDescription(message.language.get('RPS_REPONSES')[4])
           break
-        case '3':
+        case 3:
           embed.setDescription(message.language.get('RPS_REPONSES')[5])
           break
       }
-    } else if (args.join(' ') === 'scissors') {
-      embed.setTitle(message.language.get('RPS_TITLE'))
+    } else if (args[0] === 'scissors') {
       switch (reponse) {
-        case '1':
+        case 1:
           embed.setDescription(message.language.get('RPS_REPONSES')[6])
           break
-        case '2':
+        case 2:
           embed.setDescription(message.language.get('RPS_REPONSES')[7])
           break
-        case '3':
+        case 3:
           embed.setDescription(message.language.get('RPS_REPONSES')[8])
           break
       }
     } else {
-      message.channel.send(message.language.get('RPS_ARGS'))
+       return message.channel.send(message.language.get('RPS_ARGS'))
     }
 
     return message.channel.send(embed)
