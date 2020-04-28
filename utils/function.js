@@ -170,19 +170,18 @@ module.exports = {
    * @returns {MessageEmbed}
    */
   messageCommandRun (cmd, message, config) {
-
-      return new MessageEmbed()
-        .setColor(config.embed.color)
-        .setDescription(`Command \`${cmd}\` executed`)
-        .setThumbnail(message.author.displayAvatarURL())
-        .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .addField('Author :', `${message.author.tag} (${message.author.id})`, true)
-        .addField('Guild :', `${message.guild.name} (${message.guild.id})`, true)
-        .addField('Channel :'`${message.channel.name} (${message.channel.id})`, true)
-        .addField('Content :', message.content, true)
-        .addField('Date :', getDate(), true)
-        .addField('Shard :', message.guild.shard)
-        .setTimestamp()
+    return new MessageEmbed()
+      .setColor(config.embed.color)
+      .setDescription(`Command \`${cmd}\` executed`)
+      .setThumbnail(message.author.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .addField('Author :', `${message.author.tag} (${message.author.id})`, true)
+      .addField('Guild :', `${message.guild.name} (${message.guild.id})`, true)
+      .addField('Channel :'`${message.channel.name} (${message.channel.id})`, true)
+      .addField('Content :', message.content, true)
+      .addField('Date :', getDate(), true)
+      .addField('Shard :', message.guild.shard)
+      .setTimestamp()
   },
 
   /**
