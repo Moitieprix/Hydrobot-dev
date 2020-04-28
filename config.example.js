@@ -6,6 +6,12 @@ module.exports = {
   embed: {
     color: 0x0064FF
   },
+  database: {
+    user: '',
+    host: '',
+    database: '',
+    password: ''
+  },
   webhooks: {
     boot: {
       id: '',
@@ -28,7 +34,5 @@ module.exports = {
       token: ''
     }
   },
-  owners: [],
-  serveur: '',
-  salon_erreurs: ''
+  owners: []
 }
