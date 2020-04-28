@@ -27,9 +27,6 @@ module.exports = class Prefix extends Command {
 
     if (args[0].length > 3) return message.channel.send(message.language.get('PREFIX_LENGTH'))
 
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], (err) => {
-      if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
-
       this.client.database.query('UPDATE settings SET prefix = $1 WHERE id = $2', [args[0], message.guild.id])
 
       const embed = new MessageEmbed()
@@ -40,6 +37,5 @@ module.exports = class Prefix extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
 
       return message.channel.send(embed)
-    })
   }
 }
