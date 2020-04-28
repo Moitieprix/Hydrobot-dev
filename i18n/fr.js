@@ -422,16 +422,20 @@ module.exports = class {
       BALL_USAGE: prefix => `${prefix}8ball <question>`,
       BALL_EXEMPLE: prefix => `${prefix}8ball Suis-je intelligent ?`,
       BALL_ARGS: `${emote.others.no} • Tu dois me poser une question !`,
+      BALL_LENGTH: `${emote.others.no} • Ta question ne doit pas dépasser 256 caractères !`,
       BALL_REPLYS: [
         'Oui',
         'Non',
-        'Peut être',
-        'Peut être pas',
+        'Peut-être',
+        'Peut-être pas',
         'Je ne sais pas',
         '42',
         ':thinking:',
-        'Demande à ta mère !',
-        'Johnathan'
+        'Aucune idée...',
+        'Johnathan',
+        'Vous savez, moi je ne crois pas qu\'il y ait de bonne ou de mauvaise situation',
+        'Je vais demander à Internet Explorer ! Je te donne la réponse dans 3 semaines',
+        'La réponse D'
       ],
 
       // Membercount
