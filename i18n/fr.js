@@ -188,7 +188,7 @@ module.exports = class {
       BOT_PERMISSION: permissions => `${emote.others.no} • Je n'ai pas les permissions nécessaires pour effectuer cette commande ! ${permissions}`,
       USER_PERMISSION: permissions => `${emote.others.no} • Tu n'as pas les permissions nécessaires pour effectuer cette commande ! ${permissions}`,
       OWNER: `${emote.others.no} • Cette commande ne peut-être effectuée que par les administrateurs du bot`,
-      COOLDOWN: temps => `${emote.others.cooldown} • Merci d'attendre \`${temps}\` avec de réeffectuer cette commande`,
+      COOLDOWN: temps => `${emote.others.cooldown} • Merci d'attendre \`${temps}\` avant de réeffectuer cette commande`,
       NSFW: `${emote.others.no} • Cette commande ne peut-être effectuée que dans un salon NSFW`,
 
       // Help
