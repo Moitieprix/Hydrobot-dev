@@ -26,12 +26,14 @@ module.exports = class EightBall extends Command {
 
     if (!args[0]) return message.channel.send(message.language.get('BALL_ARGS'))
 
+    if (args.join(' ').length > 255) return message.channel.send(message.language.get('BALL_LENGTH'))
+
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(':8ball: • 8ball')
       .addField(args.join(' '), message.language.get('BALL_REPLYS')[this.client.functions.getRandomInt(0, message.language.get('BALL_REPLYS').length - 1)])
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-    return message.channel.send({embed: embed})
+    return message.channel.send(embed)
   }
 }
