@@ -212,7 +212,7 @@ module.exports = class {
         'Commande'
       ],
       HELP_EMBED: 'Commandes',
-      HELP_EMBED_DESC: prefix => `• Préfixe : \`${prefix}\` \n• Utilise la commande \`${prefix}help [commande]\` pour plus d'information sur les commandes \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
+      HELP_EMBED_DESC: prefix => `• Préfixe : \`${prefix}\` \n• Utilise la commande \`${prefix}help [commande]\` pour obtenir plus d'information sur les commandes \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
 
       // Ping et speedtest
       CHARGEMENT: `${emote.others.loading} • Chargement...`,
@@ -595,7 +595,7 @@ module.exports = class {
       ACHIEVEMENT_DESC: `${emote.others.no} • Tu dois m'indiquer un achievement !`,
       ACHIEVEMENT_USAGE: prefix => `${prefix}achievement <texte>`,
       ACHIEVEMENT_EXEMPLE: prefix => `${prefix}achievement Énigme résolue !`,
-      ACHIEVEMENT_ARGS: 'Tu dois m\'indiquer un texte !',
+      ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m\'indiquer un texte !`,
 
       // Tobecontinued
       TOBECONTINUED_DESC: 'Envoi une photo de profil modifié avec le filtre To be continued !',
