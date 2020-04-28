@@ -8,14 +8,14 @@ module.exports = class Eval extends Command {
   constructor (client) {
     super(client, {
       name: 'eval',
-      description: 'Evalue un code JavaSript',
-      usage: 'h!eval <code>',
+      description: (language) => language.get('EVAL_DESC'),
+      usage: (language, prefix) => language.get('EVAL_USAGE', prefix),
       enabled: true,
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      examples: 'h!eval message.channel.send("test")',
+      examples: (language, prefix) => language.get('EVAL_EXEMPLE', prefix),
       owner: true,
       nsfw: false,
       cooldown: 3,
@@ -25,7 +25,7 @@ module.exports = class Eval extends Command {
 
   async run (message, args) {
     if (!args.join(' ')) return message.channel.send('Tu dois me donner un code à évaluer')
-    
+
       return new Promise(resolve => {
         resolve(eval(args.join(' ')))
 
