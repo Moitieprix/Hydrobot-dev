@@ -26,15 +26,17 @@ class Decode extends Command {
   async run (message, args) {
 
     if (!args[0]) return message.channel.send(message.language.get('DECODE_ARGS'))
-    if (args.join(' ').length > 100) return message.channel.send(message.language.get('DECODE_LENGTH'))
+    if (args.join(' ').length > 750) return message.channel.send(message.language.get('DECODE_LENGTH'))
 
     const text = args.join(' ')
-    const s = Base64.decode(text)
+    let decodeText = Base64.decode(text)
+
+    if (decodeText.length === 0) decodeText = message.language.get('DECODE_NOT_VALID')
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .addField(`${message.language.get('DECODE_ENTREE')}`, `\`\`\`${text}\`\`\``)
-      .addField(`${message.language.get('DECODE_SORTIE')}`, `\`\`\`${s}\`\`\``)
+      .addField(`${message.language.get('DECODE_SORTIE')}`, `\`\`\`${decodeText}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
