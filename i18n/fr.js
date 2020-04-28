@@ -743,6 +743,10 @@ module.exports = class {
         'J\'ai également choisi ciseaux ! Égalité !'
       ],
 
+      ////////////////////
+      // Commands Owner //
+      ////////////////////
+      
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
       BLACKLIST_USAGE: prefix => `${prefix}blacklist <add | remove> <@mention | id>`,
