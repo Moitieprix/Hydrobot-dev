@@ -24,9 +24,8 @@ module.exports = class Eval extends Command {
   }
 
   async run (message, args) {
-    if (!args.join(' ')) {
-      return message.channel.send('Tu dois me donner un code à évaluer')
-    }
+    if (!args.join(' ')) return message.channel.send('Tu dois me donner un code à évaluer')
+    
       return new Promise(resolve => {
         resolve(eval(args.join(' ')))
 
