@@ -15,7 +15,7 @@ module.exports = async (client, oldUser, newUser) => {
       if (res.rows.length === 0) return
 
       const channel = res.rows[0].channels.logs
-    
+
       if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['userUpdate'] || channel === '0') return
       if (!guild.channels.cache.some(ch => ch.id === channel)) return
       if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
