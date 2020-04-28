@@ -736,17 +736,17 @@ module.exports = class {
 
       RPS_REPONSES: [
         // Pierre
-        'J\'ai également choisi pierre ! Égalité !',
-        'J\'ai choisi feuille ! Tu as perdu !',
-        'J\'ai choisi ciseaux ! Tu as gagné !',
+        ':bricks: • J\'ai également choisi pierre ! Égalité !',
+        ':roll_of_paper: • J\'ai choisi feuille ! Tu as perdu !',
+        ':scissors: • J\'ai choisi ciseaux ! Tu as gagné !',
         // Feuille
-        'J\'ai choisi pierre ! Tu as gagné !',
-        'J\'ai également choisi feuille ! Égalité !',
-        'J\'ai choisi ciseaux ! Tu as perdu !',
+        ':bricks: • J\'ai choisi pierre ! Tu as gagné !',
+        ':roll_of_paper: • J\'ai également choisi feuille ! Égalité !',
+        ':scissors: • J\'ai choisi ciseaux ! Tu as perdu !',
         // Ciseaux
-        'J\'ai choisi pierre ! Tu as perdu !',
-        'J\'ai choisi feuille ! Tu as gagné !',
-        'J\'ai également choisi ciseaux ! Égalité !'
+        ':bricks: • J\'ai choisi pierre ! Tu as perdu !',
+        ':roll_of_paper: • J\'ai choisi feuille ! Tu as gagné !',
+        ':scissors: • J\'ai également choisi ciseaux ! Égalité !'
       ],
 
       ////////////////////
