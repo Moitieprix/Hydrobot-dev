@@ -79,7 +79,7 @@ module.exports = async (client, message) => {
 
     const args = message.content.slice(res.rows[0].prefix.length).split(/ +/g)
 
-    if (message.guild && !message.channel.permissionsFor(client.user.id).has('SEND_MESSAGES')) return
+    if (message.guild && !message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) return
 
     const command = args.shift().toLowerCase()
 
@@ -130,5 +130,6 @@ module.exports = async (client, message) => {
           embeds: [client.functions.messageCommandError(command, message, err)]
         })
       })
+
   })
 }
