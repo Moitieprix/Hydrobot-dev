@@ -23,7 +23,7 @@ class Shutdown extends Command {
     try {
       await message.channel.send(':key: | Arrêt en cours...')
       this.client.commands.forEach(async cmd => {
-        await this.client.unloadCommand(cmd)
+        await this.client.unloadCommand(cmd.conf.location, cmd.conf.name)
       })
       process.exit(1)
       this.client.destroy()
