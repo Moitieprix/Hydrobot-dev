@@ -26,7 +26,7 @@ module.exports = class Achievement extends Command {
 
     if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
 
-    if (args.join(' ').match(new RegExp(/[^a-zA-z-0-9\s]/))) return message.channel.send(message.language.get('ACHIEVEMENT_ASCII'))
+    if (args.join(' ').match(new RegExp(/[^a-zA-Z-0-9\s]/))) return message.channel.send(message.language.get('ACHIEVEMENT_ASCII'))
 
     return message.channel.send({
       files: [{
