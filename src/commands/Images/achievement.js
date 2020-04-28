@@ -24,14 +24,13 @@ module.exports = class Achievement extends Command {
   run (message, args) {
     const number = this.client.functions.getRandomInt(1, 39)
 
-    if (!args) {
-      return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
-    }
+    if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
+
 
     return message.channel.send({
       files: [{
-        attachment: `https://www.minecraftskinstealer.com/achievement/a.php?i=${number}&h=Achievement Get!&t=${args.join(' ')}`,
-        name: 'achievement.png'
+        name: 'achievement.png',
+        attachment: `https://www.minecraftskinstealer.com/achievement/a.php?i=${number}&h=Achievement Get!&t=${args.join(' ')}`
       }]
 
     })
