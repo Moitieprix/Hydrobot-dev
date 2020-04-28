@@ -150,26 +150,16 @@ module.exports = {
    *
    * @param cmd
    * @param message
-   * @param e
-   * @param id
-   * @returns {{color: *}}
+   * @param error
+   * @returns {MessageEmbed}
    */
-  messageCommandError (cmd, message, e, id) {
-    return {
-      color: 0xFF0000,
-      description: `Erreur sur la commande \`${cmd}\``,
-      fields: [
-        {
-          name: 'Erreur :',
-          value: `\`${e}\``,
-          inline: true
-        },
-        {
-          name: 'Commande :',
-          value: `[Lien](https://discordapp.com/channels/648939742548983829/667713868398592001/${id})`
-        }
-      ]
-    }
+  messageCommandError (cmd, message, error) {
+    return new MessageEmbed()
+      .setColor('RED')
+      .setDescription(`An Error occured in command \`${cmd}\``)
+      .addField(`Error :`, `\`${error}\``)
+      .addField(`Content :`, `\`${message.content}\``)
+      .setTimestamp()
   },
 
   /**
