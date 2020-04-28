@@ -27,15 +27,16 @@ module.exports = class Prefix extends Command {
 
     if (args[0].length > 3) return message.channel.send(message.language.get('PREFIX_LENGTH'))
 
-      this.client.database.query('UPDATE settings SET prefix = $1 WHERE id = $2', [args[0], message.guild.id])
+    this.client.database.query('UPDATE settings SET prefix = $1 WHERE id = $2', [args[0], message.guild.id])
 
-      const embed = new MessageEmbed()
-        .setColor(this.client.config.embed.color)
-        .setTimestamp()
-        .setTitle(message.language.get('PREFIX_CHANGE'))
-        .setDescription(message.language.get('PREFIX_CHANGE_DESC', args))
-        .setFooter(this.client.user.username, this.client.user.avatarURL())
+    
+    const embed = new MessageEmbed()
+      .setColor(this.client.config.embed.color)
+      .setTimestamp()
+      .setTitle(message.language.get('PREFIX_CHANGE'))
+      .setDescription(message.language.get('PREFIX_CHANGE_DESC', args))
+      .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-      return message.channel.send(embed)
+    return message.channel.send(embed)
   }
 }
