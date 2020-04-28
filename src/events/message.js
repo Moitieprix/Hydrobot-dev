@@ -87,15 +87,7 @@ module.exports = async (client, message) => {
 
     const cmd = client.commands[command] || client.commands[client.aliases[command]]
 
-    let test
-    if (cmd) {
-      test = await new WebhookClient(client.config.webhooks.commands.id, client.config.webhooks.commands.token).send({
-        embeds: [client.functions.messageCommandRun(command, message, client.config)]
-
-      })
-    } else {
-      return
-    }
+    if (!cmd) return
 
     //////////////////////////
     // Paramètres commandes //
@@ -129,14 +121,14 @@ module.exports = async (client, message) => {
       commandsCooldowns[message.member.user.id][cmd.help.name] = Date.now() + cmd.conf.cooldown * 1000
     }
 
-    try {
       cmd.run(message, args)
-    } catch (error) {
-      message.channel.send(message.language.get('UTILS').ERREUR(error))
-      new WebhookClient(client.config.webhooks.errors.id, client.config.webhooks.errors.token).send({
-        embeds: [client.functions.messageCommandError(command, message, error, test.id)]
-
-      })
-    }
+        .then(() => {
+          new WebhookClient(client.config.webhooks.commands.id, client.config.webhooks.commands.token).send(client.functions.messageCommandRun(cmd, message, client.config))
+        })
+        .catch((err) => {
+          new WebhookClient(client.config.webhooks.errors.id, client.config.webhooks.errors.token).send({
+            embeds: [client.functions.messageCommandError(command, message, err, test.id)]
+          })
+        })
   })
 }
