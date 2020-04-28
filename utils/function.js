@@ -177,10 +177,10 @@ module.exports = {
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .addField('Author :', `${message.author.tag} (${message.author.id})`, true)
       .addField('Guild :', `${message.guild.name} (${message.guild.id})`, true)
-      .addField('Channel :'`${message.channel.name} (${message.channel.id})`, true)
+      .addField('Channel :', `${message.channel.name} (${message.channel.id})`, true)
       .addField('Content :', message.content, true)
       .addField('Date :', getDate(), true)
-      .addField('Shard :', message.guild.shard)
+      .addField('Shard :', message.guild.shard.id, true)
       .setTimestamp()
   },
 
