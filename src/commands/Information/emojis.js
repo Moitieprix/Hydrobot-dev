@@ -32,8 +32,6 @@ module.exports = class Emojis extends Command {
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-      console.log(embed.description.length)
-
       return message.channel.send(embed)
 
     } else {
