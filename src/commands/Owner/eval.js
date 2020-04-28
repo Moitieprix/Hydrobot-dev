@@ -8,18 +8,18 @@ module.exports = class Eval extends Command {
   constructor (client) {
     super(client, {
       name: 'eval',
-      description: (language) => language.get('EVAL_DESC'),
-      usage: (language, prefix) => language.get('EVAL_USAGE', prefix),
+      cooldown: 3,
       enabled: true,
-      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
+      owner: true,
+      nsfw: false,
+      plugin: false,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      examples: (language, prefix) => language.get('EVAL_EXEMPLE', prefix),
-      owner: true,
-      nsfw: false,
-      cooldown: 3,
-      plugin: false,
+      description: (language) => language.get('EVAL_DESC'),
+      usage: (language, prefix) => language.get('EVAL_USAGE', prefix),
+      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
+      examples: (language, prefix) => language.get('EVAL_EXEMPLE', prefix)
     })
   }
 
