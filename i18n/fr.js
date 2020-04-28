@@ -448,6 +448,7 @@ module.exports = class {
       EMOJIFY_EXEMPLE: prefix => `${prefix}emojify Comment vas-tu ?`,
       EMOJIFY_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
       EMOJIFY_LENGTH: `${emote.others.no} • Le texte est trop long ! (100 caractères max.)`,
+      EMOJIFY_NOT_VALID: `${emote.others.no} • Seul les caractères suivants sont autorisés : \`a-z A-Z 0-9 !?+÷^?!<>.\``,
 
       // Encode
       ENCODE_DESC: 'Encode le texte en Base64',
