@@ -746,11 +746,16 @@ module.exports = class {
       ////////////////////
       // Commands Owner //
       ////////////////////
-      
+
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
       BLACKLIST_USAGE: prefix => `${prefix}blacklist <add | remove> <@mention | id>`,
-      BLACKLIST_EXEMPLE: prefix => `${prefix}blacklist add / remove @Moitié_prix / 406135526005932043`
+      BLACKLIST_EXEMPLE: prefix => `${prefix}blacklist add / remove @Moitié_prix / 406135526005932043`,
+
+      // Eval
+      EVAL_DESC: `Évaluation d'un code Javascript`,
+      EVAL_USAGE: prefix => `${prefix}eval <code>`,
+      EVAL_EXEMPLE: prefix => `${prefix}eval message.channel.send('123')`
 
     }
   }
