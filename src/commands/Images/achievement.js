@@ -7,7 +7,7 @@ module.exports = class Achievement extends Command {
     super(client, {
       name: 'achievement',
       cooldown: 5,
-      enabled: true,
+      enabled: false,
       owner: false,
       nsfw: false,
       plugin: 'image',
