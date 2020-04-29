@@ -102,7 +102,7 @@ module.exports = async (client, message) => {
 
     if (cmd.conf.owner && !client.config.owners.includes(message.author.id)) return message.channel.send(message.language.get('OWNER'))
 
-    if (cmd.conf.nsfw && !message.channel.nsfw) return message.channel.send(message.language.get('NSFW'))
+    if (cmd.conf.plugin.toString() === 'nsfw' && !message.channel.nsfw) return message.channel.send(message.language.get('NSFW'))
 
     if (cmd.conf.cooldown !== 0) {
       let userCooldowns = commandsCooldowns[message.member.user.id]
