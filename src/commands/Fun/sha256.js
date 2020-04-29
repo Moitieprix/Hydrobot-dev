@@ -16,7 +16,6 @@ module.exports =  class Sha256 extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('SHA256_DESC'),
       usage: (language, prefix) => language.get('SHA256_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('SHA256_EXEMPLE', prefix)
