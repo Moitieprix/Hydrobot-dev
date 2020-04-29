@@ -7,7 +7,7 @@ module.exports = class Antilink extends Command {
       name: 'antilink',
       usage: (language, prefix) => language.get('ANTILINK_USAGE', prefix),
       enabled: true,
-      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
+      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
       aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
