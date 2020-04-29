@@ -15,7 +15,6 @@ module.exports = class Brilliance extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('BRILLIANCE_DESC'),
       usage: (language, prefix) => language.get('BRILLIANCE_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('BRILLIANCE_EXEMPLE', prefix)
