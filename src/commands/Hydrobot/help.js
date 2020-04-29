@@ -10,7 +10,6 @@ module.exports = class Help extends Command {
       cooldown: 3,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: ['commands'],
       permission: [],
