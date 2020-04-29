@@ -21,7 +21,6 @@ module.exports = class Triggered extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('TRIGGERED_DESC'),
       usage: (language, prefix) => language.get('TRIGGERED_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('TRIGGERED_EXEMPLE', prefix)
