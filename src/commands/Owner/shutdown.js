@@ -4,7 +4,6 @@ class Shutdown extends Command {
   constructor (client) {
     super(client, {
       name: 'shutdown',
-      description: 'Arret du bot',
       usage: 'shutdown',
       enabled: true,
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
