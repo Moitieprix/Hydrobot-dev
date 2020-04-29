@@ -15,7 +15,6 @@ module.exports = class Logs extends Command {
       aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('LOGS_DESCRIPTION'),
       usage: (language, prefix) => language.get('LOGS_USAGE', prefix),
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
       examples: (language, prefix) => language.get('LOGS_EXEMPLE', prefix)
