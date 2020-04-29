@@ -15,7 +15,6 @@ module.exports = class Slap extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('SLAP_DESC'),
       usage: (language, prefix) => language.get('SLAP_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('SLAP_EXEMPLE', prefix)
