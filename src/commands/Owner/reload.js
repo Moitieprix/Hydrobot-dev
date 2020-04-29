@@ -4,7 +4,6 @@ class Reload extends Command {
   constructor (client) {
     super(client, {
       name: 'reload',
-      description: 'Recharge une commande',
       usage: 'reload [commande]',
       enabled: true,
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
