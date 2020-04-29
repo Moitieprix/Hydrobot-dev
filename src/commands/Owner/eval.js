@@ -16,7 +16,6 @@ module.exports = class Eval extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('EVAL_DESC'),
       usage: (language, prefix) => language.get('EVAL_USAGE', prefix),
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
       examples: (language, prefix) => language.get('EVAL_EXEMPLE', prefix)
