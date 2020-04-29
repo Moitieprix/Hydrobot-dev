@@ -11,7 +11,6 @@ module.exports = class Speedtest extends Command {
       cooldown: 5,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: [],
       permission: [],
