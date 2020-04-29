@@ -11,6 +11,7 @@ module.exports = class {
 
       UTILS: {
         ERREUR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réesayer plus tard !`,
+        API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         EMBED_ERREUR: `${emote.others.no} • **Erreur !**`,
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
