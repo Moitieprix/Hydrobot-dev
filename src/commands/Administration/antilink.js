@@ -5,7 +5,6 @@ module.exports = class Antilink extends Command {
   constructor (client) {
     super(client, {
       name: 'antilink',
-      description: (language) => language.get('ANTILINK_DESC'),
       usage: (language, prefix) => language.get('ANTILINK_USAGE', prefix),
       enabled: true,
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
