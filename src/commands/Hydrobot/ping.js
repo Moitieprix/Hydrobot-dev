@@ -15,7 +15,6 @@ module.exports = class Ping extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('PING_DESCRIPTION'),
       usage: (language, prefix) => language.get('PING_USAGE', prefix),
       category: (language) => language.get('UTILS').BOT_CATEGORIE,
       examples: (language, prefix) => language.get('PING_USAGE', prefix)
