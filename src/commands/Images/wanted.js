@@ -15,7 +15,6 @@ module.exports = class Wanted extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('WANTED_DESC'),
       usage: (language, prefix) => language.get('WANTED_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('WANTED_EXEMPLE', prefix)
