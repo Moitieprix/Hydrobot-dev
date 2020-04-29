@@ -15,7 +15,6 @@ module.exports = class Rps extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('RPS_DESC'),
       usage: (language, prefix) => language.get('RPS_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('RPS_EXEMPLE', prefix)
