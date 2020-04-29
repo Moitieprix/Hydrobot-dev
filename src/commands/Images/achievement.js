@@ -26,6 +26,8 @@ module.exports = class Achievement extends Command {
 
     if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
 
+    if (args.join(' ').length > 24) return message.channel.send(message.language.get('ACHIEVEMENT_LENGTH'))
+
     const text = encodeURIComponent(args.join(' ')).replace('%20', '+')
 
     return message.channel.send({
