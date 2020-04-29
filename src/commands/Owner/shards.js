@@ -4,7 +4,6 @@ class Shards extends Command {
   constructor (client) {
     super(client, {
       name: 'shards',
-      description: 'Stats shards Hydrobot',
       usage: 'h!shards',
       enabled: true,
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
