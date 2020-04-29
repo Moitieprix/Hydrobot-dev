@@ -15,7 +15,6 @@ module.exports = class Help extends Command {
       aliases: ['commands'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('HELP_DESCRIPTION'),
       usage: (language, prefix) => language.get('HELP_USAGE', prefix),
       category: (language) => language.get('UTILS').BOT_CATEGORIE,
       examples: (language, prefix) => language.get('HELP_EXAMPLE', prefix)
