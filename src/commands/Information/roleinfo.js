@@ -15,7 +15,6 @@ module.exports = class Roleinfo extends Command {
       aliases: ['ri', 'role'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('ROLEINFO_DESC'),
       usage: (language, prefix) => language.get('ROLEINFO_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('ROLEINFO_EXEMPLE', prefix)
