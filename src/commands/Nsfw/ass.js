@@ -31,9 +31,11 @@ module.exports = class Ass extends Command {
           .setImage(res.message)
           .setTimestamp()
           .setFooter(this.client.user.username, this.client.user.avatarURL())
-        message.channel.send(embed)
+        return message.channel.send(embed)
       })
-      .catch(err => message.channel.send(message.language.get('UTILS').API_ERROR(err)))
+      .catch(err => {
+        return message.channel.send(message.language.get('UTILS').API_ERROR(err))
+      })
 
   }
 }
