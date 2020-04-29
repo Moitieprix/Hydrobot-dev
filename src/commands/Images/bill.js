@@ -15,7 +15,6 @@ module.exports = class Bill extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('BILL_DESC'),
       usage: (language, prefix) => language.get('BILL_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('BILL_EXEMPLE', prefix)
