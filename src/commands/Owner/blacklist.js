@@ -4,7 +4,6 @@ class Blacklist extends Command {
   constructor (client) {
     super(client, {
       name: 'blacklist',
-      description: language => language.get('BLACKLIST_DESC'),
       usage: language => language.get('BLACKLIST_USAGE'),
       enabled: true,
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
