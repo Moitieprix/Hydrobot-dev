@@ -16,11 +16,11 @@
     "gifencoder": "^2.0.1",
     "jimp": "^0.9.3",
     "js-base64": "^2.5.1",
+    "node-fetch": "^2.6.0",
     "os": "^0.1.1",
     "pg": "^7.18.2",
     "sha.js": "^2.4.11",
     "speedtest-net": "^1.6.0",
-    "superagent": "^5.2.2",
     "util": "^0.12.1",
     "weather-js": "^2.0.0"
   }
