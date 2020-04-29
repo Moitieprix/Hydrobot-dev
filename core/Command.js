@@ -11,13 +11,12 @@ module.exports = class Command {
     aliases = [],
     permission = [],
     botpermissions = [],
-    description = false,
     usage = false,
     category = 'Not defined',
     examples = false
   }) {
     this.client = client
     this.conf = { enabled, aliases, permission, botpermissions, owner, cooldown, nsfw, plugin }
-    this.help = { name, description, category, usage, examples }
+    this.help = { name, category, usage, examples }
   };
 }
