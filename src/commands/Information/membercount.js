@@ -15,7 +15,6 @@ module.exports = class Membercount extends Command {
       aliases: ['usercount'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('MEMBERCOUNT_DESC'),
       usage: (language, prefix) => language.get('MEMBERCOUNT_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('MEMBERCOUNT_USAGE', prefix)
