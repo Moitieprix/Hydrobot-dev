@@ -15,7 +15,6 @@ module.exports = class Channelinfo extends Command {
       aliases: ['ci', 'channel'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('CHANNELINFO_DESC'),
       usage: (language, prefix) => language.get('CHANNELINFO_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('CHANNELINFO_EXEMPLE', prefix)
