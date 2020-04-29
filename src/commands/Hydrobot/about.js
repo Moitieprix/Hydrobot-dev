@@ -15,7 +15,6 @@ module.exports = class About extends Command {
       aliases: ['botinformation', 'stats', 'debug', 'botinfo'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('ABOUT_DESCRIPTION'),
       usage: (language, prefix) => language.get('ABOUT_USAGE', prefix),
       category: (language) => language.get('UTILS').BOT_CATEGORIE,
       examples: (language, prefix) => language.get('ABOUT_USAGE', prefix)
