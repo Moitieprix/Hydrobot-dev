@@ -4,7 +4,6 @@ class Autorole extends Command {
   constructor (client) {
     super(client, {
       name: 'autorole',
-      description: (language) => language.get('AUTOROLE_DESC'),
       usage: (language, prefix) => language.get('AUTOROLE_USAGE', prefix),
       enabled: true,
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
