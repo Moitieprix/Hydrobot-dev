@@ -14,7 +14,6 @@ module.exports = class Achievement extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('ACHIEVEMENT_DESC'),
       usage: (language, prefix) => language.get('ACHIEVEMENT_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('ACHIEVEMENT_EXEMPLE', prefix)
