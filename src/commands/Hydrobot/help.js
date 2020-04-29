@@ -16,7 +16,7 @@ module.exports = class Help extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('HELP_USAGE', prefix),
-      category: (language) => language.get('UTILS').BOT_CATEGORIE,
+      category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
       examples: (language, prefix) => language.get('HELP_EXAMPLE', prefix)
     })
   }
@@ -26,21 +26,21 @@ module.exports = class Help extends Command {
         if (args[0]) {
           const cmd = this.client.commands[args[0]] || this.client.commands[this.client.aliases[args[0]]]
 
-          if (!cmd) return message.channel.send(message.language.get('HELP_INTROUVABLE', args))
+          if (!cmd) return message.channel.send(message.language.get('HELP_NOT_FOUND', args))
 
           if (cmd.conf.owner && !this.client.config.owners.includes(message.author.id)) return
 
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
-            .setTitle(`:label: • ${message.language.get('HELP_COMMANDS_EMBED')[0]} \`${cmd.help.name}\``)
+            .setTitle(`:label: • ${message.language.get('HELP_EMBED')[0]} \`${cmd.help.name}\``)
             .setDescription(message.language.get('HELP_EMBED_DESC', res.rows[0].prefix))
             .addField('\u200b', '\u200b', false)
-            .addField(message.language.get('HELP_COMMANDS_EMBED')[1], cmd.help.usage(message.language, res.rows[0].prefix))
-            .addField(message.language.get('HELP_COMMANDS_EMBED')[2], cmd.help.examples(message.language, res.rows[0].prefix), true)
-            .addField(message.language.get('HELP_COMMANDS_EMBED')[3], cmd.conf.aliases.length > 0 ? cmd.conf.aliases.map(a => '`' + res.rows[0].prefix + a + '`').join('\n') : message.language.get('HELP_COMMANDS_EMBED')[4], true)
+            .addField(message.language.get('HELP_EMBED')[1], cmd.help.usage(message.language, res.rows[0].prefix))
+            .addField(message.language.get('HELP_EMBED')[2], cmd.help.examples(message.language, res.rows[0].prefix), true)
+            .addField(message.language.get('HELP_EMBED')[3], cmd.conf.aliases.length > 0 ? cmd.conf.aliases.map(a => '`' + res.rows[0].prefix + a + '`').join('\n') : message.language.get('HELP_EMBED')[4], true)
             .addField('\u200b', '\u200b', false)
-            .addField(message.language.get('HELP_COMMANDS_EMBED')[5], `\`${cmd.conf.cooldown} ${message.language.get('HELP_COMMANDS_EMBED')[6]}\``, true)
-            .addField(message.language.get('HELP_COMMANDS_EMBED')[7], cmd.conf.permission.length > 0 ? cmd.conf.permission.map(a => '`' + a + '`').join('\n') : message.language.get('HELP_COMMANDS_EMBED')[8], true)
+            .addField(message.language.get('HELP_EMBED')[5], `\`${cmd.conf.cooldown} ${message.language.get('HELP_EMBED')[6]}\``, true)
+            .addField(message.language.get('HELP_EMBED')[7], cmd.conf.permission.length > 0 ? cmd.conf.permission.map(a => '`' + a + '`').join('\n') : message.language.get('HELP_EMBED')[8], true)
             .setTimestamp()
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
@@ -49,8 +49,8 @@ module.exports = class Help extends Command {
 
       const embed = new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setTitle(message.language.get('HELP_EMBED'))
-        .setDescription(message.language.get('HELP_EMBED_DESC', res.rows[0].prefix))
+        .setTitle(message.language.get('HELP_EMBED')[9])
+        .setDescription(message.language.get('HELP_EMBED_DESCRIPTION', res.rows[0].prefix))
         .addField('\u200b', '\u200b', false)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
@@ -60,9 +60,9 @@ module.exports = class Help extends Command {
 
         Object.values(this.client.commands).forEach(cmd => {
           if (!categories.includes(cmd.help.category(message.language, res.rows[0].prefix))) {
-            if (cmd.help.category(message.language) === message.language.get('UTILS').BOTSTAFF_CATEGORIE && !this.client.config.owners.includes(message.author.id)) return
-            if (cmd.help.category(message.language) === message.language.get('UTILS').IMAGE_CATEGORIE && res.rows[0].system.images === false) return
-            if (cmd.help.category(message.language) === message.language.get('UTILS').NSFW_CATEGORIE && res.rows[0].system.nsfw === false) return
+            if (cmd.help.category(message.language) === message.language.get('UTILS').BOTSTAFF_CATEGORY && !this.client.config.owners.includes(message.author.id)) return
+            if (cmd.help.category(message.language) === message.language.get('UTILS').IMAGE_CATEGORY && res.rows[0].system.images === false) return
+            if (cmd.help.category(message.language) === message.language.get('UTILS').NSFW_CATEGORY && res.rows[0].system.nsfw === false) return
             categories.push(cmd.help.category(message.language, res.rows[0].prefix))
           }
         })
