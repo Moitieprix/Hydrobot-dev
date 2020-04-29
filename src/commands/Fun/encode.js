@@ -16,7 +16,6 @@ module.exports = class Encode extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('ENCODE_DESC'),
       usage: (language, prefix) => language.get('ENCODE_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('ENCODE_EXEMPLE', prefix)
