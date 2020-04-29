@@ -12,7 +12,6 @@ module.exports = class {
       UTILS: {
         ERREUR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réesayer plus tard !`,
         API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
-        EMBED_ERREUR: `${emote.others.no} • **Erreur !**`,
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
         CHANNEL_DEFAUT: `${emote.others.no} • Je ne trouve pas ce salon !`,
@@ -555,20 +554,6 @@ module.exports = class {
       AUTOROLE_DESC: 'Paramètres de l\'auto-rôle',
       AUTOROLE_USAGE: prefix => `${prefix}antiflood <enable | disable | setrole> <@role>`,
       AUTOROLE_EXEMPLE: prefix => `\`${prefix}autorole enable / disable \n${prefix}autorole setrole @membre`,
-
-      AUTOROLE_EMBED: [
-        'L\'auto-rôle est déjà activé',
-        'L\'auto-rôle est déjà désactivé',
-        'L\'auto-rôle est désormais activé !',
-        'L\'auto-rôle est désormais désactivé !'
-      ],
-
-      AUTOROLE_SETROLE: role => `<@&${role}> est défini comme rôle automatique`,
-
-      AUTOROLE_EMBED2: [
-        'Arguments disponibles pour l\'anti-caractères-dupliqués',
-        '- `enable / disable` : Activer ou désativer le système \n- `setrole` : Définir le rôle'
-      ],
 
       // Weather
       WEATHER_DESC: 'Donne la météo d\'un lieu',
