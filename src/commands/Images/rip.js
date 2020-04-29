@@ -15,7 +15,6 @@ module.exports = class Rip extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('RIP_DESC'),
       usage: (language, prefix) => language.get('RIP_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('RIP_EXEMPLE', prefix)
