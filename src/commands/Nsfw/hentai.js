@@ -16,7 +16,6 @@ module.exports = class Pgif extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('BALANCE_DESC'),
       usage: (language, prefix) => language.get('BALANCE_USAGE', prefix),
       category: (language) => language.get('UTILS').NSFW_CATEGORIE,
       examples: (language, prefix) => language.get('BALANCE_EXEMPLE', prefix)
