@@ -27,6 +27,8 @@ module.exports = class Prefix extends Command {
 
     if (args[0].length > 3) return message.channel.send(message.language.get('PREFIX_LENGTH'))
 
+    if(args[0].match(new RegExp(/[^A-Za-z0-9!?;:*-+=$\/]/))) return message.channel.send(message.language.get('PREFIX_ASCII'))
+
     this.client.database.query('UPDATE settings SET prefix = $1 WHERE id = $2', [args[0], message.guild.id])
 
     const embed = new MessageEmbed()
