@@ -5,7 +5,6 @@ module.exports = class Badwords extends Command {
   constructor (client) {
     super(client, {
       name: 'badwords',
-      description: (language) => language.get('BADWORDS_DESC'),
       usage: (language, prefix) => language.get('BADWORDS_USAGE', prefix),
       enabled: true,
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
