@@ -4,7 +4,6 @@ class System extends Command {
   constructor (client) {
     super(client, {
       name: 'system',
-      description: 'Stats systeme Hydrobot',
       usage: 'h!system',
       enabled: true,
       category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
