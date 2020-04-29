@@ -4,7 +4,6 @@ class Language extends Command {
   constructor (client) {
     super(client, {
       name: 'language',
-      description: 'Change le prefix du serveur',
       usage: 'language <langue / reset>',
       enabled: true,
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
