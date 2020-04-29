@@ -15,7 +15,6 @@ module.exports = class EightBall extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('BALL_DESC'),
       usage: (language, prefix) => language.get('BALL_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('BALL_EXEMPLE', prefix)
