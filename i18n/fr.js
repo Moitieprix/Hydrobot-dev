@@ -191,14 +191,18 @@ module.exports = class {
       COOLDOWN: temps => `${emote.others.cooldown} • Merci d'attendre \`${temps}\` avant de réeffectuer cette commande`,
       NSFW: `${emote.others.no} • Cette commande ne peut-être effectuée que dans un salon NSFW`,
 
-      // ADMINISTRATION
+      // ADMINISTRATION //
 
-      // FUN
+      // anticaps.js
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` <addrole | removerole> <@role | ID de rôle> - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anticaps \n•  \`${prefix}anticaps\` <addchannel | removechannel> <#salon | ID de salon> - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anticaps`,
+      ANTICAPS_EXAMPLE: prefix => `${prefix}antilink addrole @moderateur \n removerole @moderateur \n${prefix}antilink adduser / removeuser @Moitié prix#4263 \n${prefix}antilink addchannel / removechannel #shitpost`,
 
-      // HYDROBOT
+      // FUN //
+
+      // HYDROBOT //
 
       // about.js
-      ABOUT_USAGE: prefix => `\`${prefix}botinfo\` - Affiche les informations générales d'Hydrobot`,
+      ABOUT_USAGE: prefix => `• \`${prefix}botinfo\` - Affiche les informations générales d'Hydrobot`,
       ABOUT_EXAMPLE: prefix => `\`${prefix}botinfo\``,
 
       ABOUT_EMBED: [
@@ -213,9 +217,9 @@ module.exports = class {
       ],
 
       // help.js
-      HELP_NOT_FOUND: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
       HELP_USAGE: prefix => `• \`${prefix}help\` - Affiche la liste complète des commandes disponibles \n• \`${prefix}help [commande | aliase]\` - Affiche les informations complémentaires de la commande mentionné`,
       HELP_EXAMPLE: prefix => `\`${prefix}help\` \n\`${prefix}help ping\` \n\`${prefix}help whois\``,
+      HELP_NOT_FOUND: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
       HELP_EMBED_DESCRIPTION: prefix => `• Préfixe : \`${prefix}\` \n• Utilise \`${prefix}help [commande | aliase]\` pour obtenir plus d'information sur une commande \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
       HELP_EMBED: [
         'Commande',
@@ -231,7 +235,7 @@ module.exports = class {
       ],
 
       // ping.js
-      PING_USAGE: prefix => `\`${prefix}ping\` - Affiche la latence d'Hydrobot ainsi que celle de l'API`,
+      PING_USAGE: prefix => `• \`${prefix}ping\` - Affiche la latence d'Hydrobot ainsi que celle de l'API`,
       PING_EXAMPLE: prefix => `\`${prefix}ping\``,
       PING_EMBED: [
         ':robot: • Latence Bot',
@@ -239,7 +243,7 @@ module.exports = class {
       ],
 
       // speedtest.js
-      SPEEDTEST_USAGE: prefix => `\`${prefix}speedtest\` - Affiche la vitesse de connexion ainsi que la latence d'Hydrobot`,
+      SPEEDTEST_USAGE: prefix => `• \`${prefix}speedtest\` - Affiche la vitesse de connexion ainsi que la latence d'Hydrobot`,
       SPEEDTEST_EXAMPLE: prefix => `\`${prefix}speedtest\``,
       SPEEDTEST_EMBED: [
         `${emote.others.loading} • Chargement...`,
@@ -557,11 +561,6 @@ module.exports = class {
       ANTILINK_DESC: 'Paramètres de l\'anti-lien',
       ANTILINK_USAGE: prefix => `${prefix}antilink <enable | disable | addrole | removerole | addchannel | removechannel> <@role | #salon>`,
       ANTILINK_EXEMPLE: prefix => `\`${prefix}antilink enable / disable \n${prefix}antilink addrole / removerole @moderateur \n${prefix}antilink adduser / removeuser @Moitié prix#4263 \n${prefix}antilink addchannel / removechannel #shitpost`,
-
-      //Anticaps
-      ANTICAPS_DESC: 'Paramètres de l\'anti-majuscules',
-      ANTICAPS_USAGE: prefix => `${prefix}antilink <enable | disable | addrole | removerole | addchannel | removechannel> <@role | #salon>`,
-      ANTICAPS_EXEMPLE: prefix => `\`${prefix}antilink enable / disable \n${prefix}antilink addrole / removerole @moderateur \n${prefix}antilink adduser / removeuser @Moitié prix#4263 \n${prefix}antilink addchannel / removechannel #shitpost`,
 
       // Autorole
       AUTOROLE_DESC: 'Paramètres de l\'auto-rôle',
