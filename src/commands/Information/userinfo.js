@@ -15,7 +15,6 @@ module.exports = class Userinfo extends Command {
       aliases: ['user', 'member', 'memberinfo', 'whois'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('USERINFO_DESC'),
       usage: (language, prefix) => language.get('USERINFO_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('USERINFO_EXEMPLE', prefix)
