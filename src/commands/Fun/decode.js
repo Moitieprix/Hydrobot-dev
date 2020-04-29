@@ -4,7 +4,7 @@ const Command = require('../../../core/Command.js')
 const Base64 = require('js-base64').Base64
 const {MessageEmbed} = require('discord.js')
 
-class Decode extends Command {
+module.exports =  class Decode extends Command {
   constructor (client) {
     super(client, {
       name: 'decode',
@@ -43,5 +43,3 @@ class Decode extends Command {
     return message.channel.send(embed)
   }
 }
-
-module.exports = Decode
