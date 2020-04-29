@@ -618,7 +618,6 @@ module.exports = class {
       ACHIEVEMENT_USAGE: prefix => `${prefix}achievement <texte>`,
       ACHIEVEMENT_EXEMPLE: prefix => `${prefix}achievement Énigme résolue !`,
       ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m\'indiquer un texte !`,
-      ACHIEVEMENT_ASCII: `${emote.others.no} • Seul les caractères alphanumériques sont autorisés`,
 
       // Tobecontinued
       TOBECONTINUED_DESC: 'Envoi une photo de profil modifié avec le filtre To be continued !',
