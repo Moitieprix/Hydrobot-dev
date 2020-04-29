@@ -192,7 +192,6 @@ module.exports = class {
       NSFW: `${emote.others.no} • Cette commande ne peut-être effectuée que dans un salon NSFW`,
 
       // Help
-      HELP_DESCRIPTION: 'Affiche l\'aide des commandes ou l\'aide d\'une commande en particulier',
       HELP_INTROUVABLE: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
       HELP_USAGE: prefix => `• \`${prefix}help\` - Affiche la liste complète des commandes disponibles \n• \`${prefix}help [commande | aliase]\` - Affiche les informations complémentaires de la commande mentionné`,
       HELP_EXAMPLE: prefix => `\`${prefix}help\` \n\`${prefix}help ping\` \n\`${prefix}help whois\``,
