@@ -192,27 +192,23 @@ module.exports = class {
       NSFW: `${emote.others.no} • Cette commande ne peut-être effectuée que dans un salon NSFW`,
 
       // Help
-      ARGUMENTS: 'Les arguments entre `<>` sont obligatoires et entre `[]` sont optionnels',
       HELP_DESCRIPTION: 'Affiche l\'aide des commandes ou l\'aide d\'une commande en particulier',
       HELP_INTROUVABLE: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
-      HELP_USAGE: prefix => `${prefix}help [commande]`,
-      HELP_EXAMPLE: prefix => `${prefix}help \n${prefix}help ping`,
+      HELP_USAGE: prefix => `• \`${prefix}help\` - Affiche la liste complète des commandes disponibles \n• \`${prefix}help [commande | aliase]\` - Affiche les informations complémentaires de la commande mentionné`,
+      HELP_EXAMPLE: prefix => `\`${prefix}help\` \n\`${prefix}help ping\` \n\`${prefix}help whois\``,
       HELP_COMMANDS_EMBED: [
-        '• Nom :',
-        '• Utilisation :',
-        '• Exemple(s) :',
-        '• Categorie :',
-        '• Aliase(s) :',
-        '• Description :',
-        '• Permission(s) :',
+        'Commande',
+        'Utilisation :',
+        'Exemple(s) :',
+        'Aliase(s) :',
         'Aucun aliase',
+        'Cooldown :',
+        'seconde(s)',
+        'Permission(s) :',
         'Aucune permission requise',
-        '• Cooldown :',
-        ' secondes',
-        'Commande'
       ],
       HELP_EMBED: 'Commandes',
-      HELP_EMBED_DESC: prefix => `• Préfixe : \`${prefix}\` \n• Utilise la commande \`${prefix}help [commande]\` pour obtenir plus d'information sur les commandes \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
+      HELP_EMBED_DESC: prefix => `• Préfixe : \`${prefix}\` \n• Utilise \`${prefix}help [commande | aliase]\` pour obtenir plus d'information sur une commande \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
 
       // Ping et speedtest
       CHARGEMENT: `${emote.others.loading} • Chargement...`,
@@ -477,7 +473,6 @@ module.exports = class {
       SHA_LENGTH: `${emote.others.no} • Le texte est trop long ! (1000 caractères max.)`,
       SHA_ENTREE: ':inbox_tray: • Entrée :',
       SHA_SORTIE: ':outbox_tray: • Sortie :',
-
 
       // Sha512
       SHA512_DESC: 'Hash un texte en Sha512',
