@@ -26,12 +26,12 @@ module.exports = class Achievement extends Command {
 
     if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
 
-    if (args.join(' ').match(new RegExp(/[^a-zA-Z-0-9\s]/))) return message.channel.send(message.language.get('ACHIEVEMENT_ASCII'))
+    const text = encodeURIComponent(args.join(' ')).replace('%20', '+')
 
     return message.channel.send({
       files: [{
         name: 'achievement.png',
-        attachment: `https://www.minecraftskinstealer.com/achievement/a.php?i=${number}&h=Achievement Get!&t=${args.join(' ')}`
+        attachment: `https://minecraftskinstealer.com/achievement/${number}/Achievement+Get%21/${text}`
       }]
 
     })
