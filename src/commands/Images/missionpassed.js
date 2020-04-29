@@ -15,7 +15,6 @@ module.exports = class Missionpassed extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('MISSIONPASSED_DESC'),
       usage: (language, prefix) => language.get('MISSIONPASSED_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('MISSIONPASSED_EXEMPLE', prefix)
