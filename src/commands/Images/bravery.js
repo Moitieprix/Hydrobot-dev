@@ -15,7 +15,6 @@ module.exports = class Bravery extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('BRAVERY_DESC'),
       usage: (language, prefix) => language.get('BRAVERY_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('BRAVERY_EXEMPLE', prefix)
