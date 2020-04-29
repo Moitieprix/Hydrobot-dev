@@ -464,10 +464,26 @@ module.exports = class {
       DECODE_USAGE: prefix => `${prefix}decode <texte>`,
       DECODE_EXEMPLE: prefix => `${prefix}decode Q29tbWVudCB2YXMtdHUgPw==`,
       DECODE_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte à déchiffer !`,
-      DECODE_LENGTH: '${emote.others.no} • Le texte est trop long ! (750 caractères max.)',
+      DECODE_LENGTH: `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
       DECODE_ENTREE: ':inbox_tray: • Entrée :',
       DECODE_SORTIE: ':outbox_tray: • Sortie :',
       DECODE_NOT_VALID: 'Base64 non valide !',
+
+      // Sha256
+      SHA256_DESC: 'Hash un texte en Sha256',
+      SHA256_USAGE: prefix => `${prefix}sha256 <texte>`,
+      SHA256_EXEMPLE: prefix => `${prefix}sha256 bonjour`,
+
+      SHA_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte à hash !`,
+      SHA_LENGTH: `${emote.others.no} • Le texte est trop long ! (1000 caractères max.)`,
+      SHA_ENTREE: ':inbox_tray: • Entrée :',
+      SHA_SORTIE: ':outbox_tray: • Sortie :',
+
+
+      // Sha512
+      SHA512_DESC: 'Hash un texte en Sha512',
+      SHA512_USAGE: prefix => `${prefix}sha512 <texte>`,
+      SHA512_EXEMPLE: prefix => `${prefix}sha512 bonjour`,
 
       // Tableflip
       TABLE_DESC: 'Tableflip ¯\\_(ツ)_/¯',
