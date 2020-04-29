@@ -10,23 +10,23 @@ module.exports = class {
       INFO_PREFIX: prefix => `${emote.others.help} • Salut ! Mon préfixe sur ce serveur est \`${prefix}\``,
 
       UTILS: {
-        ERREUR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réesayer plus tard !`,
+        ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réesayer plus tard !`,
         API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
-        USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
+        USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
         CHANNEL_DEFAUT: `${emote.others.no} • Je ne trouve pas ce salon !`,
         ROLE_DEFAUT: `${emote.others.no} • Je ne trouve pas ce rôle !`,
 
-        BOT_CATEGORIE: `${emote.categories.hydrobot} • Hydrobot`,
-        BOTSTAFF_CATEGORIE: `${emote.categories.tools} • Administration Hydrobot`,
-        GUILDADMIN_CATEGORIE: `${emote.categories.settings} • Administration serveur`,
-        OTHERS_CATEGORIE: `${emote.categories.more} • Autres`,
-        INFORMATION_CATEGORIE: `${emote.categories.clipboard} • Informations`,
-        FUN_CATEGORIE: `${emote.categories.controller} • Divertissement`,
-        IMAGE_CATEGORIE: `${emote.categories.image} • Images`,
-        NSFW_CATEGORIE: `${emote.categories.nsfw} • NSFW`,
+        HYDROBOT_CATEGORY: `${emote.categories.hydrobot} • Hydrobot`,
+        BOTSTAFF_CATEGORY: `${emote.categories.tools} • Administration Hydrobot`,
+        GUILDADMIN_CATEGORY: `${emote.categories.settings} • Administration serveur`,
+        OTHERS_CATEGORY: `${emote.categories.more} • Autres`,
+        INFORMATION_CATEGORY: `${emote.categories.clipboard} • Informations`,
+        FUN_CATEGORY: `${emote.categories.controller} • Divertissement`,
+        IMAGE_CATEGORY: `${emote.categories.image} • Images`,
+        NSFW_CATEGORY: `${emote.categories.nsfw} • NSFW`,
 
-        MOIS: {
+        MONTHS: {
           Jan: 'Janvier',
           Feb: 'Février',
           Mar: 'Mars',
@@ -191,39 +191,15 @@ module.exports = class {
       COOLDOWN: temps => `${emote.others.cooldown} • Merci d'attendre \`${temps}\` avant de réeffectuer cette commande`,
       NSFW: `${emote.others.no} • Cette commande ne peut-être effectuée que dans un salon NSFW`,
 
-      // Help
-      HELP_INTROUVABLE: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
-      HELP_USAGE: prefix => `• \`${prefix}help\` - Affiche la liste complète des commandes disponibles \n• \`${prefix}help [commande | aliase]\` - Affiche les informations complémentaires de la commande mentionné`,
-      HELP_EXAMPLE: prefix => `\`${prefix}help\` \n\`${prefix}help ping\` \n\`${prefix}help whois\``,
-      HELP_COMMANDS_EMBED: [
-        'Commande',
-        'Utilisation :',
-        'Exemple(s) :',
-        'Aliase(s) :',
-        'Aucun aliase',
-        'Cooldown :',
-        'seconde(s)',
-        'Permission(s) :',
-        'Aucune permission requise',
-      ],
-      HELP_EMBED: 'Commandes',
-      HELP_EMBED_DESC: prefix => `• Préfixe : \`${prefix}\` \n• Utilise \`${prefix}help [commande | aliase]\` pour obtenir plus d'information sur une commande \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
+      // ADMINISTRATION
 
-      // Ping et speedtest
-      CHARGEMENT: `${emote.others.loading} • Chargement...`,
-      LATENCE_SERVEUR: ':signal_strength: • Latence serveur',
-      LATENCE_BOT: ':robot: • Latence Bot',
-      LATENCE_API: ':satellite: • Latence API',
-      DOWNLOAD: ':arrow_down: • Download',
-      UPLOAD: ':arrow_up: • Upload',
-      BANDE: 'Bande passante :',
-      BANDE_NON_AJUSTE: 'Bande passante non ajustée :',
+      // FUN
 
-      PING_DESCRIPTION: 'Affiche la latence et la connexion du Hydrobot',
-      PING_USAGE: prefix => `${prefix}ping`,
+      // HYDROBOT
 
-      SPEEDTEST_DESCRIPTION: 'Affiche la latence et la connexion du Hydrobot',
-      SPEEDTEST_USAGE: prefix => `${prefix}speedtest`,
+      // about.js
+      ABOUT_USAGE: prefix => `\`${prefix}botinfo\` - Affiche les informations générales d'Hydrobot`,
+      ABOUT_EXAMPLE: prefix => `\`${prefix}botinfo\``,
 
       ABOUT_EMBED: [
         ':busts_in_silhouette: • Développeur :',
@@ -236,8 +212,45 @@ module.exports = class {
         ':robot: • Version Hydrobot :',
       ],
 
-      ABOUT_DESCRIPTION: 'Affiche les informations du Hydrobot',
-      ABOUT_USAGE: prefix => `${prefix}botinfo`,
+      // help.js
+      HELP_NOT_FOUND: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
+      HELP_USAGE: prefix => `• \`${prefix}help\` - Affiche la liste complète des commandes disponibles \n• \`${prefix}help [commande | aliase]\` - Affiche les informations complémentaires de la commande mentionné`,
+      HELP_EXAMPLE: prefix => `\`${prefix}help\` \n\`${prefix}help ping\` \n\`${prefix}help whois\``,
+      HELP_EMBED_DESCRIPTION: prefix => `• Préfixe : \`${prefix}\` \n• Utilise \`${prefix}help [commande | aliase]\` pour obtenir plus d'information sur une commande \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
+      HELP_EMBED: [
+        'Commande',
+        'Utilisation :',
+        'Exemple(s) :',
+        'Aliase(s) :',
+        'Aucun aliase',
+        'Cooldown :',
+        'seconde(s)',
+        'Permission(s) :',
+        'Aucune permission requise',
+        'Commandes'
+      ],
+
+      // ping.js
+      PING_USAGE: prefix => `\`${prefix}ping\` - Affiche la latence d'Hydrobot ainsi que celle de l'API`,
+      PING_EXAMPLE: prefix => `\`${prefix}ping\``,
+      PING_EMBED: [
+        ':robot: • Latence Bot',
+        ':satellite: • Latence API'
+      ],
+
+      // speedtest.js
+      SPEEDTEST_USAGE: prefix => `\`${prefix}speedtest\` - Affiche la vitesse de connexion ainsi que la latence d'Hydrobot`,
+      SPEEDTEST_EXAMPLE: prefix => `\`${prefix}speedtest\``,
+      SPEEDTEST_EMBED: [
+        `${emote.others.loading} • Chargement...`,
+        ':signal_strength: • Latence serveur',
+        ':robot: • Latence Bot',
+        ':satellite: • Latence API',
+        ':arrow_down: • Download',
+        ':arrow_up: • Upload',
+        'Bande passante :',
+        'Bande passante non ajustée :',
+      ],
 
       // Prefix
       PREFIX_DESCRIPTION: 'Change ou réinitialise le préfixe du serveur',
