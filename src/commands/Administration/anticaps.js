@@ -15,7 +15,6 @@ module.exports = class Antilink extends Command {
       aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
-      description: (language) => language.get('ANTICAPS_DESC'),
       usage: (language, prefix) => language.get('ANTICAPS_USAGE', prefix),
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
       examples: (language, prefix) => language.get('ANTICAPS_EXEMPLE', prefix)
