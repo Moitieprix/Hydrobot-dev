@@ -15,7 +15,6 @@ module.exports = class Plugin extends Command {
       aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('PLUGIN_DESCRIPTION'),
       usage: (language, prefix) => language.get('PLUGIN_USAGE', prefix),
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
       examples: (language, prefix) => language.get('PLUGIN_EXEMPLE', prefix)
