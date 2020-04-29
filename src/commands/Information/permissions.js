@@ -15,7 +15,6 @@ module.exports = class Permissions extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('PERMISSIONS_DESC'),
       usage: (language, prefix) => language.get('PERMISSIONS_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('PERMISSIONS_EXEMPLE', prefix)
