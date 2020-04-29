@@ -15,7 +15,6 @@ module.exports = class Serverinfo extends Command {
       aliases: ['guildinfo', 'guild', 'server'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('SERVERINFO_DESC'),
       usage: (language, prefix) => language.get('SERVERINFO_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('SERVERINFO_USAGE', prefix)
