@@ -15,7 +15,6 @@ module.exports = class Crush extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('CRUSH_DESC'),
       usage: (language, prefix) => language.get('CRUSH_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('CRUSH_EXEMPLE', prefix)
