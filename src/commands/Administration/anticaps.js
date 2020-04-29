@@ -10,14 +10,13 @@ module.exports = class Antilink extends Command {
       cooldown: 5,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
       usage: (language, prefix) => language.get('ANTICAPS_USAGE', prefix),
-      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
-      examples: (language, prefix) => language.get('ANTICAPS_EXEMPLE', prefix)
+      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
+      examples: (language, prefix) => language.get('ANTICAPS_EXAMPLE', prefix)
     })
   }
 
