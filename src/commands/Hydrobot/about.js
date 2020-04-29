@@ -16,8 +16,8 @@ module.exports = class About extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('ABOUT_USAGE', prefix),
-      category: (language) => language.get('UTILS').BOT_CATEGORIE,
-      examples: (language, prefix) => language.get('ABOUT_USAGE', prefix)
+      category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
+      examples: (language, prefix) => language.get('ABOUT_EXAMPLE', prefix)
     })
   }
 
