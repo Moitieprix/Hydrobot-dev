@@ -16,7 +16,6 @@ module.exports =  class Decode extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('DECODE_DESC'),
       usage: (language, prefix) => language.get('DECODE_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('DECODE_EXEMPLE', prefix)
