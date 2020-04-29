@@ -250,10 +250,9 @@ module.exports = class {
       PREFIX_EXEMPLE: prefix => `${prefix}prefix ? \nh${prefix}prefix reset`,
       PREFIX_ARGS: `${emote.others.no} • Tu dois m'indiquer un préfixe !`,
       PREFIX_LENGTH: `${emote.others.no} • Le préfixe ne doit pas contenir plus de 3 caractères`,
+      PREFIX_ASCII: `${emote.others.no} • Certains caractères ne sont pas autorisés`,
       PREFIX_CHANGE: `${emote.others.yes} • Changement de préfixe`,
       PREFIX_CHANGE_DESC: args => `Le préfixe a bien été changé pour \`${args[0]}\``,
-      PREFIX_RESET: `${emote.others.yes} • Réinitialisation du préfixe`,
-      PREFIX_RESET_DESC: 'Le préfixe a bien été réinitialisé',
 
       //Logs
       LOGS_DESCRIPTION: 'Commande de setup des logs',
@@ -618,6 +617,7 @@ module.exports = class {
       ACHIEVEMENT_USAGE: prefix => `${prefix}achievement <texte>`,
       ACHIEVEMENT_EXEMPLE: prefix => `${prefix}achievement Énigme résolue !`,
       ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m\'indiquer un texte !`,
+      ACHIEVEMENT_LENGTH: `${emote.others.no} • Tu ne dois pas dépasser 24 caractères !`,
 
       // Tobecontinued
       TOBECONTINUED_DESC: 'Envoi une photo de profil modifié avec le filtre To be continued !',
