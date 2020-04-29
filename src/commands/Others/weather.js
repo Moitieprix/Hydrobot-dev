@@ -16,7 +16,6 @@ module.exports = class Weather extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('WEATHER_DESC'),
       usage: (language, prefix) => language.get('WEATHER_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORIE,
       examples: (language, prefix) => language.get('WEATHER_EXEMPLE', prefix)
