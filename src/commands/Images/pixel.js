@@ -15,7 +15,6 @@ module.exports = class Pixel extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('PIXEL_DESC'),
       usage: (language, prefix) => language.get('PIXEL_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('PIXEL_EXEMPLE', prefix)
