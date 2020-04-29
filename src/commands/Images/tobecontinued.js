@@ -15,7 +15,6 @@ module.exports = class Tobecontinued extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('TOBECONTINUED_DESC'),
       usage: (language, prefix) => language.get('TOBECONTINUED_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('TOBECONTINUED_EXEMPLE', prefix)
