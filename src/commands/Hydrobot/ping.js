@@ -10,7 +10,6 @@ module.exports = class Ping extends Command {
       cooldown: 3,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: [],
       permission: [],
