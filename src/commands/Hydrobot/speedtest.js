@@ -16,7 +16,6 @@ module.exports = class Speedtest extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('SPEEDTEST_DESCRIPTION'),
       usage: (language, prefix) => language.get('SPEEDTEST_USAGE', prefix),
       category: (language) => language.get('UTILS').BOT_CATEGORIE,
       examples: (language, prefix) => language.get('SPEEDTEST_USAGE', prefix),
