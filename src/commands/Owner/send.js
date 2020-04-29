@@ -41,11 +41,11 @@ module.exports = class Send extends Command {
         if (channel) {
         channel.send(\`[Admin - ${message.author.username}] > ${args.join(' ')}\`)
         } else {
-        false;
+        false
         }
         `).then(s => {
         for (let i = 0; s.length > i; i++) {
-          if (s[i] !== false) return message.channel.send(`Message correctement envoyé au salon ${salon}`)
+          if (s[i]) return message.channel.send(`Message correctement envoyé au salon ${salon}`)
         }
         message.channel.send(`Le salon ${salon} n'est présent sur aucune shard :/`)
       })
