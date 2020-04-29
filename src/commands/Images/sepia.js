@@ -15,7 +15,6 @@ module.exports = class Sepia extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('SEPIA_DESC'),
       usage: (language, prefix) => language.get('SEPIA_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('SEPIA_EXEMPLE', prefix)
