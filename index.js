@@ -18,7 +18,7 @@ class Hydrobot extends Client {
   constructor (options) {
     super(options)
 
-    if (!options) {
+    if  (!options) {
       throw new Error('Options cannot be empty')
     }
 
