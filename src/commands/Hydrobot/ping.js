@@ -16,8 +16,8 @@ module.exports = class Ping extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('PING_USAGE', prefix),
-      category: (language) => language.get('UTILS').BOT_CATEGORIE,
-      examples: (language, prefix) => language.get('PING_USAGE', prefix)
+      category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
+      examples: (language, prefix) => language.get('PING_EXAMPLE', prefix)
     })
   }
 
@@ -34,8 +34,8 @@ module.exports = class Ping extends Command {
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(':ping_pong: • Pong !')
-      .addField(message.language.get('LATENCE_BOT'), `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
-      .addField(message.language.get('LATENCE_API'), '`' + Math.round(this.client.ws.ping) + 'ms`', true)
+      .addField(message.language.get('PING_EMBED')[0], `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
+      .addField(message.language.get('PING_EMBED')[1], '`' + Math.round(this.client.ws.ping) + 'ms`', true)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
