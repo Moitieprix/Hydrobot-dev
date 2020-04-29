@@ -15,7 +15,6 @@ module.exports = class Roll extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('ROLL_DESC'),
       usage: (language, prefix) => language.get('ROLL_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('ROLL_USAGE', prefix)
