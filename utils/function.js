@@ -230,7 +230,7 @@ module.exports = {
   },
 
   getDate(date, message) {
-    return date[2] + ' ' + message.language.get('UTILS').MOIS[date[1]] + ' ' + date[3] + ', ' + date[4]
+    return date[2] + ' ' + message.language.get('UTILS').MONTHS[date[1]] + ' ' + date[3] + ', ' + date[4]
   },
 
   createDataSettings (id, database) {
