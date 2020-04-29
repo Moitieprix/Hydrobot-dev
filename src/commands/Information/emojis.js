@@ -15,7 +15,6 @@ module.exports = class Emojis extends Command {
       aliases: ['emotes', 'emoji', 'emote', 'emoteinfo', 'emotesinfo', 'emojisinfo', 'ei'],
       permission: [],
       botpermissions: ['EMBED_LINKS', 'MANAGE_EMOJIS'],
-      description: (language) => language.get('EMOTE_DESC'),
       usage: (language, prefix) => language.get('EMOTE_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
       examples: (language, prefix) => language.get('EMOTE_EXEMPLE', prefix)
