@@ -15,7 +15,6 @@ module.exports = class Delete extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('DELETE_DESC'),
       usage: (language, prefix) => language.get('DELETE_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('DELETE_EXEMPLE', prefix)
