@@ -15,7 +15,6 @@ module.exports = class Invert extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('INVERT_DESC'),
       usage: (language, prefix) => language.get('INVERT_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('INVERT_EXEMPLE', prefix)
