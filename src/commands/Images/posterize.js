@@ -15,7 +15,6 @@ module.exports = class Posterize extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['ATTACH_FILES'],
-      description: (language) => language.get('POSTERIZE_DESC'),
       usage: (language, prefix) => language.get('POSTERIZE_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
       examples: (language, prefix) => language.get('POSTERIZE_EXEMPLE', prefix)
