@@ -14,7 +14,6 @@ module.exports = class Emojify extends Command {
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
-      description: (language) => language.get('EMOJIFY_DESC'),
       usage: (language, prefix) => language.get('EMOJIFY_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORIE,
       examples: (language, prefix) => language.get('EMOJIFY_EXEMPLE', prefix)
