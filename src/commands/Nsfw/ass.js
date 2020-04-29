@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const superagent = require('superagent')
+const fetch = require('node-fetch')
 const {MessageEmbed} = require('discord.js')
 
 module.exports = class Ass extends Command {
@@ -23,15 +23,17 @@ module.exports = class Ass extends Command {
   }
 
   async run (message) {
-    superagent.get('https://nekobot.xyz/api/image')
-      .query({ type: 'ass'})
-      .end((err, response) => {
+    fetch('https://nekobot.xyz/api/image?type=ass')
+      .then(res => res.json())
+      .then(res => {
         const embed = new MessageEmbed()
           .setColor(this.client.config.embed.color)
-          .setImage(response.body.message)
+          .setImage(res.message)
           .setTimestamp()
           .setFooter(this.client.user.username, this.client.user.avatarURL())
         message.channel.send(embed)
-      });
+      })
+      .catch(err => message.channel.send(message.language.get('UTILS').API_ERROR(err)))
+
   }
 }
