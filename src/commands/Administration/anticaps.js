@@ -21,39 +21,40 @@ module.exports = class Antilink extends Command {
   }
 
   async run (message, args) {
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (err, res) => {
+    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], (err, res) => {
       if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
 
       const data = JSON.parse(res.rows[0].anticaps[0])
+
       const role = this.client.functions.roleFilter(message, args[1])
       const channel = this.client.functions.channelFilter(message, args[1])
 
       switch (args[0]) {
         case 'addrole':
 
-          if (!role) return message.channel.send(message.language.get('AUTOMOD').ROLES_ERROR[0])
-          if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('AUTOMOD').ROLES_ERROR[1])
+          if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
+          if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[1])
 
           data.push(role)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('AUTOMOD').ADDROLE(role))
+          message.channel.send(message.language.get('ANTICAPS_ADDROLE', role))
           break
 
         case 'removerole':
-          if (!role) return message.channel.send(message.language.get('AUTOMOD').ROLES_ERROR[0])
-          if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('AUTOMOD').ROLES_ERROR[2])
+          if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
+          if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[2])
 
           const posRole = data.roles.indexOf(role)
           data.roles.splice(posRole, 1)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('AUTOMOD').REMOVEROLE(role))
+          message.channel.send(message.language.get('ANTICAPS_REMOVEROLE', role))
           break
 
         case 'addchannel':
-          if (!channel) return message.channel.send(message.language.get('AUTOMOD').CHANNELS_ERROR[0])
-          if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('AUTOMOD').CHANNELS_ERROR[1])
+          if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
+          if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[4])
 
-          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send('Uniquement un salon textuel')
+          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
 
           data.channels.push(channel)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
@@ -61,8 +62,8 @@ module.exports = class Antilink extends Command {
           break
 
         case 'removechannel':
-          if (!channel) return message.channel.send(message.language.get('AUTOMOD').CHANNELS_ERROR[0])
-          if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('AUTOMOD').CHANNELS_ERROR[2])
+          if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
+          if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[6])
 
           const posChannel = data.channels.indexOf(channel)
           data.channels.splice(posChannel, 1)
@@ -74,8 +75,8 @@ module.exports = class Antilink extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('AUTOMOD').ANTICAPS[4])
-            .setDescription(message.language.get('AUTOMOD').ANTICAPS[5])
+            .setTitle(message.language.get('ANTICAPS')[7])
+            .setDescription(message.language.get('ANTICAPS')[8])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
