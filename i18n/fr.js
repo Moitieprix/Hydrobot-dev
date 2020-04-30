@@ -194,8 +194,17 @@ module.exports = class {
       // ADMINISTRATION //
 
       // anticaps.js
-      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` <addrole | removerole> <@role | ID de rôle> - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anticaps \n•  \`${prefix}anticaps\` <addchannel | removechannel> <#salon | ID de salon> - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anticaps`,
-      ANTICAPS_EXAMPLE: prefix => `${prefix}antilink addrole @moderateur \n removerole @moderateur \n${prefix}antilink adduser / removeuser @Moitié prix#4263 \n${prefix}antilink addchannel / removechannel #shitpost`,
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps <addrole | removerole> <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anticaps \n•  \`${prefix}anticaps <addchannel | removechannel> <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anticaps`,
+      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+
+      ANTICAPS_EMBED: [
+        `${emote.others.no} • L'anti-majuscules est déjà activé`,
+        `${emote.others.no} • L'anti-majuscules est déjà désactivé`,
+        `${emote.others.on} • L'anti-majuscules est désormais activé !`,
+        `${emote.others.off} • L'anti-majuscules est désormais désactivé !`,
+        '**Arguments disponibles pour l\'anti-majuscules**',
+        '- `enable / disable` : Activer ou désativer le système \n- `addrole / removerole` : Ajouter ou retirer des rôles qui seront immunisés a l\'anti-majuscules \n- `addchannel / removechannel` : Ajouter ou retirer des salons qui ne seront pas soumis a l\'anti-majuscules'
+      ],
 
       // FUN //
 
