@@ -21,12 +21,12 @@ module.exports = class Antilink extends Command {
   }
 
   async run (message, args) {
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], (err, res) => {
+    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (err, res) => {
       if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
 
       const data = JSON.parse(res.rows[0].anticaps[0])
 
-      const role = this.client.functions.roleFilter(message, args[1])
+      const role = await this.client.functions.roleFilter(message, args[1])
       const channel = this.client.functions.channelFilter(message, args[1])
 
       switch (args[0]) {
@@ -54,7 +54,9 @@ module.exports = class Antilink extends Command {
           if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
           if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[4])
 
-          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
+          const fetchChannel = await message.guild.channels.fetch(channel)
+
+          if (fetchChannel.type === 'voice' || fetchChannel.type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
 
           data.channels.push(channel)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
