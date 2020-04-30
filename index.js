@@ -94,9 +94,6 @@ class Hydrobot extends Client {
 
 const client = new Hydrobot({
   disableMentions: 'everyone',
-  messageCacheLifetime: 900,
-  messageCacheMaxSize: 300,
-  messageSweepInterval: 180,
   partials: ['MESSAGE', 'GUILD_MEMBER', 'USER'],
   //ws: {
   // intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS']
