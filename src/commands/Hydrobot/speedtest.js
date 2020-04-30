@@ -25,7 +25,7 @@ module.exports = class Speedtest extends Command {
 
     const loading = new MessageEmbed()
       .setColor(this.client.config.embed.color)
-      .setDescription(message.language.get('SPEEDTEST_EMBED')[0])
+      .setDescription(message.language.get('SPEEDTEST')[0])
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
@@ -36,11 +36,11 @@ module.exports = class Speedtest extends Command {
       const embed = new MessageEmbed()
         .setColor(this.client.config.embed.color)
         .setTitle(':ping_pong: • Pong !')
-        .addField(message.language.get('SPEEDTEST_EMBED')[1], '`' + data.server.ping + 'ms`', true)
-        .addField(message.language.get('SPEEDTEST_EMBED')[2], `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
-        .addField(message.language.get('SPEEDTEST_EMBED')[3], '`' + Math.round(this.client.ws.ping) + 'ms`', true)
-        .addField(message.language.get('SPEEDTEST_EMBED')[4], `${message.language.get('SPEEDTEST_EMBED')[6]} \`${data.speeds.download}Mbps\` \n${message.language.get('SPEEDTEST_EMBED')[7]} \`${Math.round(data.speeds.originalDownload / 1000)}Ko/s\``, true)
-        .addField(message.language.get('SPEEDTEST_EMBED')[5], `${message.language.get('SPEEDTEST_EMBED')[6]} \`${data.speeds.upload}Mbps\` \n${message.language.get('SPEEDTEST_EMBED')[7]} \`${Math.round(data.speeds.originalUpload / 1000)}Ko/s\``, true)
+        .addField(message.language.get('SPEEDTEST')[1], '`' + data.server.ping + 'ms`', true)
+        .addField(message.language.get('SPEEDTEST')[2], `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
+        .addField(message.language.get('SPEEDTEST')[3], '`' + Math.round(this.client.ws.ping) + 'ms`', true)
+        .addField(message.language.get('SPEEDTEST')[4], `${message.language.get('SPEEDTEST')[6]} \`${data.speeds.download}Mbps\` \n${message.language.get('SPEEDTEST_EMBED')[7]} \`${Math.round(data.speeds.originalDownload / 1000)}Ko/s\``, true)
+        .addField(message.language.get('SPEEDTEST')[5], `${message.language.get('SPEEDTEST')[6]} \`${data.speeds.upload}Mbps\` \n${message.language.get('SPEEDTEST_EMBED')[7]} \`${Math.round(data.speeds.originalUpload / 1000)}Ko/s\``, true)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
 
