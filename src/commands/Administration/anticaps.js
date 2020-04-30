@@ -53,6 +53,8 @@ module.exports = class Antilink extends Command {
           if (!channel) return message.channel.send(message.language.get('AUTOMOD').CHANNELS_ERROR[0])
           if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('AUTOMOD').CHANNELS_ERROR[1])
 
+          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send('Uniquement un salon textuel')
+
           data.channels.push(channel)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('AUTOMOD').ADDCHANNEL(channel))
