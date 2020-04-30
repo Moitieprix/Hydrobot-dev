@@ -50,27 +50,26 @@ module.exports = {
   async userFilter (message, args) {
     const users = await message.guild.members.fetch()
 
-    if (!args.join(' ') && !message.mentions.users.first()) {
-      return message.author
+    if (!args[0]) return message.author
 
-    } else if (args.join(' ') && !message.mentions.users.first()) {
+    if (message.mentions.users.first()) return message.mentions.users.first()
 
-       if (users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).size !== 0) {
-         return users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).first().user
+    if (args.join(' ') && !message.mentions.users.first()) {
 
-       } else if (users.filter((m) => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase())).size !== 0){
-         return users.filter((m) => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase())).first().user
+      if (users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).size !== 0) {
+        return users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).first().user
 
-       } else if (users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).size === 0 && !isNaN(args[0]) && args[0].length === 18 && users.some(ch => ch.id === args[0])) {
-         const member = await message.guild.members.fetch(args[0])
-         return member.user
+      } else if (users.filter((m) => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase())).size !== 0) {
+        return users.filter((m) => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase())).first().user
 
-       } else {
-         return false
-       }
+      } else if (users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).size === 0 && !isNaN(args[0]) && args[0].length === 18 && users.some(ch => ch.id === args[0])) {
+        const member = await message.guild.members.fetch(args[0])
+        return member.user
 
-    } else if (message.mentions.users.first()) {
-      return message.mentions.users.first()
+      } else {
+        return false
+      }
+
     }
   },
 
@@ -103,7 +102,7 @@ module.exports = {
   roleFilter (message, argsRole) {
     const roles = message.guild.roles.cache
 
-    if (message.mentions.roles.first() && roles.some(ch => ch.id === message.mentions.roles.first().id)){
+    if (message.mentions.roles.first() && roles.some(ch => ch.id === message.mentions.roles.first().id)) {
       return message.mentions.roles.first().id
     } else if (!message.mentions.roles.first() && !isNaN(argsRole) && roles.some(ch => ch.id === argsRole)) {
       return argsRole
@@ -137,13 +136,13 @@ module.exports = {
   parseEmoji (text) {
     if (text.includes('%')) text = decodeURIComponent(text)
 
-    if (!text.includes(':')) return { animated: false, name: text, id: null }
+    if (!text.includes(':')) return {animated: false, name: text, id: null}
 
     const m = text.match(/<?(a)?:?(\w{2,32}):(\d{17,19})>?/)
 
     if (!m) return null
 
-    return { animated: Boolean(m[1]), name: m[2], id: m[3] }
+    return {animated: Boolean(m[1]), name: m[2], id: m[3]}
   },
 
   /**
@@ -216,7 +215,7 @@ module.exports = {
       hours = `0${hours}`
     }
 
-    if (week > 0){
+    if (week > 0) {
       return `${week}w, ${day}d, ${hours}h, ${minutes}min, ${seconds}s`
     } else if (week <= 0 && day > 0) {
       return `${day}d, ${hours}h, ${minutes}min, ${seconds}s`
@@ -229,7 +228,7 @@ module.exports = {
     }
   },
 
-  getDate(date, message) {
+  getDate (date, message) {
     return date[2] + ' ' + message.language.get('UTILS').MONTHS[date[1]] + ' ' + date[3] + ', ' + date[4]
   },
 
@@ -292,17 +291,17 @@ module.exports = {
           voiceStateUpdate: true
         },
         [{
-          "roles": [],
-          "channels": []
+          'roles': [],
+          'channels': []
         }],
         [{
-          "roles": [],
-          "channels": [],
-          "words": []
+          'roles': [],
+          'channels': [],
+          'words': []
         }],
         [{
-          "roles": [],
-          "channels": []
+          'roles': [],
+          'channels': []
         }],
         [],
         [],
