@@ -77,18 +77,18 @@ module.exports = {
   /**
    *
    * @param message
-   * @param args
+   * @param argsChannel
    * @returns {*}
    */
-  channelFilter (message, args) {
+  channelFilter (message, argsChannel) {
     const channels = message.guild.channels.cache
 
-    if (!args[0]) {
+    if (!argsChannel) {
       return message.channel.id
     } else if (message.mentions.channels.first() && channels.some(ch => ch.id === message.mentions.channels.first().id)) {
       return message.mentions.channels.first().id
-    } else if (!message.mentions.channels.first() && !isNaN(args[0]) && channels.some(ch => ch.id === args[0]) && args[0].length === 18) {
-      return args[0]
+    } else if (!message.mentions.channels.first() && !isNaN(argsChannel) && channels.some(ch => ch.id === argsChannel)) {
+      return argsChannel
     } else {
       return false
     }
@@ -97,16 +97,16 @@ module.exports = {
   /**
    *
    * @param message
-   * @param args
+   * @param argsRole
    * @returns {*}
    */
-  roleFilter (message, args) {
+  roleFilter (message, argsRole) {
     const roles = message.guild.roles.cache
 
     if (message.mentions.roles.first() && roles.some(ch => ch.id === message.mentions.roles.first().id)){
       return message.mentions.roles.first().id
-    } else if (!message.mentions.roles.first() && !isNaN(args) && roles.some(ch => ch.id === args) && args.length === 18) {
-      return args
+    } else if (!message.mentions.roles.first() && !isNaN(argsRole) && roles.some(ch => ch.id === argsRole)) {
+      return argsRole
     } else {
       return false
     }
