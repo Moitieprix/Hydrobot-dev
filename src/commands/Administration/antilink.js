@@ -56,9 +56,7 @@ module.exports = class Antilink extends Command {
           if (!channel) return message.channel.send(message.language.get('ANTILINK')[3])
           if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTILINK')[4])
 
-          const fetchChannel = await message.guild.channels.fetch(channel)
-
-          if (fetchChannel.type === 'voice' || fetchChannel.type === 'category') return message.channel.send(message.language.get('ANTILINK')[5])
+          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('ANTILINK')[5])
 
           data.channels.push(channel)
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
