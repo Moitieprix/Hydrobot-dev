@@ -33,8 +33,8 @@ module.exports = class Ping extends Command {
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(':ping_pong: • Pong !')
-      .addField(message.language.get('PING_EMBED')[0], `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
-      .addField(message.language.get('PING_EMBED')[1], '`' + Math.round(this.client.ws.ping) + 'ms`', true)
+      .addField(message.language.get('PING')[0], `\`${msg.createdTimestamp - message.createdTimestamp}ms\``, true)
+      .addField(message.language.get('PING')[1], '`' + Math.round(this.client.ws.ping) + 'ms`', true)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
