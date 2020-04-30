@@ -22,7 +22,7 @@ module.exports = class Roleinfo extends Command {
   }
 
   async run (message, args) {
-    const roleId = this.client.functions.roleFilter(message, args[0])
+    const roleId = await this.client.functions.roleFilter(message, args[0])
 
     if (!roleId) return message.channel.send(message.language.get('UTILS').ROLE_DEFAUT)
 
