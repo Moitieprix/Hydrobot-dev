@@ -10,13 +10,12 @@ module.exports = class Plugin extends Command {
       cooldown: 3,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('PLUGIN_USAGE', prefix),
-      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
+      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
       examples: (language, prefix) => language.get('PLUGIN_EXEMPLE', prefix)
     })
   }
