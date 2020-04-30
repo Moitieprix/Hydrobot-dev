@@ -194,17 +194,25 @@ module.exports = class {
       // ADMINISTRATION //
 
       // anticaps.js
-      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps <addrole | removerole> <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anticaps \n•  \`${prefix}anticaps <addchannel | removechannel> <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anticaps`,
-      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps <addrole | removerole> <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps <addchannel | removechannel> <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
+      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
 
-      ANTICAPS_EMBED: [
-        `${emote.others.no} • L'anti-majuscules est déjà activé`,
-        `${emote.others.no} • L'anti-majuscules est déjà désactivé`,
-        `${emote.others.on} • L'anti-majuscules est désormais activé !`,
-        `${emote.others.off} • L'anti-majuscules est désormais désactivé !`,
+      ANTICAPS: [
+        `${emote.others.no} • Tu dois m'indiquer un rôle !`,
+        `${emote.others.no} • Ce rôle est déjà immunisé !`,
+        `${emote.others.no} • Ce rôle n'est pas immunisé !`,
+        `${emote.others.no} • Tu dois m'indiquer un salon !`,
+        `${emote.others.no} • Ce salon est déjà immunisé !`,
+        `${emote.others.no} • Le salon doit être uniquement textuel !`,
+        `${emote.others.no} • Ce salon n'est pas immunisé !`,
         '**Arguments disponibles pour l\'anti-majuscules**',
-        '- `enable / disable` : Activer ou désativer le système \n- `addrole / removerole` : Ajouter ou retirer des rôles qui seront immunisés a l\'anti-majuscules \n- `addchannel / removechannel` : Ajouter ou retirer des salons qui ne seront pas soumis a l\'anti-majuscules'
+        '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
       ],
+
+      ANTICAPS_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés de l'anti-majuscules`,
+      ANTICAPS_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés de l'anti-majuscules`,
+      ANTICAPS_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-majuscules`,
+      ANTICAPS_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-majuscules`,
 
       // FUN //
 
@@ -214,7 +222,7 @@ module.exports = class {
       ABOUT_USAGE: prefix => `• \`${prefix}botinfo\` - Affiche les informations générales d'Hydrobot`,
       ABOUT_EXAMPLE: prefix => `\`${prefix}botinfo\``,
 
-      ABOUT_EMBED: [
+      ABOUT: [
         ':busts_in_silhouette: • Développeur :',
         ':bulb: • Contributeurs :',
         ':tools: • Administrateurs :',
@@ -229,8 +237,9 @@ module.exports = class {
       HELP_USAGE: prefix => `• \`${prefix}help\` - Affiche la liste complète des commandes disponibles \n• \`${prefix}help [commande | aliase]\` - Affiche les informations complémentaires de la commande mentionné`,
       HELP_EXAMPLE: prefix => `\`${prefix}help\` \n\`${prefix}help ping\` \n\`${prefix}help whois\``,
       HELP_NOT_FOUND: args => `${emote.others.no} • \`${args[0]}\` est introuvable !`,
-      HELP_EMBED_DESCRIPTION: prefix => `• Préfixe : \`${prefix}\` \n• Utilise \`${prefix}help [commande | aliase]\` pour obtenir plus d'information sur une commande \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels`,
-      HELP_EMBED: [
+      HELP_EMBED_DESCRIPTION: prefix => `• Préfixe : \`${prefix}\` \n• Utilise \`${prefix}help [commande | aliase]\` pour obtenir plus d'information sur une commande \n• Les arguments entre \`<>\` sont obligatoires et entre \`[]\` sont optionnels \n• Différentes commandes supplémentaires sont activables à l'aide de \`${prefix}plugin\``,
+
+      HELP: [
         'Commande',
         'Utilisation :',
         'Exemple(s) :',
@@ -246,7 +255,7 @@ module.exports = class {
       // ping.js
       PING_USAGE: prefix => `• \`${prefix}ping\` - Affiche la latence d'Hydrobot ainsi que celle de l'API`,
       PING_EXAMPLE: prefix => `\`${prefix}ping\``,
-      PING_EMBED: [
+      PING: [
         ':robot: • Latence Bot',
         ':satellite: • Latence API'
       ],
@@ -254,7 +263,7 @@ module.exports = class {
       // speedtest.js
       SPEEDTEST_USAGE: prefix => `• \`${prefix}speedtest\` - Affiche la vitesse de connexion ainsi que la latence d'Hydrobot`,
       SPEEDTEST_EXAMPLE: prefix => `\`${prefix}speedtest\``,
-      SPEEDTEST_EMBED: [
+      SPEEDTEST: [
         `${emote.others.loading} • Chargement...`,
         ':signal_strength: • Latence serveur',
         ':robot: • Latence Bot',
