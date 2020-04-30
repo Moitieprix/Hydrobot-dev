@@ -214,6 +214,27 @@ module.exports = class {
       ANTICAPS_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-majuscules`,
       ANTICAPS_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-majuscules`,
 
+      // antilink.js
+      ANTILINK_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}anticaps <addrole | removerole> <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}anticaps <addchannel | removechannel> <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
+      ANTILINK_EXAMPLE: prefix => `\`${prefix}anticaps\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+
+      ANTILINK: [
+        `${emote.others.no} • Tu dois m'indiquer un rôle !`,
+        `${emote.others.no} • Ce rôle est déjà immunisé !`,
+        `${emote.others.no} • Ce rôle n'est pas immunisé !`,
+        `${emote.others.no} • Tu dois m'indiquer un salon !`,
+        `${emote.others.no} • Ce salon est déjà immunisé !`,
+        `${emote.others.no} • Le salon doit être uniquement textuel !`,
+        `${emote.others.no} • Ce salon n'est pas immunisé !`,
+        '**Arguments disponibles pour l\'anti-lien**',
+        '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-lien \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-lien'
+      ],
+
+      ANTILINK_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés de l'anti-majuscules`,
+      ANTILINK_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés de l'anti-majuscules`,
+      ANTILINK_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-majuscules`,
+      ANTILINK_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-majuscules`,
+
       // FUN //
 
       // HYDROBOT //
@@ -574,11 +595,6 @@ module.exports = class {
       BADWORDS_DESC: 'Paramètres des badwords',
       BADWORDS_USAGE: prefix => `${prefix}badwords <enable | disable | addword | removeword | addrole | removerole | addchannel | removechannel | words> <mot | @role | #salon>`,
       BADWORDS_EXEMPLE: prefix => `${prefix}badwords enable / disable \n${prefix}badwords addword / removeword merde \n${prefix}badwords addrole / removerole @moderateur \n${prefix}badwords adduser / removeuser @Moitié prix#4263 \n${prefix}badwords addchannel / removechannel #shitpost \n${prefix}badwords words`,
-
-      // Antilink
-      ANTILINK_DESC: 'Paramètres de l\'anti-lien',
-      ANTILINK_USAGE: prefix => `${prefix}antilink <enable | disable | addrole | removerole | addchannel | removechannel> <@role | #salon>`,
-      ANTILINK_EXEMPLE: prefix => `\`${prefix}antilink enable / disable \n${prefix}antilink addrole / removerole @moderateur \n${prefix}antilink adduser / removeuser @Moitié prix#4263 \n${prefix}antilink addchannel / removechannel #shitpost`,
 
       // Autorole
       AUTOROLE_DESC: 'Paramètres de l\'auto-rôle',
