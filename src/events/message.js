@@ -79,11 +79,9 @@ module.exports = async (client, message) => {
 
     const args = message.content.slice(res.rows[0].prefix.length).split(/ +/g)
 
-    if (message.guild && !message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) return
+    if (!message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) return
 
     const command = args.shift().toLowerCase()
-
-    if (message.guild && !message.member) await message.guild.members.fetch(message.author)
 
     const cmd = client.commands[command] || client.commands[client.aliases[command]]
 
