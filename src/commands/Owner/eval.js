@@ -11,13 +11,12 @@ module.exports = class Eval extends Command {
       cooldown: 3,
       enabled: true,
       owner: true,
-      nsfw: false,
       plugin: false,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('EVAL_USAGE', prefix),
-      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
+      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORY,
       examples: (language, prefix) => language.get('EVAL_EXEMPLE', prefix)
     })
   }
