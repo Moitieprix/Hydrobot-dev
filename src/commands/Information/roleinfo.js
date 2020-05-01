@@ -10,23 +10,22 @@ module.exports = class Roleinfo extends Command {
       cooldown: 3,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: ['ri', 'role'],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('ROLEINFO_USAGE', prefix),
-      category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
+      category: (language) => language.get('UTILS').INFORMATION_CATEGORY,
       examples: (language, prefix) => language.get('ROLEINFO_EXEMPLE', prefix)
     })
   }
 
   async run (message, args) {
-    const roleId = await this.client.functions.roleFilter(message, args[0])
+    const roleId = this.client.functions.roleFilter(message, args[0])
 
     if (!roleId) return message.channel.send(message.language.get('UTILS').ROLE_DEFAUT)
 
-    const role = await message.guild.roles.fetch(roleId)
+    const role = message.guild.roles.cache.get(roleId)
 
     const array = Object.entries(role.permissions.serialize())
     const permission = array.map(e => e[1] ? '`' + e[0] + '`, ' : '').join('')
