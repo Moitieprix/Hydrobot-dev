@@ -26,7 +26,7 @@ module.exports = class Antilink extends Command {
 
       const data = JSON.parse(res.rows[0].anticaps[0])
 
-      const role = await this.client.functions.roleFilter(message, args[1])
+      const role = this.client.functions.roleFilter(message, args[1])
       const channel = this.client.functions.channelFilter(message, args[1])
 
       switch (args[0]) {
@@ -71,12 +71,56 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('ANTICAPS_REMOVECHANNEL', channel))
           break
 
+        case 'roles':
+          let mentionRole = []
+
+          for (const role of data.roles) {
+            if (!message.guild.roles.cache.get(role)) {
+              const pos = data.roles.indexOf(role)
+              data.roles.splice(pos, 1)
+            } else {
+              mentionRole.push(`• <@&${role}>`)
+            }
+          }
+
+          const embedRoles = new MessageEmbed()
+            .setColor(this.client.config.embed.color)
+            .setTimestamp()
+            .setTitle(message.language.get('ANTICAPS')[7])
+            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('ANTICAPS')[8])
+            .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+          message.channel.send(embedRoles)
+          break
+
+        case 'channels':
+          let mentionChannel = []
+
+          for (const channel of data.channels) {
+            if (!message.guild.channels.cache.get(channel)) {
+              const pos = data.channels.indexOf(channel)
+              data.roles.splice(pos, 1)
+            } else {
+              mentionChannel.push(`• <#${channel}>`)
+            }
+          }
+
+          const embedChannel = new MessageEmbed()
+            .setColor(this.client.config.embed.color)
+            .setTimestamp()
+            .setTitle(message.language.get('ANTICAPS')[9])
+            .setDescription(mentionChannel.length > 0 ? mentionChannel.join(' \n') : message.language.get('ANTICAPS')[10])
+            .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+          message.channel.send(embedChannel)
+          break
+
         default:
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[7])
-            .setDescription(message.language.get('ANTICAPS')[8])
+            .setTitle(message.language.get('ANTICAPS')[11])
+            .setDescription(message.language.get('ANTICAPS')[12])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
