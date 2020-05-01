@@ -12,10 +12,10 @@ module.exports = class Autorole extends Command {
       plugin: false,
       aliases: [],
       permission: ['ADMINISTRATOR'],
-      botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
+      botpermissions: ['EMBED_LINKS', 'MANAGE_ROLES'],
       usage: (language, prefix) => language.get('AUTOROLE_USAGE', prefix),
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
-      examples: (language, prefix) => language.get('AUTOROLE_EXEMPLE', prefix)
+      examples: (language, prefix) => language.get('AUTOROLE_EXAMPLE', prefix)
     })
   }
 
@@ -24,26 +24,66 @@ module.exports = class Autorole extends Command {
 
       const data = res.rows[0].autorole
 
-      const role = await this.client.functions.roleFilter(message, args[1])
+      const role = this.client.functions.roleFilter(message, args[1])
+
+      const getRole = message.guild.roles.cache.get(role)
 
       switch (args[0]) {
         case 'addrole':
-          if (!role) return message.channel.send(message.language.get('ANTILINK')[0])
-          if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('ANTILINK')[1])
+          if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
+          if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
+
+          if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send('position')
 
           data.push(role)
           this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
-          message.channel.send('role add')
+          message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
           break
 
         case 'removerole':
-          if (!role) return message.channel.send(message.language.get('ANTILINK')[0])
-          if (data.roles === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('ANTILINK')[2])
+          if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
+          if (data.roles === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[2])
 
           const pos = data.indexOf(role)
           data.splice(pos, 1)
           this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
-          message.channel.send('role remove')
+          message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
+          break
+
+        case 'roles':
+
+          let mentionRole = []
+
+          for (const role of data) {
+            if (!message.guild.roles.get(role)) {
+              const pos = data.indexOf(role)
+              data.splice(pos, 1)
+            } else {
+              mentionRole.push(`<@&${role}>`)
+            }
+          }
+
+          const embedRoles = new MessageEmbed()
+            .setColor(this.client.config.embed.color)
+            .setTimestamp()
+            .setTitle(message.language.get('AUTOROLE')[3])
+            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[4])
+            .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+          message.channel.send(embedRoles)
+
+          this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
+          break
+
+        default:
+          const embed = new MessageEmbed()
+            .setColor(this.client.config.embed.color)
+            .setTimestamp()
+            .setTitle(message.language.get('ANTILINK')[5])
+            .setDescription(message.language.get('ANTILINK')[6])
+            .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+          message.channel.send(embed)
           break
       }
 
