@@ -194,17 +194,21 @@ module.exports = class {
       // ADMINISTRATION //
 
       // anticaps.js
-      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps <addrole | removerole> <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps <addchannel | removechannel> <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
-      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps roles\` - Affiche la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps channels\` - Affiche la liste des salons ignorés par l'anti-majuscules \n• \`${prefix}anticaps addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
+      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps\` \n\`${prefix}anticaps roles\` \n\`${prefix}anticaps channels\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
 
       ANTICAPS: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle !`,
+        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà immunisé !`,
         `${emote.others.no} • Ce rôle n'est pas immunisé !`,
-        `${emote.others.no} • Tu dois m'indiquer un salon !`,
+        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
+        '**Liste des rôles ignorés par l\'auti-majuscules**',
+        'Aucun rôle !',
+        '**Liste des salons ignorés par l\'anti-majuscules**',
+        'Aucun salon !',
         '**Arguments disponibles pour l\'anti-majuscules**',
         '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
       ],
@@ -215,25 +219,51 @@ module.exports = class {
       ANTICAPS_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-majuscules`,
 
       // antilink.js
-      ANTILINK_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}anticaps <addrole | removerole> <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}anticaps <addchannel | removechannel> <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
-      ANTILINK_EXAMPLE: prefix => `\`${prefix}anticaps\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+      ANTILINK_USAGE: prefix => `• \`${prefix}antilink\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}antilink roles\` - Affiche la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink channels\` - Affiche la liste des salons ignorés par l'anti-lien \n• \`${prefix}antilink addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
+      ANTILINK_EXAMPLE: prefix => `\`${prefix}antilink\` \n\`${prefix}antilink roles\` \n\`${prefix}antilink channels\` \n\`${prefix}antilink addrole @moderateur\` \n\`${prefix}antilink removerole 669986011861745672\` \n\`${prefix}antilink addchannel #shitpost\` \n\`${prefix}antilink removechannel 669967519942967306\``,
 
       ANTILINK: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle !`,
+        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà immunisé !`,
         `${emote.others.no} • Ce rôle n'est pas immunisé !`,
-        `${emote.others.no} • Tu dois m'indiquer un salon !`,
+        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
+        '**Liste des rôles ignorés par l\'anti-lien**',
+        'Aucun rôle !',
+        '**Liste des salons ignorés par l\'anti-lien**',
+        'Aucun salon !',
         '**Arguments disponibles pour l\'anti-lien**',
         '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-lien \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-lien'
       ],
 
-      ANTILINK_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés de l'anti-majuscules`,
-      ANTILINK_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés de l'anti-majuscules`,
-      ANTILINK_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-majuscules`,
-      ANTILINK_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-majuscules`,
+      ANTILINK_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés de l'anti-lien`,
+      ANTILINK_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés de l'anti-lien`,
+      ANTILINK_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-lien`,
+      ANTILINK_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-lien`,
+
+      // autorole.js
+      AUTOROLE_USAGE: prefix => `• \`${prefix}autorole\` - Affiche la liste des arguments disponibles pour l'autorole \n• \`${prefix}autorole roles\` - Affiche la liste des rôles de l'autorole \n• \`${prefix}autorole addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ajoutés à l'arrivé d'un membre sur le serveur \n${emote.others.caution} • Attention, pour que l'autorole fonctionne, le bot doit avoir un rôle plus élevé que le rôle donnée. Dans le cas contraire, le bot ne pourra pas donner le rôle à l'arrivée d'un membre.`,
+      AUTOROLE_EXAMPLE: prefix => `\`${prefix}autorole\` \n\`${prefix}autorole roles\` \n\`${prefix}autorole enable / disable\` \n\`${prefix}autorole setrole @membre\``,
+
+      AUTOROLE: [
+        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
+        `${emote.others.no} • Ce rôle est déjà dans la liste de l'autorole !`,
+        `${emote.others.no} • Ce rôle n'est pas dans la liste de l'autorole !`,
+        '**Liste des rôles de l\'autorole**',
+        'Aucun rôle !',
+        '**Arguments disponibles pour l\'autorole**',
+        '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ajoutés à l\'arrivé d\'un membre sur le serveur'
+      ],
+
+      AUTOROLE_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté à la liste de l'autorole`,
+      AUTOROLE_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré de la liste de l'autorole`,
+
+      // badwords.js
+      BADWORDS_USAGE: prefix => `• \`${prefix}badwords\` - Affiche la liste des arguments disponibles pour l'anti-badwords \n• \`${prefix}badwords roles\` - Affiche la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords channels\` - Affiche la liste des salons ignorés par l'anti-badwords \n• \`${prefix}badwords words\` - Affiche la liste des mots bannis \n• \`${prefix}badwords addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords addword | removeword <mot>\` - Ajoute ou supprime des mots bannis`,
+      BADWORDS_EXAMPLE: prefix => `${prefix}badwords addword / removeword merde \n${prefix}badwords addrole / removerole @moderateur \n${prefix}badwords adduser / removeuser @Moitié prix#4263 \n${prefix}badwords addchannel / removechannel #shitpost \n${prefix}badwords words`,
+
 
       // FUN //
 
@@ -591,15 +621,6 @@ module.exports = class {
         ANTILINK_WARN: `${emote.others.no} • Les liens ne sont pas autorisés ici !`,
         ANTICAPS_WARN: `${emote.others.no} • Le capslock n'est pas autorisé ici !`
       },
-      // Badwords
-      BADWORDS_DESC: 'Paramètres des badwords',
-      BADWORDS_USAGE: prefix => `${prefix}badwords <enable | disable | addword | removeword | addrole | removerole | addchannel | removechannel | words> <mot | @role | #salon>`,
-      BADWORDS_EXEMPLE: prefix => `${prefix}badwords enable / disable \n${prefix}badwords addword / removeword merde \n${prefix}badwords addrole / removerole @moderateur \n${prefix}badwords adduser / removeuser @Moitié prix#4263 \n${prefix}badwords addchannel / removechannel #shitpost \n${prefix}badwords words`,
-
-      // Autorole
-      AUTOROLE_DESC: 'Paramètres de l\'auto-rôle',
-      AUTOROLE_USAGE: prefix => `${prefix}antiflood <enable | disable | setrole> <@role>`,
-      AUTOROLE_EXEMPLE: prefix => `\`${prefix}autorole enable / disable \n${prefix}autorole setrole @membre`,
 
       // Weather
       WEATHER_DESC: 'Donne la météo d\'un lieu',
