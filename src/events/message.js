@@ -25,10 +25,10 @@ module.exports = async (client, message) => {
     if (!message.content.startsWith(res.rows[0].prefix) && message.guild.me.hasPermission('MANAGE_MESSAGES')) {
 
       const dataBadwords = JSON.parse(res.rows[0].badwords[0])
-      if (res.rows[0].system.badwords === true) {
+      if (res.rows[0].system.badwords) {
         if (dataBadwords.roles.length === 0 || !message.member.roles.cache.some(r => dataBadwords.roles.includes(r.id))) {
           if (dataBadwords.channels.length === 0 || !dataBadwords.channels.includes(message.channel.id)) {
-            if (dataBadwords.words.length !== 0) {
+            if (dataBadwords.words.length > 0) {
               const array = dataBadwords.words
               const words = message.content.toLowerCase().trim().split(' ')
               for (let i = 0; i < array.length; i++) {
@@ -46,7 +46,7 @@ module.exports = async (client, message) => {
       }
 
       const dataAntilink = JSON.parse(res.rows[0].antilink[0])
-      if (res.rows[0].system.antilink === true) {
+      if (res.rows[0].system.antilink) {
         if (dataAntilink.roles.length === 0 || !message.member.roles.cache.some(r => dataAntilink.roles.includes(r.id))) {
           if (dataAntilink.channels.length === 0 || !dataAntilink.channels.includes(message.channel.id)) {
             if (message.content.match(new RegExp(/(http[s]?:\/\/)(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&\/=]*)/gi))) {
@@ -58,7 +58,7 @@ module.exports = async (client, message) => {
       }
 
       const dataAnticaps = JSON.parse(res.rows[0].anticaps[0])
-      if (res.rows[0].system.anticaps === true) {
+      if (res.rows[0].system.anticaps) {
         if ((dataAnticaps.roles.length === 0 || !message.member.roles.cache.some(r => dataAnticaps.roles.includes(r.id))) && (dataAnticaps.channels.length === 0 || !dataAnticaps.channels.includes(message.channel.id))) {
 
           const length = message.content.replace(/[^A-Z]/g, '').length
