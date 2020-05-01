@@ -99,8 +99,8 @@ module.exports = {
    * @param argsRole
    * @returns {*}
    */
-  async roleFilter (message, argsRole) {
-    const roles = await message.guild.roles.fetch()
+  roleFilter (message, argsRole) {
+    const roles = message.guild.roles.cache
 
     if (message.mentions.roles.first() && roles.some(ch => ch.id === message.mentions.roles.first().id)) {
       return message.mentions.roles.first().id
