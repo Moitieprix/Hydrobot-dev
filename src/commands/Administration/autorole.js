@@ -55,11 +55,11 @@ module.exports = class Autorole extends Command {
           let mentionRole = []
 
           for (const role of data) {
-            if (!message.guild.roles.get(role)) {
+            if (!message.guild.roles.cache.get(role)) {
               const pos = data.indexOf(role)
               data.splice(pos, 1)
             } else {
-              mentionRole.push(`<@&${role}>`)
+              mentionRole.push(`• <@&${role}>`)
             }
           }
 
