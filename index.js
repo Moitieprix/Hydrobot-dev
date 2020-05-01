@@ -12,7 +12,7 @@ const PostgreSQL = require('pg')
 class Hydrobot extends Client {
 
   /**
-   * @param options - Toutes les options du Client
+   * @param options - Client options
    */
 
   constructor (options) {
@@ -23,8 +23,8 @@ class Hydrobot extends Client {
     }
 
 
-    this.commands = []
-    this.aliases = []
+    this.commands = {}
+    this.aliases = {}
 
     this.config = require('./config.js')
     this.logger = require('./utils/logger.js')
