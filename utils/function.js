@@ -292,16 +292,19 @@ module.exports = {
         },
         [{
           'roles': [],
-          'channels': []
+          'channels': [],
+          'sanction': 0
         }],
         [{
           'roles': [],
           'channels': [],
-          'words': []
+          'words': [],
+          'sanction': 0
         }],
         [{
           'roles': [],
-          'channels': []
+          'channels': [],
+          'sanction': 0
         }],
         [],
         [],
