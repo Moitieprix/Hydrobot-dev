@@ -1,5 +1,6 @@
 'use strict'
 
+const {MessageEmbed} = require('discord.js')
 const Command = require('../../../core/Command.js')
 
 module.exports = class Autorole extends Command {
@@ -79,8 +80,8 @@ module.exports = class Autorole extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTILINK')[5])
-            .setDescription(message.language.get('ANTILINK')[6])
+            .setTitle(message.language.get('AUTOROLE')[5])
+            .setDescription(message.language.get('AUTOROLE')[6])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
