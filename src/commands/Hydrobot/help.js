@@ -32,7 +32,7 @@ module.exports = class Help extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTitle(`:label: • ${message.language.get('HELP')[0]} \`${cmd.help.name}\``)
-            .setDescription(message.language.get('HELP_EMBED_DESC', res.rows[0].prefix))
+            .setDescription(message.language.get('HELP_EMBED_DESCRIPTION', res.rows[0].prefix))
             .addField('\u200b', '\u200b', false)
             .addField(message.language.get('HELP')[1], cmd.help.usage(message.language, res.rows[0].prefix))
             .addField(message.language.get('HELP')[2], cmd.help.examples(message.language, res.rows[0].prefix), true)
