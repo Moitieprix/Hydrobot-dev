@@ -24,38 +24,36 @@ module.exports = class Eval extends Command {
   async run (message, args) {
     if (!args.join(' ')) return message.channel.send('Tu dois me donner un code à évaluer')
 
-    return new Promise(resolve => {
-      resolve(eval(args.join(' ')))
+    const start = process.hrtime()
 
-    }).then(async code => {
-      const type = `${(typeof code).charAt(0).toUpperCase()}${(typeof code).substring(1)}`
+    Promise.resolve(eval(args.join(' ')))
+      .then(async code => {
+        const diff = process.hrtime(start)
+        const type = `${(typeof code).charAt(0).toUpperCase()}${(typeof code).substring(1)}`
 
-      if (typeof code !== 'string') {
-        code = inspect(code, {
-          depth: 0
-        })
-      }
+        if (typeof code !== 'string') {
+          code = inspect(code, {
+            depth: 0
+          })
+        }
 
-      if (code.length > 1000) {
-        code = `${code.substring(0, 1000)}\n\n...`
-      }
+        if (code.length > 1000) {
+          code = `${code.substring(0, 1000)}\n\n...`
+        }
 
-      const start = process.hrtime()
-      const diff = process.hrtime(start)
+        const evalTime = diff[1] < 100000 ? (diff[1] / 1000).toPrecision(3) + 'μs' : (diff[1] / 1000000).toPrecision(3) + 'ms'
 
-      const evalTime = diff[1] < 100000 ? (diff[1] / 1000).toPrecision(3) + 'μs' : (diff[1] / 1000000).toPrecision(3) + 'ms'
+        if (message.channel.permissionsFor(this.client.user).has('ADD_REACTIONS')) message.react('601815694467792935')
 
-      if (message.channel.permissionsFor(this.client.user).has('ADD_REACTIONS')) message.react('601815694467792935')
-
-      const embed = new MessageEmbed()
-        .setColor(this.client.config.embed.color)
-        .setTitle(`${this.client.emote.others.yes} • \`SUCCESS (${evalTime})\``)
-        .addField('Returned code', `\`\`\`js\n${clean(code, this.client)}\`\`\``)
-        .addField('Returned code type', `\`\`\`js\n${type}\`\`\``)
-        .setTimestamp()
-        .setFooter(this.client.user.username, this.client.user.avatarURL())
-      return message.channel.send(embed)
-    }).catch(err => {
+        const embed = new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTitle(`${this.client.emote.others.yes} • \`SUCCESS (${evalTime})\``)
+          .addField('Returned code', `\`\`\`js\n${clean(code, this.client)}\`\`\``)
+          .addField('Returned code type', `\`\`\`js\n${type}\`\`\``)
+          .setTimestamp()
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+        return message.channel.send(embed)
+      }).catch(err => {
       if (message.channel.permissionsFor(this.client.user).has('ADD_REACTIONS')) message.react('601815693935247390')
 
       const embed = new MessageEmbed()
