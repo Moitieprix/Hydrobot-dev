@@ -1,3 +1,5 @@
+'use strict'
+
 const {MessageEmbed} = require('discord.js')
 const Command = require('../../../core/Command.js')
 
@@ -27,52 +29,52 @@ module.exports = class Badwords extends Command {
 
       switch (args[0]) {
         case 'addrole':
-          if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
-          if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[1])
+          if (!role) return message.channel.send(message.language.get('BADWORDS')[0])
+          if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('BADWORDS')[1])
 
           data.push(role)
           this.client.database.query('UPDATE settings SET badwords = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTICAPS_ADDROLE', role))
+          message.channel.send(message.language.get('ADDROLE', role))
           break
 
         case 'removerole':
-          if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
-          if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[2])
+          if (!role) return message.channel.send(message.language.get('BADWORDS')[0])
+          if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('BADWORDS')[2])
 
           const posRole = data.roles.indexOf(role)
           data.roles.splice(posRole, 1)
           this.client.database.query('UPDATE settings SET badwords = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTICAPS_REMOVEROLE', role))
+          message.channel.send(message.language.get('REMOVEROLE', role))
           break
 
         case 'addchannel':
-          if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
-          if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[4])
+          if (!channel) return message.channel.send(message.language.get('BADWORDS')[3])
+          if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('BADWORDS')[4])
 
-          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
+          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('BADWORDS')[5])
 
           data.channels.push(channel)
           this.client.database.query('UPDATE settings SET badwords = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTICAPS_ADDCHANNEL', channel))
+          message.channel.send(message.language.get('ADDCHANNEL', channel))
           break
 
         case 'removechannel':
-          if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
-          if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[6])
+          if (!channel) return message.channel.send(message.language.get('BADWORDS')[3])
+          if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('BADWORDS')[6])
 
           const posChannel = data.channels.indexOf(channel)
           data.channels.splice(posChannel, 1)
           this.client.database.query('UPDATE settings SET badwords = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTICAPS_REMOVECHANNEL', channel))
+          message.channel.send(message.language.get('REMOVECHANNEL', channel))
           break
 
         case 'addword':
-          if (!args[1]) return message.channel.send('mot manquant')
+          if (!args[1]) return message.channel.send(message.language.get('BADWORDS')[7])
           if (data.words.length !== 0 && data.words.includes(args[1])) return message.channel.send('mot deja présent')
 
-          data.words.push(channel)
+          data.words.push(args[1])
           this.client.database.query('UPDATE settings SET badwords = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send('mot ajouté')
+          message.channel.send(message.language.get('ADDWORD', args[1]))
           break
 
         case 'removeword':
@@ -82,15 +84,15 @@ module.exports = class Badwords extends Command {
           const posWord = data.words.indexOf(args[1])
           data.words.splice(posWord, 1)
           this.client.database.query('UPDATE settings SET badwords = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send('mot retiré')
+          message.channel.send(message.language.get('REMOVEWORD', args[1]))
           break
 
         case 'words':
           const embedWords = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[11])
-            .setDescription(data.words.length > 0 ? '•' + data.words.join(' \n•') : 'Aucun mot banni !')
+            .setTitle(message.language.get('BADWORDS')[8])
+            .setDescription(data.words.length > 0 ? '•' + data.words.join(' \n•') : message.language.get('BADWORDS')[9])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embedWords)
@@ -111,8 +113,8 @@ module.exports = class Badwords extends Command {
           const embedRoles = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[7])
-            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('ANTICAPS')[8])
+            .setTitle(message.language.get('BADWORDS')[10])
+            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('BADWORDS')[11])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embedRoles)
@@ -133,8 +135,8 @@ module.exports = class Badwords extends Command {
           const embedChannel = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[9])
-            .setDescription(mentionChannel.length > 0 ? mentionChannel.join(' \n') : message.language.get('ANTICAPS')[10])
+            .setTitle(message.language.get('BADWORDS')[12])
+            .setDescription(mentionChannel.length > 0 ? mentionChannel.join(' \n') : message.language.get('BADWORDS')[13])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embedChannel)
@@ -144,8 +146,8 @@ module.exports = class Badwords extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[11])
-            .setDescription(message.language.get('ANTICAPS')[12])
+            .setTitle(message.language.get('BADWORDS')[14])
+            .setDescription(message.language.get('BADWORDS')[15])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
