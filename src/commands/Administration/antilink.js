@@ -37,7 +37,7 @@ module.exports = class Antilink extends Command {
 
           data.roles.push(role)
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTILINK_ADDROLE', role))
+          message.channel.send(message.language.get('ADDROLE', role))
           break
 
         case 'removerole':
@@ -48,7 +48,7 @@ module.exports = class Antilink extends Command {
           const posRole = data.roles.indexOf(role)
           data.roles.splice(posRole, 1)
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTILINK_REMOVEROLE', role))
+          message.channel.send(message.language.get('REMOVEROLE', role))
           break
 
         case 'addchannel':
@@ -60,7 +60,7 @@ module.exports = class Antilink extends Command {
 
           data.channels.push(channel)
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTILINK_ADDCHANNEL', channel))
+          message.channel.send(message.language.get('ADDCHANNEL', channel))
           break
 
         case 'removechannel':
@@ -70,7 +70,7 @@ module.exports = class Antilink extends Command {
           const posChannel = data.channels.indexOf(channel)
           data.channels.splice(posChannel, 1)
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ANTILINK_REMOVECHANNEL', channel))
+          message.channel.send(message.language.get('REMOVECHANNEL', channel))
           break
 
         case 'roles':
