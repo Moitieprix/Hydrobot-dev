@@ -26,6 +26,10 @@ module.exports = class {
         IMAGE_CATEGORY: `${emote.categories.image} • Images`,
         NSFW_CATEGORY: `${emote.categories.nsfw} • NSFW`,
 
+        BADWORDS_WARN: `${emote.others.no} • Ce mot n'est pas autorisé ici !`,
+        ANTILINK_WARN: `${emote.others.no} • Les liens ne sont pas autorisés ici !`,
+        ANTICAPS_WARN: `${emote.others.no} • Le capslock n'est pas autorisé ici !`,
+
         MONTHS: {
           Jan: 'Janvier',
           Feb: 'Février',
@@ -193,9 +197,17 @@ module.exports = class {
 
       // ADMINISTRATION //
 
+      // Utils
+      ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles ignorés`,
+      REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles ignorés`,
+      ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons ignorés`,
+      REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons ignorés`,
+      ADDWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été ajouté à la liste des mots bannis`,
+      REMOVEWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été retiré de la liste des mots bannis`,
+
       // anticaps.js
       ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps roles\` - Affiche la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps channels\` - Affiche la liste des salons ignorés par l'anti-majuscules \n• \`${prefix}anticaps addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
-      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps\` \n\`${prefix}anticaps roles\` \n\`${prefix}anticaps channels\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps roles\` \n\`${prefix}anticaps channels\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
 
       ANTICAPS: [
         `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
@@ -210,17 +222,12 @@ module.exports = class {
         '**Liste des salons ignorés par l\'anti-majuscules**',
         'Aucun salon !',
         '**Arguments disponibles pour l\'anti-majuscules**',
-        '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
+        '• `roles` : Afficher la liste des rôles ignorés par l\'anti-majuscules \n• `channels` : Afficher la liste des channels ignorés par l\'anti-majuscules \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
       ],
-
-      ANTICAPS_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés de l'anti-majuscules`,
-      ANTICAPS_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés de l'anti-majuscules`,
-      ANTICAPS_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-majuscules`,
-      ANTICAPS_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-majuscules`,
 
       // antilink.js
       ANTILINK_USAGE: prefix => `• \`${prefix}antilink\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}antilink roles\` - Affiche la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink channels\` - Affiche la liste des salons ignorés par l'anti-lien \n• \`${prefix}antilink addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
-      ANTILINK_EXAMPLE: prefix => `\`${prefix}antilink\` \n\`${prefix}antilink roles\` \n\`${prefix}antilink channels\` \n\`${prefix}antilink addrole @moderateur\` \n\`${prefix}antilink removerole 669986011861745672\` \n\`${prefix}antilink addchannel #shitpost\` \n\`${prefix}antilink removechannel 669967519942967306\``,
+      ANTILINK_EXAMPLE: prefix => `\`${prefix}antilink roles\` \n\`${prefix}antilink channels\` \n\`${prefix}antilink addrole @moderateur\` \n\`${prefix}antilink removerole 669986011861745672\` \n\`${prefix}antilink addchannel #shitpost\` \n\`${prefix}antilink removechannel 669967519942967306\``,
 
       ANTILINK: [
         `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
@@ -235,17 +242,12 @@ module.exports = class {
         '**Liste des salons ignorés par l\'anti-lien**',
         'Aucun salon !',
         '**Arguments disponibles pour l\'anti-lien**',
-        '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-lien \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-lien'
+        '• `roles` : Afficher la liste des rôles ignorés par l\'anti-lien \n• `channels` : Afficher la liste des channels ignorés par l\'anti-lien \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-lien \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-lien'
       ],
-
-      ANTILINK_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés de l'anti-lien`,
-      ANTILINK_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés de l'anti-lien`,
-      ANTILINK_ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés de l'anti-lien`,
-      ANTILINK_REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés de l'anti-lien`,
 
       // autorole.js
       AUTOROLE_USAGE: prefix => `• \`${prefix}autorole\` - Affiche la liste des arguments disponibles pour l'autorole \n• \`${prefix}autorole roles\` - Affiche la liste des rôles de l'autorole \n• \`${prefix}autorole addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ajoutés à l'arrivé d'un membre sur le serveur \n${emote.others.caution} • Attention, pour que l'autorole fonctionne, le bot doit avoir un rôle plus élevé que le rôle donnée. Dans le cas contraire, le bot ne pourra pas donner le rôle à l'arrivée d'un membre.`,
-      AUTOROLE_EXAMPLE: prefix => `\`${prefix}autorole\` \n\`${prefix}autorole roles\` \n\`${prefix}autorole enable / disable\` \n\`${prefix}autorole setrole @membre\``,
+      AUTOROLE_EXAMPLE: prefix => `\`${prefix}autorole addrole @membre\` \n\`${prefix}autorole removerole 669986011861745672\``,
 
       AUTOROLE: [
         `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
@@ -254,7 +256,7 @@ module.exports = class {
         '**Liste des rôles de l\'autorole**',
         'Aucun rôle !',
         '**Arguments disponibles pour l\'autorole**',
-        '• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ajoutés à l\'arrivé d\'un membre sur le serveur'
+        '• `roles` : Afficher la liste des rôles ajoutés à un membre lors de son arrivé \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ajoutés à un membre lors de son arrivé'
       ],
 
       AUTOROLE_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté à la liste de l'autorole`,
@@ -262,8 +264,26 @@ module.exports = class {
 
       // badwords.js
       BADWORDS_USAGE: prefix => `• \`${prefix}badwords\` - Affiche la liste des arguments disponibles pour l'anti-badwords \n• \`${prefix}badwords roles\` - Affiche la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords channels\` - Affiche la liste des salons ignorés par l'anti-badwords \n• \`${prefix}badwords words\` - Affiche la liste des mots bannis \n• \`${prefix}badwords addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords addword | removeword <mot>\` - Ajoute ou supprime des mots bannis`,
-      BADWORDS_EXAMPLE: prefix => `${prefix}badwords addword / removeword merde \n${prefix}badwords addrole / removerole @moderateur \n${prefix}badwords adduser / removeuser @Moitié prix#4263 \n${prefix}badwords addchannel / removechannel #shitpost \n${prefix}badwords words`,
+      BADWORDS_EXAMPLE: prefix => `\`${prefix}badwords addrole @moderateur\` \n\`${prefix}badwords removerole 669986011861745672\` \n\`${prefix}badwords addchannel #shitpost\` \n\`${prefix}badwords removechannel 669967519942967306\` \n\`${prefix}badwords addword merde\` \n\`${prefix}badwords removeword merde\``,
 
+      BADWORDS: [
+        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
+        `${emote.others.no} • Ce rôle est déjà immunisé !`,
+        `${emote.others.no} • Ce rôle n'est pas immunisé !`,
+        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
+        `${emote.others.no} • Ce salon est déjà immunisé !`,
+        `${emote.others.no} • Le salon doit être uniquement textuel !`,
+        `${emote.others.no} • Ce salon n'est pas immunisé !`,
+        `${emote.others.no} • Tu dois m'indiquer un mot !`,
+        '**Liste des mots bannis**',
+        'Aucun mot !',
+        '**Liste des rôles ignorés par l\'anti-lien**',
+        'Aucun rôle !',
+        '**Liste des salons ignorés par l\'anti-lien**',
+        'Aucun salon !',
+        '**Arguments disponibles pour l\'anti-badwords**',
+        '• `roles` : Afficher la liste des rôles ignorés par l\'anti-badwords \n• `channels` : Afficher la liste des channels ignorés par l\'anti-badwords \n• `words` : Afficher la liste des mots bannis \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-badwords \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-badwords \n• `addword | removeword` : Ajouter ou supprimer des mots bannis'
+      ],
 
       // FUN //
 
@@ -569,54 +589,6 @@ module.exports = class {
       TABLE_USAGE: prefix => `${prefix}tableflip`,
 
       AUTOMOD: {
-        ROLES_ERROR: [
-          `${emote.others.yes} • Tu dois m'indiquer un rôle valide ! (mention / ID)`,
-          `${emote.others.yes} • Ce rôle est déjà immunisé !`,
-          `${emote.others.yes} • Ce rôle n'est pas immunisé !`
-        ],
-        CHANNELS_ERROR: [
-          `${emote.others.yes} • Tu dois m'indiquer un salon ! (mention / ID)`,
-          `${emote.others.yes} • Ce salon est déjà immunisé !`,
-          `${emote.others.yes} • Ce salon n'est pas immunisé !`
-        ],
-        ANTILINK: [
-          `${emote.others.no} • L'anti-lien est déjà activé`,
-          `${emote.others.no} • L'anti-lien est déjà désactivé`,
-          `${emote.others.on} • L'anti-lien est désormais activé !`,
-          `${emote.others.off} • L'anti-lien est désormais désactivé !`,
-          '**Arguments disponibles pour l\'anti-lien**',
-          '- `enable / disable` : Activer ou désativer le système \n- `addrole / removerole` : Ajouter ou retirer des rôles qui seront immunisés a l\'anti-lien \n- `addchannel / removechannel` : Ajouter ou retirer des salons qui ne seront pas soumis a l\'anti-lien'
-        ],
-        BADWORDS: [
-          `${emote.others.no} • L' anti-badwords est déjà activé`,
-          `${emote.others.no} • L' anti-badwords est déjà désativé`,
-          `${emote.others.on} • L' anti-badwords est désormais activé`,
-          `${emote.others.off} • L' anti-badwords est désormais désactivé`,
-          `${emote.others.no} • Tu dois m'indiquer un mot !`,
-          `${emote.others.no} • Ce mot est déjà présent dans la liste des mots bannis`,
-          `${emote.others.no} • Ce mot n'est pas présent dans la liste des mots bannis`,
-          `**Liste des mots bannis :**`,
-          `${emote.others.no} • Aucun mot n'est banni !`,
-          'Arguments disponibles pour l\'anti-badwords :',
-          '- `enable / disable` : Activer ou désativer le système \n- `addword / removeword` : Ajouter ou retirer des mots bannis \n- `addrole / removerole` : Ajouter ou retirer des rôles qui seront immunisés aux mots bannis \n- `addchannel / removechannel` : Ajouter ou retirer des salons qui ne seront pas soumis aux mots bannis  \n- `words` : Affiche les mots bannis'
-        ],
-
-        ANTICAPS: [
-          `${emote.others.no} • L'anti-majuscules est déjà activé`,
-          `${emote.others.no} • L'anti-majuscules est déjà désactivé`,
-          `${emote.others.on} • L'anti-majuscules est désormais activé !`,
-          `${emote.others.off} • L'anti-majuscules est désormais désactivé !`,
-          '**Arguments disponibles pour l\'anti-majuscules**',
-          '- `enable / disable` : Activer ou désativer le système \n- `addrole / removerole` : Ajouter ou retirer des rôles qui seront immunisés a l\'anti-majuscules \n- `addchannel / removechannel` : Ajouter ou retirer des salons qui ne seront pas soumis a l\'anti-majuscules'
-        ],
-
-        ADDWORD: mot => `${emote.others.yes} • Le mot \`${mot}\` a bien été ajouté à la liste des mots banni`,
-        REMOVEWORD: mot => `${emote.others.yes} • Le mot \`${mot}\` a bien été retiré de la liste des mots banni`,
-        ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles immunisés`,
-        REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles immunisés`,
-        ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons immunisés`,
-        REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons immunisés`,
-
         BADWORDS_WARN: `${emote.others.no} • Ce mot n'est pas autorisé ici !`,
         ANTILINK_WARN: `${emote.others.no} • Les liens ne sont pas autorisés ici !`,
         ANTICAPS_WARN: `${emote.others.no} • Le capslock n'est pas autorisé ici !`
