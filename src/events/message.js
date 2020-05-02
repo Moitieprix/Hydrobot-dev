@@ -37,7 +37,7 @@ module.exports = async (client, message) => {
                 })
                 if (test && words.includes(array[i].toLowerCase())) {
                   message.delete()
-                  return message.author.send(message.language.get('AUTOMOD').BADWORDS_WARN).catch()
+                  return message.author.send(message.language.get('UTILS').BADWORDS_WARN).catch()
                 }
               }
             }
@@ -51,7 +51,7 @@ module.exports = async (client, message) => {
           if (dataAntilink.channels.length === 0 || !dataAntilink.channels.includes(message.channel.id)) {
             if (message.content.match(new RegExp(/(http[s]?:\/\/)(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&\/=]*)/gi))) {
               message.delete()
-              return message.author.send(message.language.get('AUTOMOD').ANTILINK_WARN).catch()
+              return message.author.send(message.language.get('UTILS').ANTILINK_WARN).catch()
             }
           }
         }
@@ -66,7 +66,7 @@ module.exports = async (client, message) => {
 
           if (percentile > 70 && message.content.length > 6) {
             message.delete()
-            return message.author.send(message.language.get('AUTOMOD').ANTICAPS_WARN).catch()
+            return message.author.send(message.language.get('UTILS').ANTICAPS_WARN).catch()
           }
         }
       }
