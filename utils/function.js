@@ -234,8 +234,9 @@ module.exports = {
 
   createDataSettings (id, database) {
     return new Promise(() => {
-      database.query('INSERT INTO settings (id, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, antilink, badwords, anticaps, autorole, cmd_guild, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [
+      database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, antilink, badwords, anticaps, massmentions, autorole, cmd_guild, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [
         id,
+        false,
         'h!',
         'fr',
         {
@@ -304,6 +305,12 @@ module.exports = {
         [{
           'roles': [],
           'channels': [],
+          'sanction': 0
+        }],
+        [{
+          'roles': [],
+          'channels': [],
+          'max': 5,
           'sanction': 0
         }],
         [],
