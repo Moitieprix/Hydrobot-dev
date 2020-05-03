@@ -35,6 +35,8 @@ module.exports = class Antilink extends Command {
           if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
           if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[1])
 
+          if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
+
           data.push(role)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDROLE', role))
@@ -54,6 +56,8 @@ module.exports = class Antilink extends Command {
           if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
           if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[4])
 
+          if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
+
           if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
 
           data.channels.push(channel)
@@ -71,8 +75,9 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('REMOVECHANNEL', channel))
           break
 
-        case 'roles':
+        case 'setup':
           let mentionRole = []
+          let mentionChannel = []
 
           for (const role of data.roles) {
             if (!message.guild.roles.cache.get(role)) {
@@ -83,18 +88,6 @@ module.exports = class Antilink extends Command {
             }
           }
 
-          const embedRoles = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[7])
-            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('ANTICAPS')[8])
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          message.channel.send(embedRoles)
-          break
-
-        case 'channels':
-          let mentionChannel = []
 
           for (const channel of data.channels) {
             if (!message.guild.channels.cache.get(channel)) {
@@ -105,22 +98,23 @@ module.exports = class Antilink extends Command {
             }
           }
 
-          const embedChannel = new MessageEmbed()
+          const embedSetup = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[9])
-            .setDescription(mentionChannel.length > 0 ? mentionChannel.join(' \n') : message.language.get('ANTICAPS')[10])
+            .setTitle(message.language.get('ANTICAPS')[7])
+            .addField(message.language.get('ANTICAPS')[8], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTICAPS')[9]}`)
+            .addField(message.language.get('ANTICAPS')[10], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTICAPS')[11]}`)
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-          message.channel.send(embedChannel)
+          message.channel.send(embedSetup)
           break
 
         default:
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[11])
-            .setDescription(message.language.get('ANTICAPS')[12])
+            .setTitle(message.language.get('ANTICAPS')[12])
+            .setDescription(message.language.get('ANTICAPS')[13])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
