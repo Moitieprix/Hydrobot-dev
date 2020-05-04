@@ -10,13 +10,12 @@ module.exports = class Avatar extends Command {
       cooldown: 3,
       enabled: true,
       owner: false,
-      nsfw: false,
       plugin: false,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('AVATAR_USAGE', prefix),
-      category: (language) => language.get('UTILS').INFORMATION_CATEGORIE,
+      category: (language) => language.get('UTILS').INFORMATION_CATEGORY,
       examples: (language, prefix) => language.get('AVATAR_EXEMPLE', prefix)
     })
   }
@@ -24,6 +23,7 @@ module.exports = class Avatar extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
+    console.log(user)
     if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
 
     const embed = new MessageEmbed()
