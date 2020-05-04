@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const {MessageEmbed, MessageCollector} = require('discord.js')
 
 module.exports = {
 
@@ -48,28 +48,46 @@ module.exports = {
    * @returns {*}
    */
   async userFilter (message, args) {
-    const users = await message.guild.members.fetch()
+    const users = await message.guild.members.fetch() // récupère tout les utilisateurs de la guild
+
+    const usersFilter = users.filter(m =>
+      m.displayName.toLowerCase().includes(args.join(' ').toLowerCase()) ||
+      m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())
+    )
 
     if (!args[0]) return message.author
 
     if (message.mentions.users.first()) return message.mentions.users.first()
 
-    if (args.join(' ') && !message.mentions.users.first()) {
+    if (usersFilter.size === 0) return false
 
-      if (users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).size !== 0) {
-        return users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).first().user
+    if (usersFilter.size === 1) return usersFilter.first().user
 
-      } else if (users.filter((m) => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase())).size !== 0) {
-        return users.filter((m) => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase())).first().user
+    if (usersFilter.size > 1) {
+      const usersList = usersFilter.array()
 
-      } else if (users.filter((m) => m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())).size === 0 && !isNaN(args[0]) && args[0].length === 18 && users.some(ch => ch.id === args[0])) {
-        const member = await message.guild.members.fetch(args[0])
-        return member.user
+      const embed = new MessageEmbed()
+        .setTitle('Plusieurs utilisateurs ont été trouvés, selectionnez celui que vous desirez en envoyant le nombre à côté de celui-ci (vous avez 30s)')
+        .setDescription(usersList.map(u => `${usersList.indexOf(u) + 1} • ${u.displayName} (${u.user.tag})`).join(' \n'))
+      message.channel.send(embed)
 
+      const collected = await message.channel.awaitMessages(msg => msg.author.id === message.author.id, {max: 1, time: 30000, errors: ['time']})
+        .catch(() => {
+          message.channel.send('Timeout !')
+          return undefined
+        })
+
+      if(!collected) return undefined
+
+      if(collected) console.log(collected)
+
+      const num = parseInt(collected.first().content)
+
+      if (isNaN(num) || num <= 0 || num > usersList.length) {
+        message.channel.send('Nombre invalide')
       } else {
-        return false
+        return usersList[num - 1].user
       }
-
     }
   },
 
