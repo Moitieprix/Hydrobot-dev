@@ -48,5 +48,5 @@ module.exports = async (client) => {
     await client.user.setActivity(games[i].name)
     if (games[parseInt(i + 1)]) i++
     else i = 0
-  }, 10000)
+  }, 15000)
 }
