@@ -86,7 +86,20 @@ module.exports = class {
           'HIGH': 'Élevé : Doit être sur le serveur depuis 10 min',
           'VERY_HIGH': 'Extreme : Double authentification requise !'
 
-        }
+        },
+
+        MORE_SIZE: size => `et \`${size}\` autre(s)...`,
+
+        ROLES_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 15 rôles ignorés. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
+        CHANNELS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 15 salons ignorés. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
+        WORDS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 25 mots bannis. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
+
+        USERFILTER: [
+          `${emote.categories.clipboard} • Plusieurs utilisateurs ont été trouvés. (15 occurences max.) \nSelectionnez celui que vous desirez avec le nombre à côté de celui-ci (vous avez 15s)`,
+          'cancel • Annuler la recherche',
+          `${emote.others.no} • Nombre invalide`,
+          `${emote.others.no} • Recherche annulé !`
+        ],
       },
 
       LOGS: {
@@ -184,13 +197,6 @@ module.exports = class {
           'Nom :',
           'ID :'
         ],
-
-        MORE_SIZE: size => `et \`${size}\` autre(s)...`,
-
-        ROLES_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 15 rôles ignorés. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
-        CHANNELS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 15 salons ignorés. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
-        WORDS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 25 mots bannis. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
-
       },
 
       // Paramètres commandes
@@ -211,6 +217,13 @@ module.exports = class {
       ADDWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été ajouté à la liste des mots bannis`,
       REMOVEWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été retiré de la liste des mots bannis`,
 
+      SANCTIONS: [
+        `${emote.others.yes} • Sanction fixé sur : \`Message supprimé\``,
+        `${emote.others.yes} • Sanction fixé sur : \`Avertissement de l'auteur\``,
+        `${emote.others.yes} • Sanction fixé sur : \`Message supprimé et avertissement\``,
+        `${emote.others.no} • Nombre invalide ! \`1, 2 ou 3\``
+      ],
+
       // anticaps.js
       ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
       ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps setup\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
@@ -223,10 +236,13 @@ module.exports = class {
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
+        '**Liste des différentes sanctions**',
+        '• 1 - Message supprimé \n• 2 - Avertissement de l\'auteur \n• 3 - Messagé supprimé et avertissement',
         '**Configuration de l\'anti-majuscules**',
-        'Rôles ignorés',
+        'Type de sanction :',
+        'Rôles ignorés :',
         'Aucun rôle !',
-        'Salons ignorés',
+        'Salons ignorés :',
         'Aucun salon !',
         'Arguments disponibles pour l\'anti-majuscules',
         '• `setup` : Afficher la configuration de l\'anti-majuscules \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
