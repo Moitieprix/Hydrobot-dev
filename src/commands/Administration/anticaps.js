@@ -26,84 +26,103 @@ module.exports = class Antilink extends Command {
 
       const data = JSON.parse(res.rows[0].anticaps[0])
 
-      const role = this.client.functions.roleFilter(message, args[1])
-      const channel = this.client.functions.channelFilter(message, args[1])
-
       switch (args[0]) {
         case 'addrole':
 
-          if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
-          if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[1])
+          const roleAdd = this.client.functions.roleFilter(message, args[1])
+
+          if (!roleAdd) return message.channel.send(message.language.get('ANTICAPS')[0])
+          if (data.roles.length !== 0 && data.roles.includes(roleAdd)) return message.channel.send(message.language.get('ANTICAPS')[1])
 
           if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
 
-          data.push(role)
+          data.push(roleAdd)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ADDROLE', role))
+          message.channel.send(message.language.get('ADDROLE', roleAdd))
           break
 
         case 'removerole':
-          if (!role) return message.channel.send(message.language.get('ANTICAPS')[0])
-          if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('ANTICAPS')[2])
 
-          const posRole = data.roles.indexOf(role)
+          const roleRemove = this.client.functions.roleFilter(message, args[1])
+
+          if (!roleRemove) return message.channel.send(message.language.get('ANTICAPS')[0])
+          if (data.roles.length === 0 || !data.roles.includes(roleRemove)) return message.channel.send(message.language.get('ANTICAPS')[2])
+
+          const posRole = data.roles.indexOf(roleRemove)
           data.roles.splice(posRole, 1)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('REMOVEROLE', role))
+          message.channel.send(message.language.get('REMOVEROLE', roleRemove))
           break
 
         case 'addchannel':
-          if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
-          if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[4])
+          const channelAdd = this.client.functions.channelFilter(message, args[1])
+
+          if (!channelAdd) return message.channel.send(message.language.get('ANTICAPS')[3])
+          if (data.channels.length !== 0 && data.channels.includes(channelAdd)) return message.channel.send(message.language.get('ANTICAPS')[4])
 
           if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
 
-          if (message.guild.channels.cache.get(channel).type === 'voice' || message.guild.channels.cache.get(channel).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
+          if (message.guild.channels.cache.get(channelAdd).type === 'voice' || message.guild.channels.cache.get(channelAdd).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
 
-          data.channels.push(channel)
+          data.channels.push(channelAdd)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ADDCHANNEL', channel))
+          message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
           break
 
         case 'removechannel':
-          if (!channel) return message.channel.send(message.language.get('ANTICAPS')[3])
-          if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('ANTICAPS')[6])
+          const channelRemove = this.client.functions.channelFilter(message, args[1])
 
-          const posChannel = data.channels.indexOf(channel)
+          if (!channelRemove) return message.channel.send(message.language.get('ANTICAPS')[3])
+          if (data.channels.length === 0 && !data.channels.includes(channelRemove)) return message.channel.send(message.language.get('ANTICAPS')[6])
+
+          const posChannel = data.channels.indexOf(channelRemove)
           data.channels.splice(posChannel, 1)
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('REMOVECHANNEL', channel))
+          message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
+          break
+
+        case 'setsanction':
+          const embedSanction = new MessageEmbed()
+            .setColor(this.client.config.embed.color)
+            .setTitle(message.language.get('ANTICAPS')[7])
+            .setDescription(message.language.get('ANTICAPS')[8])
+            .setTimestamp()
+            .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+          if (!args[0]) return message.channel.send(embedSanction)
+
+          if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
+            data.sanction = parseInt(args[0])
+            this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
+            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
+
+          } else message.channel.send(message.language.get('SANCTION')[4])
           break
 
         case 'setup':
-          let mentionRole = []
-          let mentionChannel = []
-
-          for (const role of data.roles) {
+          const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
-              const pos = data.roles.indexOf(role)
-              data.roles.splice(pos, 1)
+              data.roles.splice(i, 1)
             } else {
-              mentionRole.push(`• <@&${role}>`)
+              `• <@&${role}>`
             }
-          }
+          })
 
-
-          for (const channel of data.channels) {
+          const mentionChannel = data.channels.map((channel, i) => {
             if (!message.guild.channels.cache.get(channel)) {
-              const pos = data.channels.indexOf(channel)
-              data.roles.splice(pos, 1)
+              data.roles.splice(i, 1)
             } else {
-              mentionChannel.push(`• <#${channel}>`)
+              `• <#${channel}>`
             }
-          }
+          })
 
           const embedSetup = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[7])
-            .addField(message.language.get('ANTICAPS')[8], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTICAPS')[9]}`)
-            .addField(message.language.get('ANTICAPS')[10], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTICAPS')[11]}`)
+            .setTitle(message.language.get('ANTICAPS')[9])
+            .addField(message.language.get('ANTICAPS')[10], message.language.get('SANCTION')[data.sanction - 1])
+            .addField(message.language.get('ANTICAPS')[11], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTICAPS')[12]}`)
+            .addField(message.language.get('ANTICAPS')[13], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTICAPS')[14]}`)
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embedSetup)
@@ -113,8 +132,8 @@ module.exports = class Antilink extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[12])
-            .setDescription(message.language.get('ANTICAPS')[13])
+            .setTitle(message.language.get('ANTICAPS')[14])
+            .setDescription(message.language.get('ANTICAPS')[15])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
