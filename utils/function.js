@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed, MessageCollector} = require('discord.js')
+const {MessageEmbed} = require('discord.js')
 
 module.exports = {
 
@@ -45,49 +45,59 @@ module.exports = {
    *
    * @param message
    * @param args
-   * @returns {*}
+   * @returns {Promise<*>}
    */
   async userFilter (message, args) {
-    const users = await message.guild.members.fetch() // récupère tout les utilisateurs de la guild
+    const users = await message.guild.members.fetch()
 
-    const usersFilter = users.filter(m =>
-      m.displayName.toLowerCase().includes(args.join(' ').toLowerCase()) ||
-      m.user.username.toLowerCase().includes(args.join(' ').toLowerCase())
-    )
+    const usersFilter = users.filter(m => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase()) || m.user.username.toLowerCase().includes(args.join(' ').toLowerCase()))
 
     if (!args[0]) return message.author
 
+    if (users.some(ch => ch.id === args[0])) return (await message.guild.members.fetch(args[0])).user
+
     if (message.mentions.users.first()) return message.mentions.users.first()
 
-    if (usersFilter.size === 0) return false
+    if (usersFilter.size === 0) {
+      message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+      return false
+    }
 
     if (usersFilter.size === 1) return usersFilter.first().user
 
     if (usersFilter.size > 1) {
-      const usersList = usersFilter.array()
+      const usersList = usersFilter.array().slice(0, 15)
 
       const embed = new MessageEmbed()
-        .setTitle('Plusieurs utilisateurs ont été trouvés, selectionnez celui que vous desirez en envoyant le nombre à côté de celui-ci (vous avez 30s)')
-        .setDescription(usersList.map(u => `${usersList.indexOf(u) + 1} • ${u.displayName} (${u.user.tag})`).join(' \n'))
+        .setColor(message.client.config.embed.color)
+        .setTitle('Plusieurs utilisateurs ont été trouvés. \nSelectionnez celui que vous desirez en envoyant le nombre à côté de celui-ci (vous avez 15s)')
+        .setDescription(`${usersList.map((user, i) => `${i + 1} • ${user.displayName} - **${user.user.tag}**`).join(' \n')} \n\ncancel • Annuler la recherche`)
+        .setTimestamp()
+        .setFooter(message.client.user.username, message.client.user.avatarURL())
       message.channel.send(embed)
 
-      const collected = await message.channel.awaitMessages(msg => msg.author.id === message.author.id, {max: 1, time: 30000, errors: ['time']})
-        .catch(() => {
-          message.channel.send('Timeout !')
-          return undefined
+      return await new Promise((resolve) => {
+        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, {time: 15000});
+
+        collector.on('collect', collected => {
+          if (collected.content === 'cancel') collector.stop('queryCancelled')
+          const num = parseInt(collected.content)
+
+          if (isNaN(num) || num <= 0 || num > usersList.length) {
+            message.channel.send('Nombre invalide')
+          } else {
+            resolve(usersList[num - 1].user)
+            collector.stop('collectorResolve')
+          }
         })
 
-      if(!collected) return undefined
+        collector.on('end', (collected, reason) => {
+          if (reason === 'queryCancelled') message.channel.send('Recherche annulé ! ')
+          if (reason !== 'collectorResolve' && reason !== 'queryCancelled') message.channel.send('Timeout')
+          resolve(false)
+        })
 
-      if(collected) console.log(collected)
-
-      const num = parseInt(collected.first().content)
-
-      if (isNaN(num) || num <= 0 || num > usersList.length) {
-        message.channel.send('Nombre invalide')
-      } else {
-        return usersList[num - 1].user
-      }
+      })
     }
   },
 
@@ -183,12 +193,11 @@ module.exports = {
    *
    * @param cmd
    * @param message
-   * @param config
    * @returns {MessageEmbed}
    */
-  messageCommandRun (cmd, message, config) {
+  messageCommandRun (cmd, message) {
     return new MessageEmbed()
-      .setColor(config.embed.color)
+      .setColor(message.client.config.embed.color)
       .setDescription(`Command \`${cmd}\` executed`)
       .setThumbnail(message.author.displayAvatarURL())
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
