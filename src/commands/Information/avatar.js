@@ -23,8 +23,7 @@ module.exports = class Avatar extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    console.log(user)
-    if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+    if (!user) return
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
