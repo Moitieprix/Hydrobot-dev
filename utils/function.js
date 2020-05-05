@@ -70,8 +70,8 @@ module.exports = {
 
       const embed = new MessageEmbed()
         .setColor(message.client.config.embed.color)
-        .setTitle('Plusieurs utilisateurs ont été trouvés. \nSelectionnez celui que vous desirez en envoyant le nombre à côté de celui-ci (vous avez 15s)')
-        .setDescription(`${usersList.map((user, i) => `${i + 1} • ${user.displayName} - **${user.user.tag}**`).join(' \n')} \n\ncancel • Annuler la recherche`)
+        .setTitle(message.language.get('UTILS').USERFILTER[0])
+        .setDescription(`${usersList.map((user, i) => `${i + 1} • ${user.displayName} - **${user.user.tag}**`).join(' \n')} \n\n${message.language.get('UTILS').USERFILTER[1]}`)
         .setTimestamp()
         .setFooter(message.client.user.username, message.client.user.avatarURL())
       message.channel.send(embed)
@@ -81,18 +81,20 @@ module.exports = {
 
         collector.on('collect', collected => {
           if (collected.content === 'cancel') collector.stop('queryCancelled')
-          const num = parseInt(collected.content)
+          else {
+            const num = parseInt(collected.content)
 
-          if (isNaN(num) || num <= 0 || num > usersList.length) {
-            message.channel.send('Nombre invalide')
-          } else {
-            resolve(usersList[num - 1].user)
-            collector.stop('collectorResolve')
+            if (isNaN(num) || num <= 0 || num > usersList.length) {
+              message.channel.send(message.language.get('UTILS').USERFILTER[2])
+            } else {
+              resolve(usersList[num - 1].user)
+              collector.stop('collectorResolve')
+            }
           }
         })
 
         collector.on('end', (collected, reason) => {
-          if (reason === 'queryCancelled') message.channel.send('Recherche annulé ! ')
+          if (reason === 'queryCancelled') message.channel.send(message.language.get('UTILS').USERFILTER[3])
           if (reason !== 'collectorResolve' && reason !== 'queryCancelled') message.channel.send('Timeout')
           resolve(false)
         })
@@ -321,24 +323,24 @@ module.exports = {
         [{
           'roles': [],
           'channels': [],
-          'sanction': 0
+          'sanction': 1
         }],
         [{
           'roles': [],
           'channels': [],
           'words': [],
-          'sanction': 0
+          'sanction': 1
         }],
         [{
           'roles': [],
           'channels': [],
-          'sanction': 0
+          'sanction': 1
         }],
         [{
           'roles': [],
           'channels': [],
           'max': 5,
-          'sanction': 0
+          'sanction': 1
         }],
         [],
         [],
