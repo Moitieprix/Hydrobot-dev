@@ -7,7 +7,7 @@ module.exports = class {
     this.language = {
 
       // Global
-      INFO_PREFIX: prefix => `${emote.others.help} • Salut ! Mon préfixe sur ce serveur est \`${prefix}\``,
+      INFO_PREFIX: prefix => `${emote.others.help} • Salut ! Mon préfixe sur ce serveur est \`${prefix}\`. Effectue la commande \`${prefix}help\` pour obtenir la liste de mes commandes !`,
 
       UTILS: {
         ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réesayer plus tard !`,
@@ -225,8 +225,8 @@ module.exports = class {
       ],
 
       // anticaps.js
-      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
-      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps setup\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps setsanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-majuscules \n• \`${prefix}anticaps addrole | removerole <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps addchannel | removechannel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
+      ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps setup\` \n\`${prefix}anticaps sanction 2\` \n\`${prefix}anticaps addrole @moderateur\` \n\`${prefix}anticaps removerole 669986011861745672\` \n\`${prefix}anticaps addchannel #shitpost\` \n\`${prefix}anticaps removechannel 669967519942967306\``,
 
       ANTICAPS: [
         `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
@@ -245,7 +245,7 @@ module.exports = class {
         'Salons ignorés :',
         'Aucun salon !',
         'Arguments disponibles pour l\'anti-majuscules',
-        '• `setup` : Afficher la configuration de l\'anti-majuscules \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
+        '• `setup` : Afficher la configuration de l\'anti-majuscules \n• `setsanction` - Configuer le type de sanction de l\'anti-majuscules \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-majuscules \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-majuscules'
       ],
 
       // antilink.js
@@ -260,12 +260,16 @@ module.exports = class {
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
-        '**Liste des rôles ignorés par l\'anti-lien**',
+        '**Liste des différentes sanctions**',
+        '• 1 - Message supprimé \n• 2 - Avertissement de l\'auteur \n• 3 - Messagé supprimé et avertissement',
+        '**Configuration de l\'anti-lien**',
+        'Type de sanction :',
+        'Rôles ignorés :',
         'Aucun rôle !',
-        '**Liste des salons ignorés par l\'anti-lien**',
+        'Salons ignorés :',
         'Aucun salon !',
         '**Arguments disponibles pour l\'anti-lien**',
-        '• `setup` : Afficher la configuration de l\'anti-lien \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-lien \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-lien'
+        '• `setup` : Afficher la configuration de l\'anti-lien \n• `setsanction` - Configuer le type de sanction de l\'anti-majuscules \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-lien \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-lien'
       ],
 
       // autorole.js
@@ -298,11 +302,15 @@ module.exports = class {
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
         `${emote.others.no} • Tu dois m'indiquer un mot !`,
-        '**Liste des mots bannis**',
-        'Aucun mot !',
-        '**Liste des rôles ignorés par l\'anti-lien**',
+        '**Liste des différentes sanctions**',
+        '• 1 - Message supprimé \n• 2 - Avertissement de l\'auteur \n• 3 - Messagé supprimé et avertissement',
+        '**Configuration de l\'anti-lien**',
+        'Type de sanction :',
+        'Mots bannis :',
+        'Aucun mot',
+        'Rôles ignorés :',
         'Aucun rôle !',
-        '**Liste des salons ignorés par l\'anti-lien**',
+        'Salons ignorés :',
         'Aucun salon !',
         '**Arguments disponibles pour l\'anti-badwords**',
         '• `roles` : Afficher la liste des rôles ignorés par l\'anti-badwords \n• `channels` : Afficher la liste des channels ignorés par l\'anti-badwords \n• `words` : Afficher la liste des mots bannis \n• `addrole | removerole` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-badwords \n• `addchannel | removechannel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-badwords \n• `addword | removeword` : Ajouter ou supprimer des mots bannis'
