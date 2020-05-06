@@ -95,9 +95,9 @@ class Hydrobot extends Client {
 const client = new Hydrobot({
   disableMentions: 'everyone',
   partials: ['MESSAGE', 'GUILD_MEMBER', 'USER'],
-  //ws: {
-  // intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS']
-  //}
+  ws: {
+   intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_PRESENCES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES']
+  }
 })
 
 /**
@@ -112,18 +112,18 @@ const init = async () => {
     if (err) return client.logger.error(err)
     client.logger.info(`${files.length} folders loaded`)
 
-    files.forEach(async (path) => {
+    for (const path of files) {
       client.logger.info(`Folder loaded : ${path}`)
       readdir(`./src/commands/${path}/`, (err, commands) => {
-        commands.filter((file) => file.endsWith('.js')).forEach((command) => {
+        for (const command of commands.filter((file) => file.endsWith('.js'))) {
           const response = client.loadCommand(`./src/commands/${path}`, command)
 
           if (response) {
             client.logger.error(response)
           }
-        })
+        }
       })
-    })
+    }
   })
 
   readdir('./src/events/', (err, files) => {
@@ -131,13 +131,14 @@ const init = async () => {
     if (err) return client.logger.error(err)
     client.logger.info(`${files.length} events loaded`)
 
-    files.filter(file => file.endsWith('.js')).forEach(events => {
+    for (const events of files.filter(file => file.endsWith('.js'))) {
       const event = require(`./src/events/${events}`)
 
       client.on(events.split('.')[0], event.bind(null, client))
       delete require.cache[require.resolve(`./src/events/${events}`)]
-    })
+    }
   })
+
 
   client.database.connect()
     .then(() => client.logger.database('Connected to the PostgreSQL database'))
