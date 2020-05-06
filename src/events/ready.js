@@ -5,15 +5,11 @@ const { WebhookClient, MessageEmbed } = require('discord.js')
 module.exports = async (client) => {
   client.logger.info('Hydrobot ready!')
 
-  const users = await client.shard.fetchClientValues('users.cache.size')
+  const users = await client.shard.broadcastEval('this.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)')
   const guilds = await client.shard.fetchClientValues('guilds.cache.size')
 
-  let usersSize = 0
-  let guildsSize = 0
-  for (let i = 0; i < client.shard.count; i++) {
-    usersSize = usersSize + users[i]
-    guildsSize = guildsSize + guilds[i]
-  }
+  const usersSize = users.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  const guildsSize = guilds.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
   const embed = new MessageEmbed()
     .setTitle('Bot Ready')
@@ -30,16 +26,16 @@ module.exports = async (client) => {
 
   const games = [
     {
-      name: `mention me ! • ${client.config.version}`
+      name: `h!guide ! • ${client.config.version}`
     },
     {
-      name: `mention me ! • ${usersSize} users`
+      name: `h!guide ! • ${usersSize} users`
     },
     {
-      name: `mention me ! • ${guildsSize} guilds`
+      name: `h!guide ! • ${guildsSize} guilds`
     },
     {
-      name: 'mention me ! • Thank for using me ! ❤'
+      name: 'h!guide ! • Thank for using me ! ❤'
     }
   ]
 
