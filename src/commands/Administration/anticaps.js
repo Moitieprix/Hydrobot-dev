@@ -103,6 +103,7 @@ module.exports = class Antilink extends Command {
           const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
               data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
               `• <@&${role}>`
             }
@@ -111,6 +112,7 @@ module.exports = class Antilink extends Command {
           const mentionChannel = data.channels.map((channel, i) => {
             if (!message.guild.channels.cache.get(channel)) {
               data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
               `• <#${channel}>`
             }
@@ -132,8 +134,8 @@ module.exports = class Antilink extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTICAPS')[14])
-            .setDescription(message.language.get('ANTICAPS')[15])
+            .setTitle(message.language.get('ANTICAPS')[15])
+            .setDescription(message.language.get('ANTICAPS')[16])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
