@@ -21,16 +21,11 @@ module.exports = class About extends Command {
   }
 
   async run (message) {
-    const users = await this.client.shard.fetchClientValues('users.cache.size')
+    const users = await this.client.shard.broadcastEval('this.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)')
     const guilds = await this.client.shard.fetchClientValues('guilds.cache.size')
 
-    let usersSize = 0
-    let guildsSize = 0
-
-    for (let i = 0; i < this.client.shard.count; i++) {
-      usersSize = usersSize + users[i]
-      guildsSize = guildsSize + guilds[i]
-    }
+    const usersSize = users.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    const guildsSize = guilds.reduce((accumulator, currentValue) => accumulator + currentValue)
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
@@ -41,7 +36,7 @@ module.exports = class About extends Command {
       .addField(message.language.get('ABOUT')[2], '`Ernest` \n`Matthieu` \n`Maxime LUCE`', true)
       .addField('\u200b', '\u200b', false)
       .addField(message.language.get('ABOUT')[3], `\`\`\`${usersSize} ${message.language.get('ABOUT')[5]} \n${guildsSize} ${message.language.get('ABOUT')[6]} \nUptime : ${this.client.functions.getDuration(Math.floor(process.uptime() * 1000))}\`\`\``, true)
-      .addField(message.language.get('ABOUT')[4] + ` (#${message.guild.shard.id})`, `\`\`\`${this.client.users.cache.size} ${message.language.get('ABOUT')[5]} \n${this.client.guilds.cache.size} ${message.language.get('ABOUT')[6]} \nUptime : ${this.client.functions.getDuration(Math.floor(this.client.uptime))}\`\`\``, true)
+      .addField(message.language.get('ABOUT')[4] + ` (#${message.guild.shard.id})`, `\`\`\`${this.client.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)} ${message.language.get('ABOUT')[5]} \n${this.client.guilds.cache.size} ${message.language.get('ABOUT')[6]} \nUptime : ${this.client.functions.getDuration(Math.floor(this.client.uptime))}\`\`\``, true)
       .addField('\u200b', '\u200b', false)
       .addField(message.language.get('ABOUT')[7], `\`${this.client.config.version}\``, true)
       .addField(`${this.client.emote.others.nodejs} • Node.js :`, `\`${process.version}\``, true)
