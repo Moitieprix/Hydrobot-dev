@@ -73,56 +73,62 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('REMOVECHANNEL', channel))
           break
 
-        case 'roles':
-          let mentionRole = []
-
-          for (const role of data.roles) {
-            if (!message.guild.roles.cache.get(role)) {
-              const pos = data.roles.indexOf(role)
-              data.roles.splice(pos, 1)
-            } else {
-              mentionRole.push(`• <@&${role}>`)
-            }
-          }
-
-          const embedRoles = new MessageEmbed()
+        case 'setsanction':
+          const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
-            .setTimestamp()
             .setTitle(message.language.get('ANTILINK')[7])
-            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('ANTILINK')[8])
+            .setDescription(message.language.get('ANTILINK')[8])
+            .setTimestamp()
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-          message.channel.send(embedRoles)
+          if (!args[0]) return message.channel.send(embedSanction)
+
+          if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
+            data.sanction = parseInt(args[0])
+            this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
+            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
+
+          } else message.channel.send(message.language.get('SANCTION')[4])
           break
 
-        case 'channels':
-          let mentionChannel = []
-
-          for (const channel of data.channels) {
-            if (!message.guild.channels.cache.get(channel)) {
-              const pos = data.channels.indexOf(channel)
-              data.channels.splice(pos, 1)
+        case 'setup':
+          const mentionRole = data.roles.map((role, i) => {
+            if (!message.guild.roles.cache.get(role)) {
+              data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              mentionChannel.push(`• <#${channel}>`)
+              `• <@&${role}>`
             }
-          }
+          })
 
-          const embedChannel = new MessageEmbed()
+          const mentionChannel = data.channels.map((channel, i) => {
+            if (!message.guild.channels.cache.get(channel)) {
+              data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
+            } else {
+              `• <#${channel}>`
+            }
+          })
+
+          const embedSetup = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
             .setTitle(message.language.get('ANTILINK')[9])
-            .setDescription(mentionChannel.length > 0 ? mentionChannel.join(' \n') : message.language.get('ANTILINK')[10])
+            .addField(message.language.get('ANTILINK')[10], message.language.get('SANCTION')[data.sanction - 1])
+            .addField(message.language.get('ANTILINK')[11], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTILINK')[12]}`)
+            .addField(message.language.get('ANTILINK')[13], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTILINK')[14]}`)
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-          message.channel.send(embedChannel)
+          message.channel.send(embedSetup)
+
           break
 
         default:
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('ANTILINK')[11])
-            .setDescription(message.language.get('ANTILINK')[12])
+            .setTitle(message.language.get('ANTILINK')[15])
+            .setDescription(message.language.get('ANTILINK')[16])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
