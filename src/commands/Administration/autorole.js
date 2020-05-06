@@ -53,16 +53,14 @@ module.exports = class Autorole extends Command {
 
         case 'roles':
 
-          let mentionRole = []
-
-          for (const role of data) {
+          const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
-              const pos = data.indexOf(role)
-              data.splice(pos, 1)
+              data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
             } else {
-              mentionRole.push(`• <@&${role}>`)
+              `• <@&${role}>`
             }
-          }
+          })
 
           const embedRoles = new MessageEmbed()
             .setColor(this.client.config.embed.color)
