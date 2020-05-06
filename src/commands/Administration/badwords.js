@@ -87,67 +87,62 @@ module.exports = class Badwords extends Command {
           message.channel.send(message.language.get('REMOVEWORD', args[1]))
           break
 
-        case 'words':
-          const embedWords = new MessageEmbed()
+        case 'setsanction':
+          const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
-            .setTimestamp()
             .setTitle(message.language.get('BADWORDS')[8])
-            .setDescription(data.words.length > 0 ? '•' + data.words.join(' \n•') : message.language.get('BADWORDS')[9])
+            .setDescription(message.language.get('BADWORDS')[9])
+            .setTimestamp()
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-          message.channel.send(embedWords)
+          if (!args[0]) return message.channel.send(embedSanction)
+
+          if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
+            data.sanction = parseInt(args[0])
+            this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
+            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
+
+          } else message.channel.send(message.language.get('SANCTION')[4])
           break
 
-        case 'roles':
-          let mentionRole = []
-
-          for (const role of data.roles) {
+        case 'setup':
+          const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
-              const pos = data.roles.indexOf(role)
-              data.roles.splice(pos, 1)
+              data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              mentionRole.push(`• <@&${role}>`)
+              `• <@&${role}>`
             }
-          }
+          })
 
-          const embedRoles = new MessageEmbed()
+          const mentionChannel = data.channels.map((channel, i) => {
+            if (!message.guild.channels.cache.get(channel)) {
+              data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
+            } else {
+              `• <#${channel}>`
+            }
+          })
+
+          const embedSetup = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
             .setTitle(message.language.get('BADWORDS')[10])
-            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('BADWORDS')[11])
+            .addField(message.language.get('BADWORDS')[11], message.language.get('SANCTION')[data.sanction - 1])
+            .addField(message.language.get('BADWORDS')[12], data.words.length > 0 ? '•' + data.words.join(' \n•') : message.language.get('BADWORDS')[13])
+            .addField(message.language.get('BADWORDS')[14], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTICAPS')[15]}`)
+            .addField(message.language.get('BADWORDS')[16], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTICAPS')[17]}`)
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-          message.channel.send(embedRoles)
-          break
-
-        case 'channels':
-          let mentionChannel = []
-
-          for (const channel of data.channels) {
-            if (!message.guild.channels.cache.get(channel)) {
-              const pos = data.channels.indexOf(channel)
-              data.roles.splice(pos, 1)
-            } else {
-              mentionChannel.push(`• <#${channel}>`)
-            }
-          }
-
-          const embedChannel = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTimestamp()
-            .setTitle(message.language.get('BADWORDS')[12])
-            .setDescription(mentionChannel.length > 0 ? mentionChannel.join(' \n') : message.language.get('BADWORDS')[13])
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          message.channel.send(embedChannel)
+          message.channel.send(embedSetup)
           break
 
         default:
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('BADWORDS')[14])
-            .setDescription(message.language.get('BADWORDS')[15])
+            .setTitle(message.language.get('BADWORDS')[18])
+            .setDescription(message.language.get('BADWORDS')[19])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
