@@ -38,7 +38,7 @@ module.exports = class Logs extends Command {
         case 'list':
           const embedList = new MessageEmbed()
             .setColor(this.client.config.embed.color)
-            .setDescription(logslist.map((log, i) => res.rows[0]['logs_list'][logslist[i]] === true ? `**${logslist[i]}** : ${this.client.emote.others.on}` : `**${logslist[i]}** : ${this.client.emote.others.off}`).join(' \n'))
+            .setDescription(logslist.map(log => res.rows[0]['logs_list'][log] === true ? `**${log}** : ${this.client.emote.others.on}` : `**${log}** : ${this.client.emote.others.off}`).join(' \n'))
             .setTimestamp()
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
