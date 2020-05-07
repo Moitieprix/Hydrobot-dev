@@ -100,14 +100,15 @@ module.exports = class Antilink extends Command {
           break
 
         case 'setup':
-          const mentionRole = data.roles.map((role, i) => {
-            if (!message.guild.roles.cache.get(role)) {
-              data.roles.splice(i, 1)
-              this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-            } else {
-              `• <@&${role}>`
-            }
-          })
+            const mentionRole = data.roles.map((role, i) => {
+              if (!message.guild.roles.cache.get(role)) {
+                data.roles.splice(i, 1)
+                this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
+              } else {
+                `• <@&${role}>`
+              }
+            })
+
 
           const mentionChannel = data.channels.map((channel, i) => {
             if (!message.guild.channels.cache.get(channel)) {
