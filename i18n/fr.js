@@ -29,6 +29,7 @@ module.exports = class {
         BADWORDS_WARN: `${emote.others.no} • Ce mot n'est pas autorisé ici !`,
         ANTILINK_WARN: `${emote.others.no} • Les liens ne sont pas autorisés ici !`,
         ANTICAPS_WARN: `${emote.others.no} • Le capslock n'est pas autorisé ici !`,
+        MASSMENTIONS_WARN: `${emote.others.no} • Ton message contient trop de mentions !`,
 
         MONTHS: {
           Jan: 'Janvier',
@@ -216,8 +217,9 @@ module.exports = class {
       REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons ignorés`,
       ADDWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été ajouté à la liste des mots bannis`,
       REMOVEWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été retiré de la liste des mots bannis`,
+      SETLIMIT: number => `${emote.others.yes} • Le nombre de mentions maximal dans un message a été fixé à \`${number}\``,
 
-      SANCTIONS: [
+      SANCTION: [
         `${emote.others.yes} • Sanction fixé sur : \`Message supprimé\``,
         `${emote.others.yes} • Sanction fixé sur : \`Avertissement de l'auteur\``,
         `${emote.others.yes} • Sanction fixé sur : \`Message supprimé et avertissement\``,
@@ -306,7 +308,7 @@ module.exports = class {
         `${emote.others.no} • Ce mot n'est pas banni !`,
         '**Liste des différentes sanctions**',
         '• 1 - Message supprimé \n• 2 - Avertissement de l\'auteur \n• 3 - Messagé supprimé et avertissement',
-        '**Configuration de l\'anti-lien**',
+        '**Configuration de l\'anti-badwords**',
         'Type de sanction :',
         'Mots bannis :',
         'Aucun mot',
@@ -335,6 +337,58 @@ module.exports = class {
         `${emote.others.yes} • Tout les logs ont été désactivés !`,
         '**Arguments disponibles pour la commande logs**',
         '• `nom du log` - Activer ou désactiver le log mentionné \n• `set-channel` - Configurer le salon d\'envoi des logs \n• `enable-all | disable-all` - Activer ou désactiver l\'intégralité des logs'
+      ],
+
+      // mass-mentions.js
+      MASSMENTIONS_USAGE: prefix => `• \`${prefix}mass-mentions\` - Affiche la liste des arguments disponibles pour l'anti-mass-mentions \n• \`${prefix}mass-mentions setup\` - Affiche la configuration de l'anti-mass-mentions \n• \`${prefix}mass-mentions set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-mass-mentions \n• \`${prefix}mass-mentions set-limit <nombre>\` - Configure le nombre maximal de mentions par message \n• \`${prefix}mass-mentions add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-mass-mentions \n• \`${prefix}mass-mentions add-channel | remove-channel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-mass-mentions`,
+      MASSMENTIONS_EXAMPLE: prefix => `\`${prefix}mass-mentions set-sanction 2\` \n\`${prefix}mass-mentions set-limit 5\` \n\`${prefix}mass-mentions add-role @moderateur\` \n\`${prefix}mass-mentions remove-role 669986011861745672\` \n\`${prefix}mass-mentions add-channel #shitpost\` \n\`${prefix}mass-mentions remove-channel 669967519942967306\``,
+
+      MASSMENTION: [
+        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
+        `${emote.others.no} • Ce rôle est déjà immunisé !`,
+        `${emote.others.no} • Ce rôle n'est pas immunisé !`,
+        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
+        `${emote.others.no} • Ce salon est déjà immunisé !`,
+        `${emote.others.no} • Le salon doit être uniquement textuel !`,
+        `${emote.others.no} • Ce salon n'est pas immunisé !`,
+        `${emote.others.no} • Tu dois m'indiquer un nombre entier valide !`,
+        `${emote.others.no} • Le nombre doit être inclue entre 1 et 20 !`,
+        '**Liste des différentes sanctions**',
+        '• 1 - Message supprimé \n• 2 - Avertissement de l\'auteur \n• 3 - Messagé supprimé et avertissement',
+        '**Configuration de l\'anti-mass-mentions**',
+        'Type de sanction :',
+        'Rôles ignorés :',
+        'Aucun rôle !',
+        'Salons ignorés :',
+        'Aucun salon !',
+        'Arguments disponibles pour l\'anti-majuscules',
+        '• `setup` : Afficher la configuration de l\'anti-mass-mentions \n• `set-sanction` - Configuer le type de sanction de l\'anti-mass-mentions \n• `set-limit` - Configurer le nombre maximal de mentions par message \n• `add-role | remove-role` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-mass-mentions \n• `add-channel | remove-channel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-mass-mentions'
+      ],
+
+      // plugin.js
+      PLUGIN_USAGE: prefix => `${prefix} < list | plugin >`,
+      PLUGIN_EXAMPLE: prefix => `${prefix} list \n${prefix} logs`,
+      PLUGIN_ENABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été activé !`,
+      PLUGIN_DISABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été désactivé !`,
+      PLUGIN_ARGS: `${emote.others.no} • Argument invalide !`,
+
+      PLUGIN: [
+        `${emote.others.yes} • Tout les plugins ont été activés !`,
+        `${emote.others.yes} • Tout les plugins ont été désactivés !`,
+        '**Arguments disponibles pour la commande plugin**',
+        '• `nom du plugin` - Activer ou désactiver le plugin mentionné \n• `enable-all | disable-all` - Activer ou désactiver l\'intégralité des plugins'
+      ],
+
+      // prefix.js
+      PREFIX_USAGE: prefix => `\`${prefix}prefix <préfixe>\` - Modifie le prefix d'Hydrobot sur le serveur`,
+      PREFIX_EXEMPLE: prefix => `\`${prefix}prefix ?\``,
+      PREFIX_CHANGE_DESC: args => `Le préfixe a bien été changé pour \`${args[0]}\``,
+
+      PREFIX: [
+        `${emote.others.no} • Tu dois m'indiquer un préfixe !`,
+        `${emote.others.no} • Le préfixe ne doit pas contenir plus de 3 caractères`,
+        `${emote.others.no} • Certains caractères ne sont pas autorisés (Les caractères autorisés sont : a-z, A-Z, !?;:*-+=$/@)`,
+        `${emote.others.yes} • Changement de préfixe`,
       ],
 
       // FUN //
@@ -396,24 +450,6 @@ module.exports = class {
         'Bande passante :',
         'Bande passante non ajustée :',
       ],
-
-      // Prefix
-      PREFIX_DESCRIPTION: 'Change ou réinitialise le préfixe du serveur',
-      PREFIX_USAGE: prefix => `${prefix}préfixe <prefix / reset>`,
-      PREFIX_EXEMPLE: prefix => `${prefix}prefix ? \nh${prefix}prefix reset`,
-      PREFIX_ARGS: `${emote.others.no} • Tu dois m'indiquer un préfixe !`,
-      PREFIX_LENGTH: `${emote.others.no} • Le préfixe ne doit pas contenir plus de 3 caractères`,
-      PREFIX_ASCII: `${emote.others.no} • Certains caractères ne sont pas autorisés (Les caractères autorisés sont : a-z, A-Z, !?;:*-+=$/@)`,
-      PREFIX_CHANGE: `${emote.others.yes} • Changement de préfixe`,
-      PREFIX_CHANGE_DESC: args => `Le préfixe a bien été changé pour \`${args[0]}\``,
-
-      //Plugin
-      PLUGIN_DESCRIPTION: 'Commande de setup des plugins',
-      PLUGIN_USAGE: prefix => `${prefix} < list | plugin >`,
-      PLUGIN_EXEMPLE: prefix => `${prefix} list \n${prefix} logs`,
-      PLUGIN_ENABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été activé !`,
-      PLUGIN_DISABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été désactivé !`,
-      PLUGIN_ARGS: `${emote.others.no} • Argument invalide !`,
 
       // Avatar
       AVATAR_DESC: 'Affiche la photo de profil d\'un utilisateur',
