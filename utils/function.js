@@ -278,7 +278,6 @@ module.exports = {
           anticaps: false,
           badwords: false,
           captcha: false,
-          antiJoin: false,
           nsfw: false,
           customCommands: false,
           images: false,
