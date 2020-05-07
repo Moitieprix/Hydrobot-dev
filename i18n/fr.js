@@ -200,7 +200,7 @@ module.exports = class {
         ],
       },
 
-      // Paramètres commandes
+      // Commands options
       COMMANDE_DISABLED: `${emote.others.no} • Cette commande est désactivée, elle sera réactivé prochainement !`,
       BOT_PERMISSION: permissions => `${emote.others.no} • Je n'ai pas les permissions nécessaires pour effectuer cette commande ! ${permissions}`,
       USER_PERMISSION: permissions => `${emote.others.no} • Tu n'as pas les permissions nécessaires pour effectuer cette commande ! ${permissions}`,
@@ -678,10 +678,10 @@ module.exports = class {
       WEATHER_USAGE: prefix => `${prefix}weather <lieu>`,
       WEATHER_EXEMPLE: prefix => `${prefix}weather Paris`,
       WEATHER_TEMPS: {
-        Sunny: 'Soleil',
-        Clear: 'Dégagé',
+        'Sunny': 'Soleil',
+        'Clear': 'Dégagé',
         'Mostly Sunny': 'Assez ensoleillé',
-        Cloudy: 'Nuageux',
+        'Cloudy': 'Nuageux',
         'Mostly Cloudy': 'Plutôt nuageux',
         'Light Rain': 'Pluie légère',
         'Partly Sunny': 'Partiellement ensoleillé',
@@ -690,8 +690,8 @@ module.exports = class {
         'Rain Showers': 'Averses de pluie',
         'Light Snow': 'Neige légère',
         'Mostly Clear': 'Plutôt dégagé',
-        Rain: 'Pluie',
-        Snow: 'Neige'
+        'Rain': 'Pluie',
+        'Snow': 'Neige'
       },
 
       WEATHER_ARGS: `${emote.others.no} • Tu dois rentrer une localisation !`,
