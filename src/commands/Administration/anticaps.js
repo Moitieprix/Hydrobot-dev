@@ -11,7 +11,7 @@ module.exports = class Antilink extends Command {
       enabled: true,
       owner: false,
       plugin: false,
-      aliases: [],
+      aliases: ['anti-caps', 'capslock', 'anticapslock', 'anti-capslock'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
       usage: (language, prefix) => language.get('ANTICAPS_USAGE', prefix),
@@ -27,7 +27,7 @@ module.exports = class Antilink extends Command {
       const data = JSON.parse(res.rows[0].anticaps[0])
 
       switch (args[0]) {
-        case 'addrole':
+        case 'add-role':
 
           const roleAdd = this.client.functions.roleFilter(message, args[1])
 
@@ -41,7 +41,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('ADDROLE', roleAdd))
           break
 
-        case 'removerole':
+        case 'remove-role':
 
           const roleRemove = this.client.functions.roleFilter(message, args[1])
 
@@ -54,7 +54,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('REMOVEROLE', roleRemove))
           break
 
-        case 'addchannel':
+        case 'add-channel':
           const channelAdd = this.client.functions.channelFilter(message, args[1])
 
           if (!channelAdd) return message.channel.send(message.language.get('ANTICAPS')[3])
@@ -69,7 +69,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
           break
 
-        case 'removechannel':
+        case 'remove-channel':
           const channelRemove = this.client.functions.channelFilter(message, args[1])
 
           if (!channelRemove) return message.channel.send(message.language.get('ANTICAPS')[3])
@@ -81,7 +81,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
           break
 
-        case 'setsanction':
+        case 'set-sanction':
           const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTitle(message.language.get('ANTICAPS')[7])
