@@ -77,7 +77,7 @@ module.exports = {
       message.channel.send(embed)
 
       return await new Promise((resolve) => {
-        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, {time: 15000});
+        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, {time: 15000})
 
         collector.on('collect', collected => {
           if (collected.content === 'cancel') collector.stop('queryCancelled')
@@ -277,6 +277,7 @@ module.exports = {
           antilink: false,
           anticaps: false,
           badwords: false,
+          massmentions: false,
           captcha: false,
           nsfw: false,
           customCommands: false,
