@@ -1,19 +1,21 @@
+'use strict'
+
 const Command = require('../../../core/Command.js')
 
-class Language extends Command {
+module.exports = class Language extends Command {
   constructor (client) {
     super(client, {
       name: 'language',
-      usage: 'language <langue / reset>',
-      enabled: true,
-      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORIE,
-      aliases: [],
+      cooldown: 5,
+      enabled: false,
+      owner: false,
+      plugin: false,
+      aliases: ['lang', 'setlanguage', 'setlang'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
-      examples: 'h!language fr \nh!language reset',
-      owner: false,
-      nsfw: false,
-      plugin: false
+      usage: (language, prefix) => language.get('LANGUAGE_USAGE', prefix),
+      category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
+      examples: (language, prefix) => language.get('LANGUAGE_EXAMPLE', prefix)
     })
   }
 
@@ -22,4 +24,3 @@ class Language extends Command {
   }
 }
 
-module.exports = Language
