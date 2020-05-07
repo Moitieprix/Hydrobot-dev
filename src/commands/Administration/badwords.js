@@ -154,8 +154,8 @@ module.exports = class Badwords extends Command {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
-            .setTitle(message.language.get('BADWORDS')[18])
-            .setDescription(message.language.get('BADWORDS')[19])
+            .setTitle(message.language.get('BADWORDS')[20])
+            .setDescription(message.language.get('BADWORDS')[21])
             .setFooter(this.client.user.username, this.client.user.avatarURL())
 
           message.channel.send(embed)
