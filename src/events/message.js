@@ -26,19 +26,17 @@ module.exports = async (client, message) => {
 
       const dataBadwords = JSON.parse(res.rows[0].badwords[0])
       if (res.rows[0].system.badwords) {
-        if (dataBadwords.roles.length === 0 || !message.member.roles.cache.some(r => dataBadwords.roles.includes(r.id))) {
-          if (dataBadwords.channels.length === 0 || !dataBadwords.channels.includes(message.channel.id)) {
-            if (dataBadwords.words.length > 0) {
-              const array = dataBadwords.words
-              const words = message.content.toLowerCase().trim().split(' ')
-              for (let i = 0; i < array.length; i++) {
-                const test = words.some(word => {
-                  return array[i].toLowerCase().includes(word)
-                })
-                if (test && words.includes(array[i].toLowerCase())) {
-                  message.delete()
-                  return message.author.send(message.language.get('UTILS').BADWORDS_WARN).catch()
-                }
+        if ((dataBadwords.roles.length === 0 || !message.member.roles.cache.some(r => dataBadwords.roles.includes(r.id))) && (dataBadwords.channels.length === 0 || !dataBadwords.channels.includes(message.channel.id))) {
+          if (dataBadwords.words.length > 0) {
+            const array = dataBadwords.words
+            const words = message.content.toLowerCase().trim().split(' ')
+            for (let i = 0; i < array.length; i++) {
+              const test = words.some(word => {
+                return array[i].toLowerCase().includes(word)
+              })
+              if (test && words.includes(array[i].toLowerCase())) {
+                message.delete()
+                return message.author.send(message.language.get('UTILS').BADWORDS_WARN).catch()
               }
             }
           }
@@ -67,6 +65,18 @@ module.exports = async (client, message) => {
           if (percentile > 70 && message.content.length > 6) {
             message.delete()
             return message.author.send(message.language.get('UTILS').ANTICAPS_WARN).catch()
+          }
+        }
+      }
+
+      const dataMassmentions = JSON.parse(res.rows[0].massmentions[0])
+      if (res.rows[0].system.massmentions) {
+        if ((dataMassmentions.roles.length === 0 || !message.member.roles.cache.some(r => dataMassmentions.roles.includes(r.id))) && (dataMassmentions.channels.length === 0 || !dataMassmentions.channels.includes(message.channel.id))) {
+          const mentionsSize = message.mentions.users.size
+
+          if (mentionsSize > dataMassmentions.max) {
+            message.delete()
+            return message.author.send(message.language.get('UTILS').MASSMENTIONS_WARN).catch()
           }
         }
       }
