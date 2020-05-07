@@ -11,7 +11,7 @@ module.exports = class Antilink extends Command {
       enabled: true,
       owner: false,
       plugin: false,
-      aliases: [],
+      aliases: ['anti-link', 'antiurl', 'anti-url'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
       usage: (language, prefix) => language.get('ANTILINK_USAGE', prefix),
@@ -30,7 +30,7 @@ module.exports = class Antilink extends Command {
       const channel = this.client.functions.channelFilter(message, args[1])
 
       switch (args[0]) {
-        case 'addrole':
+        case 'add-role':
 
           if (!role) return message.channel.send(message.language.get('ANTILINK')[0])
           if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('ANTILINK')[1])
@@ -40,7 +40,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('ADDROLE', role))
           break
 
-        case 'removerole':
+        case 'remove-role':
 
           if (!role) return message.channel.send(message.language.get('ANTILINK')[0])
           if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('ANTILINK')[2])
@@ -51,7 +51,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('REMOVEROLE', role))
           break
 
-        case 'addchannel':
+        case 'add-channel':
 
           if (!channel) return message.channel.send(message.language.get('ANTILINK')[3])
           if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTILINK')[4])
@@ -63,7 +63,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('ADDCHANNEL', channel))
           break
 
-        case 'removechannel':
+        case 'remove-channel':
           if (!channel) return message.channel.send(message.language.get('ANTILINK')[3])
           if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('ANTILINK')[6])
 
@@ -73,7 +73,7 @@ module.exports = class Antilink extends Command {
           message.channel.send(message.language.get('REMOVECHANNEL', channel))
           break
 
-        case 'setsanction':
+        case 'set-sanction':
           const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTitle(message.language.get('ANTILINK')[7])
