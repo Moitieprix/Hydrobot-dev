@@ -24,7 +24,7 @@ module.exports = class Plugin extends Command {
     this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], (err, res) => {
       if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
 
-      const plugins = ['logs', 'modlogs', 'autorole', 'welcome', 'goodbye', 'antilink', 'anticaps', 'badwords', 'captcha', 'antiJoin', 'nsfw', 'customCommands', 'images']
+      const plugins = ['logs', 'modlogs', 'autorole', 'welcome', 'goodbye', 'antilink', 'anticaps', 'badwords', 'captcha', 'nsfw', 'customCommands', 'images']
 
       if (plugins.includes(args[0])) {
         const plugin = plugins.find(p => p === args[0])
