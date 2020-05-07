@@ -30,7 +30,7 @@ module.exports = class Autorole extends Command {
       const getRole = message.guild.roles.cache.get(role)
 
       switch (args[0]) {
-        case 'addrole':
+        case 'add-role':
           if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
           if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
 
@@ -41,7 +41,7 @@ module.exports = class Autorole extends Command {
           message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
           break
 
-        case 'removerole':
+        case 'remove-role':
           if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
           if (data.roles === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[2])
 
