@@ -3,7 +3,7 @@
 const {MessageEmbed} = require('discord.js')
 const Command = require('../../../core/Command.js')
 
-module.exports = class Antilink extends Command {
+module.exports = class Anticaps extends Command {
   constructor (client) {
     super(client, {
       name: 'anticaps',
