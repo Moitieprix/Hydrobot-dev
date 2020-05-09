@@ -3,7 +3,7 @@
 const {MessageEmbed} = require('discord.js')
 const Command = require('../../../core/Command.js')
 
-module.exports = class Antilink extends Command {
+module.exports = class Massmentions extends Command {
   constructor (client) {
     super(client, {
       name: 'mass-mentions',
