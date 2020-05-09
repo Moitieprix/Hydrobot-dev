@@ -263,7 +263,7 @@ module.exports = {
 
   createDataSettings (id, database) {
     return new Promise(() => {
-      database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, antilink, badwords, anticaps, massmentions, autorole, cmd_guild, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)', [
+      database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, captcha, antilink, badwords, anticaps, massmentions, autorole, custom_cmd, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)', [
         id,
         false,
         'h!',
@@ -283,15 +283,13 @@ module.exports = {
           customCommands: false,
           images: false,
           picture: false,
-          pictureLink: '0',
-          captchaRole: '0'
+          pictureLink: '0'
         },
         {
           welcome: '0',
           goodbye: '0',
           logs: '0',
-          modlogs: '0',
-          captcha: '0'
+          modlogs: '0'
         },
         'Bienvenue à toi [USERNAME] sur [GUILD] !',
         'Au revoir [USERNAME] !',
@@ -320,6 +318,12 @@ module.exports = {
           userUpdate: true,
           voiceStateUpdate: true
         },
+        [{
+          'channel': '0',
+          'roles': [],
+          'time': '30',
+          'tests': '3'
+        }],
         [{
           'roles': [],
           'channels': [],
