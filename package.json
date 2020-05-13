@@ -18,7 +18,9 @@
     "pg": "^7.18.2",
     "sha.js": "^2.4.11",
     "speedtest-net": "^1.6.0",
+    "toml": "^3.0.0",
     "util": "^0.12.1",
     "weather-js": "^2.0.0"
-  }
+  },
+  "devDependencies": {}
 }
