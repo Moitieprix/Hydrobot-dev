@@ -1,0 +1,38 @@
+token = 'Client token'
+version = 'Client version'
+owners = [
+   'Admin 1',
+   'Admin 2',
+   '...'
+]
+
+[embed]
+color = 'Global embed color'
+
+[database]
+user = ''
+host = ''
+database = ''
+password = ''
+
+[webhooks]
+
+   [webhooks.boot]
+   id = ''
+   token = ''
+
+   [webhooks.commands]
+   id = ''
+   token = ''
+
+   [webhooks.shards]
+   id = ''
+   token = ''
+
+   [webhooks.errors]
+   id = ''
+   token = ''
+
+   [webhooks.guilds]
+   id = ''
+   token = ''
