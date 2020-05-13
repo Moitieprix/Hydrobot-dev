@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const Command = require('../../../core/Command.js')
 
 module.exports = class Anticaps extends Command {
@@ -27,8 +27,7 @@ module.exports = class Anticaps extends Command {
       const data = JSON.parse(res.rows[0].anticaps[0])
 
       switch (args[0]) {
-        case 'add-role':
-
+        case 'add-role': {
           const roleAdd = this.client.functions.roleFilter(message, args[1])
 
           if (!roleAdd) return message.channel.send(message.language.get('ANTICAPS')[0])
@@ -40,9 +39,9 @@ module.exports = class Anticaps extends Command {
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDROLE', roleAdd))
           break
+        }
 
-        case 'remove-role':
-
+        case 'remove-role': {
           const roleRemove = this.client.functions.roleFilter(message, args[1])
 
           if (!roleRemove) return message.channel.send(message.language.get('ANTICAPS')[0])
@@ -53,8 +52,9 @@ module.exports = class Anticaps extends Command {
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('REMOVEROLE', roleRemove))
           break
+        }
 
-        case 'add-channel':
+        case 'add-channel': {
           const channelAdd = this.client.functions.channelFilter(message, args[1])
 
           if (!channelAdd) return message.channel.send(message.language.get('ANTICAPS')[3])
@@ -68,8 +68,9 @@ module.exports = class Anticaps extends Command {
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
           break
+        }
 
-        case 'remove-channel':
+        case 'remove-channel': {
           const channelRemove = this.client.functions.channelFilter(message, args[1])
 
           if (!channelRemove) return message.channel.send(message.language.get('ANTICAPS')[3])
@@ -80,8 +81,9 @@ module.exports = class Anticaps extends Command {
           this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
           break
+        }
 
-        case 'set-sanction':
+        case 'set-sanction': {
           const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTitle(message.language.get('ANTICAPS')[7])
@@ -94,28 +96,29 @@ module.exports = class Anticaps extends Command {
           if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
             data.sanction = parseInt(args[0])
             this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
-
-          } else message.channel.send(message.language.get('SANCTION')[4])
+            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0]) - 1])
+          } else {
+            message.channel.send(message.language.get('SANCTION')[4])
+          }
           break
+        }
 
-        case 'setup':
-            const mentionRole = data.roles.map((role, i) => {
-              if (!message.guild.roles.cache.get(role)) {
-                data.roles.splice(i, 1)
-                this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
-              } else {
-                `• <@&${role}>`
-              }
-            })
-
+        case 'setup': {
+          const mentionRole = data.roles.map((role, i) => {
+            if (!message.guild.roles.cache.get(role)) {
+              data.roles.splice(i, 1)
+              this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
+            } else {
+              `• <@&${role}>`.toString()
+            }
+          })
 
           const mentionChannel = data.channels.map((channel, i) => {
             if (!message.guild.channels.cache.get(channel)) {
               data.roles.splice(i, 1)
               this.client.database.query('UPDATE settings SET anticaps = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              `• <#${channel}>`
+              `• <#${channel}>`.toString()
             }
           })
 
@@ -130,8 +133,9 @@ module.exports = class Anticaps extends Command {
 
           message.channel.send(embedSetup)
           break
+        }
 
-        default:
+        default: {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
@@ -141,6 +145,7 @@ module.exports = class Anticaps extends Command {
 
           message.channel.send(embed)
           break
+        }
       }
     })
   }
