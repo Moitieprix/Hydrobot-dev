@@ -1,9 +1,9 @@
 'use strict'
 
-const {Client} = require('discord.js')
-const {readdir, readFileSync} = require('fs')
-const PostgreSQL = require('pg')
-const {parse} = require('toml')
+const { Client } = require('discord.js')
+const { readdir, readFileSync } = require('fs')
+const { Client: PgClient } = require('pg')
+const { parse } = require('toml')
 
 /**
  * @class Hydrobot
@@ -11,19 +11,18 @@ const {parse} = require('toml')
  */
 
 class Hydrobot extends Client {
-
   constructor () {
     super()
 
     this.commands = {}
     this.aliases = {}
 
-    this.config = parse(readFileSync('./config.toml', 'utf-8'));
+    this.config = parse(readFileSync('./config.toml', 'utf-8'))
     this.logger = require('./utils/logger.js')
     this.functions = require('./utils/function.js')
     this.emote = require('./utils/emotes.js')
 
-    this.database = new PostgreSQL.Client({
+    this.database = new PgClient({
       user: this.config.database.user,
       host: this.config.database.host,
       database: this.config.database.database,
@@ -45,14 +44,14 @@ class Hydrobot extends Client {
 
       command.conf.location = commandPath
 
-      command.conf.aliases.forEach(alias => {
+      for (const alias of command.conf.aliases) {
         this.aliases[alias] = command.help.name
-      })
+      }
+
       return false
     } catch (e) {
       return `Unable to load command ${commandName}: ${e}`
     }
-
   }
 
   /**
@@ -76,7 +75,6 @@ class Hydrobot extends Client {
     delete require.cache[require.resolve(`${commandPath}/${commandName}.js`)]
     return false
   }
-
 }
 
 /**
@@ -88,7 +86,7 @@ const client = new Hydrobot({
   disableMentions: 'everyone',
   partials: ['MESSAGE', 'GUILD_MEMBER', 'USER'],
   ws: {
-   intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_PRESENCES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES']
+    intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_PRESENCES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES']
   }
 })
 
@@ -98,15 +96,16 @@ const client = new Hydrobot({
  */
 
 const init = async () => {
-
   readdir('./src/commands', (err, files) => {
-
     if (err) return client.logger.error(err)
+
     client.logger.info(`${files.length} folders loaded`)
 
     for (const path of files) {
       client.logger.info(`Folder loaded : ${path}`)
       readdir(`./src/commands/${path}/`, (err, commands) => {
+        if (err) return client.logger.error(err)
+
         for (const command of commands.filter((file) => file.endsWith('.js'))) {
           const response = client.loadCommand(`./src/commands/${path}`, command)
 
@@ -119,8 +118,8 @@ const init = async () => {
   })
 
   readdir('./src/events/', (err, files) => {
-
     if (err) return client.logger.error(err)
+
     client.logger.info(`${files.length} events loaded`)
 
     for (const events of files.filter(file => file.endsWith('.js'))) {
@@ -131,21 +130,18 @@ const init = async () => {
     }
   })
 
-
   client.database.connect()
     .then(() => client.logger.database('Connected to the PostgreSQL database'))
     .catch((err) => client.logger.error(`An error occured in PostgreSQL database : ${err}`))
 
   return client.login(client.config.token)
-
 }
 
 client.on('error', error => client.logger.error(error))
 client.on('warn', warn => client.logger.warn(warn))
 
-  process.on('unhandledRejection', rejection => client.logger.error(rejection))
+process.on('unhandledRejection', rejection => client.logger.error(rejection))
 
 init()
   .then(() => client.logger.info('Connected to the websocket'))
   .catch((err) => client.logger.error(`An error occured in websocket : ${err}`))
-
