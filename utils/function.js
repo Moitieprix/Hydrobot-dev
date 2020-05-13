@@ -322,7 +322,7 @@ module.exports = {
           'channel': '0',
           'roles': [],
           'time': 30,
-          'tests': 3
+          'attempts': 3
         }],
         [{
           'roles': [],
