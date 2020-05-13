@@ -11,6 +11,5 @@ module.exports = (client, err, shardID) => {
       description: `:warning: • Erreur sur la shard \`${shardID}\` \n\`\`\`js\n${err}\`\`\``,
       timestamp: new Date()
     }]
-
   })
 }
