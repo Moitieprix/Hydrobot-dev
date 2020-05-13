@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const Command = require('../../../core/Command.js')
 
 module.exports = class Antilink extends Command {
@@ -30,8 +30,7 @@ module.exports = class Antilink extends Command {
       const channel = this.client.functions.channelFilter(message, args[1])
 
       switch (args[0]) {
-        case 'add-role':
-
+        case 'add-role': {
           if (!role) return message.channel.send(message.language.get('ANTILINK')[0])
           if (data.roles.length !== 0 && data.roles.includes(role)) return message.channel.send(message.language.get('ANTILINK')[1])
 
@@ -39,9 +38,9 @@ module.exports = class Antilink extends Command {
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDROLE', role))
           break
+        }
 
-        case 'remove-role':
-
+        case 'remove-role': {
           if (!role) return message.channel.send(message.language.get('ANTILINK')[0])
           if (data.roles.length === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('ANTILINK')[2])
 
@@ -50,9 +49,9 @@ module.exports = class Antilink extends Command {
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('REMOVEROLE', role))
           break
+        }
 
-        case 'add-channel':
-
+        case 'add-channel': {
           if (!channel) return message.channel.send(message.language.get('ANTILINK')[3])
           if (data.channels.length !== 0 && data.channels.includes(channel)) return message.channel.send(message.language.get('ANTILINK')[4])
 
@@ -62,8 +61,9 @@ module.exports = class Antilink extends Command {
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDCHANNEL', channel))
           break
+        }
 
-        case 'remove-channel':
+        case 'remove-channel': {
           if (!channel) return message.channel.send(message.language.get('ANTILINK')[3])
           if (data.channels.length === 0 && !data.channels.includes(channel)) return message.channel.send(message.language.get('ANTILINK')[6])
 
@@ -72,8 +72,9 @@ module.exports = class Antilink extends Command {
           this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('REMOVECHANNEL', channel))
           break
+        }
 
-        case 'set-sanction':
+        case 'set-sanction': {
           const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTitle(message.language.get('ANTILINK')[7])
@@ -86,18 +87,20 @@ module.exports = class Antilink extends Command {
           if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
             data.sanction = parseInt(args[0])
             this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
-            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
-
-          } else message.channel.send(message.language.get('SANCTION')[4])
+            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0]) - 1])
+          } else {
+            message.channel.send(message.language.get('SANCTION')[4])
+          }
           break
+        }
 
-        case 'setup':
+        case 'setup': {
           const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
               data.roles.splice(i, 1)
               this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              `• <@&${role}>`
+              `• <@&${role}>`.toString()
             }
           })
 
@@ -106,7 +109,7 @@ module.exports = class Antilink extends Command {
               data.roles.splice(i, 1)
               this.client.database.query('UPDATE settings SET antilink = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              `• <#${channel}>`
+              `• <#${channel}>`.toString()
             }
           })
 
@@ -122,8 +125,9 @@ module.exports = class Antilink extends Command {
           message.channel.send(embedSetup)
 
           break
+        }
 
-        default:
+        default: {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
@@ -133,6 +137,7 @@ module.exports = class Antilink extends Command {
 
           message.channel.send(embed)
           break
+        }
       }
     })
   }
