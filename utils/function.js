@@ -1,16 +1,9 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
 
-  /**
-   *
-   * @param message
-   * @param user
-   * @param command
-   * @returns {Array}
-   */
   checkUserPerm (message, user, command) {
     let perms = []
 
@@ -23,12 +16,6 @@ module.exports = {
     return perms
   },
 
-  /**
-   *
-   * @param message
-   * @param command
-   * @returns {Array}
-   */
   checkBotPerm (message, command) {
     let perms = []
 
@@ -41,12 +28,6 @@ module.exports = {
     return perms
   },
 
-  /**
-   *
-   * @param message
-   * @param args
-   * @returns {Promise<*>}
-   */
   async userFilter (message, args) {
     const users = await message.guild.members.fetch()
 
@@ -76,8 +57,8 @@ module.exports = {
         .setFooter(message.client.user.username, message.client.user.avatarURL())
       message.channel.send(embed)
 
-      return await new Promise((resolve) => {
-        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, {time: 15000})
+      const userCollector = await new Promise(resolve => {
+        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, { time: 15000 })
 
         collector.on('collect', collected => {
           if (collected.content === 'cancel') collector.stop('queryCancelled')
@@ -93,22 +74,16 @@ module.exports = {
           }
         })
 
-        collector.on('end', (collected, reason) => {
+        collector.on('end', (_collected, reason) => {
           if (reason === 'queryCancelled') message.channel.send(message.language.get('UTILS').USERFILTER[3])
           if (reason !== 'collectorResolve' && reason !== 'queryCancelled') message.channel.send('Timeout')
           resolve(false)
         })
-
       })
+      return userCollector
     }
   },
 
-  /**
-   *
-   * @param message
-   * @param argsChannel
-   * @returns {*}
-   */
   channelFilter (message, argsChannel) {
     const channels = message.guild.channels.cache
 
@@ -123,12 +98,6 @@ module.exports = {
     }
   },
 
-  /**
-   *
-   * @param message
-   * @param argsRole
-   * @returns {*}
-   */
   roleFilter (message, argsRole) {
     const roles = message.guild.roles.cache
 
@@ -141,12 +110,7 @@ module.exports = {
     }
   },
 
-  /**
-   *
-   * @returns {string}
-   */
   getCpuUsagePercent () {
-
     const time = process.hrtime()
     const usage = process.cpuUsage()
 
@@ -155,48 +119,29 @@ module.exports = {
     const elapSyst = usage.system / 1000000
 
     return ((100 * (elapUser + elapSyst) / elapTime)).toFixed(2)
-
   },
 
-  /**
-   *
-   * @param text
-   * @returns {*}
-   */
   parseEmoji (text) {
     if (text.includes('%')) text = decodeURIComponent(text)
 
-    if (!text.includes(':')) return {animated: false, name: text, id: null}
+    if (!text.includes(':')) return { animated: false, name: text, id: null }
 
     const m = text.match(/<?(a)?:?(\w{2,32}):(\d{17,19})>?/)
 
     if (!m) return null
 
-    return {animated: Boolean(m[1]), name: m[2], id: m[3]}
+    return { animated: Boolean(m[1]), name: m[2], id: m[3] }
   },
 
-  /**
-   *
-   * @param cmd
-   * @param message
-   * @param error
-   * @returns {MessageEmbed}
-   */
   messageCommandError (cmd, message, error) {
     return new MessageEmbed()
       .setColor('RED')
       .setDescription(`An Error occured in command \`${cmd}\``)
-      .addField(`Error :`, `\`${error}\``)
-      .addField(`Content :`, `\`${message.content}\``)
+      .addField('Error :', `\`${error}\``)
+      .addField('Content :', `\`${message.content}\``)
       .setTimestamp()
   },
 
-  /**
-   *
-   * @param cmd
-   * @param message
-   * @returns {MessageEmbed}
-   */
   messageCommandRun (cmd, message) {
     return new MessageEmbed()
       .setColor(message.client.config.embed.color)
@@ -212,24 +157,13 @@ module.exports = {
       .setTimestamp()
   },
 
-  /**
-   *
-   * @param min
-   * @param max
-   * @returns {*}
-   */
   getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   },
 
-  /**
-   *
-   * @param milliseconds
-   * @returns {string}
-   */
   getDuration (milliseconds) {
-    let week = Math.floor(milliseconds / 86400000 * 7)
-    let day = Math.floor(milliseconds / 86400000)
+    const week = Math.floor(milliseconds / 86400000 * 7)
+    const day = Math.floor(milliseconds / 86400000)
     let hours = Math.floor(milliseconds / 3600000) % 24
     let minutes = Math.floor(milliseconds / 60000) % 60
     let seconds = Math.ceil(milliseconds / 1000) % 60
@@ -259,6 +193,109 @@ module.exports = {
 
   getDate (date, message) {
     return date[2] + ' ' + message.language.get('UTILS').MONTHS[date[1]] + ' ' + date[3] + ', ' + date[4]
+  },
+
+  async getDataSettings (message, id, event = true) {
+    try {
+      const res = await message.client.database.query('SELECT * FROM settings WHERE id = $1', [id])
+
+      if (res.rows.length === 0) {
+        await message.client.database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, captcha, antilink, badwords, anticaps, massmentions, autorole, custom_cmd, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)', [
+          id,
+          false,
+          'h!',
+          'fr',
+          {
+            logs: false,
+            modlogs: false,
+            autorole: false,
+            welcome: false,
+            goodbye: false,
+            antilink: false,
+            anticaps: false,
+            badwords: false,
+            massmentions: false,
+            captcha: false,
+            nsfw: false,
+            customCommands: false,
+            images: false,
+            picture: false,
+            pictureLink: '0'
+          },
+          {
+            welcome: '0',
+            goodbye: '0',
+            logs: '0',
+            modlogs: '0'
+          },
+          'Bienvenue à toi [USERNAME] sur [GUILD] !',
+          'Au revoir [USERNAME] !',
+          {
+            channelCreate: true,
+            channelDelete: true,
+            channelPinsUpdate: true,
+            channelUpdate: true,
+            emojiCreate: true,
+            emojiDelete: true,
+            emojiUpdate: true,
+            guildBanAdd: true,
+            guildBanRemove: true,
+            guildMemberAdd: true,
+            guildMemberRemove: true,
+            guildMemberUpdate: true,
+            guildUpdate: true,
+            inviteCreate: true,
+            inviteDelete: true,
+            messageDelete: true,
+            messageDeleteBulk: true,
+            messageUpdate: true,
+            roleCreate: true,
+            roleDelete: true,
+            roleUpdate: true,
+            userUpdate: true,
+            voiceStateUpdate: true
+          },
+          [{
+            channel: '0',
+            roles: [],
+            time: 30,
+            attempts: 3
+          }],
+          [{
+            roles: [],
+            channels: [],
+            sanction: 1
+          }],
+          [{
+            roles: [],
+            channels: [],
+            words: [],
+            sanction: 1
+          }],
+          [{
+            roles: [],
+            channels: [],
+            sanction: 1
+          }],
+          [{
+            roles: [],
+            channels: [],
+            max: 5,
+            sanction: 1
+          }],
+          [],
+          [],
+          []
+        ])
+
+        return await message.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id])
+      }
+
+      return res
+    } catch (err) {
+      if (event) message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
+      return false
+    }
   },
 
   createDataSettings (id, database) {
@@ -319,32 +356,32 @@ module.exports = {
           voiceStateUpdate: true
         },
         [{
-          'channel': '0',
-          'roles': [],
-          'time': 30,
-          'attempts': 3
+          channel: '0',
+          roles: [],
+          time: 30,
+          attempts: 3
         }],
         [{
-          'roles': [],
-          'channels': [],
-          'sanction': 1
+          roles: [],
+          channels: [],
+          sanction: 1
         }],
         [{
-          'roles': [],
-          'channels': [],
-          'words': [],
-          'sanction': 1
+          roles: [],
+          channels: [],
+          words: [],
+          sanction: 1
         }],
         [{
-          'roles': [],
-          'channels': [],
-          'sanction': 1
+          roles: [],
+          channels: [],
+          sanction: 1
         }],
         [{
-          'roles': [],
-          'channels': [],
-          'max': 5,
-          'sanction': 1
+          roles: [],
+          channels: [],
+          max: 5,
+          sanction: 1
         }],
         [],
         [],
@@ -352,7 +389,6 @@ module.exports = {
       ])
     })
   }
-
 }
 
 function getDate () {
