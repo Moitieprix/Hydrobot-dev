@@ -3,7 +3,7 @@
 const {MessageEmbed} = require('discord.js')
 const Command = require('../../../core/Command.js')
 
-module.exports = class Badwords extends Command {
+module.exports = class Captcha extends Command {
   constructor (client) {
     super(client, {
       name: 'badwords',
@@ -25,6 +25,24 @@ module.exports = class Badwords extends Command {
       if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
 
       const data = JSON.parse(res.rows[0].captcha[0])
+
+      switch (args[0]) {
+
+        case 'set-channel':
+          break
+
+        case 'add-role':
+          break
+
+        case 'remove-role':
+          break
+
+        case 'set-time':
+          break
+
+        case 'set-attempts':
+          break
+      }
 
     })
   }
