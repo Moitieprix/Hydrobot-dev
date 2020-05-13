@@ -11,6 +11,5 @@ module.exports = (client, shardID) => {
       description: `:clock4: • Relance de la shard \`${shardID}\`...`,
       timestamp: new Date()
     }]
-
   })
 }
