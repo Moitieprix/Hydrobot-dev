@@ -75,17 +75,17 @@ module.exports = class {
         },
 
         CONTENT_LEVEL: {
-          'DISABLED': 'Aucun',
-          'MEMBERS_WITHOUT_ROLES': 'Analyse les messages des personnes sans rôle',
-          'ALL_MEMBERS': 'Analyse tout les messages'
+          DISABLED: 'Aucun',
+          MEMBERS_WITHOUT_ROLES: 'Analyse les messages des personnes sans rôle',
+          ALL_MEMBERS: 'Analyse tout les messages'
         },
 
         VERIFICATION_LEVEL: {
-          'NONE': 'Aucun',
-          'LOW': 'Faible : Email vérifié',
-          'MEDIUM': 'Moyen : Inscrit sur Discord depuis 5 min',
-          'HIGH': 'Élevé : Doit être sur le serveur depuis 10 min',
-          'VERY_HIGH': 'Extreme : Double authentification requise !'
+          NONE: 'Aucun',
+          LOW: 'Faible : Email vérifié',
+          MEDIUM: 'Moyen : Inscrit sur Discord depuis 5 min',
+          HIGH: 'Élevé : Doit être sur le serveur depuis 10 min',
+          VERY_HIGH: 'Extreme : Double authentification requise !'
 
         },
 
@@ -100,7 +100,7 @@ module.exports = class {
           'cancel • Annuler la recherche',
           `${emote.others.no} • Nombre invalide`,
           `${emote.others.no} • Recherche annulé !`
-        ],
+        ]
       },
 
       LOGS_EVENTS: {
@@ -197,7 +197,7 @@ module.exports = class {
           ':inbox_tray: • Emoji ajouté',
           'Nom :',
           'ID :'
-        ],
+        ]
       },
 
       // Commands options
@@ -388,7 +388,7 @@ module.exports = class {
         `${emote.others.no} • Tu dois m'indiquer un préfixe !`,
         `${emote.others.no} • Le préfixe ne doit pas contenir plus de 3 caractères`,
         `${emote.others.no} • Certains caractères ne sont pas autorisés (Les caractères autorisés sont : a-z, A-Z, !?;:*-+=$/@)`,
-        `${emote.others.yes} • Changement de préfixe`,
+        `${emote.others.yes} • Changement de préfixe`
       ],
 
       // FUN //
@@ -407,7 +407,7 @@ module.exports = class {
         ':bar_chart: • Shard actuelle :',
         'utilisateurs',
         'serveurs',
-        ':robot: • Version Hydrobot :',
+        ':robot: • Version Hydrobot :'
       ],
 
       // help.js
@@ -448,7 +448,7 @@ module.exports = class {
         ':arrow_down: • Download',
         ':arrow_up: • Upload',
         'Bande passante :',
-        'Bande passante non ajustée :',
+        'Bande passante non ajustée :'
       ],
 
       // Avatar
@@ -576,7 +576,7 @@ module.exports = class {
         'Aucun salon !'
       ],
 
-      //Roleinfo
+      // Roleinfo
       ROLEINFO_DESC: 'Donne les information d\'un rôle',
       ROLEINFO_USAGE: prefix => `${prefix}roleinfo [#salon / ID]`,
       ROLEINFO_EXEMPLE: prefix => `${prefix}roleinfo \n${prefix}roleinfo #membre \n${prefix}roleinfo 123456789098765432`,
@@ -678,10 +678,10 @@ module.exports = class {
       WEATHER_USAGE: prefix => `${prefix}weather <lieu>`,
       WEATHER_EXEMPLE: prefix => `${prefix}weather Paris`,
       WEATHER_TEMPS: {
-        'Sunny': 'Soleil',
-        'Clear': 'Dégagé',
+        Sunny: 'Soleil',
+        Clear: 'Dégagé',
         'Mostly Sunny': 'Assez ensoleillé',
-        'Cloudy': 'Nuageux',
+        Cloudy: 'Nuageux',
         'Mostly Cloudy': 'Plutôt nuageux',
         'Light Rain': 'Pluie légère',
         'Partly Sunny': 'Partiellement ensoleillé',
@@ -690,12 +690,12 @@ module.exports = class {
         'Rain Showers': 'Averses de pluie',
         'Light Snow': 'Neige légère',
         'Mostly Clear': 'Plutôt dégagé',
-        'Rain': 'Pluie',
-        'Snow': 'Neige'
+        Rain: 'Pluie',
+        Snow: 'Neige'
       },
 
       WEATHER_ARGS: `${emote.others.no} • Tu dois rentrer une localisation !`,
-      WEATHER_VILLE: `${emote.others.no} • Je n\'ai pas trouvé cette ville !`,
+      WEATHER_VILLE: `${emote.others.no} • Je n'ai pas trouvé cette ville !`,
       WEATHER_DESCRIPTION: ville => `Météo de **${ville}**`,
       WEATHER_EMBED: [
         ':date: • Météo actuelle :',
@@ -714,7 +714,7 @@ module.exports = class {
       ACHIEVEMENT_DESC: `${emote.others.no} • Tu dois m'indiquer un achievement !`,
       ACHIEVEMENT_USAGE: prefix => `${prefix}achievement <texte>`,
       ACHIEVEMENT_EXEMPLE: prefix => `${prefix}achievement Énigme résolue !`,
-      ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m\'indiquer un texte !`,
+      ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
       ACHIEVEMENT_LENGTH: `${emote.others.no} • Tu ne dois pas dépasser 24 caractères !`,
 
       // Tobecontinued
@@ -863,9 +863,9 @@ module.exports = class {
         ':scissors: • J\'ai également choisi ciseaux ! Égalité !'
       ],
 
-      ////////////////////
-      // Commands Owner //
-      ////////////////////
+
+
+
 
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
@@ -873,7 +873,7 @@ module.exports = class {
       BLACKLIST_EXEMPLE: prefix => `${prefix}blacklist add / remove @Moitié_prix / 406135526005932043`,
 
       // Eval
-      EVAL_DESC: `Évaluation d'un code Javascript`,
+      EVAL_DESC: 'Évaluation d\'un code Javascript',
       EVAL_USAGE: prefix => `${prefix}eval <code>`,
       EVAL_EXEMPLE: prefix => `${prefix}eval message.channel.send('123')`
 
