@@ -5,7 +5,6 @@
  */
 
 module.exports = class Logger {
-
   /**
      * @param {string} msg
      */
