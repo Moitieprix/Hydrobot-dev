@@ -11,6 +11,5 @@ module.exports = (client, shardID) => {
       description: `:white_check_mark: • Shard \`${shardID}\` opérationnelle`,
       timestamp: new Date()
     }]
-
   })
 }
