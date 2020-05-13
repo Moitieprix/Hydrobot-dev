@@ -17,8 +17,8 @@ module.exports = async (client) => {
     .addField('Nombre de shard(s) :', client.shard.count, true)
     .addField('Nombre de serveur :', guildsSize, true)
     .addField('Nombre d\'utilisateurs :', usersSize, true)
-    .addField('RAM (heap) :', `${(process.memoryUsage()['heapUsed'] / 1000 / 1000).toFixed(2)}Mo`, true)
-    .addField('RAM (total) :', `${(process.memoryUsage()['heapTotal'] / 1000 / 1000).toFixed(2)}Mo`, true)
+    .addField('RAM (heap) :', `${(process.memoryUsage().heapUsed / 1000 / 1000).toFixed(2)}Mo`, true)
+    .addField('RAM (total) :', `${(process.memoryUsage().heapTotal / 1000 / 1000).toFixed(2)}Mo`, true)
     .addField('CPU :', `${client.functions.getCpuUsagePercent()}%`, true)
     .setTimestamp()
 
