@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Plugin extends Command {
   constructor (client) {
@@ -27,7 +27,7 @@ module.exports = class Plugin extends Command {
       const plugins = ['logs', 'modlogs', 'autorole', 'welcome', 'goodbye', 'antilink', 'anticaps', 'badwords', 'massmentions', 'captcha', 'nsfw', 'customCommands', 'images']
 
       switch (args[0]) {
-        case 'list':
+        case 'list': {
           const embedList = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setDescription(plugins.map(plugin => res.rows[0].system[plugin] === true ? `**${plugin}** : ${this.client.emote.others.on} \n` : `**${plugin}** : ${this.client.emote.others.off} \n`).join(' \n'))
@@ -36,34 +36,36 @@ module.exports = class Plugin extends Command {
 
           message.channel.send(embedList)
           break
+        }
 
-        case 'enable-all':
+        case 'enable-all': {
           for (const plugin of plugins) {
-            if (res.rows[0].system[plugin] === false) this.client.database.query(`UPDATE settings SET system = jsonb_set(logs_list, \'{${plugin}}\', \'true\') WHERE id = $1`, [message.guild.id])
+            if (res.rows[0].system[plugin] === false) this.client.database.query(`UPDATE settings SET system = jsonb_set(logs_list, '{${plugin}}', 'true') WHERE id = $1`, [message.guild.id])
           }
           message.channel.send(message.language.get('PLUGIN')[0])
           break
-
-        case 'disable-all':
-          for (const plugin of plugins) {
-          if (res.rows[0].system[plugin] === true) this.client.database.query(`UPDATE settings SET system = jsonb_set(logs_list, \'{${plugin}}\', \'false\') WHERE id = $1`, [message.guild.id])
         }
+
+        case 'disable-all': {
+          for (const plugin of plugins) {
+            if (res.rows[0].system[plugin] === true) this.client.database.query(`UPDATE settings SET system = jsonb_set(logs_list, '{${plugin}}', 'false') WHERE id = $1`, [message.guild.id])
+          }
           message.channel.send(message.language.get('PLUGIN')[1])
           break
+        }
 
-        default:
+        default: {
           if (plugins.includes(args[0])) {
             const plugin = plugins.find(p => p === args[0])
 
             if (res.rows[0].system[plugin] === true) {
-              this.client.database.query(`UPDATE settings SET system = jsonb_set(system, \'{${plugin}}\', \'false\') WHERE id = $1`, [message.guild.id])
+              this.client.database.query(`UPDATE settings SET system = jsonb_set(system, '{${plugin}}', 'false') WHERE id = $1`, [message.guild.id])
               return message.channel.send(message.language.get('PLUGIN_DISABLE', plugin))
             } else {
-              this.client.database.query(`UPDATE settings SET system = jsonb_set(system, \'{${plugin}}\', \'true\') WHERE id = $1`, [message.guild.id])
+              this.client.database.query(`UPDATE settings SET system = jsonb_set(system, '{${plugin}}', 'true') WHERE id = $1`, [message.guild.id])
               return message.channel.send(message.language.get('PLUGIN_ENABLE', plugin))
             }
-
-          }  else {
+          } else {
             const embed = new MessageEmbed()
               .setColor(this.client.config.embed.color)
               .setTitle(message.language.get('PLUGIN')[2])
@@ -73,6 +75,7 @@ module.exports = class Plugin extends Command {
             message.channel.send(embed)
           }
           break
+        }
       }
     })
   }
