@@ -11,6 +11,5 @@ module.exports = (client, event, shardID) => {
       description: `:warning: • Shard \`${shardID}\` déconnectée`,
       timestamp: new Date()
     }]
-
   })
 }
