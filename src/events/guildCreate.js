@@ -15,7 +15,7 @@ module.exports = async (client, guild) => {
       color: 0x00FF00,
       title: 'Nouveau serveur !',
       thumbnail: {
-        url: guild.iconURL(),
+        url: guild.iconURL()
       },
       fields: [
         {
@@ -53,10 +53,9 @@ module.exports = async (client, guild) => {
     }]
   })
 
-  client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
+  client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (_err, res) => {
     if (res.rows.length === 0) {
       await client.functions.createDataSettings(guild.id, client.database)
     }
   })
-
 }
