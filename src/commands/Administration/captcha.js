@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const Command = require('../../../core/Command.js')
 
 module.exports = class Captcha extends Command {
@@ -27,7 +27,6 @@ module.exports = class Captcha extends Command {
       const data = JSON.parse(res.rows[0].captcha[0])
 
       switch (args[0]) {
-
         case 'set-channel':
           break
 
@@ -43,7 +42,6 @@ module.exports = class Captcha extends Command {
         case 'set-attempts':
           break
       }
-
     })
   }
 }
