@@ -3,21 +3,20 @@
 const { MessageEmbed } = require('discord.js')
 
 module.exports = async (client, oldGuild, newGuild) => {
-  client.database.query('SELECT * FROM settings WHERE id = $1', [newGuild.id], async (err, res) => {
-
+  client.database.query('SELECT * FROM settings WHERE id = $1', [newGuild.id], async (_err, res) => {
     const channel = res.rows[0].channels.logs
 
-    if(!res.rows[0].system.logs || !res.rows[0]['logs_list']['guildUpdate'] || channel === '0') return
+    if (!res.rows[0].system.logs || !res.rows[0].logs_list.guildUpdate || channel === '0') return
     if (!newGuild.channels.cache.some(ch => ch.id === channel)) return
     if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
 
-    const language = new (require(`../../i18n/${res.rows[0].language}`))
+    const language = new (require(`../../i18n/${res.rows[0].language}`))()
 
     const embed = new MessageEmbed()
       .setColor(client.config.embed.color)
       .setTitle(language.get('LOGS').GUILD_UPDATED[0])
       .setTimestamp()
-      .setFooter(client.user.username, client.user.avatarURL());
+      .setFooter(client.user.username, client.user.avatarURL())
 
     if (oldGuild.name !== newGuild.name) embed.addField(language.get('LOGS').GUILD_UPDATED[1], `${language.get('LOGS').GUILD_UPDATED[2]} **${oldGuild.name}** \n${language.get('LOGS').GUILD_UPDATED[3]} **${newGuild.name}**`)
 
@@ -66,6 +65,5 @@ module.exports = async (client, oldGuild, newGuild) => {
     if (oldGuild.verificationLevel !== newGuild.verificationLevel) embed.addField(language.get('LOGS').GUILD_UPDATED[32], `${language.get('LOGS').GUILD_UPDATED[33]} **${language.get('UTILS').VERIFICATION_LEVEL[oldGuild.verificationLevel]}** \n${language.get('LOGS').GUILD_UPDATED[34]} **${language.get('UTILS').VERIFICATION_LEVEL[newGuild.verificationLevel]}**`)
 
     return newGuild.channels.cache.get(channel).send(embed)
-
   })
 }
