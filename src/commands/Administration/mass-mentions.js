@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const Command = require('../../../core/Command.js')
 
 module.exports = class Massmentions extends Command {
@@ -27,8 +27,7 @@ module.exports = class Massmentions extends Command {
       const data = JSON.parse(res.rows[0].massmentions[0])
 
       switch (args[0]) {
-        case 'add-role':
-
+        case 'add-role': {
           const roleAdd = this.client.functions.roleFilter(message, args[1])
 
           if (!roleAdd) return message.channel.send(message.language.get('MASSMENTION')[0])
@@ -40,9 +39,9 @@ module.exports = class Massmentions extends Command {
           this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDROLE', roleAdd))
           break
+        }
 
-        case 'remove-role':
-
+        case 'remove-role': {
           const roleRemove = this.client.functions.roleFilter(message, args[1])
 
           if (!roleRemove) return message.channel.send(message.language.get('MASSMENTION')[0])
@@ -53,8 +52,9 @@ module.exports = class Massmentions extends Command {
           this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('REMOVEROLE', roleRemove))
           break
+        }
 
-        case 'add-channel':
+        case 'add-channel': {
           const channelAdd = this.client.functions.channelFilter(message, args[1])
 
           if (!channelAdd) return message.channel.send(message.language.get('MASSMENTION')[3])
@@ -68,8 +68,9 @@ module.exports = class Massmentions extends Command {
           this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
           break
+        }
 
-        case 'remove-channel':
+        case 'remove-channel': {
           const channelRemove = this.client.functions.channelFilter(message, args[1])
 
           if (!channelRemove) return message.channel.send(message.language.get('MASSMENTION')[3])
@@ -80,6 +81,7 @@ module.exports = class Massmentions extends Command {
           this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
           message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
           break
+        }
 
         case 'set-limit':
           if (!args[1] || isNaN(args[1]) || !Number.isInteger(args[1])) return message.channel.send(message.language.get('MASSMENTION')[7])
@@ -91,7 +93,7 @@ module.exports = class Massmentions extends Command {
           message.channel.send(message.language.get('SETLIMIT', args[1]))
           break
 
-        case 'set-sanction':
+        case 'set-sanction': {
           const embedSanction = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTitle(message.language.get('MASSMENTION')[9])
@@ -105,17 +107,19 @@ module.exports = class Massmentions extends Command {
             data.sanction = parseInt(args[0])
             this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
             return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
-
-          } else message.channel.send(message.language.get('SANCTION')[4])
+          } else {
+            message.channel.send(message.language.get('SANCTION')[4])
+          }
           break
+        }
 
-        case 'setup':
+        case 'setup': {
           const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
               data.roles.splice(i, 1)
               this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              `• <@&${role}>`
+              `• <@&${role}>`.toString()
             }
           })
 
@@ -124,7 +128,7 @@ module.exports = class Massmentions extends Command {
               data.roles.splice(i, 1)
               this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
             } else {
-              `• <#${channel}>`
+              `• <#${channel}>`.toString()
             }
           })
 
@@ -139,8 +143,9 @@ module.exports = class Massmentions extends Command {
 
           message.channel.send(embedSetup)
           break
+        }
 
-        default:
+        default: {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
@@ -150,6 +155,7 @@ module.exports = class Massmentions extends Command {
 
           message.channel.send(embed)
           break
+        }
       }
     })
   }
