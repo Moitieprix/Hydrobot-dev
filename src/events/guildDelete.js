@@ -15,7 +15,7 @@ module.exports = async (client, guild) => {
       color: 0xFF0000,
       title: `Serveur retiré ! ${guild.available ? '' : `${client.emote.others.caution} Serveur en panne`}`,
       thumbnail: {
-        url: guild.iconURL(),
+        url: guild.iconURL()
       },
       fields: [
         {
@@ -55,12 +55,11 @@ module.exports = async (client, guild) => {
 
   console.log(guild.available)
 
-  if(guild.available) {
-    client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (err, res) => {
+  if (guild.available) {
+    client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (_err, res) => {
       if (res.rows.length === 1) {
         await client.database.query('DELETE FROM settings WHERE id = $1', [guild.id])
       }
     })
   }
-
 }
