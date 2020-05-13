@@ -17,5 +17,5 @@ module.exports = class Command {
     this.client = client
     this.conf = { enabled, aliases, permission, botpermissions, owner, cooldown, plugin }
     this.help = { name, category, usage, examples }
-  };
+  }
 }
