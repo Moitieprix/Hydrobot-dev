@@ -23,4 +23,3 @@ module.exports = class Language extends Command {
     return message.channel.send('[PROCHAINEMENT]')
   }
 }
-
