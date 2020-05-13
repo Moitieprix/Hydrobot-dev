@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Prefix extends Command {
   constructor (client) {
@@ -26,7 +26,7 @@ module.exports = class Prefix extends Command {
 
     if (args[0].length > 3) return message.channel.send(message.language.get('PREFIX')[1])
 
-    if(args[0].match(/[^A-Za-z!?;:*\-+=$/@]/gi)) return message.channel.send(message.language.get('PREFIX')[2])
+    if (args[0].match(/[^A-Za-z!?;:*\-+=$/@]/gi)) return message.channel.send(message.language.get('PREFIX')[2])
 
     this.client.database.query('UPDATE settings SET prefix = $1 WHERE id = $2', [args[0], message.guild.id])
 
