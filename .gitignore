@@ -1,6 +1,7 @@
 .idea/
 db.sql
 config.js
+config.toml
 
 # Node modules
 node_modules
