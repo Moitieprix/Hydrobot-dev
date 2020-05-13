@@ -43,7 +43,7 @@ module.exports = class {
           Sep: 'Septembre',
           Oct: 'Octobre',
           Nov: 'Novembre',
-          Dec: 'Décembre',
+          Dec: 'Décembre'
         },
 
         REGION: {
@@ -862,10 +862,6 @@ module.exports = class {
         ':roll_of_paper: • J\'ai choisi feuille ! Tu as gagné !',
         ':scissors: • J\'ai également choisi ciseaux ! Égalité !'
       ],
-
-
-
-
 
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
