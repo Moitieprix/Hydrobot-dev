@@ -1,6 +1,6 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const Command = require('../../../core/Command.js')
 
 module.exports = class Autorole extends Command {
@@ -21,8 +21,7 @@ module.exports = class Autorole extends Command {
   }
 
   async run (message, args) {
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (err, res) => {
-
+    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (_err, res) => {
       const data = res.rows[0].autorole
 
       const role = this.client.functions.roleFilter(message, args[1])
@@ -30,7 +29,7 @@ module.exports = class Autorole extends Command {
       const getRole = message.guild.roles.cache.get(role)
 
       switch (args[0]) {
-        case 'add-role':
+        case 'add-role': {
           if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
           if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
 
@@ -40,8 +39,9 @@ module.exports = class Autorole extends Command {
           this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
           message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
           break
+        }
 
-        case 'remove-role':
+        case 'remove-role': {
           if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
           if (data.roles === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[2])
 
@@ -50,15 +50,15 @@ module.exports = class Autorole extends Command {
           this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
           message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
           break
+        }
 
-        case 'roles':
-
+        case 'roles': {
           const mentionRole = data.roles.map((role, i) => {
             if (!message.guild.roles.cache.get(role)) {
               data.roles.splice(i, 1)
               this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
             } else {
-              `• <@&${role}>`
+              `• <@&${role}>`.toString()
             }
           })
 
@@ -73,8 +73,9 @@ module.exports = class Autorole extends Command {
 
           this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
           break
+        }
 
-        default:
+        default: {
           const embed = new MessageEmbed()
             .setColor(this.client.config.embed.color)
             .setTimestamp()
@@ -84,8 +85,8 @@ module.exports = class Autorole extends Command {
 
           message.channel.send(embed)
           break
+        }
       }
-
     })
   }
 }
