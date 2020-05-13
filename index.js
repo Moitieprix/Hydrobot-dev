@@ -1,8 +1,9 @@
 'use strict'
 
 const {Client} = require('discord.js')
-const {readdir} = require('fs')
+const {readdir, readFileSync} = require('fs')
 const PostgreSQL = require('pg')
+const {parse} = require('toml')
 
 /**
  * @class Hydrobot
@@ -11,22 +12,13 @@ const PostgreSQL = require('pg')
 
 class Hydrobot extends Client {
 
-  /**
-   * @param options - Client options
-   */
-
-  constructor (options) {
-    super(options)
-
-    if (!options) {
-      throw new Error('Options cannot be empty')
-    }
-
+  constructor () {
+    super()
 
     this.commands = {}
     this.aliases = {}
 
-    this.config = require('./config.js')
+    this.config = parse(readFileSync('./config.toml', 'utf-8'));
     this.logger = require('./utils/logger.js')
     this.functions = require('./utils/function.js')
     this.emote = require('./utils/emotes.js')
@@ -148,12 +140,12 @@ const init = async () => {
 
 }
 
-//client.on('error', error => client.logger.error(error))
-//client.on('warn', warn => client.logger.warn(warn))
+client.on('error', error => client.logger.error(error))
+client.on('warn', warn => client.logger.warn(warn))
 
-//process.on('unhandledRejection', rejection => client.logger.error(rejection))
+  process.on('unhandledRejection', rejection => client.logger.error(rejection))
 
-return init()
+init()
   .then(() => client.logger.info('Connected to the websocket'))
   .catch((err) => client.logger.error(`An error occured in websocket : ${err}`))
 
