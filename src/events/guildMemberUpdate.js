@@ -1,21 +1,19 @@
 'use strict'
 
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = async (client, oldMember, newMember) => {
-  if(oldMember.user.bot) return
+  if (oldMember.user.bot) return
 
   if (oldMember.nickname !== newMember.nickname || oldMember.roles.cache.size !== newMember.roles.cache.size) {
-
-    client.database.query('SELECT * FROM settings WHERE id = $1', [newMember.guild.id], async (err, res) => {
-
+    client.database.query('SELECT * FROM settings WHERE id = $1', [newMember.guild.id], async (_err, res) => {
       const channel = res.rows[0].channels.logs
 
-      if (!res.rows[0].system.logs || !res.rows[0]['logs_list']['guildMemberUpdate'] || channel === '0') return
+      if (!res.rows[0].system.logs || !res.rows[0].logs_list.guildMemberUpdate || channel === '0') return
       if (!newMember.guild.channels.cache.some(ch => ch.id === channel)) return
       if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
 
-      const language = new (require(`../../i18n/${res.rows[0].language}`))
+      const language = new (require(`../../i18n/${res.rows[0].language}`))()
 
       const embed = new MessageEmbed()
         .setColor(client.config.embed.color)
@@ -39,7 +37,6 @@ module.exports = async (client, oldMember, newMember) => {
               embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[6], `**${oldMember.guild.roles.cache.get(role).name}**`)
             }
           }
-
         } else if (oldMember.roles.cache.size > newMember.roles.cache.size) {
           for (const role of oldMember.roles.cache.map(x => x.id)) {
             if (!newMember.roles.cache.has(role)) {
@@ -47,10 +44,8 @@ module.exports = async (client, oldMember, newMember) => {
               embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[7], `**${oldMember.guild.roles.cache.get(role).name}**`)
             }
           }
-
         }
       }
-
       return newMember.guild.channels.cache.get(channel).send(embed)
     })
   }
