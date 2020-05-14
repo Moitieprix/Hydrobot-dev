@@ -4,11 +4,7 @@ const { WebhookClient } = require('discord.js')
 
 module.exports = async (client, guild) => {
   const guilds = await client.shard.fetchClientValues('guilds.cache.size')
-
-  let guildsSize = 0
-  for (let i = 0; i < client.shard.count; i++) {
-    guildsSize = guildsSize + guilds[i]
-  }
+  const guildsSize = guilds.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
   new WebhookClient(client.config.webhooks.guilds.id, client.config.webhooks.guilds.token).send({
     embeds: [{
@@ -53,9 +49,5 @@ module.exports = async (client, guild) => {
     }]
   })
 
-  client.database.query('SELECT * FROM settings WHERE id = $1', [guild.id], async (_err, res) => {
-    if (res.rows.length === 0) {
-      await client.functions.createDataSettings(guild.id, client.database)
-    }
-  })
+  await client.functions.getDataSettings(client, guild.id)
 }
