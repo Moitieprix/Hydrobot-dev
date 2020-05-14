@@ -195,12 +195,12 @@ module.exports = {
     return date[2] + ' ' + message.language.get('UTILS').MONTHS[date[1]] + ' ' + date[3] + ', ' + date[4]
   },
 
-  async getDataSettings (message, id, event = true) {
+  async getDataSettings (client, id, message = false) {
     try {
-      const res = await message.client.database.query('SELECT * FROM settings WHERE id = $1', [id])
+      const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [id])
 
       if (res.rows.length === 0) {
-        await message.client.database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, captcha, antilink, badwords, anticaps, massmentions, autorole, custom_cmd, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)', [
+        await client.database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, captcha, antilink, badwords, anticaps, massmentions, autorole, custom_cmd, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)', [
           id,
           false,
           'h!',
@@ -288,12 +288,12 @@ module.exports = {
           []
         ])
 
-        return await message.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id])
+        return await client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id])
       }
 
       return res
     } catch (err) {
-      if (event) message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
+      if (message) message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
       return false
     }
   },
