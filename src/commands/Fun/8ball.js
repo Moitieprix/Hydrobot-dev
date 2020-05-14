@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class EightBall extends Command {
   constructor (client) {
@@ -21,8 +21,7 @@ module.exports = class EightBall extends Command {
     })
   }
 
-  async run (message, args) {
-
+  run (message, args) {
     if (!args[0]) return message.channel.send(message.language.get('BALL_ARGS'))
 
     if (args.join(' ').length > 255) return message.channel.send(message.language.get('BALL_LENGTH'))
