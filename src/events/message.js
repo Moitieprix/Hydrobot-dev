@@ -10,15 +10,11 @@ module.exports = async (client, message) => {
 
   if (message.partial) await message.fetch()
 
-  const res = await client.functions.getDataSettings(message)
+  const res = await client.functions.getDataSettings(client, message.guild.id, message)
   if (!res) return
 
   const language = new (require(`../../i18n/${res.rows[0].language}`))()
   message.language = language
-
-  /// ///////////////
-  // Automodération//
-  /// ///////////////
 
   if (!message.content.startsWith(res.rows[0].prefix) && message.guild.me.hasPermission('MANAGE_MESSAGES')) {
     const dataBadwords = JSON.parse(res.rows[0].badwords[0])
@@ -93,7 +89,7 @@ module.exports = async (client, message) => {
 
   if (!cmd) return
 
-  // Paramètres commandes //
+  // Commands options //
   if ((cmd.conf.plugin.toString() === 'image' && res.rows[0].system.images === false) || (cmd.conf.plugin.toString() === 'nsfw' && res.rows[0].system.nsfw === false)) return
 
   if (!cmd.conf.enabled) return message.channel.send(message.language.get('COMMANDE_DISABLED'))
