@@ -5,11 +5,6 @@ const { readdir, readFileSync } = require('fs')
 const { Client: PgClient } = require('pg')
 const { parse } = require('toml')
 
-/**
- * @class Hydrobot
- * @extends Client
- */
-
 class Hydrobot extends Client {
   constructor () {
     super()
@@ -30,13 +25,6 @@ class Hydrobot extends Client {
     })
   }
 
-  /**
-   *
-   * @param commandPath
-   * @param commandName
-   * @returns {*}
-   */
-
   loadCommand (commandPath, commandName) {
     try {
       const command = new (require(`${commandPath}/${commandName}`))(this)
@@ -54,13 +42,6 @@ class Hydrobot extends Client {
     }
   }
 
-  /**
-   *
-   * @param commandPath
-   * @param commandName
-   * @returns {*}
-   */
-
   unloadCommand (commandPath, commandName) {
     let command
 
@@ -70,17 +51,12 @@ class Hydrobot extends Client {
       command = this.commands[this.aliases[commandName]]
     }
 
-    if (!command) return `La commande \`${commandName}\` n'existe pas :/`
+    if (!command) return `\`${commandName}\` command doesn't exist`
 
     delete require.cache[require.resolve(`${commandPath}/${commandName}.js`)]
     return false
   }
 }
-
-/**
- *
- * @type {Hydrobot}
- */
 
 const client = new Hydrobot({
   disableMentions: 'everyone',
@@ -89,11 +65,6 @@ const client = new Hydrobot({
     intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_INVITES', 'GUILD_VOICE_STATES', 'GUILD_PRESENCES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGES']
   }
 })
-
-/**
- *
- * @returns {Promise<string>} Token du Hydrobot
- */
 
 const init = async () => {
   readdir('./src/commands', (err, files) => {
