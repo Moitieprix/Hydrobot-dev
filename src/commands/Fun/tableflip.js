@@ -21,20 +21,18 @@ module.exports = class Tableflip extends Command {
   }
 
   async run (message) {
+    const frames = [
+      '(-°□°)-  ┬─┬',
+      '(╯°□°)╯    ]',
+      '(╯°□°)╯  ︵  ┻━┻',
+      '(╯°□°)╯       [',
+      '(╯°□°)╯           ┬─┬'
+    ]
 
-      const frames = [
-        '(-°□°)-  ┬─┬',
-        '(╯°□°)╯    ]',
-        '(╯°□°)╯  ︵  ┻━┻',
-        '(╯°□°)╯       [',
-        '(╯°□°)╯           ┬─┬'
-      ]
-
-      const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬')
-      for (const frame of frames) {
-        await msg.edit(frame)
-      }
-      return message
+    const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬')
+    for (const frame of frames) {
+      await msg.edit(frame)
+    }
+    return message
   }
 }
-
