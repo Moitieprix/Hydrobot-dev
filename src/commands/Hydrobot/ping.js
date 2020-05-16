@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Ping extends Command {
   constructor (client) {
@@ -21,14 +21,13 @@ module.exports = class Ping extends Command {
   }
 
   async run (message) {
-
     const loading = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(':ping_pong: • Ping !')
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-      const msg = await message.channel.send(loading)
+    const msg = await message.channel.send(loading)
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
@@ -38,6 +37,6 @@ module.exports = class Ping extends Command {
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-      return msg.edit(embed)
+    return msg.edit(embed)
   }
 }
