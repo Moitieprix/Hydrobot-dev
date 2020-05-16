@@ -2,7 +2,7 @@
 
 const Command = require('../../../core/Command.js')
 const Base64 = require('js-base64').Base64
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Encode extends Command {
   constructor (client) {
@@ -23,9 +23,7 @@ module.exports = class Encode extends Command {
   }
 
   async run (message, args) {
-
     if (!args[0]) return message.channel.send(message.language.get('ENCODE_ARGS'))
-
     if (args.join(' ').length > 750) return message.channel.send(message.language.get('ENCODE_LENGTH'))
 
     const text = args.join(' ')
