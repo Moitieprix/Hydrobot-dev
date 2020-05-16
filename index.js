@@ -103,7 +103,7 @@ const init = async () => {
 
   client.database.connect()
     .then(() => client.logger.database('Connected to the PostgreSQL database'))
-    .catch((err) => client.logger.error(`An error occured in PostgreSQL database : ${err}`))
+    .catch((err) => client.logger.error(`An error occured on PostgreSQL database : ${err}`))
 
   return client.login(client.config.token)
 }
@@ -115,4 +115,4 @@ process.on('unhandledRejection', rejection => client.logger.error(rejection))
 
 init()
   .then(() => client.logger.info('Connected to the websocket'))
-  .catch((err) => client.logger.error(`An error occured in websocket : ${err}`))
+  .catch((err) => client.logger.error(`An error occured on websocket : ${err}`))
