@@ -2,9 +2,9 @@
 
 const Command = require('../../../core/Command.js')
 const Base64 = require('js-base64').Base64
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
-module.exports =  class Decode extends Command {
+module.exports = class Decode extends Command {
   constructor (client) {
     super(client, {
       name: 'decode',
@@ -23,7 +23,6 @@ module.exports =  class Decode extends Command {
   }
 
   async run (message, args) {
-
     if (!args[0]) return message.channel.send(message.language.get('DECODE_ARGS'))
     if (args.join(' ').length > 750) return message.channel.send(message.language.get('DECODE_LENGTH'))
 
