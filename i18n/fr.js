@@ -451,6 +451,15 @@ module.exports = class {
         'Bande passante non ajustée :'
       ],
 
+      // IMAGES //
+
+      // achievement.js
+
+      ACHIEVEMENT_USAGE: prefix => `• \`${prefix}achievement <texte>\` - Afficher ton texte dans un achievement Minecraft`,
+      ACHIEVEMENT_EXAMPLE: prefix => `\`${prefix}achievement Énigme résolue !\``,
+      ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
+      ACHIEVEMENT_LENGTH: `${emote.others.no} • Ton texte ne dois pas dépasser 24 caractères !`,
+
       // Avatar
       AVATAR_DESC: 'Affiche la photo de profil d\'un utilisateur',
       AVATAR_USAGE: prefix => `${prefix}avatar [ @mention / pseudo ]`,
@@ -709,13 +718,6 @@ module.exports = class {
         'Température min. :',
         'Chance de précipitation :'
       ],
-
-      // Achievement
-      ACHIEVEMENT_DESC: `${emote.others.no} • Tu dois m'indiquer un achievement !`,
-      ACHIEVEMENT_USAGE: prefix => `${prefix}achievement <texte>`,
-      ACHIEVEMENT_EXEMPLE: prefix => `${prefix}achievement Énigme résolue !`,
-      ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
-      ACHIEVEMENT_LENGTH: `${emote.others.no} • Tu ne dois pas dépasser 24 caractères !`,
 
       // Tobecontinued
       TOBECONTINUED_DESC: 'Envoi une photo de profil modifié avec le filtre To be continued !',
