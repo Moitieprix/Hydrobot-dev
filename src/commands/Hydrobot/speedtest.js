@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const SpeedTest = require('speedtest-net')
 
 module.exports = class Speedtest extends Command {
@@ -17,12 +17,11 @@ module.exports = class Speedtest extends Command {
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('SPEEDTEST_USAGE', prefix),
       category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
-      examples: (language, prefix) => language.get('SPEEDTEST_EXAMPLE', prefix),
+      examples: (language, prefix) => language.get('SPEEDTEST_EXAMPLE', prefix)
     })
   }
 
   async run (message) {
-
     const loading = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setDescription(message.language.get('SPEEDTEST')[0])
@@ -30,7 +29,6 @@ module.exports = class Speedtest extends Command {
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
     const msg = await message.channel.send(loading)
-
 
     SpeedTest({ maxTime: 5000 }).on('data', async data => {
       const embed = new MessageEmbed()
@@ -44,7 +42,7 @@ module.exports = class Speedtest extends Command {
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-        return msg.edit(embed)
-      })
+      return msg.edit(embed)
+    })
   }
 }
