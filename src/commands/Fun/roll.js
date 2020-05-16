@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Roll extends Command {
   constructor (client) {
@@ -22,13 +22,12 @@ module.exports = class Roll extends Command {
   }
 
   async run (message) {
-
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTimestamp()
       .addField(message.language.get('ROLL_EMBED'), this.client.functions.getRandomInt(1, 6))
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-      return message.channel.send({ embed: embed })
+    return message.channel.send({ embed: embed })
   }
 }
