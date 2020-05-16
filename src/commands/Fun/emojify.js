@@ -60,6 +60,5 @@ module.exports = class Emojify extends Command {
         .map(c => mapping[c] || c)
         .join('')
     )
-
   }
 }
