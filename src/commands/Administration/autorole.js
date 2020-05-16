@@ -21,72 +21,69 @@ module.exports = class Autorole extends Command {
   }
 
   async run (message, args) {
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (_err, res) => {
-      const data = res.rows[0].autorole
+    const res = await this.client.functions.getDataSettings(this.client, message.guild.id, message)
+    if (!res) return
 
-      const role = this.client.functions.roleFilter(message, args[1])
+    const data = res.rows[0].autorole
+    console.log(data)
 
-      const getRole = message.guild.roles.cache.get(role)
+    const role = this.client.functions.roleFilter(message, args[1])
+    const getRole = message.guild.roles.cache.get(role)
 
-      switch (args[0]) {
-        case 'add-role': {
-          if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
-          if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
+    switch (args[0]) {
+      case 'add-role': {
+        if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
+        if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
 
-          if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send('position')
+        if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send('position')
 
-          data.push(role)
-          this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
-          message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
-          break
-        }
-
-        case 'remove-role': {
-          if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
-          if (data.roles === 0 || !data.roles.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[2])
-
-          const pos = data.indexOf(role)
-          data.splice(pos, 1)
-          this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
-          message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
-          break
-        }
-
-        case 'roles': {
-          const mentionRole = data.roles.map((role, i) => {
-            if (!message.guild.roles.cache.get(role)) {
-              data.roles.splice(i, 1)
-              this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
-            } else {
-              `• <@&${role}>`.toString()
-            }
-          })
-
-          const embedRoles = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTimestamp()
-            .setTitle(message.language.get('AUTOROLE')[3])
-            .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[4])
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          message.channel.send(embedRoles)
-
-          this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
-          break
-        }
-
-        default: {
-          const embed = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTimestamp()
-            .setTitle(message.language.get('AUTOROLE')[5])
-            .setDescription(message.language.get('AUTOROLE')[6])
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          message.channel.send(embed)
-          break
-        }
+        this.client.database.query(`UPDATE settings SET autorole = array_cat(autorole, '{${role}}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
+        break
       }
-    })
+
+      case 'remove-role': {
+        if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
+        if (data === 0 || !data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[2])
+
+        this.client.database.query(`UPDATE settings SET autorole = array_remove(autorole, '${role}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
+        break
+      }
+
+      case 'roles': {
+        const mentionRole = data.map(role => {
+          if (!message.guild.roles.cache.get(role)) {
+            this.client.database.query(`UPDATE settings SET autorole = array_remove(autorole, '{${role}}') WHERE id = $1`, [message.guild.id])
+          } else {
+            return `• <@&${role}>`
+          }
+        })
+
+        const embedRoles = new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTimestamp()
+          .setTitle(message.language.get('AUTOROLE')[3])
+          .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[4])
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+        message.channel.send(embedRoles)
+
+        this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
+        break
+      }
+
+      default: {
+        const embed = new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTimestamp()
+          .setTitle(message.language.get('AUTOROLE')[5])
+          .setDescription(message.language.get('AUTOROLE')[6])
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+        message.channel.send(embed)
+        break
+      }
+    }
   }
 }
