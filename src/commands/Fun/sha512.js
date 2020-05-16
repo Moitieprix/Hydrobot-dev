@@ -2,9 +2,9 @@
 
 const Command = require('../../../core/Command.js')
 const shajs = require('sha.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
-module.exports =  class Sha512 extends Command {
+module.exports = class Sha512 extends Command {
   constructor (client) {
     super(client, {
       name: 'sha512',
@@ -23,7 +23,6 @@ module.exports =  class Sha512 extends Command {
   }
 
   async run (message, args) {
-
     if (!args[0]) return message.channel.send(message.language.get('SHA_ARGS'))
     if (args.join(' ').length > 1000) return message.channel.send(message.language.get('SHA_LENGTH'))
 
@@ -35,6 +34,5 @@ module.exports =  class Sha512 extends Command {
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
     return message.channel.send(embed)
-
   }
 }
