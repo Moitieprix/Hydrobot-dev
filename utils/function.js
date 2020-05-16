@@ -255,34 +255,34 @@ module.exports = {
             userUpdate: true,
             voiceStateUpdate: true
           },
-          [{
+          {
             channel: '0',
             roles: [],
             time: 30,
             attempts: 3
-          }],
-          [{
+          },
+          {
             roles: [],
             channels: [],
             sanction: 1
-          }],
-          [{
+          },
+          {
             roles: [],
             channels: [],
             words: [],
             sanction: 1
-          }],
-          [{
+          },
+          {
             roles: [],
             channels: [],
             sanction: 1
-          }],
-          [{
+          },
+          {
             roles: [],
             channels: [],
             max: 5,
             sanction: 1
-          }],
+          },
           [],
           [],
           []
@@ -372,11 +372,11 @@ module.exports = {
           words: [],
           sanction: 1
         }],
-        [{
+        {
           roles: [],
           channels: [],
           sanction: 1
-        }],
+        },
         [{
           roles: [],
           channels: [],
