@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Rps extends Command {
   constructor (client) {
@@ -22,7 +22,6 @@ module.exports = class Rps extends Command {
   }
 
   async run (message, args) {
-
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(message.language.get('RPS_TITLE'))
@@ -68,10 +67,9 @@ module.exports = class Rps extends Command {
           break
       }
     } else {
-       return message.channel.send(message.language.get('RPS_ARGS'))
+      return message.channel.send(message.language.get('RPS_ARGS'))
     }
 
     return message.channel.send(embed)
-
   }
 }
