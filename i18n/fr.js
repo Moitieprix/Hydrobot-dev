@@ -94,6 +94,7 @@ module.exports = class {
         ROLES_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 15 rôles ignorés. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
         CHANNELS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 15 salons ignorés. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
         WORDS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 25 mots bannis. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
+        AUTOROLE_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 10 rôles ajoutés automatiquement aux nouveaux membres.  Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
 
         USERFILTER: [
           `${emote.categories.clipboard} • Plusieurs utilisateurs ont été trouvés. (15 occurences max.) \nSelectionnez celui que vous desirez avec le nombre à côté de celui-ci (vous avez 15s)`,
@@ -281,6 +282,7 @@ module.exports = class {
       AUTOROLE: [
         `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà dans la liste de l'autorole !`,
+        `${emote.others.no} • Je ne possède pas un rôle assez élevé pour donner automatiquement ce rôle !`,
         `${emote.others.no} • Ce rôle n'est pas dans la liste de l'autorole !`,
         '**Liste des rôles de l\'autorole**',
         'Aucun rôle !',
@@ -392,6 +394,51 @@ module.exports = class {
       ],
 
       // FUN //
+
+      // 8ball.js
+      BALL_USAGE: prefix => `\`${prefix}8ball <question>\` - Pose moi ta question, j'y répondrais !`,
+      BALL_EXAMPLE: prefix => `\`${prefix}8ball Suis-je intelligent ?\``,
+      BALL: [
+        `${emote.others.no} • Tu dois me poser une question !`,
+        `${emote.others.no} • Ta question ne doit pas dépasser 256 caractères !`
+      ],
+      BALL_ANSWERS: [
+        'Oui',
+        'Non',
+        'Peut-être',
+        'Peut-être pas',
+        'Je ne sais pas',
+        'C\'est une question qui mérite réflexion !',
+        '42',
+        ':thinking:',
+        'Aucune idée...',
+        'Johnathan',
+        'Vous savez, moi je ne crois pas qu\'il y ait de bonne ou de mauvaise situation',
+        'Je vais demander à Internet Explorer ! Je te donne la réponse dans 3 semaines',
+        'La réponse D',
+        'Tu bluff Martoni !',
+        'Comme si, comme ça'
+      ],
+
+      // decode.js
+      DECODE_USAGE: prefix => `\`${prefix}decode <texte>\` - Décode un texte encodé en base64 (${emote.others.caution} • Certains caractères ne sont pas supportés par Discord)`,
+      DECODE_EXAMPLE: prefix => `\`${prefix}decode Q29tbWVudCB2YXMtdHUgPw==\``,
+      DECODE: [
+        `${emote.others.no} • Tu dois m'indiquer un texte à déchiffer !`,
+        `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
+        'Base64 non valide !',
+        ':inbox_tray: • Entrée :',
+        ':outbox_tray: • Sortie :'
+      ],
+
+      // emojify.js
+      EMOJIFY_USAGE: prefix => `\`${prefix}emojify <texte>\` - Transforme ton texte en emojis ! `,
+      EMOJIFY_EXAMPLE: prefix => `${prefix}emojify Comment vas-tu ?`,
+      EMOJIFY: [
+        `${emote.others.no} • Tu dois m'indiquer un texte !`,
+        `${emote.others.no} • Seul les caractères suivants sont autorisés : \`a-z A-Z 0-9 !?+÷^?!<>.\``,
+        `${emote.others.no} • Le texte est trop long ! (100 caractères max.)`
+      ],
 
       // HYDROBOT //
 
@@ -605,38 +652,9 @@ module.exports = class {
         'Aucune permission !'
       ],
 
-      // 8ball
-      BALL_DESC: 'Répond à tes questions !',
-      BALL_USAGE: prefix => `${prefix}8ball <question>`,
-      BALL_EXEMPLE: prefix => `${prefix}8ball Suis-je intelligent ?`,
-      BALL_ARGS: `${emote.others.no} • Tu dois me poser une question !`,
-      BALL_LENGTH: `${emote.others.no} • Ta question ne doit pas dépasser 256 caractères !`,
-      BALL_REPLYS: [
-        'Oui',
-        'Non',
-        'Peut-être',
-        'Peut-être pas',
-        'Je ne sais pas',
-        '42',
-        ':thinking:',
-        'Aucune idée...',
-        'Johnathan',
-        'Vous savez, moi je ne crois pas qu\'il y ait de bonne ou de mauvaise situation',
-        'Je vais demander à Internet Explorer ! Je te donne la réponse dans 3 semaines',
-        'La réponse D'
-      ],
-
       // Membercount
       MEMBERCOUNT_DESC: 'Affiche le nombre de membre sur le serveur',
       MEMBERCOUNT_USAGE: prefix => `${prefix}membercount`,
-
-      // Emojify
-      EMOJIFY_DESC: 'Envoi ton texte en emoji',
-      EMOJIFY_USAGE: prefix => `${prefix}emojify <texte>`,
-      EMOJIFY_EXEMPLE: prefix => `${prefix}emojify Comment vas-tu ?`,
-      EMOJIFY_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
-      EMOJIFY_LENGTH: `${emote.others.no} • Le texte est trop long ! (100 caractères max.)`,
-      EMOJIFY_NOT_VALID: `${emote.others.no} • Seul les caractères suivants sont autorisés : \`a-z A-Z 0-9 !?+÷^?!<>.\``,
 
       // Encode
       ENCODE_DESC: 'Encode le texte en Base64',
@@ -646,16 +664,6 @@ module.exports = class {
       ENCODE_LENGTH: `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
       ENCODE_ENTREE: ':inbox_tray: • Entrée :',
       ENCODE_SORTIE: ':outbox_tray: • Sortie :',
-
-      // Decode
-      DECODE_DESC: 'Decode le texte en Base64',
-      DECODE_USAGE: prefix => `${prefix}decode <texte>`,
-      DECODE_EXEMPLE: prefix => `${prefix}decode Q29tbWVudCB2YXMtdHUgPw==`,
-      DECODE_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte à déchiffer !`,
-      DECODE_LENGTH: `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
-      DECODE_ENTREE: ':inbox_tray: • Entrée :',
-      DECODE_SORTIE: ':outbox_tray: • Sortie :',
-      DECODE_NOT_VALID: 'Base64 non valide !',
 
       // Sha256
       SHA256_DESC: 'Hash un texte en Sha256',
