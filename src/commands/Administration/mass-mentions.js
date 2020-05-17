@@ -21,142 +21,132 @@ module.exports = class Massmentions extends Command {
   }
 
   async run (message, args) {
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (err, res) => {
-      if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
+    const res = await this.client.functions.getDataSettings(this.client, message.guild.id, message)
+    if (!res) return
 
-      const data = JSON.parse(res.rows[0].massmentions[0])
+    const data = res.rows[0].massmentions
 
-      switch (args[0]) {
-        case 'add-role': {
-          const roleAdd = this.client.functions.roleFilter(message, args[1])
+    switch (args[0]) {
+      case 'add-role': {
+        const roleAdd = this.client.functions.roleFilter(message, args[1])
 
-          if (!roleAdd) return message.channel.send(message.language.get('MASSMENTION')[0])
-          if (data.roles.length !== 0 && data.roles.includes(roleAdd)) return message.channel.send(message.language.get('MASSMENTION')[1])
+        if (!roleAdd) return message.channel.send(message.language.get('MASSMENTION')[0])
+        if (data.roles.length !== 0 && data.roles.includes(roleAdd)) return message.channel.send(message.language.get('MASSMENTION')[1])
 
-          if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
+        if (data.roles.length === 15 && !res.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
 
-          data.push(roleAdd)
-          this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ADDROLE', roleAdd))
-          break
-        }
-
-        case 'remove-role': {
-          const roleRemove = this.client.functions.roleFilter(message, args[1])
-
-          if (!roleRemove) return message.channel.send(message.language.get('MASSMENTION')[0])
-          if (data.roles.length === 0 || !data.roles.includes(roleRemove)) return message.channel.send(message.language.get('MASSMENTION')[2])
-
-          const posRole = data.roles.indexOf(roleRemove)
-          data.roles.splice(posRole, 1)
-          this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('REMOVEROLE', roleRemove))
-          break
-        }
-
-        case 'add-channel': {
-          const channelAdd = this.client.functions.channelFilter(message, args[1])
-
-          if (!channelAdd) return message.channel.send(message.language.get('MASSMENTION')[3])
-          if (data.channels.length !== 0 && data.channels.includes(channelAdd)) return message.channel.send(message.language.get('MASSMENTION')[4])
-
-          if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
-
-          if (message.guild.channels.cache.get(channelAdd).type === 'voice' || message.guild.channels.cache.get(channelAdd).type === 'category') return message.channel.send(message.language.get('MASSMENTION')[5])
-
-          data.channels.push(channelAdd)
-          this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
-          break
-        }
-
-        case 'remove-channel': {
-          const channelRemove = this.client.functions.channelFilter(message, args[1])
-
-          if (!channelRemove) return message.channel.send(message.language.get('MASSMENTION')[3])
-          if (data.channels.length === 0 && !data.channels.includes(channelRemove)) return message.channel.send(message.language.get('MASSMENTION')[6])
-
-          const posChannel = data.channels.indexOf(channelRemove)
-          data.channels.splice(posChannel, 1)
-          this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
-          break
-        }
-
-        case 'set-limit':
-          if (!args[1] || isNaN(args[1]) || !Number.isInteger(args[1])) return message.channel.send(message.language.get('MASSMENTION')[7])
-          if (args[1] <= 0 || args[0] > 20) return message.channel.send(message.language.get('MASSMENTION')[8])
-
-          data.max = parseInt(args[1])
-
-          this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-          message.channel.send(message.language.get('SETLIMIT', args[1]))
-          break
-
-        case 'set-sanction': {
-          const embedSanction = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTitle(message.language.get('MASSMENTION')[9])
-            .setDescription(message.language.get('MASSMENTION')[10])
-            .setTimestamp()
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          if (!args[0]) return message.channel.send(embedSanction)
-
-          if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
-            data.sanction = parseInt(args[0])
-            this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-            return message.channel.send(message.language.get('SANCTION')[parseInt(args[0] - 1)])
-          } else {
-            message.channel.send(message.language.get('SANCTION')[4])
-          }
-          break
-        }
-
-        case 'setup': {
-          const mentionRole = data.roles.map((role, i) => {
-            if (!message.guild.roles.cache.get(role)) {
-              data.roles.splice(i, 1)
-              this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-            } else {
-              `• <@&${role}>`.toString()
-            }
-          })
-
-          const mentionChannel = data.channels.map((channel, i) => {
-            if (!message.guild.channels.cache.get(channel)) {
-              data.roles.splice(i, 1)
-              this.client.database.query('UPDATE settings SET massmentions = $1 WHERE id = $2', [[data], message.guild.id])
-            } else {
-              `• <#${channel}>`.toString()
-            }
-          })
-
-          const embedSetup = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTimestamp()
-            .setTitle(message.language.get('MASSMENTION')[11])
-            .addField(message.language.get('MASSMENTION')[12], message.language.get('SANCTION')[data.sanction - 1])
-            .addField(message.language.get('MASSMENTION')[13], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('MASSMENTION')[14]}`)
-            .addField(message.language.get('MASSMENTION')[15], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('MASSMENTION')[16]}`)
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          message.channel.send(embedSetup)
-          break
-        }
-
-        default: {
-          const embed = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTimestamp()
-            .setTitle(message.language.get('MASSMENTION')[17])
-            .setDescription(message.language.get('MASSMENTION')[18])
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-          message.channel.send(embed)
-          break
-        }
+        this.client.database.query(`UPDATE settings SET massmentions = jsonb_insert(massmentions, '{roles, 0}', '"${roleAdd}"') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('ADDROLE', roleAdd))
+        break
       }
-    })
+
+      case 'remove-role': {
+        const roleRemove = this.client.functions.roleFilter(message, args[1])
+
+        if (!roleRemove) return message.channel.send(message.language.get('MASSMENTION')[0])
+        if (data.roles.length === 0 || !data.roles.includes(roleRemove)) return message.channel.send(message.language.get('MASSMENTION')[2])
+
+        this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{roles}', (massmentions->'roles') - '${roleRemove}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('REMOVEROLE', roleRemove))
+        break
+      }
+
+      case 'add-channel': {
+        const channelAdd = this.client.functions.channelFilter(message, args[1])
+
+        if (!channelAdd) return message.channel.send(message.language.get('MASSMENTION')[3])
+        if (data.channels.length !== 0 && data.channels.includes(channelAdd)) return message.channel.send(message.language.get('MASSMENTION')[4])
+
+        if (data.roles.length === 15 && !res.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
+
+        if (message.guild.channels.cache.get(channelAdd).type === 'voice' || message.guild.channels.cache.get(channelAdd).type === 'category') return message.channel.send(message.language.get('MASSMENTION')[5])
+
+        this.client.database.query(`UPDATE settings SET massmentions = jsonb_insert(massmentions, '{channels, 0}', '"${channelAdd}"') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
+        break
+      }
+
+      case 'remove-channel': {
+        const channelRemove = this.client.functions.channelFilter(message, args[1])
+
+        if (!channelRemove) return message.channel.send(message.language.get('MASSMENTION')[3])
+        if (data.channels.length === 0 && !data.channels.includes(channelRemove)) return message.channel.send(message.language.get('MASSMENTION')[6])
+
+        this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{channels}', (massmentions->'channels') - '${channelRemove}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
+        break
+      }
+
+      case 'set-limit': {
+        if (!args[1] || isNaN(args[1]) || !Number.isInteger(args[1])) return message.channel.send(message.language.get('MASSMENTION')[7])
+        if (args[1] <= 0 || args[1] > 20) return message.channel.send(message.language.get('MASSMENTION')[8])
+
+        this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{max}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('SETLIMIT', args[1]))
+        break
+      }
+
+      case 'set-sanction': {
+        const embedSanction = new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTitle(message.language.get('MASSMENTION')[9])
+          .setDescription(message.language.get('MASSMENTION')[10])
+          .setTimestamp()
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+        if (!args[1]) return message.channel.send(embedSanction)
+
+        if (args[1] === '1' || args[1] === '2' || args[1] === '3') {
+          this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
+          return message.channel.send(message.language.get('SANCTION')[parseInt(args[1] - 1)])
+        } else {
+          message.channel.send(message.language.get('SANCTION')[4])
+        }
+        break
+      }
+
+      case 'setup': {
+        const mentionRole = data.roles.map((role, i) => {
+          if (!message.guild.roles.cache.get(role)) {
+            data.roles.splice(i, 1)
+            this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{roles}', (antilink->'roles') - '${role}') WHERE id = $1`, [message.guild.id])
+          } else {
+            return `• <@&${role}>`.toString()
+          }
+        })
+
+        const mentionChannel = data.channels.map((channel, i) => {
+          if (!message.guild.channels.cache.get(channel)) {
+            this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{channels}', (massmentions->'channels') - '${channel}') WHERE id = $1`, [message.guild.id])
+          } else {
+            return `• <#${channel}>`.toString()
+          }
+        })
+
+        const embedSetup = new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTimestamp()
+          .setTitle(message.language.get('MASSMENTION')[11])
+          .addField(message.language.get('MASSMENTION')[12], message.language.get('SANCTION')[data.sanction - 1])
+          .addField(message.language.get('MASSMENTION')[13], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('MASSMENTION')[14]}`)
+          .addField(message.language.get('MASSMENTION')[15], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('MASSMENTION')[16]}`)
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+        message.channel.send(embedSetup)
+        break
+      }
+
+      default: {
+        const embed = new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTimestamp()
+          .setTitle(message.language.get('MASSMENTION')[17])
+          .setDescription(message.language.get('MASSMENTION')[18])
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+
+        message.channel.send(embed)
+        break
+      }
+    }
   }
 }
