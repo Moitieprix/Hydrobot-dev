@@ -15,8 +15,8 @@ module.exports = class Tableflip extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('TABLE_USAGE', prefix),
-      category: (language) => language.get('UTILS').FUN_CATEGORIE,
-      examples: (language, prefix) => language.get('TABLE_USAGE', prefix)
+      category: (language) => language.get('UTILS').FUN_CATEGORY,
+      examples: (language, prefix) => language.get('TABLE_EXAMPLE', prefix)
     })
   }
 
