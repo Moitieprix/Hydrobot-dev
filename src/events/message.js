@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
   message.language = language
 
   if (!message.content.startsWith(res.rows[0].prefix) && message.guild.me.hasPermission('MANAGE_MESSAGES')) {
-    const dataBadwords = JSON.parse(res.rows[0].badwords[0])
+    const dataBadwords = res.rows[0].badwords
     if (res.rows[0].system.badwords) {
       if ((dataBadwords.roles.length === 0 || !message.member.roles.cache.some(r => dataBadwords.roles.includes(r.id))) && (dataBadwords.channels.length === 0 || !dataBadwords.channels.includes(message.channel.id))) {
         if (dataBadwords.words.length > 0) {
@@ -36,7 +36,7 @@ module.exports = async (client, message) => {
       }
     }
 
-    const dataAntilink = JSON.parse(res.rows[0].antilink[0])
+    const dataAntilink = res.rows[0].antilink
     if (res.rows[0].system.antilink) {
       if (dataAntilink.roles.length === 0 || !message.member.roles.cache.some(r => dataAntilink.roles.includes(r.id))) {
         if (dataAntilink.channels.length === 0 || !dataAntilink.channels.includes(message.channel.id)) {
@@ -48,7 +48,7 @@ module.exports = async (client, message) => {
       }
     }
 
-    const dataAnticaps = JSON.parse(res.rows[0].anticaps[0])
+    const dataAnticaps = res.rows[0].anticaps
     if (res.rows[0].system.anticaps) {
       if ((dataAnticaps.roles.length === 0 || !message.member.roles.cache.some(r => dataAnticaps.roles.includes(r.id))) && (dataAnticaps.channels.length === 0 || !dataAnticaps.channels.includes(message.channel.id))) {
         const length = message.content.replace(/[^A-Z]/g, '').length
@@ -61,7 +61,7 @@ module.exports = async (client, message) => {
       }
     }
 
-    const dataMassmentions = JSON.parse(res.rows[0].massmentions[0])
+    const dataMassmentions = res.rows[0].massmentions
     if (res.rows[0].system.massmentions) {
       if ((dataMassmentions.roles.length === 0 || !message.member.roles.cache.some(r => dataMassmentions.roles.includes(r.id))) && (dataMassmentions.channels.length === 0 || !dataMassmentions.channels.includes(message.channel.id))) {
         const mentionsSize = message.mentions.users.size
