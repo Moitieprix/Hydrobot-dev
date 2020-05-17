@@ -16,20 +16,20 @@ module.exports = class EightBall extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('BALL_USAGE', prefix),
-      category: (language) => language.get('UTILS').FUN_CATEGORIE,
-      examples: (language, prefix) => language.get('BALL_EXEMPLE', prefix)
+      category: (language) => language.get('UTILS').FUN_CATEGORY,
+      examples: (language, prefix) => language.get('BALL_EXAMPLE', prefix)
     })
   }
 
   run (message, args) {
-    if (!args[0]) return message.channel.send(message.language.get('BALL_ARGS'))
+    if (!args[0]) return message.channel.send(message.language.get('BALL')[0])
 
-    if (args.join(' ').length > 255) return message.channel.send(message.language.get('BALL_LENGTH'))
+    if (args.join(' ').length > 255) return message.channel.send(message.language.get('BALL')[1])
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(':8ball: • 8ball')
-      .addField(args.join(' '), message.language.get('BALL_REPLYS')[this.client.functions.getRandomInt(0, message.language.get('BALL_REPLYS').length - 1)])
+      .addField(args.join(' '), message.language.get('BALL_ANSWERS')[this.client.functions.getRandomInt(0, message.language.get('BALL_REPLYS').length - 1)])
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
     return message.channel.send(embed)
