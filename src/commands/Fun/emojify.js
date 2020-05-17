@@ -15,8 +15,8 @@ module.exports = class Emojify extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('EMOJIFY_USAGE', prefix),
-      category: (language) => language.get('UTILS').FUN_CATEGORIE,
-      examples: (language, prefix) => language.get('EMOJIFY_EXEMPLE', prefix)
+      category: (language) => language.get('UTILS').FUN_CATEGORY,
+      examples: (language, prefix) => language.get('EMOJIFY_EXAMPLE', prefix)
     })
   }
 
@@ -44,15 +44,16 @@ module.exports = class Emojify extends Command {
       '.': ':radio_button:'
 
     }
-    'abcdefghijklmnopqrstuvwxyz'.split('').forEach(c => {
-      mapping[c] = mapping[c.toUpperCase()] = `:regional_indicator_${c}:`
-    })
 
-    if (!args[0]) return message.channel.send(message.language.get('EMOJIFY_ARGS'))
+    for (const element of 'abcdefghijklmnopqrstuvwxyz'.split('')) {
+      mapping[element] = mapping[element.toUpperCase()] = `:regional_indicator_${element}:`
+    }
 
-    if (args.join(' ').match(new RegExp(/[^a-zA-Z0-9\s!?+÷^<>.]/))) return message.channel.send(message.language.get('EMOJIFY_NOT_VALID'))
+    if (!args[0]) return message.channel.send(message.language.get('EMOJIFY')[0])
 
-    if (args.join(' ').length > 100) return message.channel.send(message.language.get(message.language.get('EMOJIFY_LENGTH')))
+    if (args.join(' ').match(/[^a-zA-Z0-9\s!?+÷^<>.]/)) return message.channel.send(message.language.get('EMOJIFY')[1])
+
+    if (args.join(' ').length > 100) return message.channel.send(message.language.get(message.language.get('EMOJIFY')[2]))
 
     return message.channel.send(
       args.join(' ')
