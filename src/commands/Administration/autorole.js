@@ -25,7 +25,6 @@ module.exports = class Autorole extends Command {
     if (!res) return
 
     const data = res.rows[0].autorole
-    console.log(data)
 
     const role = this.client.functions.roleFilter(message, args[1])
     const getRole = message.guild.roles.cache.get(role)
@@ -35,7 +34,9 @@ module.exports = class Autorole extends Command {
         if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
         if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
 
-        if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send('position')
+        if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send(message.language.get('AUTOROLE')[2])
+
+        if (data.length === 10 && !res.premium) return message.channel.send(message.language.get('UTILS').AUTOROLE_SIZE_PREMIUM(res.rows[0].prefix))
 
         this.client.database.query(`UPDATE settings SET autorole = array_cat(autorole, '{${role}}') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
@@ -44,7 +45,7 @@ module.exports = class Autorole extends Command {
 
       case 'remove-role': {
         if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
-        if (data === 0 || !data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[2])
+        if (data === 0 || !data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[3])
 
         this.client.database.query(`UPDATE settings SET autorole = array_remove(autorole, '${role}') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
@@ -63,8 +64,8 @@ module.exports = class Autorole extends Command {
         const embedRoles = new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setTimestamp()
-          .setTitle(message.language.get('AUTOROLE')[3])
-          .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[4])
+          .setTitle(message.language.get('AUTOROLE')[4])
+          .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[5])
           .setFooter(this.client.user.username, this.client.user.avatarURL())
 
         message.channel.send(embedRoles)
@@ -77,8 +78,8 @@ module.exports = class Autorole extends Command {
         const embed = new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setTimestamp()
-          .setTitle(message.language.get('AUTOROLE')[5])
-          .setDescription(message.language.get('AUTOROLE')[6])
+          .setTitle(message.language.get('AUTOROLE')[6])
+          .setDescription(message.language.get('AUTOROLE')[7])
           .setFooter(this.client.user.username, this.client.user.avatarURL())
 
         message.channel.send(embed)
