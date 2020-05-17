@@ -17,24 +17,24 @@ module.exports = class Decode extends Command {
       permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('DECODE_USAGE', prefix),
-      category: (language) => language.get('UTILS').FUN_CATEGORIE,
-      examples: (language, prefix) => language.get('DECODE_EXEMPLE', prefix)
+      category: (language) => language.get('UTILS').FUN_CATEGORY,
+      examples: (language, prefix) => language.get('DECODE_EXEAPLE', prefix)
     })
   }
 
   async run (message, args) {
-    if (!args[0]) return message.channel.send(message.language.get('DECODE_ARGS'))
-    if (args.join(' ').length > 750) return message.channel.send(message.language.get('DECODE_LENGTH'))
+    if (!args[0]) return message.channel.send(message.language.get('DECODE')[0])
+    if (args.join(' ').length > 750) return message.channel.send(message.language.get('DECODE')[1])
 
     const text = args.join(' ')
-    let decodeText = Base64.decode(text)
+    let decodeText = decodeURIComponent(Base64.decode(text))
 
-    if (decodeText.length === 0) decodeText = message.language.get('DECODE_NOT_VALID')
+    if (decodeText.length === 0) decodeText = message.language.get('DECODE')[2]
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
-      .addField(`${message.language.get('DECODE_ENTREE')}`, `\`\`\`${text}\`\`\``)
-      .addField(`${message.language.get('DECODE_SORTIE')}`, `\`\`\`${decodeText}\`\`\``)
+      .addField(`${message.language.get('DECODE')[3]}`, `\`\`\`${text}\`\`\``)
+      .addField(`${message.language.get('DECODE')[4]}`, `\`\`\`${decodeText}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
 
