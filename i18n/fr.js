@@ -368,8 +368,8 @@ module.exports = class {
       ],
 
       // plugin.js
-      PLUGIN_USAGE: prefix => `${prefix} < list | plugin >`,
-      PLUGIN_EXAMPLE: prefix => `${prefix} list \n${prefix} logs`,
+      PLUGIN_USAGE: prefix => `• \`${prefix}plugin\` - Affiche la liste des arguments disponibles pour la commande plugin \n• \`${prefix}plugin [list]\` - Affiche la liste des plugins \n• \`${prefix}plugin [plugin]\` - Active / désactive un plugin \n• \`${prefix}plugin enable-all | disable-all\` - Active ou désactive l'intégralité des plugins`,
+      PLUGIN_EXAMPLE: prefix => `\`${prefix}plugin logs\``,
       PLUGIN_ENABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été activé !`,
       PLUGIN_DISABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été désactivé !`,
       PLUGIN_ARGS: `${emote.others.no} • Argument invalide !`,
@@ -382,8 +382,8 @@ module.exports = class {
       ],
 
       // prefix.js
-      PREFIX_USAGE: prefix => `\`${prefix}prefix <préfixe>\` - Modifie le prefix d'Hydrobot sur le serveur`,
-      PREFIX_EXEMPLE: prefix => `\`${prefix}prefix ?\``,
+      PREFIX_USAGE: prefix => `• \`${prefix}prefix <préfixe>\` - Modifie le prefix d'Hydrobot sur le serveur`,
+      PREFIX_EXAMPLE: prefix => `\`${prefix}prefix ?\``,
       PREFIX_CHANGE_DESC: args => `Le préfixe a bien été changé pour \`${args[0]}\``,
 
       PREFIX: [
@@ -396,7 +396,7 @@ module.exports = class {
       // FUN //
 
       // 8ball.js
-      BALL_USAGE: prefix => `\`${prefix}8ball <question>\` - Pose moi ta question, j'y répondrais !`,
+      BALL_USAGE: prefix => `• \`${prefix}8ball <question>\` - Pose moi ta question, j'y répondrais !`,
       BALL_EXAMPLE: prefix => `\`${prefix}8ball Suis-je intelligent ?\``,
       BALL: [
         `${emote.others.no} • Tu dois me poser une question !`,
@@ -421,7 +421,7 @@ module.exports = class {
       ],
 
       // decode.js
-      DECODE_USAGE: prefix => `\`${prefix}decode <texte>\` - Décode un texte encodé en base64 (${emote.others.caution} • Certains caractères ne sont pas supportés par Discord)`,
+      DECODE_USAGE: prefix => `• \`${prefix}decode <texte>\` - Décode un texte encodé en base64 (${emote.others.caution} • Certains caractères ne sont pas supportés par Discord)`,
       DECODE_EXAMPLE: prefix => `\`${prefix}decode Q29tbWVudCB2YXMtdHUgPw==\``,
       DECODE: [
         `${emote.others.no} • Tu dois m'indiquer un texte à déchiffer !`,
@@ -432,13 +432,66 @@ module.exports = class {
       ],
 
       // emojify.js
-      EMOJIFY_USAGE: prefix => `\`${prefix}emojify <texte>\` - Transforme ton texte en emojis ! `,
-      EMOJIFY_EXAMPLE: prefix => `${prefix}emojify Comment vas-tu ?`,
+      EMOJIFY_USAGE: prefix => `• \`${prefix}emojify <texte>\` - Transforme ton texte en emojis ! `,
+      EMOJIFY_EXAMPLE: prefix => `\`${prefix}emojify Comment vas tu ?\``,
       EMOJIFY: [
         `${emote.others.no} • Tu dois m'indiquer un texte !`,
-        `${emote.others.no} • Seul les caractères suivants sont autorisés : \`a-z A-Z 0-9 !?+÷^?!<>.\``,
+        `${emote.others.no} • Seul les caractères suivants sont autorisés : \`a-z A-Z 0-9 !?+÷^?!<>.-\``,
         `${emote.others.no} • Le texte est trop long ! (100 caractères max.)`
       ],
+
+      // encode.js
+      ENCODE_USAGE: prefix => `• \`${prefix}encode <texte>\` - Encode un texte en base64`,
+      ENCODE_EXAMPLE: prefix => `${prefix}encode Comment vas-tu ?`,
+      ENCODE: [
+        `${emote.others.no} • Tu dois m'indiquer un texte !`,
+        `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
+        ':inbox_tray: • Entrée :',
+        ':outbox_tray: • Sortie :'
+      ],
+
+      // roll.js
+      ROLL_USAGE: prefix => `• \`${prefix}roll\` - Lance un dé`,
+      ROLL_EXAMPLE: prefix => `\`${prefix}roll\``,
+      ROLL: ':game_die: • Vous êtes tombé sur le...',
+
+      // rps.js
+      RPS_USAGE: prefix => `• \`${prefix}rpc <rock | paper | scissors>\` - Joue à pierre, feuille, ciseaux avec moi !`,
+      RPS_EXAMPLE: prefix => `\`${prefix}rpc rock\` \n\`${prefix}rpc paper\` \n\`${prefix}scissors\``,
+
+      RPS: [
+        `${emote.others.no} • Argument invalide ! Tu dois choisir entre \`rock\`, \`paper\` et \`scissors\` !`,
+        'Pierre, feuille, ciseaux',
+        ':bricks: • J\'ai également choisi pierre ! Égalité !',
+        ':roll_of_paper: • J\'ai choisi feuille ! Tu as perdu !',
+        ':scissors: • J\'ai choisi ciseaux ! Tu as gagné !',
+        ':bricks: • J\'ai choisi pierre ! Tu as gagné !',
+        ':roll_of_paper: • J\'ai également choisi feuille ! Égalité !',
+        ':scissors: • J\'ai choisi ciseaux ! Tu as perdu !',
+        ':bricks: • J\'ai choisi pierre ! Tu as perdu !',
+        ':roll_of_paper: • J\'ai choisi feuille ! Tu as gagné !',
+        ':scissors: • J\'ai également choisi ciseaux ! Égalité !'
+      ],
+
+      // Sha
+      SHA: [
+        `${emote.others.no} • Tu dois m'indiquer un texte à hash !`,
+        `${emote.others.no} • Le texte est trop long ! (1000 caractères max.)`,
+        ':inbox_tray: • Entrée :',
+        ':outbox_tray: • Sortie :'
+      ],
+
+      // sha256.js
+      SHA256_USAGE: prefix => `• \`${prefix}sha256 <texte>\` - Hash un texte en SHA-256`,
+      SHA256_EXAMPLE: prefix => `\`${prefix}sha256 bonjour\``,
+
+      // sha512.js
+      SHA512_USAGE: prefix => `• \`${prefix}sha512 <texte>\` - Hash un texte en SHA-512`,
+      SHA512_EXAMPLE: prefix => `\`${prefix}sha512 bonjour\``,
+
+      // tableflip.js
+      TABLEFLIP_USAGE: prefix => `• \`${prefix}tableflip\` - Retourne une table ! ┬─┬ ノ( ゜-゜ノ)`,
+      TABLEFLIP_EXAMPLE: prefix => `\`${prefix}tableflip\``,
 
       // HYDROBOT //
 
@@ -506,6 +559,16 @@ module.exports = class {
       ACHIEVEMENT_EXAMPLE: prefix => `\`${prefix}achievement Énigme résolue !\``,
       ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
       ACHIEVEMENT_LENGTH: `${emote.others.no} • Ton texte ne dois pas dépasser 24 caractères !`,
+
+      // INFORMATION //
+
+      // MODERATION //
+
+      // NSFW //
+
+      // OTHERS //
+
+      // OWNER //
 
       // Avatar
       AVATAR_DESC: 'Affiche la photo de profil d\'un utilisateur',
@@ -655,40 +718,6 @@ module.exports = class {
       // Membercount
       MEMBERCOUNT_DESC: 'Affiche le nombre de membre sur le serveur',
       MEMBERCOUNT_USAGE: prefix => `${prefix}membercount`,
-
-      // Encode
-      ENCODE_DESC: 'Encode le texte en Base64',
-      ENCODE_USAGE: prefix => `${prefix}encode <texte>`,
-      ENCODE_EXEMPLE: prefix => `${prefix}encode Comment vas-tu ?`,
-      ENCODE_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
-      ENCODE_LENGTH: `${emote.others.no} • Le texte est trop long ! (750 caractères max.)`,
-      ENCODE_ENTREE: ':inbox_tray: • Entrée :',
-      ENCODE_SORTIE: ':outbox_tray: • Sortie :',
-
-      // Sha256
-      SHA256_DESC: 'Hash un texte en Sha256',
-      SHA256_USAGE: prefix => `${prefix}sha256 <texte>`,
-      SHA256_EXEMPLE: prefix => `${prefix}sha256 bonjour`,
-
-      SHA_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte à hash !`,
-      SHA_LENGTH: `${emote.others.no} • Le texte est trop long ! (1000 caractères max.)`,
-      SHA_ENTREE: ':inbox_tray: • Entrée :',
-      SHA_SORTIE: ':outbox_tray: • Sortie :',
-
-      // Sha512
-      SHA512_DESC: 'Hash un texte en Sha512',
-      SHA512_USAGE: prefix => `${prefix}sha512 <texte>`,
-      SHA512_EXEMPLE: prefix => `${prefix}sha512 bonjour`,
-
-      // Tableflip
-      TABLE_DESC: 'Tableflip ¯\\_(ツ)_/¯',
-      TABLE_USAGE: prefix => `${prefix}tableflip`,
-
-      AUTOMOD: {
-        BADWORDS_WARN: `${emote.others.no} • Ce mot n'est pas autorisé ici !`,
-        ANTILINK_WARN: `${emote.others.no} • Les liens ne sont pas autorisés ici !`,
-        ANTICAPS_WARN: `${emote.others.no} • Le capslock n'est pas autorisé ici !`
-      },
 
       // Weather
       WEATHER_DESC: 'Donne la météo d\'un lieu',
@@ -845,34 +874,6 @@ module.exports = class {
       DISTRACTED_EXEMPLE: prefix => `${prefix}distracted \n${prefix}distracted @Moitié prix#4263 \n${prefix}distracted Moitié`,
       DISTRACTED_ARGS: `${emote.others.no} • Tu dois me dire qui tu veux regarder !`,
 
-      // Roll
-      ROLL_DESC: 'Lance un dé !',
-      ROLL_USAGE: prefix => `${prefix}roll`,
-      ROLL_EMBED: ':game_die: • Vous êtes tombé sur le...',
-
-      // Rpc
-      RPS_DESC: 'Joue à pierre, feuille, ciseaux avec moi !',
-      RPS_USAGE: prefix => `${prefix}rpc [rock / paper / scissors]`,
-      RPS_EXEMPLE: prefix => `${prefix}rpc \n${prefix}rpc pierre \n${prefix}rpc feuille \n${prefix}ciseaux`,
-
-      RPS_TITLE: 'Pierre, feuille, ciseaux',
-      RPS_ARGS: `${emote.others.no} • Argument invalide ! Tu dois choisir entre rock, paper et scissors !`,
-
-      RPS_REPONSES: [
-        // Pierre
-        ':bricks: • J\'ai également choisi pierre ! Égalité !',
-        ':roll_of_paper: • J\'ai choisi feuille ! Tu as perdu !',
-        ':scissors: • J\'ai choisi ciseaux ! Tu as gagné !',
-        // Feuille
-        ':bricks: • J\'ai choisi pierre ! Tu as gagné !',
-        ':roll_of_paper: • J\'ai également choisi feuille ! Égalité !',
-        ':scissors: • J\'ai choisi ciseaux ! Tu as perdu !',
-        // Ciseaux
-        ':bricks: • J\'ai choisi pierre ! Tu as perdu !',
-        ':roll_of_paper: • J\'ai choisi feuille ! Tu as gagné !',
-        ':scissors: • J\'ai également choisi ciseaux ! Égalité !'
-      ],
-
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
       BLACKLIST_USAGE: prefix => `${prefix}blacklist <add | remove> <@mention | id>`,
@@ -885,13 +886,6 @@ module.exports = class {
 
     }
   }
-
-  /**
-   *
-   * @param term
-   * @param args
-   * @returns {string|Function}
-   */
 
   get (term, ...args) {
     const value = this.language[term]
