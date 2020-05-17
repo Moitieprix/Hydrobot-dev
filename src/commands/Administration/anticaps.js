@@ -33,7 +33,7 @@ module.exports = class Anticaps extends Command {
         if (!roleAdd) return message.channel.send(message.language.get('ANTICAPS')[0])
         if (data.roles.length !== 0 && data.roles.includes(roleAdd)) return message.channel.send(message.language.get('ANTICAPS')[1])
 
-        if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
+        if (data.roles.length === 15 && !res.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
 
         this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{roles, 0}', '"${roleAdd}"') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('ADDROLE', roleAdd))
@@ -57,7 +57,7 @@ module.exports = class Anticaps extends Command {
         if (!channelAdd) return message.channel.send(message.language.get('ANTICAPS')[3])
         if (data.channels.length !== 0 && data.channels.includes(channelAdd)) return message.channel.send(message.language.get('ANTICAPS')[4])
 
-        if (data.roles.length === 15 && !data.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
+        if (data.roles.length === 15 && !res.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
 
         if (message.guild.channels.cache.get(channelAdd).type === 'voice' || message.guild.channels.cache.get(channelAdd).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
 
@@ -85,11 +85,11 @@ module.exports = class Anticaps extends Command {
           .setTimestamp()
           .setFooter(this.client.user.username, this.client.user.avatarURL())
 
-        if (!args[0]) return message.channel.send(embedSanction)
+        if (!args[1]) return message.channel.send(embedSanction)
 
-        if (args[0] === '1' || args[0] === '2' || args[0] === '3') {
-          this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{sanction}', '${parseInt(args[0])}') WHERE id = $1`, [message.guild.id])
-          return message.channel.send(message.language.get('SANCTION')[parseInt(args[0]) - 1])
+        if (args[1] === '1' || args[1] === '2' || args[1] === '3') {
+          this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
+          return message.channel.send(message.language.get('SANCTION')[parseInt(args[1]) - 1])
         } else {
           message.channel.send(message.language.get('SANCTION')[4])
         }
