@@ -90,7 +90,7 @@ module.exports = async (client, message) => {
   if (!cmd) return
 
   // Commands options //
-  if ((cmd.conf.plugin.toString() === 'image' && res.rows[0].system.images === false) || (cmd.conf.plugin.toString() === 'nsfw' && res.rows[0].system.nsfw === false)) return
+  if ((cmd.conf.plugin.toString() === 'images' && !res.rows[0].system.images) || (cmd.conf.plugin.toString() === 'nsfw' && !res.rows[0].system.nsfw)) return
 
   if (!cmd.conf.enabled) return message.channel.send(message.language.get('COMMANDE_DISABLED'))
 
