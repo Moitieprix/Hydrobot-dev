@@ -7,12 +7,7 @@ module.exports = class Achievement extends Command {
     super(client, {
       name: 'achievement',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: 'image',
-      aliases: [],
-      permission: [],
+      plugin: 'images',
       botpermissions: ['ATTACH_FILES'],
       usage: (language, prefix) => language.get('ACHIEVEMENT_USAGE', prefix),
       category: (language) => language.get('UTILS').IMAGE_CATEGORY,
@@ -23,9 +18,9 @@ module.exports = class Achievement extends Command {
   run (message, args) {
     const number = this.client.functions.getRandomInt(1, 39)
 
-    if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT_ARGS'))
+    if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT')[0])
 
-    if (args.join(' ').length > 24) return message.channel.send(message.language.get('ACHIEVEMENT_LENGTH'))
+    if (args.join(' ').length > 24) return message.channel.send(message.language.get('ACHIEVEMENT')[1])
 
     const text = encodeURIComponent(args.join(' ')).replace('%20', '+')
 
