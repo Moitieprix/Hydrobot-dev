@@ -1,40 +1,35 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const Jimp = require('jimp')
+const { read, MIME_PNG } = require('jimp')
 
 module.exports = class Tobecontinued extends Command {
   constructor (client) {
     super(client, {
       name: 'tobecontinued',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: 'image',
-      aliases: [],
-      permission: [],
+      plugin: 'images',
       botpermissions: ['ATTACH_FILES'],
-      usage: (language, prefix) => language.get('TOBECONTINUED_USAGE', prefix),
-      category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
-      examples: (language, prefix) => language.get('TOBECONTINUED_EXEMPLE', prefix)
+      usage: (language, prefix) => language.get('IMAGE_USAGE', prefix, 'tobecontinued'),
+      category: (language) => language.get('UTILS').IMAGE_CATEGORY,
+      examples: (language, prefix) => language.get('IMAGE_EXAMPLE', prefix, 'tobecontinued')
     })
   }
 
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+    if (!user) return
 
-    Jimp.read(user.displayAvatarURL({ format: 'png', size: 256 }), (err, image) => {
-      image.resize(256, 256)
-      image.sepia()
+    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
+      avatar.resize(256, 256)
+      avatar.sepia()
 
-      Jimp.read('./images/tobecontinued.png', (err, avatar) => {
-        avatar.resize(160, 130)
-        image.composite(avatar, 90, 155)
+      read('./images/tobecontinued.png', (_err, image) => {
+        image.resize(160, 130)
+        avatar.composite(image, 90, 155)
 
-        image.getBuffer(Jimp.MIME_PNG, (error, buffer) => {
+        avatar.getBuffer(MIME_PNG, (_err, buffer) => {
           return message.channel.send({ files: [{ name: 'tobecontinued.png', attachment: buffer }] })
         })
       })
