@@ -10,9 +10,9 @@ module.exports = class Command {
     aliases = [],
     permission = [],
     botpermissions = [],
-    usage = false,
+    usage = 'Not defined',
     category = 'Not defined',
-    examples = false
+    examples = 'Not defined'
   }) {
     this.client = client
     this.conf = { enabled, aliases, permission, botpermissions, owner, cooldown, plugin }
