@@ -576,6 +576,10 @@ module.exports = class {
 
       // INFORMATION //
 
+      // avatar.js
+      AVATAR_USAGE: prefix => `\`${prefix}avatar [@mention | pseudo | ID d'utisateur]\` - Envoi l'avatar de l'utilisateur`,
+      AVATAR_EXAMPLE: prefix => `\`${prefix}avatar @Moitié prix#4263\` \n\`${prefix}avatar Moitié\` \n\`${prefix}avatar 406135526005932043\``,
+
       // MODERATION //
 
       // NSFW //
@@ -583,11 +587,6 @@ module.exports = class {
       // OTHERS //
 
       // OWNER //
-
-      // Avatar
-      AVATAR_DESC: 'Affiche la photo de profil d\'un utilisateur',
-      AVATAR_USAGE: prefix => `${prefix}avatar [ @mention / pseudo ]`,
-      AVATAR_EXEMPLE: prefix => `${prefix}avatar \n${prefix}avatar @Moitié prix#4263 \n${prefix}avatar Moitié`,
 
       // Permissions
       PERMISSIONS_DESC: 'Donne les permissions de l\'utilisateur',
