@@ -1,7 +1,7 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class Avatar extends Command {
   constructor (client) {
