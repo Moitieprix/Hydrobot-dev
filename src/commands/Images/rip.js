@@ -1,39 +1,35 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const Jimp = require('jimp')
+const { read, MIME_PNG, BLEND_DESTINATION_OVER } = require('jimp')
 
 module.exports = class Rip extends Command {
   constructor (client) {
     super(client, {
       name: 'rip',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: 'image',
-      aliases: [],
-      permission: [],
+      plugin: 'images',
       botpermissions: ['ATTACH_FILES'],
-      usage: (language, prefix) => language.get('RIP_USAGE', prefix),
-      category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
-      examples: (language, prefix) => language.get('RIP_EXEMPLE', prefix)
+      usage: (language, prefix) => language.get('IMAGE_USAGE', prefix, 'rip'),
+      category: (language) => language.get('UTILS').IMAGE_CATEGORY,
+      examples: (language, prefix) => language.get('IMAGE_EXAMPLE', prefix, 'rip')
     })
   }
 
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+    if (!user) return
 
-    Jimp.read('./images/plate_rip.png', (err, image) => {
+    read('./images/plate_rip.png', (_err, image) => {
       image.resize(400, 256)
 
-      Jimp.read(user.displayAvatarURL({ format: 'png', size: 256 }), (err, avatar) => {
+      read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
         avatar.resize(60, 60)
         avatar.rotate(3)
-        image.composite(avatar, 55, 25, { mode: Jimp.BLEND_DESTINATION_OVER })
-        image.getBuffer(Jimp.MIME_PNG, (error, buffer) => {
+        image.composite(avatar, 55, 25, { mode: BLEND_DESTINATION_OVER })
+
+        image.getBuffer(MIME_PNG, (_err, buffer) => {
           return message.channel.send({ files: [{ name: 'rip.png', attachment: buffer }] })
         })
       })
