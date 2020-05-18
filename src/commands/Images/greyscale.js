@@ -1,36 +1,31 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const Jimp = require('jimp')
+const { read, MIME_PNG } = require('jimp')
 
 module.exports = class Greyscale extends Command {
   constructor (client) {
     super(client, {
       name: 'greyscale',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: 'image',
-      aliases: [],
-      permission: [],
+      plugin: 'images',
       botpermissions: ['ATTACH_FILES'],
-      usage: (language, prefix) => language.get('GREYSCALE_USAGE', prefix),
-      category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
-      examples: (language, prefix) => language.get('GREYSCALE_EXEMPLE', prefix)
+      usage: (language, prefix) => language.get('IMAGE_USAGE', prefix, 'greyscale'),
+      category: (language) => language.get('UTILS').IMAGE_CATEGORY,
+      examples: (language, prefix) => language.get('IMAGE_EXAMPLE', prefix, 'greyscale')
     })
   }
 
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+    if (!user) return
 
-    Jimp.read(user.displayAvatarURL({ format: 'png', size: 256 }), (err, image) => {
-      image.resize(256, 256)
-      image.greyscale()
+    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
+      avatar.resize(256, 256)
+      avatar.greyscale()
 
-      image.getBuffer(Jimp.MIME_PNG, (error, buffer) => {
+      avatar.getBuffer(MIME_PNG, (_err, buffer) => {
         return message.channel.send({ files: [{ name: 'greyscale.png', attachment: buffer }] })
       })
     })
