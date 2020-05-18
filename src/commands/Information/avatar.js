@@ -7,16 +7,10 @@ module.exports = class Avatar extends Command {
   constructor (client) {
     super(client, {
       name: 'avatar',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('AVATAR_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORY,
-      examples: (language, prefix) => language.get('AVATAR_EXEMPLE', prefix)
+      examples: (language, prefix) => language.get('AVATAR_EXAMPLE', prefix)
     })
   }
 
@@ -28,7 +22,7 @@ module.exports = class Avatar extends Command {
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
-      .setDescription(!user.displayAvatarURL({ dynamic: true }).includes('.gif') ? `[PNG](https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=512) • [JPG](https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.jpg?size=512)` : `[PNG](https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=512) • [JPG](https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.jpg?size=512) • [GIF](https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.gif?size=512)`)
+      .setDescription(!user.displayAvatarURL({ dynamic: true }).includes('.gif') ? `[PNG](${user.displayAvatarURL({ format: 'png' })}) • [JPG](${user.displayAvatarURL({ format: 'jpg' })})` : `[PNG](${user.displayAvatarURL({ format: 'png' })}) • [JPG](${user.displayAvatarURL({ format: 'jpg' })}) • [GIF](${user.displayAvatarURL({ format: 'gif' })})`)
       .setImage(user.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
