@@ -1,54 +1,46 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const Jimp = require('jimp')
+const { read, MIME_PNG } = require('jimp')
 
 module.exports = class Distracted extends Command {
   constructor (client) {
     super(client, {
       name: 'distracted',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: 'image',
-      aliases: [],
-      permission: [],
+      plugin: 'images',
       botpermissions: ['ATTACH_FILES'],
-      usage: (language, prefix) => language.get('DISTRACTED_USAGE', prefix),
-      category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
-      examples: (language, prefix) => language.get('DISTRACTED_EXEMPLE', prefix)
+      usage: (language, prefix) => language.get('IMAGE_USAGE', prefix, 'distracted'),
+      category: (language) => language.get('UTILS').IMAGE_CATEGORY,
+      examples: (language, prefix) => language.get('IMAGE_EXAMPLE', prefix, 'distracted')
     })
   }
 
   async run (message, args) {
-    const mask = await Jimp.read('./images/mask.png')
+    const mask = await read('./images/mask.png')
 
-    if (!args[0]) {
-      return message.channel.send(message.language.get('DISTRACTED_ARGS'))
-    }
+    if (!args[0]) return message.channel.send(message.language.get('DISTRACTED_ARGS'))
 
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+    if (!user) return
 
-
-    Jimp.read('./images/plate_checkout.png', (err, image) => {
+    read('./images/plate_checkout.png', (_err, image) => {
       image.resize(370, 256)
 
-      Jimp.read(message.author.displayAvatarURL({ format: 'png', size: 256 }), (err, avatar) => {
+      read(message.author.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
         mask.resize(60, 60)
         avatar.resize(60, 60)
         avatar.mask(mask)
         image.composite(avatar, 180, 35)
 
-        Jimp.read(user.displayAvatarURL({ format: 'png', size: 256 }), (err, avatar2) => {
+        read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar2) => {
           mask.resize(85, 85)
           avatar2.resize(85, 85)
           avatar2.mask(mask)
           image.composite(avatar2, 70, 50)
 
-          image.getBuffer(Jimp.MIME_PNG, (error, buffer) => {
+          image.getBuffer(MIME_PNG, (_err, buffer) => {
             return message.channel.send({ files: [{ name: 'distracted.png', attachment: buffer }] })
           })
         })
