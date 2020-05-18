@@ -14,6 +14,7 @@ module.exports = class {
         API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
+        TOO_MANY_USERS: `${emote.others.no} • Trop de résultats ont été trouvés ! Merci de mentionner l'utilisateur ou d'affiner votre recherche !`,
         CHANNEL_DEFAUT: `${emote.others.no} • Je ne trouve pas ce salon !`,
         ROLE_DEFAUT: `${emote.others.no} • Je ne trouve pas ce rôle !`,
 
@@ -554,11 +555,24 @@ module.exports = class {
       // IMAGES //
 
       // achievement.js
-
       ACHIEVEMENT_USAGE: prefix => `• \`${prefix}achievement <texte>\` - Afficher ton texte dans un achievement Minecraft`,
       ACHIEVEMENT_EXAMPLE: prefix => `\`${prefix}achievement Énigme résolue !\``,
-      ACHIEVEMENT_ARGS: `${emote.others.no} • Tu dois m'indiquer un texte !`,
-      ACHIEVEMENT_LENGTH: `${emote.others.no} • Ton texte ne dois pas dépasser 24 caractères !`,
+      ACHIEVEMENT: [
+        `${emote.others.no} • Tu dois m'indiquer un texte !`,
+        `${emote.others.no} • Ton texte ne dois pas dépasser 24 caractères !`
+      ],
+
+      IMAGE_USAGE: (prefix, command) => `• \`${prefix}${command} [@mention | pseudo | ID d'utisateur]\` - Envoi une photo de profil modifiée avec le modèle ${command} !`,
+      IMAGE_EXAMPLE: (prefix, command) => `\`${prefix}${command} @Moitié prix#4263\` \n\`${prefix}${command} Moitié\` \n\`${prefix}${command} 406135526005932043\``,
+
+      // slap.js
+      SLAP_ARGS: `${emote.others.no} • Tu dois me dire qui claquer ! :p`,
+
+      // crush.js
+      CRUSH_ARGS: `${emote.others.no} • Tu dois me dire sur qui tu es en crush ! :p`,
+
+      // distracted.js
+      DISTRACTED_ARGS: `${emote.others.no} • Tu dois me dire qui tu veux regarder !`,
 
       // INFORMATION //
 
@@ -755,124 +769,6 @@ module.exports = class {
         'Température min. :',
         'Chance de précipitation :'
       ],
-
-      // Tobecontinued
-      TOBECONTINUED_DESC: 'Envoi une photo de profil modifié avec le filtre To be continued !',
-      TOBECONTINUED_USAGE: prefix => `${prefix}tobecontinued [@mention / pseudo]`,
-      TOBECONTINUED_EXEMPLE: prefix => `${prefix}tobecontinued \n${prefix}tobecontinued @Moitié prix#4263 \n${prefix}tobecontinued Moitié`,
-
-      // Triggered
-      TRIGGERED_DESC: 'Envoi une photo de profil modifié avec le filtre Triggered !',
-      TRIGGERED_USAGE: prefix => `${prefix}triggered [@mention / pseudo]`,
-      TRIGGERED_EXEMPLE: prefix => `${prefix}triggered \n${prefix}triggered @Moitié prix#4263 \n${prefix}triggered Moitié`,
-
-      // Wasted
-      WASTED_DESC: 'Envoi une photo de profil modifié avec le filtre Wasted !',
-      WASTED_USAGE: prefix => `${prefix}wasted [@mention / pseudo]`,
-      WASTED_EXEMPLE: prefix => `${prefix}wasted \n${prefix}wasted @Moitié prix#4263 \n${prefix}wasted Moitié`,
-
-      // Wanted
-      WANTED_DESC: 'Envoi une photo de profil modifié avec le filtre Wanted !',
-      WANTED_USAGE: prefix => `${prefix}wanted [@mention / pseudo]`,
-      WANTED_EXEMPLE: prefix => `${prefix}wanted \n${prefix}wanted @Moitié prix#4263 \n${prefix}wanted Moitié`,
-
-      // Missionpassed
-      MISSIONPASSED_DESC: 'Envoi une photo de profil modifié avec le filtre Missionpassed !',
-      MISSIONPASSED_USAGE: prefix => `${prefix}missionpassed [@mention / pseudo]`,
-      MISSIONPASSED_EXEMPLE: prefix => `${prefix}missionpassed \n${prefix}missionpassed @Moitié prix#4263 \n${prefix}missionpassed Moitié`,
-
-      // Pixel
-      PIXEL_DESC: 'Envoi une photo de profil modifié avec le filtre Pixel !',
-      PIXEL_USAGE: prefix => `${prefix}pixel [@mention / pseudo]`,
-      PIXEL_EXEMPLE: prefix => `${prefix}pixel \n${prefix}pixel @Moitié prix#4263 \n${prefix}pixel Moitié`,
-
-      // Beautiful
-      BEAUTIFUL_DESC: 'Envoi une photo de profil modifié avec le filtre Beautiful !',
-      BEAUTIFUL_USAGE: prefix => `${prefix}beautiful [@mention / pseudo]`,
-      BEAUTIFUL_EXEMPLE: prefix => `${prefix}beautiful \n${prefix}beautiful @Moitié prix#4263 \n${prefix}beautiful Moitié`,
-
-      // Blur
-      BLUR_DESC: 'Envoi une photo de profil modifié avec le filtre Blur !',
-      BLUR_USAGE: prefix => `${prefix}blur [@mention / pseudo]`,
-      BLUR_EXEMPLE: prefix => `${prefix}blur \n${prefix}blur @Moitié prix#4263 \n${prefix}blur Moitié`,
-
-      // Rip
-      RIP_DESC: 'Envoi une photo de profil modifié avec le filtre Rip !',
-      RIP_USAGE: prefix => `${prefix}rip [@mention / pseudo]`,
-      RIP_EXEMPLE: prefix => `${prefix}rip \n${prefix}rip @Moitié prix#4263 \n${prefix}rip Moitié`,
-
-      // Delete
-      DELETE_DESC: 'Envoi une photo de profil modifié avec le filtre Rip !',
-      DELETE_USAGE: prefix => `${prefix}rip [@mention / pseudo]`,
-      DELETE_EXEMPLE: prefix => `${prefix}rip \n${prefix}rip @Moitié prix#4263 \n${prefix}rip Moitié`,
-
-      // Bobross
-      BOBROSS_DESC: 'Envoi une photo de profil modifié avec le filtre Rip !',
-      BOBROSS_USAGE: prefix => `${prefix}rip [@mention / pseudo]`,
-      BOBROSS_EXEMPLE: prefix => `${prefix}rip \n${prefix}rip @Moitié prix#4263 \n${prefix}rip Moitié`,
-
-      // Sepia
-      SEPIA_DESC: 'Envoi une photo de profil modifié avec le filtre Sepia !',
-      SEPIA_USAGE: prefix => `${prefix}sepia [@mention / pseudo]`,
-      SEPIA_EXEMPLE: prefix => `${prefix}sepia \n${prefix}sepia @Moitié prix#4263 \n${prefix}sepia Moitié`,
-
-      // Invert
-      INVERT_DESC: 'Envoi une photo de profil modifié avec le filtre Invert !',
-      INVERT_USAGE: prefix => `${prefix}invert [@mention / pseudo]`,
-      INVERT_EXEMPLE: prefix => `${prefix}invert \n${prefix}invert @Moitié prix#4263 \n${prefix}invert Moitié`,
-
-      // Greyscale
-      GREYSCALE_DESC: 'Envoi une photo de profil modifié avec le filtre Greyscale !',
-      GREYSCALE_USAGE: prefix => `${prefix}greyscale [@mention / pseudo]`,
-      GREYSCALE_EXEMPLE: prefix => `${prefix}greyscale \n${prefix}greyscale @Moitié prix#4263 \n${prefix}greyscale Moitié`,
-
-      // Posterize
-      POSTERIZE_DESC: 'Envoi une photo de profil modifié avec le filtre Posterize !',
-      POSTERIZE_USAGE: prefix => `${prefix}posterize [@mention / pseudo]`,
-      POSTERIZE_EXEMPLE: prefix => `${prefix}posterize \n${prefix}posterize @Moitié prix#4263 \n${prefix}posterize Moitié`,
-
-      // Balance
-      BALANCE_DESC: 'Envoi une photo de profil modifié avec le filtre Balance !',
-      BALANCE_USAGE: prefix => `${prefix}balance [@mention / pseudo]`,
-      BALANCE_EXEMPLE: prefix => `${prefix}balance \n${prefix}balance @Moitié prix#4263 \n${prefix}balance Moitié`,
-
-      // Bravery
-      BRAVERY_DESC: 'Envoi une photo de profil modifié avec le filtre Bravery !',
-      BRAVERY_USAGE: prefix => `${prefix}bravery [@mention / pseudo]`,
-      BRAVERY_EXEMPLE: prefix => `${prefix}bravery \n${prefix}bravery @Moitié prix#4263 \n${prefix}bravery Moitié`,
-
-      // Brilliance
-      BRILLIANCE_DESC: 'Envoi une photo de profil modifié avec le filtre Brilliance !',
-      BRILLIANCE_USAGE: prefix => `${prefix}brilliance [@mention / pseudo]`,
-      BRILLIANCE_EXEMPLE: prefix => `${prefix}brilliance \n${prefix}brilliance @Moitié prix#4263 \n${prefix}brilliance Moitié`,
-
-      // Bill
-      BILL_DESC: 'Envoi une photo de profil modifié avec le filtre Bill !',
-      BILL_USAGE: prefix => `${prefix}bill [@mention / pseudo]`,
-      BILL_EXEMPLE: prefix => `${prefix}bill \n${prefix}bill @Moitié prix#4263 \n${prefix}bill Moitié`,
-
-      // Brazzers
-      BRAZZERS_DESC: 'Envoi une photo de profil modifié avec le filtre Brazzers !',
-      BRAZZERS_USAGE: prefix => `${prefix}brazzers [@mention / pseudo]`,
-      BRAZZERS_EXEMPLE: prefix => `${prefix}brazzers \n${prefix}brazzers @Moitié prix#4263 \n${prefix}brazzers Moitié`,
-
-      // Slap
-      SLAP_DESC: 'Envoi une photo de profil modifié avec le filtre Slap !',
-      SLAP_USAGE: prefix => `${prefix}slap [@mention / pseudo]`,
-      SLAP_EXEMPLE: prefix => `${prefix}slap \n${prefix}slap @Moitié prix#4263 \n${prefix}slap Moitié`,
-      SLAP_ARGS: `${emote.others.no} • Tu dois me dire qui claquer ! :p`,
-
-      // Crush
-      CRUSH_DESC: 'Envoi une photo de profil modifié avec le filtre Crush !',
-      CRUSH_USAGE: prefix => `${prefix}crush [@mention / pseudo]`,
-      CRUSH_EXEMPLE: prefix => `${prefix}crush \n${prefix}crush @Moitié prix#4263 \n${prefix}crush Moitié`,
-      CRUSH_ARGS: `${emote.others.no} • Tu dois mentionner sur qui tu es en crush :p`,
-
-      // Crush
-      DISTRACTED_DESC: 'Envoi une photo de profil modifié avec le filtre Distracted !',
-      DISTRACTED_USAGE: prefix => `${prefix}distracted [@mention / pseudo]`,
-      DISTRACTED_EXEMPLE: prefix => `${prefix}distracted \n${prefix}distracted @Moitié prix#4263 \n${prefix}distracted Moitié`,
-      DISTRACTED_ARGS: `${emote.others.no} • Tu dois me dire qui tu veux regarder !`,
 
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
