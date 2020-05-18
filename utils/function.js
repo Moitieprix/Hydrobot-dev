@@ -35,7 +35,7 @@ module.exports = {
 
     if (!args[0]) return message.author
 
-    if (users.some(ch => ch.id === args[0])) return (await message.guild.members.fetch(args[0])).user
+    if (users.some(member => member.id === args[0])) return (await message.guild.members.fetch(args[0])).user
 
     if (message.mentions.users.first()) return message.mentions.users.first()
 
@@ -45,6 +45,8 @@ module.exports = {
     }
 
     if (usersFilter.size === 1) return usersFilter.first().user
+
+    if (usersFilter.size > 25) return message.channel.send(message.language.get('UTILS').TOO_MANY_USERS)
 
     if (usersFilter.size > 1) {
       const usersList = usersFilter.array().slice(0, 15)
