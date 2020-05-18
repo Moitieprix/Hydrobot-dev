@@ -14,23 +14,18 @@ module.exports = class Triggered extends Command {
     super(client, {
       name: 'triggered',
       cooldown: 10,
-      owner: false,
-      enabled: true,
-      nsfw: false,
-      plugin: 'image',
-      aliases: [],
-      permission: [],
+      plugin: 'images',
       botpermissions: ['ATTACH_FILES'],
-      usage: (language, prefix) => language.get('TRIGGERED_USAGE', prefix),
-      category: (language) => language.get('UTILS').IMAGE_CATEGORIE,
-      examples: (language, prefix) => language.get('TRIGGERED_EXEMPLE', prefix)
+      usage: (language, prefix) => language.get('IMAGE_USAGE', prefix, 'triggered'),
+      category: (language) => language.get('UTILS').IMAGE_CATEGORY,
+      examples: (language, prefix) => language.get('IMAGE_EXAMPLE', prefix, 'triggered')
     })
   }
 
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return message.channel.send(message.language.get('UTILS').USER_DEFAUT)
+    if (!user) return
 
     const base = new Jimp(options.size, options.size)
     const avatar = await Jimp.read(user.displayAvatarURL({ format: 'png', size: 2048 }))
@@ -48,9 +43,9 @@ module.exports = class Triggered extends Command {
     const stream = encoder.createReadStream()
     let temp
 
-    stream.on('data', async buffer => await buffers.push(buffer))
-    stream.on('end', async () => {
-      return await message.channel.send({
+    stream.on('data', buffer => buffers.push(buffer))
+    stream.on('end', () => {
+      return message.channel.send({
         files: [{
           name: 'triggered.gif',
           attachment: Buffer.concat(buffers)
