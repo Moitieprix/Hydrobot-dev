@@ -7,11 +7,7 @@ module.exports = class Badwords extends Command {
   constructor (client) {
     super(client, {
       name: 'badwords',
-      enabled: true,
-      owner: false,
       cooldown: 5,
-      plugin: false,
-      aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
       usage: (language, prefix) => language.get('BADWORDS_USAGE', prefix),
