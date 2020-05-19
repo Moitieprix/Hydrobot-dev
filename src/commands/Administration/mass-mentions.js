@@ -8,9 +8,6 @@ module.exports = class Massmentions extends Command {
     super(client, {
       name: 'mass-mentions',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      plugin: false,
       aliases: ['anti-mass-mentions', 'anti-mentions'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
