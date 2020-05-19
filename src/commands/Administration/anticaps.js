@@ -8,9 +8,6 @@ module.exports = class Anticaps extends Command {
     super(client, {
       name: 'anticaps',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      plugin: false,
       aliases: ['anti-caps', 'capslock', 'anticapslock', 'anti-capslock'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
@@ -28,71 +25,96 @@ module.exports = class Anticaps extends Command {
 
     switch (args[0]) {
       case 'add-role': {
-        const roleAdd = this.client.functions.roleFilter(message, args[1])
+        const role = this.client.functions.roleFilter(message, args.shift())
+        if (!role) return
 
-        if (!roleAdd) return message.channel.send(message.language.get('ANTICAPS')[0])
-        if (data.roles.length !== 0 && data.roles.includes(roleAdd)) return message.channel.send(message.language.get('ANTICAPS')[1])
+        if (data.roles.length !== 0 && data.roles.includes(role.id)) {
+          message.channel.send(message.language.get('ANTICAPS')[0])
+          return
+        }
 
-        if (data.roles.length === 15 && !res.premium) return message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
+        if (data.roles.length === 15 && !res.premium) {
+          message.channel.send(message.language.get('UTILS').ROLES_SIZE_PREMIUM(res.rows[0].prefix))
+          return
+        }
 
-        this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{roles, 0}', '"${roleAdd}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDROLE', roleAdd))
+        this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{roles, 0}', '"${role.id}"') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('ADDROLE', role.id))
         break
       }
 
       case 'remove-role': {
-        const roleRemove = this.client.functions.roleFilter(message, args[1])
+        const role = this.client.functions.roleFilter(message, args.shift())
+        if (!role) return
 
-        if (!roleRemove) return message.channel.send(message.language.get('ANTICAPS')[0])
-        if (data.roles.length === 0 || !data.roles.includes(roleRemove)) return message.channel.send(message.language.get('ANTICAPS')[2])
+        if (data.roles.length === 0 || !data.roles.includes(role.id)) {
+          message.channel.send(message.language.get('ANTICAPS')[1])
+          return
+        }
 
-        this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{roles}', (anticaps->'roles') - '${roleRemove}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVEROLE', roleRemove))
+        this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{roles}', (anticaps->'roles') - '${role.id}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('REMOVEROLE', role.id))
         break
       }
 
       case 'add-channel': {
-        const channelAdd = this.client.functions.channelFilter(message, args[1])
+        const channel = this.client.functions.channelFilter(message, args.shift())
+        if (!channel) return
 
-        if (!channelAdd) return message.channel.send(message.language.get('ANTICAPS')[3])
-        if (data.channels.length !== 0 && data.channels.includes(channelAdd)) return message.channel.send(message.language.get('ANTICAPS')[4])
+        if (data.channels.length !== 0 && data.channels.includes(channel)) {
+          message.channel.send(message.language.get('ANTICAPS')[2])
+          return
+        }
 
-        if (data.roles.length === 15 && !res.premium) return message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
+        if (data.roles.length === 15 && !res.premium) {
+          message.channel.send(message.language.get('UTILS').CHANNELS_SIZE_PREMIUM(res.rows[0].prefix))
+          return
+        }
 
-        if (message.guild.channels.cache.get(channelAdd).type === 'voice' || message.guild.channels.cache.get(channelAdd).type === 'category') return message.channel.send(message.language.get('ANTICAPS')[5])
+        if (message.guild.channels.cache.get(channel.id).type === 'voice' || message.guild.channels.cache.get(channel.id).type === 'category') {
+          message.channel.send(message.language.get('ANTICAPS')[3])
+          return
+        }
 
-        this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{channels, 0}', '"${channelAdd}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDCHANNEL', channelAdd))
+        this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{channels, 0}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('ADDCHANNEL', channel.id))
         break
       }
 
       case 'remove-channel': {
-        const channelRemove = this.client.functions.channelFilter(message, args[1])
+        const channel = this.client.functions.channelFilter(message, args.shift())
 
-        if (!channelRemove) return message.channel.send(message.language.get('ANTICAPS')[3])
-        if (data.channels.length === 0 && !data.channels.includes(channelRemove)) return message.channel.send(message.language.get('ANTICAPS')[6])
+        if (!channel) return
 
-        this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{channels}', (anticaps->'channels') - '${channelRemove}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVECHANNEL', channelRemove))
+        if (data.channels.length === 0 && !data.channels.includes(channel)) {
+          message.channel.send(message.language.get('ANTICAPS')[4])
+          return
+        }
+
+        this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{channels}', (anticaps->'channels') - '${channel}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('REMOVECHANNEL', channel))
         break
       }
 
       case 'set-sanction': {
-        const embedSanction = new MessageEmbed()
-          .setColor(this.client.config.embed.color)
-          .setTitle(message.language.get('ANTICAPS')[7])
-          .setDescription(message.language.get('ANTICAPS')[8])
-          .setTimestamp()
-          .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-        if (!args[1]) return message.channel.send(embedSanction)
+        if (!args[1]) {
+          message.channel.send(new MessageEmbed()
+            .setColor(this.client.config.embed.color)
+            .setTitle(message.language.get('ANTICAPS')[5])
+            .setDescription(message.language.get('ANTICAPS')[6])
+            .setTimestamp()
+            .setFooter(this.client.user.username, this.client.user.avatarURL())
+          )
+          return
+        }
 
         if (args[1] === '1' || args[1] === '2' || args[1] === '3') {
           this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
-          return message.channel.send(message.language.get('SANCTION')[parseInt(args[1]) - 1])
-        } else {
-          message.channel.send(message.language.get('SANCTION')[4])
+          message.channel.send(message.language.get('SANCTION')[parseInt(args[1]) - 1])
+          return
         }
+
+        message.channel.send(message.language.get('SANCTION')[4])
         break
       }
 
@@ -113,28 +135,26 @@ module.exports = class Anticaps extends Command {
           }
         })
 
-        const embedSetup = new MessageEmbed()
+        message.channel.send(new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setTimestamp()
-          .setTitle(message.language.get('ANTICAPS')[9])
-          .addField(message.language.get('ANTICAPS')[10], message.language.get('SANCTION')[data.sanction - 1])
-          .addField(message.language.get('ANTICAPS')[11], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTICAPS')[12]}`)
-          .addField(message.language.get('ANTICAPS')[13], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTICAPS')[14]}`)
+          .setTitle(message.language.get('ANTICAPS')[7])
+          .addField(message.language.get('ANTICAPS')[8], message.language.get('SANCTION')[data.sanction - 1])
+          .addField(message.language.get('ANTICAPS')[9], `${mentionRole.length > 0 ? `${mentionRole.join(' \n').length > 1000 ? `${mentionRole.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionRole.length - 9)}` : mentionRole.join(' \n')}` : message.language.get('ANTICAPS')[10]}`)
+          .addField(message.language.get('ANTICAPS')[11], `${mentionChannel.length > 0 ? `${mentionChannel.join(' \n').length > 1000 ? `${mentionChannel.slice(0, 9).join(' \n')} ${message.language.get('UTILS').MORE_SIZE(mentionChannel.length - 9)}` : mentionChannel.join(' \n')}` : message.language.get('ANTICAPS')[12]}`)
           .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-        message.channel.send(embedSetup)
+        )
         break
       }
 
       default: {
-        const embed = new MessageEmbed()
+        message.channel.send(new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setTimestamp()
-          .setTitle(message.language.get('ANTICAPS')[15])
-          .setDescription(message.language.get('ANTICAPS')[16])
+          .setTitle(message.language.get('ANTICAPS')[13])
+          .setDescription(message.language.get('ANTICAPS')[14])
           .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-        message.channel.send(embed)
+        )
         break
       }
     }
