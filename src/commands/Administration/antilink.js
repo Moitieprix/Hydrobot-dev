@@ -8,9 +8,6 @@ module.exports = class Antilink extends Command {
     super(client, {
       name: 'antilink',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      plugin: false,
       aliases: ['anti-link', 'antiurl', 'anti-url'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_MESSAGES'],
