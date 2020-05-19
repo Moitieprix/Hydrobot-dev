@@ -8,35 +8,38 @@ module.exports = class Prefix extends Command {
     super(client, {
       name: 'prefix',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: false,
-      aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('PREFIX_USAGE', prefix),
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
-      examples: (language, prefix) => language.get('PREFIX_EXEMPLE', prefix)
+      examples: (language, prefix) => language.get('PREFIX_EXAMPLE', prefix)
     })
   }
 
   run (message, args) {
-    if (!args[0]) return message.channel.send(message.language.get('PREFIX')[0])
+    if (!args[0]) {
+      message.channel.send(message.language.get('PREFIX')[0])
+      return
+    }
 
-    if (args[0].length > 3) return message.channel.send(message.language.get('PREFIX')[1])
+    if (args[0].length > 3) {
+      message.channel.send(message.language.get('PREFIX')[1])
+      return
+    }
 
-    if (args[0].match(/[^A-Za-z!?;:*\-+=$/@]/gi)) return message.channel.send(message.language.get('PREFIX')[2])
+    if (args[0].match(/[^A-Za-z!?;:*\-+=$/@]/gi)) {
+      message.channel.send(message.language.get('PREFIX')[2])
+      return
+    }
 
     this.client.database.query('UPDATE settings SET prefix = $1 WHERE id = $2', [args[0], message.guild.id])
 
-    const embed = new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTimestamp()
       .setTitle(message.language.get('PREFIX')[3])
       .setDescription(message.language.get('PREFIX_CHANGE_DESC', args))
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-    return message.channel.send(embed)
+    )
   }
 }
