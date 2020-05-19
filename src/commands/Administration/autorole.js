@@ -8,10 +8,6 @@ module.exports = class Autorole extends Command {
     super(client, {
       name: 'autorole',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      plugin: false,
-      aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS', 'MANAGE_ROLES'],
       usage: (language, prefix) => language.get('AUTOROLE_USAGE', prefix),
