@@ -14,9 +14,10 @@ module.exports = class {
         API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
-        TOO_MANY_USERS: `${emote.others.no} • Trop de résultats ont été trouvés ! Merci de mentionner l'utilisateur ou d'affiner votre recherche !`,
         CHANNEL_DEFAUT: `${emote.others.no} • Je ne trouve pas ce salon !`,
         ROLE_DEFAUT: `${emote.others.no} • Je ne trouve pas ce rôle !`,
+
+        TOO_MANY_RESULTS: `${emote.others.no} • Trop de résultats ont été trouvés ! Merci de mentionner l'utilisateur ou d'affiner votre recherche !`,
 
         HYDROBOT_CATEGORY: `${emote.categories.hydrobot} • Hydrobot`,
         BOTSTAFF_CATEGORY: `${emote.categories.tools} • Administration Hydrobot`,
@@ -97,12 +98,15 @@ module.exports = class {
         WORDS_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 25 mots bannis. Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
         AUTOROLE_SIZE_PREMIUM: prefix => `${emote.others.no} • Vous avez atteint la limite de 10 rôles ajoutés automatiquement aux nouveaux membres.  Le status premium permet de supprimer cette limite. Plus d'informations sur le serveur support, accessible à l'aide de la commande \`${prefix}support\``,
 
-        USERFILTER: [
-          `${emote.categories.clipboard} • Plusieurs utilisateurs ont été trouvés. (15 occurences max.) \nSelectionnez celui que vous desirez avec le nombre à côté de celui-ci (vous avez 15s)`,
+        FILTER: [
           'cancel • Annuler la recherche',
           `${emote.others.no} • Nombre invalide`,
-          `${emote.others.no} • Recherche annulé !`
-        ]
+          `${emote.others.no} • Recherche annulée !`
+        ],
+
+        USERFILTER: `${emote.categories.clipboard} • Plusieurs utilisateurs ont été trouvés. \nSelectionnez celui que vous desirez en entrant le nombre à sa gauche`,
+        CHANNELFILTER: `${emote.categories.clipboard} • Plusieurs salons ont été trouvés. \nSelectionnez celui que vous desirez en entrant le nombre à sa gauche`,
+        ROLEFILTER: `${emote.categories.clipboard} • Plusieurs roles ont été trouvés. \nSelectionnez celui que vous desirez en entrant le nombre à sa gauche`
       },
 
       LOGS_EVENTS: {
@@ -229,14 +233,12 @@ module.exports = class {
       ],
 
       // anticaps.js
-      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-majuscules \n• \`${prefix}anticaps add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps add-channel | remove-channel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-majuscules \n• \`${prefix}anticaps add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps add-channel | remove-channel [#salon | ID de salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
       ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps set-sanction 2\` \n\`${prefix}anticaps add-role @moderateur\` \n\`${prefix}anticaps remove-role 669986011861745672\` \n\`${prefix}anticaps add-channel #shitpost\` \n\`${prefix}anticaps remove-channel 669967519942967306\``,
 
       ANTICAPS: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà immunisé !`,
         `${emote.others.no} • Ce rôle n'est pas immunisé !`,
-        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
@@ -253,7 +255,7 @@ module.exports = class {
       ],
 
       // antilink.js
-      ANTILINK_USAGE: prefix => `• \`${prefix}antilink\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}antilink setup\` - Affiche la configuration de l'anti-lien \n• \`${prefix}antilink set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-lien \n• \`${prefix}antilink add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink add-channel | remove-channel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
+      ANTILINK_USAGE: prefix => `• \`${prefix}antilink\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}antilink setup\` - Affiche la configuration de l'anti-lien \n• \`${prefix}antilink set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-lien \n• \`${prefix}antilink add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink add-channel | remove-channel [#salon | ID de salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
       ANTILINK_EXAMPLE: prefix => `\`${prefix}antilink set-sanction 2\` \n\`${prefix}antilink add-role @moderateur\` \n\`${prefix}antilink remove-role 669986011861745672\` \n\`${prefix}antilink add-channel #shitpost\` \n\`${prefix}antilink remove-channel 669967519942967306\``,
 
       ANTILINK: [
@@ -295,7 +297,7 @@ module.exports = class {
       AUTOROLE_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré de la liste de l'autorole`,
 
       // badwords.js
-      BADWORDS_USAGE: prefix => `• \`${prefix}badwords\` - Affiche la liste des arguments disponibles pour l'anti-badwords \n• \`${prefix}badwords setup\` - Affiche la configuration de l'anti-badwords \n• \`${prefix}badwords set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-badwords \n• \`${prefix}badwords add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-channel | remove-channel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-word | remove-word <mot>\` - Ajoute ou supprime des mots bannis`,
+      BADWORDS_USAGE: prefix => `• \`${prefix}badwords\` - Affiche la liste des arguments disponibles pour l'anti-badwords \n• \`${prefix}badwords setup\` - Affiche la configuration de l'anti-badwords \n• \`${prefix}badwords set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-badwords \n• \`${prefix}badwords add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-channel | remove-channel [#salon | ID de salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-word | remove-word <mot>\` - Ajoute ou supprime des mots bannis`,
       BADWORDS_EXAMPLE: prefix => `\`${prefix}badwords set-sanction 2\` \n\`${prefix}badwords\` \n\`${prefix}badwords add-role @moderateur\` \n\`${prefix}badwords remove-role 669986011861745672\` \n\`${prefix}badwords add-channel #shitpost\` \n\`${prefix}badwords remove-channel 669967519942967306\` \n\`${prefix}badwords add-word merde\` \n\`${prefix}badwords remove-word merde\``,
 
       BADWORDS: [
@@ -562,8 +564,8 @@ module.exports = class {
         `${emote.others.no} • Ton texte ne dois pas dépasser 24 caractères !`
       ],
 
-      IMAGE_USAGE: (prefix, command) => `• \`${prefix}${command} [@mention | pseudo | ID d'utisateur]\` - Envoi une photo de profil modifiée avec le modèle ${command} !`,
-      IMAGE_EXAMPLE: (prefix, command) => `\`${prefix}${command} @Moitié prix#4263\` \n\`${prefix}${command} Moitié\` \n\`${prefix}${command} 406135526005932043\``,
+      IMAGE_USAGE: (prefix, command) => `• \`${prefix}${command} [@mention | ID d'utisateur | pseudo]\` - Envoi une photo de profil modifiée avec le modèle ${command} !`,
+      IMAGE_EXAMPLE: (prefix, command) => `\`${prefix}${command} @Moitié prix#4263\` \n\`${prefix}${command} 406135526005932043\` \n\`${prefix}${command} Moitié\``,
 
       // slap.js
       SLAP_ARGS: `${emote.others.no} • Tu dois me dire qui claquer ! :p`,
@@ -577,25 +579,50 @@ module.exports = class {
       // INFORMATION //
 
       // avatar.js
-      AVATAR_USAGE: prefix => `\`${prefix}avatar [@mention | pseudo | ID d'utisateur]\` - Envoi l'avatar de l'utilisateur`,
-      AVATAR_EXAMPLE: prefix => `\`${prefix}avatar @Moitié prix#4263\` \n\`${prefix}avatar Moitié\` \n\`${prefix}avatar 406135526005932043\``,
+      AVATAR_USAGE: prefix => `\`${prefix}avatar [@mention | ID d'utisateur | pseudo]\` - Envoi l'avatar de l'utilisateur`,
+      AVATAR_EXAMPLE: prefix => `\`${prefix}avatar @Moitié prix#4263\` \n\`${prefix}avatar 406135526005932043\` \n\`${prefix}avatar Moitié\``,
 
-      // MODERATION //
+      // channelinfo.js
+      CHANNELINFO_USAGE: prefix => `\`${prefix}channelinfo [#salon | ID de salon | nom du salon]\` - Envoi les informations générales du salon`,
+      CHANNELINFO_EXAMPLE: prefix => `\`${prefix}channelinfo #general\` \`\n${prefix}channelinfo 123456789098765432\` \n\`${prefix}channelinfo general\``,
 
-      // NSFW //
+      CHANNELINFO_TYPE: {
+        text: 'Salon textuel',
+        news: 'Salon news',
+        store: 'Salon store',
+        voice: 'Salon vocal',
+        category: 'Categorie',
+        unknown: 'Inconnu'
+      },
 
-      // OTHERS //
+      CHANNELINFO: [
+        'Aucune description',
+        ':notepad_spiral: • Général :',
+        '• ID :',
+        '• Type :',
+        '• Salon crée le :',
+        '• Catégorie :',
+        ':paperclip: • Divers :',
+        '• NSFW ? :',
+        'Oui',
+        'Non',
+        '• Position :',
+        '• Slowmode :',
+        'Aucun cooldown',
+        '• Qualité Audio :',
+        '• Limite d\'utilisateurs :',
+        'Illimité',
+        '• Nombre de salon :',
+        ':paperclip: • Salon(s) :',
+        'Aucun salon !'
+      ],
 
-      // OWNER //
+      // emojis.js
+      EMOTE_USAGE: prefix => `\`${prefix}emojis\` - Affiche la liste des emojis du serveur \n\`${prefix}emojis [emote]\` - Affiche les informations de l'emoji`,
+      EMOTE_EXAMPLE: prefix => `\`${prefix}emojis :kappa:\``,
 
-      // Permissions
-      PERMISSIONS_DESC: 'Donne les permissions de l\'utilisateur',
-      PERMISSIONS_USAGE: prefix => `${prefix}permissions [@mention / pseudo]`,
-      PERMISSIONS_EXEMPLE: prefix => `${prefix}permissions \n${prefix}permissions @Moitié prix#4263 \n${prefix}permissions Moitié`,
-
-      // Emote
       EMOTE_TITLE: (guild, size) => `Emojis du serveur **${guild}** (${size})`,
-      EMOTE_EMBED: [
+      EMOTE: [
         '• Nom :',
         '• Créateur :',
         '• Date de création :',
@@ -605,20 +632,43 @@ module.exports = class {
         'Oui',
         'Non',
         ':notepad_spiral: • Général',
-        '• ID :'
+        '• ID :',
+        `${emote.others.no} • Cet emoji n'est pas reconnu !`,
+        'Aucun emote n\'est present sur ce serveur'
       ],
-      EMOTE_ERREUR: `${emote.others.no} • Cet emoji n'est pas reconnu !`,
-      EMOTE_0: 'Aucun emote n\'est present sur ce serveur',
 
-      EMOTE_DESC: 'Affiche les emotes du serveur ou les informations d\'un emote en particulier',
-      EMOTE_USAGE: prefix => `${prefix}emojis [:emote:]`,
-      EMOTE_EXEMPLE: prefix => `${prefix}emojis \n${prefix}emojis :kappa:`,
+      // membercount.js
+      MEMBERCOUNT_USAGE: prefix => `\`${prefix}membercount\` - Affiche le nombre de membre sur le serveur`,
+      MEMBERCOUNT_EXAMPLE: prefix => `\`${prefix}membercount\``,
 
-      // Serverinfo
-      SERVERINFO_DESC: 'Donne les informations du serveur',
-      SERVERINFO_USAGE: prefix => `${prefix}serverinfo`,
+      // permissions.js
+      PERMISSIONS_USAGE: prefix => `${prefix}permissions [@mention | ID d'utisateur | pseudo] - Envoi les permissions de l'utilisateur du salon de la commande`,
+      PERMISSIONS_EXAMPLE: prefix => `\`${prefix}permissions @Moitié prix#4263\` \n\`${prefix}permissions 406135526005932043\` \n\`${prefix}permissions Moitié\``,
 
-      SERVERINFO_EMBED: [
+      // roleinfo.js
+      ROLEINFO_USAGE: prefix => `\`${prefix}roleinfo [#salon | ID de rôle | nom du role]\` - Envoi les informations générales du rôle`,
+      ROLEINFO_EXAMPLE: prefix => `\`${prefix}roleinfo @membre\` \n\`${prefix}roleinfo 669986011861745672\` \n\`${prefix}roleinfo membre\``,
+
+      ROLEINFO: [
+        ':notepad_spiral: • Général :',
+        '• ID :',
+        '• Couleur :',
+        '• Date de création :',
+        ':paperclip: • Divers :',
+        '• Utilisé par :',
+        'membre(s)',
+        '• Position :',
+        '• Mentionnable ? :',
+        '• Rôle séparé ? :',
+        ':pencil: • Permissions :',
+        'Aucune permission !'
+      ],
+
+      // serverinfo.js
+      SERVERINFO_USAGE: prefix => `\`${prefix}serverinfo\` - Envoi les informations générales du serveur`,
+      SERVERINFO_EXAMPLE: prefix => `\`${prefix}serverinfo\``,
+
+      SERVERINFO: [
         '**Informations du serveur**',
         ':notepad_spiral: • Général',
         '• Nom :',
@@ -644,15 +694,11 @@ module.exports = class {
         '• Catégories :'
       ],
 
-      ROLE_MORE_SIZE: size => `et \`${size}\` autre(s)...`,
-      EMOTE_MORE_SIZE: size => `et \`${size}\` autre(s)...`,
+      // userinfo.js
+      USERINFO_USAGE: prefix => `\`${prefix}userinfo [@mention | ID d'utilisateur | pseudo]\` - Envoi les informations générales de l'utilisateur`,
+      USERINFO_EXAMPLE: prefix => `\`${prefix}userinfo @Moitié prix#4263\` \n\`${prefix}userinfo 406135526005932043\` \n${prefix}userinfo Moitié`,
 
-      // Userinfo
-      USERINFO_DESC: 'Donne les information d\'un utilisateur',
-      USERINFO_USAGE: prefix => `${prefix}userinfo [@mention / pseudo]`,
-      USERINFO_EXEMPLE: prefix => `${prefix}userinfo \n${prefix}userinfo @Moitié prix#4263 \n${prefix}userinfo Moitié`,
-
-      USERINFO_EMBED: [
+      USERINFO: [
         '**Informations de l\'utilisateur**',
         ':notepad_spiral: • Général',
         '• Pseudo :',
@@ -672,65 +718,13 @@ module.exports = class {
         'Aucune permission !'
       ],
 
-      // Channelinfo
-      CHANNELINFO_DESC: 'Donne les information d\'un salon',
-      CHANNELINFO_USAGE: prefix => `${prefix}channelinfo [#salon / ID]`,
-      CHANNELINFO_EXEMPLE: prefix => `${prefix}channelinfo \n${prefix}channelinfo #general \n${prefix}channelinfo 123456789098765432`,
+      // MODERATION //
 
-      CHANNELINFO_TYPE: {
-        text: 'Salon textuel',
-        news: 'Salon news',
-        store: 'Salon store',
-        voice: 'Salon vocal',
-        category: 'Categorie',
-        unknown: 'Inconnu'
-      },
+      // NSFW //
 
-      CHANNELINFO_EMBED: [
-        'Aucune description',
-        ':notepad_spiral: • Général :',
-        '• ID :',
-        '• Type :',
-        '• Salon crée le :',
-        '• Catégorie :',
-        ':paperclip: • Divers :',
-        '• NSFW ? :',
-        'Oui',
-        'Non',
-        '• Position :',
-        '• Slowmode :',
-        'Aucun cooldown',
-        '• Qualité Audio :',
-        '• Limite d\'utilisateurs :',
-        'Illimité',
-        '• Nombre de salon :',
-        ':paperclip: • Salon(s) :',
-        'Aucun salon !'
-      ],
+      // OTHERS //
 
-      // Roleinfo
-      ROLEINFO_DESC: 'Donne les information d\'un rôle',
-      ROLEINFO_USAGE: prefix => `${prefix}roleinfo [#salon / ID]`,
-      ROLEINFO_EXEMPLE: prefix => `${prefix}roleinfo \n${prefix}roleinfo #membre \n${prefix}roleinfo 123456789098765432`,
-
-      ROLEINFO: [
-        ':notepad_spiral: • Général :',
-        '• ID :',
-        '• Couleur :',
-        '• Date de création :',
-        ':paperclip: • Divers :',
-        '• Utilisé par :',
-        'membre(s)',
-        '• Position :',
-        '• Mentionnable ? :',
-        '• Rôle séparé ? :',
-        ':pencil: • Permissions :',
-        'Aucune permission !'
-      ],
-
-      // Membercount
-      MEMBERCOUNT_DESC: 'Affiche le nombre de membre sur le serveur',
-      MEMBERCOUNT_USAGE: prefix => `${prefix}membercount`,
+      // OWNER //
 
       // Weather
       WEATHER_DESC: 'Donne la météo d\'un lieu',
