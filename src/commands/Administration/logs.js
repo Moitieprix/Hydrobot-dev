@@ -8,10 +8,6 @@ module.exports = class Logs extends Command {
     super(client, {
       name: 'logs',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      plugin: false,
-      aliases: [],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('LOGS_USAGE', prefix),
