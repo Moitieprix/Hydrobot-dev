@@ -7,13 +7,6 @@ module.exports = class EightBall extends Command {
   constructor (client) {
     super(client, {
       name: '8ball',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('BALL_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORY,
