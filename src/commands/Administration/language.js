@@ -8,8 +8,6 @@ module.exports = class Language extends Command {
       name: 'language',
       cooldown: 5,
       enabled: false,
-      owner: false,
-      plugin: false,
       aliases: ['lang', 'setlanguage', 'setlang'],
       permission: ['ADMINISTRATOR'],
       botpermissions: ['EMBED_LINKS'],
