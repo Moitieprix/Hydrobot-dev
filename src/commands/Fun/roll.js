@@ -7,13 +7,6 @@ module.exports = class Roll extends Command {
   constructor (client) {
     super(client, {
       name: 'roll',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('ROLL_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORY,
