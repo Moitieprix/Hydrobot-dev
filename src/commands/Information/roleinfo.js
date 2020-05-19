@@ -7,39 +7,33 @@ module.exports = class Roleinfo extends Command {
   constructor (client) {
     super(client, {
       name: 'roleinfo',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      plugin: false,
       aliases: ['ri', 'role'],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('ROLEINFO_USAGE', prefix),
       category: (language) => language.get('UTILS').INFORMATION_CATEGORY,
-      examples: (language, prefix) => language.get('ROLEINFO_EXEMPLE', prefix)
+      examples: (language, prefix) => language.get('ROLEINFO_EXAMPLE', prefix)
     })
   }
 
   async run (message, args) {
-    const roleId = this.client.functions.roleFilter(message, args[0])
+    const role = await this.client.functions.roleFilter(message, args)
 
-    if (!roleId) return message.channel.send(message.language.get('UTILS').ROLE_DEFAUT)
-
-    const role = message.guild.roles.cache.get(roleId)
+    if (!role) return
 
     const array = Object.entries(role.permissions.serialize())
-    const permission = array.map(e => e[1] ? '`' + e[0] + '`, ' : '').join('')
+    const permissionsArray = []
+    array.map(perm => {
+      if (perm[1]) return permissionsArray.push(`\`${perm[0]}\``)
+    })
 
-    const embed = new MessageEmbed()
+    message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(`:label: • ${role.name}`)
       .addField(message.language.get('ROLEINFO')[0], `${message.language.get('ROLEINFO')[1]} **${role.id}** \n${message.language.get('ROLEINFO')[2]} **${role.hexColor}** \n${message.language.get('ROLEINFO')[3]} **${this.client.functions.getDate(role.createdAt.toString().split(' '), message)}**`)
       .addField(message.language.get('ROLEINFO')[4], `${message.language.get('ROLEINFO')[5]} **${role.members.size}** ${message.language.get('ROLEINFO')[6]} \n${message.language.get('ROLEINFO')[7]} **${role.position}** \n${message.language.get('ROLEINFO')[8]} **${message.language.get('UTILS').BOOLEAN[role.mentionable]}** \n${message.language.get('ROLEINFO')[9]} **${message.language.get('UTILS').BOOLEAN[role.hoist]}**`)
-      .addField(message.language.get('ROLEINFO')[10], `${permission ? permission.substring(0, permission.length - 2) : message.language.get('ROLEINFO')[11]}`)
+      .addField(message.language.get('ROLEINFO')[10], `${permissionsArray ? permissionsArray.join(', ') : message.language.get('ROLEINFO')[11]}`)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-    return message.channel.send(embed)
-
+    )
   }
 }
