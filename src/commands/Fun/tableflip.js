@@ -6,13 +6,6 @@ module.exports = class Tableflip extends Command {
   constructor (client) {
     super(client, {
       name: 'tableflip',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('TABLE_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORY,
