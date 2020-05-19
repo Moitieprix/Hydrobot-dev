@@ -7,13 +7,6 @@ module.exports = class Rps extends Command {
   constructor (client) {
     super(client, {
       name: 'rps',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('RPS_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORY,
