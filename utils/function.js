@@ -31,33 +31,33 @@ module.exports = {
   async userFilter (message, args) {
     const users = await message.guild.members.fetch()
 
-    const usersFilter = users.filter(m => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase()) || m.user.username.toLowerCase().includes(args.join(' ').toLowerCase()))
-
     if (!args[0]) return message.author
 
     if (users.some(member => member.id === args[0])) return (await message.guild.members.fetch(args[0])).user
 
     if (message.mentions.users.first()) return message.mentions.users.first()
 
+    const usersFilter = users.filter(m => m.displayName.toLowerCase().includes(args.join(' ').toLowerCase()) || m.user.username.toLowerCase().includes(args.join(' ').toLowerCase()))
+
     if (usersFilter.size === 0) {
       message.channel.send(message.language.get('UTILS').USER_DEFAUT)
-      return false
+      return null
     }
 
     if (usersFilter.size === 1) return usersFilter.first().user
 
-    if (usersFilter.size > 25) return message.channel.send(message.language.get('UTILS').TOO_MANY_USERS)
+    if (usersFilter.size > 25) return message.channel.send(message.language.get('UTILS').TOO_MANY_RESULTS)
 
     if (usersFilter.size > 1) {
-      const usersList = usersFilter.array().slice(0, 15)
+      const usersList = usersFilter.array().slice(0, 25)
 
-      const embed = new MessageEmbed()
+      message.channel.send(new MessageEmbed()
         .setColor(message.client.config.embed.color)
-        .setTitle(message.language.get('UTILS').USERFILTER[0])
-        .setDescription(`${usersList.map((user, i) => `${i + 1} • ${user.displayName} - **${user.user.tag}**`).join(' \n')} \n\n${message.language.get('UTILS').USERFILTER[1]}`)
+        .setTitle(message.language.get('UTILS').USERFILTER)
+        .setDescription(`${usersList.map((user, i) => `${i + 1} • ${user.displayName} - ${user.user}`).join(' \n')} \n\n${message.language.get('UTILS').FILTER[0]}`)
         .setTimestamp()
         .setFooter(message.client.user.username, message.client.user.avatarURL())
-      message.channel.send(embed)
+      )
 
       const userCollector = await new Promise(resolve => {
         const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, { time: 15000 })
@@ -67,9 +67,8 @@ module.exports = {
           else {
             const num = parseInt(collected.content)
 
-            if (isNaN(num) || num <= 0 || num > usersList.length) {
-              message.channel.send(message.language.get('UTILS').USERFILTER[2])
-            } else {
+            if (isNaN(num) || num <= 0 || num > usersList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
+            else {
               resolve(usersList[num - 1].user)
               collector.stop('collectorResolve')
             }
@@ -77,38 +76,126 @@ module.exports = {
         })
 
         collector.on('end', (_collected, reason) => {
-          if (reason === 'queryCancelled') message.channel.send(message.language.get('UTILS').USERFILTER[3])
+          if (reason === 'queryCancelled') message.channel.send(message.language.get('UTILS').FILTER[2])
           if (reason !== 'collectorResolve' && reason !== 'queryCancelled') message.channel.send('Timeout')
-          resolve(false)
+          resolve(null)
         })
       })
       return userCollector
     }
   },
 
-  channelFilter (message, argsChannel) {
+  async channelFilter (message, args) {
     const channels = message.guild.channels.cache
 
-    if (!argsChannel) {
-      return message.channel.id
-    } else if (message.mentions.channels.first() && channels.some(ch => ch.id === message.mentions.channels.first().id)) {
-      return message.mentions.channels.first().id
-    } else if (!message.mentions.channels.first() && !isNaN(argsChannel) && channels.some(ch => ch.id === argsChannel)) {
-      return argsChannel
-    } else {
-      return false
+    if (!args[0]) return message.channel
+
+    if (channels.some(channel => channel.id === args[0])) return message.guild.channels.cache.get(args[0])
+
+    if (message.mentions.channels.first()) return message.mentions.channels.first()
+
+    const channelsFilter = channels.filter(m => m.name.toLowerCase().includes(args.join(' ').toLowerCase()))
+
+    if (channelsFilter.size === 0) {
+      message.channel.send(message.language.get('UTILS').CHANNEL_DEFAUT)
+      return null
+    }
+
+    if (channelsFilter.size === 1) return channelsFilter.first().user
+
+    if (channelsFilter.size > 15) return message.channel.send(message.language.get('UTILS').TOO_MANY_RESULTS)
+
+    if (channelsFilter.size > 1) {
+      const channelsList = channelsFilter.array().slice(0, 15)
+
+      message.channel.send(new MessageEmbed()
+        .setColor(message.client.config.embed.color)
+        .setTitle(message.language.get('UTILS').CHANNELFILTER)
+        .setDescription(`${channelsList.map((channel, i) => `${i + 1} • ${channel} - **${channel.parent.name}**`).join(' \n')} \n\n${message.language.get('UTILS').FILTER[0]}`)
+        .setTimestamp()
+        .setFooter(message.client.user.username, message.client.user.avatarURL())
+      )
+
+      const channelCollector = await new Promise(resolve => {
+        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, { time: 15000 })
+
+        collector.on('collect', collected => {
+          if (collected.content === 'cancel') collector.stop('queryCancelled')
+          else {
+            const num = parseInt(collected.content)
+
+            if (isNaN(num) || num <= 0 || num > channelsList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
+            else {
+              resolve(channelsList[num - 1])
+              collector.stop('collectorResolve')
+            }
+          }
+        })
+
+        collector.on('end', (_collected, reason) => {
+          if (reason === 'queryCancelled') message.channel.send(message.language.get('UTILS').FILTER[2])
+          if (reason !== 'collectorResolve' && reason !== 'queryCancelled') message.channel.send('Timeout')
+          resolve(false)
+        })
+      })
+      return channelCollector
     }
   },
 
-  roleFilter (message, argsRole) {
+  async roleFilter (message, args) {
     const roles = message.guild.roles.cache
 
-    if (message.mentions.roles.first() && roles.some(ch => ch.id === message.mentions.roles.first().id)) {
-      return message.mentions.roles.first().id
-    } else if (!message.mentions.roles.first() && !isNaN(argsRole) && roles.some(ch => ch.id === argsRole)) {
-      return argsRole
-    } else {
-      return false
+    if (!args[0]) return message.channel
+
+    if (roles.some(role => role.id === args[0])) return message.guild.roles.cache.get(args[0])
+
+    if (message.mentions.roles.first()) return message.mentions.roles.first()
+
+    const rolesFilter = roles.filter(m => m.name.toLowerCase().includes(args.join(' ').toLowerCase()))
+
+    if (rolesFilter.size === 0) {
+      message.channel.send(message.language.get('UTILS').ROLE_DEFAUT)
+      return null
+    }
+
+    if (rolesFilter.size === 1) return rolesFilter.first().user
+
+    if (rolesFilter.size > 15) return message.channel.send(message.language.get('UTILS').TOO_MANY_RESULTS)
+
+    if (rolesFilter.size > 1) {
+      const rolesList = rolesFilter.array().slice(0, 15)
+
+      message.channel.send(new MessageEmbed()
+        .setColor(message.client.config.embed.color)
+        .setTitle(message.language.get('UTILS').ROLEFILTER)
+        .setDescription(`${rolesList.map((role, i) => `${i + 1} • ${role}`).join(' \n')} \n\n${message.language.get('UTILS').FILTER[0]}`)
+        .setTimestamp()
+        .setFooter(message.client.user.username, message.client.user.avatarURL())
+      )
+
+      const channelCollector = await new Promise(resolve => {
+        const collector = message.channel.createMessageCollector(msg => msg.author.id === message.author.id, { time: 15000 })
+
+        collector.on('collect', collected => {
+          if (collected.content === 'cancel') collector.stop('queryCancelled')
+          else {
+            const num = parseInt(collected.content)
+
+            if (isNaN(num) || num <= 0 || num > rolesList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
+            else {
+              resolve(rolesList[num - 1])
+              collector.stop('collectorResolve')
+            }
+          }
+        })
+
+        collector.on('end', (_collected, reason) => {
+          if (reason === 'queryCancelled') message.channel.send(message.language.get('UTILS').FILTER[2])
+          if (reason !== 'collectorResolve' && reason !== 'queryCancelled') message.channel.send('Timeout')
+          resolve(false)
+        })
+      })
+      return channelCollector
     }
   },
 
@@ -126,11 +213,9 @@ module.exports = {
   parseEmoji (text) {
     if (text.includes('%')) text = decodeURIComponent(text)
 
-    if (!text.includes(':')) return { animated: false, name: text, id: null }
-
     const m = text.match(/<?(a)?:?(\w{2,32}):(\d{17,19})>?/)
 
-    if (!m) return null
+    if (!m || !text.includes(':')) return null
 
     return { animated: Boolean(m[1]), name: m[2], id: m[3] }
   },
