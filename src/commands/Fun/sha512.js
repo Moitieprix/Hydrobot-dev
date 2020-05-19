@@ -8,13 +8,6 @@ module.exports = class Sha512 extends Command {
   constructor (client) {
     super(client, {
       name: 'sha512',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      nsfw: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('SHA512_USAGE', prefix),
       category: (language) => language.get('UTILS').FUN_CATEGORY,
