@@ -25,7 +25,7 @@ module.exports = class Anticaps extends Command {
 
     switch (args[0]) {
       case 'add-role': {
-        const role = this.client.functions.roleFilter(message, args.shift())
+        const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
         if (data.roles.length !== 0 && data.roles.includes(role.id)) {
@@ -44,7 +44,7 @@ module.exports = class Anticaps extends Command {
       }
 
       case 'remove-role': {
-        const role = this.client.functions.roleFilter(message, args.shift())
+        const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
         if (data.roles.length === 0 || !data.roles.includes(role.id)) {
@@ -58,10 +58,10 @@ module.exports = class Anticaps extends Command {
       }
 
       case 'add-channel': {
-        const channel = this.client.functions.channelFilter(message, args.shift())
+        const channel = await this.client.functions.channelFilter(message, args.shift())
         if (!channel) return
 
-        if (data.channels.length !== 0 && data.channels.includes(channel)) {
+        if (data.channels.length !== 0 && data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTICAPS')[2])
           return
         }
@@ -71,7 +71,7 @@ module.exports = class Anticaps extends Command {
           return
         }
 
-        if (message.guild.channels.cache.get(channel.id).type === 'voice' || message.guild.channels.cache.get(channel.id).type === 'category') {
+        if (channel.type === 'voice' || channel.type === 'category') {
           message.channel.send(message.language.get('ANTICAPS')[3])
           return
         }
@@ -82,16 +82,16 @@ module.exports = class Anticaps extends Command {
       }
 
       case 'remove-channel': {
-        const channel = this.client.functions.channelFilter(message, args.shift())
+        const channel = await this.client.functions.channelFilter(message, args.shift())
 
         if (!channel) return
 
-        if (data.channels.length === 0 && !data.channels.includes(channel)) {
+        if (data.channels.length === 0 && !data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTICAPS')[4])
           return
         }
 
-        this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{channels}', (anticaps->'channels') - '${channel}') WHERE id = $1`, [message.guild.id])
+        this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{channels}', (anticaps->'channels') - '${channel.id}') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('REMOVECHANNEL', channel))
         break
       }
