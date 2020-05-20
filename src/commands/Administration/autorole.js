@@ -22,12 +22,11 @@ module.exports = class Autorole extends Command {
 
     const data = res.rows[0].autorole
 
-    const role = this.client.functions.roleFilter(message, args[1])
-    const getRole = message.guild.roles.cache.get(role)
-
     switch (args[0]) {
       case 'add-role': {
-        if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
+        const role = await this.client.functions.roleFilter(message, args[1])
+        if (!role) return
+        
         if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
 
         if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send(message.language.get('AUTOROLE')[2])
