@@ -259,10 +259,8 @@ module.exports = class {
       ANTILINK_EXAMPLE: prefix => `\`${prefix}antilink set-sanction 2\` \n\`${prefix}antilink add-role @moderateur\` \n\`${prefix}antilink remove-role 669986011861745672\` \n\`${prefix}antilink add-channel #shitpost\` \n\`${prefix}antilink remove-channel 669967519942967306\``,
 
       ANTILINK: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà immunisé !`,
         `${emote.others.no} • Ce rôle n'est pas immunisé !`,
-        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
