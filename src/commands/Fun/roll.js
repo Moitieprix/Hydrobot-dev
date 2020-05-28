@@ -15,12 +15,11 @@ module.exports = class Roll extends Command {
   }
 
   async run (message) {
-    const embed = new MessageEmbed()
+    return message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTimestamp()
       .addField(message.language.get('ROLL'), this.client.functions.getRandomInt(1, 6))
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-    return message.channel.send({ embed: embed })
+    )
   }
 }
