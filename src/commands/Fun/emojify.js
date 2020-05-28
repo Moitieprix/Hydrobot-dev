@@ -42,13 +42,22 @@ module.exports = class Emojify extends Command {
       mapping[element] = mapping[element.toUpperCase()] = `:regional_indicator_${element}:`
     }
 
-    if (!args[0]) return message.channel.send(message.language.get('EMOJIFY')[0])
+    if (!args[0]) {
+      message.channel.send(message.language.get('EMOJIFY')[0])
+      return
+    }
 
-    if (args.join(' ').match(/[^a-zA-Z0-9\s!?+÷^<>.-]/)) return message.channel.send(message.language.get('EMOJIFY')[1])
+    if (args.join(' ').match(/[^a-zA-Z0-9\s!?+÷^<>.-]/)) {
+      message.channel.send(message.language.get('EMOJIFY')[1])
+      return
+    }
 
-    if (args.join(' ').length > 100) return message.channel.send(message.language.get(message.language.get('EMOJIFY')[2]))
+    if (args.join(' ').length > 100) {
+      message.channel.send(message.language.get(message.language.get('EMOJIFY')[2]))
+      return
+    }
 
-    return message.channel.send(
+    message.channel.send(
       args.join(' ')
         .split('')
         .map(c => mapping[c] || c)
