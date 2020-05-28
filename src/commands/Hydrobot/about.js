@@ -7,12 +7,7 @@ module.exports = class About extends Command {
   constructor (client) {
     super(client, {
       name: 'about',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      plugin: false,
       aliases: ['botinformation', 'stats', 'debug', 'botinfo'],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('ABOUT_USAGE', prefix),
       category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
@@ -27,7 +22,7 @@ module.exports = class About extends Command {
     const usersSize = users.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
     const guildsSize = guilds.reduce((accumulator, currentValue) => accumulator + currentValue)
 
-    const embed = new MessageEmbed()
+    message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTimestamp()
       .setAuthor(this.client.user.username, this.client.user.avatarURL(), `https://discordapp.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=2146958847`)
@@ -42,7 +37,6 @@ module.exports = class About extends Command {
       .addField(`${this.client.emote.others.nodejs} • Node.js :`, `\`${process.version}\``, true)
       .addField(`${this.client.emote.others.discordjs} • Discord.js :`, `\`v${version}\``, true)
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-    return message.channel.send(embed)
+    )
   }
 }
