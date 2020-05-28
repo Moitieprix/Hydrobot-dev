@@ -27,11 +27,14 @@ module.exports = class Help extends Command {
     if (args[0]) {
       const cmd = this.client.commands[args[0]] || this.client.commands[this.client.aliases[args[0]]]
 
-      if (!cmd) return message.channel.send(message.language.get('HELP_NOT_FOUND', args))
+      if (!cmd) {
+        message.channel.send(message.language.get('HELP_NOT_FOUND', args))
+        return
+      }
 
       if (cmd.conf.owner && !this.client.config.owners.includes(message.author.id)) return
 
-      const embed = new MessageEmbed()
+      message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
         .setTitle(`:label: • ${message.language.get('HELP')[0]} \`${cmd.help.name}\``)
         .setDescription(message.language.get('HELP_EMBED_DESCRIPTION', res.rows[0].prefix))
@@ -44,8 +47,9 @@ module.exports = class Help extends Command {
         .addField(message.language.get('HELP')[7], cmd.conf.permission.length > 0 ? cmd.conf.permission.map(a => '`' + a + '`').join('\n') : message.language.get('HELP')[8], true)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
+      )
 
-      return message.channel.send(embed)
+      return
     }
 
     const embed = new MessageEmbed()
@@ -58,14 +62,14 @@ module.exports = class Help extends Command {
 
     const categories = []
 
-    Object.values(this.client.commands).forEach(cmd => {
+    for (const cmd of Object.values(this.client.commands)) {
       if (!categories.includes(cmd.help.category(message.language, res.rows[0].prefix))) {
         if (cmd.help.category(message.language) === message.language.get('UTILS').BOTSTAFF_CATEGORY && !this.client.config.owners.includes(message.author.id)) return
         if (cmd.help.category(message.language) === message.language.get('UTILS').IMAGE_CATEGORY && res.rows[0].system.images === false) return
         if (cmd.help.category(message.language) === message.language.get('UTILS').NSFW_CATEGORY && res.rows[0].system.nsfw === false) return
         categories.push(cmd.help.category(message.language, res.rows[0].prefix))
       }
-    })
+    }
 
     for (const cat of categories) {
       let category = ''
@@ -78,6 +82,6 @@ module.exports = class Help extends Command {
 
       embed.addField(cat + ' (' + pos + ')', category.replace(/[' _]/g, ', ').substr(1))
     }
-    return message.channel.send(embed)
+    message.channel.send(embed)
   }
 }
