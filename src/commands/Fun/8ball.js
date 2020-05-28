@@ -15,16 +15,22 @@ module.exports = class EightBall extends Command {
   }
 
   run (message, args) {
-    if (!args[0]) return message.channel.send(message.language.get('BALL')[0])
+    if (!args[0]) {
+      message.channel.send(message.language.get('BALL')[0])
+      return
+    }
 
-    if (args.join(' ').length > 255) return message.channel.send(message.language.get('BALL')[1])
+    if (args.join(' ').length > 255) {
+      message.channel.send(message.language.get('BALL')[1])
+      return
+    }
 
-    const embed = new MessageEmbed()
+    message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setTitle(':8ball: • 8ball')
       .addField(args.join(' '), message.language.get('BALL_ANSWERS')[this.client.functions.getRandomInt(0, message.language.get('BALL_REPLYS').length - 1)])
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-    return message.channel.send(embed)
+    )
   }
 }
