@@ -24,26 +24,40 @@ module.exports = class Autorole extends Command {
 
     switch (args[0]) {
       case 'add-role': {
-        const role = await this.client.functions.roleFilter(message, args[1])
+        const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
-        if (data.length !== 0 && data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[1])
+        if (data.length !== 0 && data.includes(role.id)) {
+          message.channel.send(message.language.get('AUTOROLE')[0])
+          return
+        }
 
-        if (message.guild.member(this.client.user).roles.highest.position <= getRole.position) return message.channel.send(message.language.get('AUTOROLE')[2])
+        if (message.guild.member(this.client.user).roles.highest.position <= role.position) {
+          message.channel.send(message.language.get('AUTOROLE')[1])
+          return
+        }
 
-        if (data.length === 10 && !res.premium) return message.channel.send(message.language.get('UTILS').AUTOROLE_SIZE_PREMIUM(res.rows[0].prefix))
+        if (data.length === 10 && !res.premium) {
+          message.channel.send(message.language.get('UTILS').AUTOROLE_SIZE_PREMIUM(res.rows[0].prefix))
+          return
+        }
 
-        this.client.database.query(`UPDATE settings SET autorole = array_cat(autorole, '{${role}}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
+        this.client.database.query(`UPDATE settings SET autorole = array_cat(autorole, '{${role.id}}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('AUTOROLE_ADDROLE', role.id))
         break
       }
 
       case 'remove-role': {
-        if (!role) return message.channel.send(message.language.get('AUTOROLE')[0])
-        if (data === 0 || !data.includes(role)) return message.channel.send(message.language.get('AUTOROLE')[3])
+        const role = await this.client.functions.roleFilter(message, args.shift())
+        if (!role) return
 
-        this.client.database.query(`UPDATE settings SET autorole = array_remove(autorole, '${role}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
+        if (data === 0 || !data.includes(role.id)) {
+          message.channel.send(message.language.get('AUTOROLE')[2])
+          return
+        }
+
+        this.client.database.query(`UPDATE settings SET autorole = array_remove(autorole, '${role.id}') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role.id))
         break
       }
 
@@ -56,28 +70,25 @@ module.exports = class Autorole extends Command {
           }
         })
 
-        const embedRoles = new MessageEmbed()
+        message.channel.send(new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setTimestamp()
-          .setTitle(message.language.get('AUTOROLE')[4])
-          .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[5])
+          .setTitle(message.language.get('AUTOROLE')[3])
+          .setDescription(mentionRole.length > 0 ? mentionRole.join(' \n') : message.language.get('AUTOROLE')[4])
           .setFooter(this.client.user.username, this.client.user.avatarURL())
+        )
 
-        message.channel.send(embedRoles)
-
-        this.client.database.query('UPDATE settings SET autorole = $1 WHERE id = $2', [data, message.guild.id])
         break
       }
 
       default: {
-        const embed = new MessageEmbed()
+        message.channel.send(new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setTimestamp()
-          .setTitle(message.language.get('AUTOROLE')[6])
-          .setDescription(message.language.get('AUTOROLE')[7])
+          .setTitle(message.language.get('AUTOROLE')[5])
+          .setDescription(message.language.get('AUTOROLE')[6])
           .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-        message.channel.send(embed)
+        )
         break
       }
     }
