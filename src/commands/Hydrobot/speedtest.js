@@ -9,11 +9,6 @@ module.exports = class Speedtest extends Command {
     super(client, {
       name: 'speedtest',
       cooldown: 5,
-      enabled: true,
-      owner: false,
-      plugin: false,
-      aliases: [],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('SPEEDTEST_USAGE', prefix),
       category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
@@ -22,16 +17,15 @@ module.exports = class Speedtest extends Command {
   }
 
   async run (message) {
-    const loading = new MessageEmbed()
+    const msg = await message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setDescription(message.language.get('SPEEDTEST')[0])
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-    const msg = await message.channel.send(loading)
+    )
 
     SpeedTest({ maxTime: 5000 }).on('data', async data => {
-      const embed = new MessageEmbed()
+      msg.edit(new MessageEmbed()
         .setColor(this.client.config.embed.color)
         .setTitle(':ping_pong: • Pong !')
         .addField(message.language.get('SPEEDTEST')[1], '`' + data.server.ping + 'ms`', true)
@@ -41,8 +35,7 @@ module.exports = class Speedtest extends Command {
         .addField(message.language.get('SPEEDTEST')[5], `${message.language.get('SPEEDTEST')[6]} \`${data.speeds.upload}Mbps\` \n${message.language.get('SPEEDTEST_EMBED')[7]} \`${Math.round(data.speeds.originalUpload / 1000)}Ko/s\``, true)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-      return msg.edit(embed)
+      )
     })
   }
 }
