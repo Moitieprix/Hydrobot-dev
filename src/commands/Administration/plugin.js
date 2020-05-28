@@ -52,7 +52,7 @@ module.exports = class Plugin extends Command {
         if (plugins.includes(args[0])) {
           const plugin = plugins.find(p => p === args[0])
 
-          if (res.rows[0].system[plugin] === true) {
+          if (res.rows[0].system[plugin]) {
             this.client.database.query(`UPDATE settings SET system = jsonb_set(system, '{${plugin}}', 'false') WHERE id = $1`, [message.guild.id])
             message.channel.send(message.language.get('PLUGIN_DISABLE', plugin))
             return
