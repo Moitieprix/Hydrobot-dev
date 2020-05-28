@@ -145,7 +145,10 @@ module.exports = {
   async roleFilter (message, args) {
     const roles = message.guild.roles.cache
 
-    if (!args[0]) return message.channel
+    if (!args[0]) {
+      message.channel.send(message.language.get('UTILS').NO_ROLE)
+      return null
+    }
 
     if (roles.some(role => role.id === args[0])) return message.guild.roles.cache.get(args[0])
 
