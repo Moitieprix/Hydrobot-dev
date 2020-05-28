@@ -4,7 +4,8 @@
   "description": "",
   "main": "sharder.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "Moitié prix",
   "license": "ISC",
@@ -19,8 +20,13 @@
     "sha.js": "^2.4.11",
     "speedtest-net": "^1.6.0",
     "toml": "^3.0.0",
-    "util": "^0.12.1",
     "weather-js": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
 }
