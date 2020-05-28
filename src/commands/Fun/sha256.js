@@ -16,16 +16,22 @@ module.exports = class Sha256 extends Command {
   }
 
   async run (message, args) {
-    if (!args[0]) return message.channel.send(message.language.get('SHA')[0])
-    if (args.join(' ').length > 1000) return message.channel.send(message.language.get('SHA')[1])
+    if (!args[0]) {
+      message.channel.send(message.language.get('SHA')[0])
+      return
+    }
 
-    const embed = new MessageEmbed()
+    if (args.join(' ').length > 1000) {
+      message.channel.send(message.language.get('SHA')[1])
+      return
+    }
+
+    message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .addField(`${message.language.get('SHA')[2]}`, `\`\`\`${args.join(' ')}\`\`\``)
       .addField(`${message.language.get('SHA')[3]}`, `\`\`\`${shajs('sha256').update(args.join(' ')).digest('hex')}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-    return message.channel.send(embed)
+    )
   }
 }
