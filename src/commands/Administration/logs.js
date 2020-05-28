@@ -25,21 +25,20 @@ module.exports = class Logs extends Command {
     switch (args[0]) {
       case 'set-channel': {
         const channel = this.client.functions.channelFilter(message, args[1])
-        if (!channel) return message.channel.send(message.language.get('UTILS').CHANNEL_DEFAUT)
+        if (!channel) return
 
-        this.client.database.query(`UPDATE settings SET channels = jsonb_set(channels, '{logs}', '"${channel}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('LOGS_CHANNEL', channel))
+        this.client.database.query(`UPDATE settings SET channels = jsonb_set(channels, '{logs}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
+        message.channel.send(message.language.get('LOGS_CHANNEL', channel.id))
         break
       }
 
       case 'list': {
-        const embedList = new MessageEmbed()
+        message.channel.send(new MessageEmbed()
           .setColor(this.client.config.embed.color)
           .setDescription(logslist.map(log => res.rows[0].logs_list[log] === true ? `**${log}** : ${this.client.emote.others.on}` : `**${log}** : ${this.client.emote.others.off}`).join(' \n'))
           .setTimestamp()
           .setFooter(this.client.user.username, this.client.user.avatarURL())
-
-        message.channel.send(embedList)
+        )
         break
       }
 
@@ -63,22 +62,24 @@ module.exports = class Logs extends Command {
         if (logslist.includes(args[0])) {
           const log = logslist.find(p => p === args[0])
 
-          if (res.rows[0].logs_list[log] === true) {
+          if (res.rows[0].logs_list[log]) {
             this.client.database.query(`UPDATE settings SET logs_list = jsonb_set(logs_list, '{${log}}', 'false') WHERE id = $1`, [message.guild.id])
-            return message.channel.send(message.language.get('LOGS_DISABLE', log))
+            message.channel.send(message.language.get('LOGS_DISABLE', log))
+            return
           } else {
             this.client.database.query(`UPDATE settings SET logs_list = jsonb_set(logs_list, '{${log}}', 'true') WHERE id = $1`, [message.guild.id])
-            return message.channel.send(message.language.get('LOGS_ENABLE', log))
+            message.channel.send(message.language.get('LOGS_ENABLE', log))
+            return
           }
-        } else {
-          const embed = new MessageEmbed()
-            .setColor(this.client.config.embed.color)
-            .setTitle(message.language.get('LOGS')[2])
-            .setDescription(message.language.get('LOGS')[3])
-            .setTimestamp()
-            .setFooter(this.client.user.username, this.client.user.avatarURL())
-          message.channel.send(embed)
         }
+
+        message.channel.send(new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTitle(message.language.get('LOGS')[2])
+          .setDescription(message.language.get('LOGS')[3])
+          .setTimestamp()
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+        )
         break
       }
     }
