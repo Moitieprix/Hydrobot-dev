@@ -15,6 +15,7 @@ module.exports = class {
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
         CHANNEL_DEFAUT: `${emote.others.no} • Je ne trouve pas ce salon !`,
+        NO_ROLE: `${emote.others.no} • Tu dois m'indiquer un rôle !`,
         ROLE_DEFAUT: `${emote.others.no} • Je ne trouve pas ce rôle !`,
 
         TOO_MANY_RESULTS: `${emote.others.no} • Trop de résultats ont été trouvés ! Merci de mentionner l'utilisateur ou d'affiner votre recherche !`,
@@ -281,7 +282,6 @@ module.exports = class {
       AUTOROLE_EXAMPLE: prefix => `\`${prefix}autorole add-role @membre\` \n\`${prefix}autorole remove-role 669986011861745672\``,
 
       AUTOROLE: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà dans la liste de l'autorole !`,
         `${emote.others.no} • Je ne possède pas un rôle assez élevé pour donner automatiquement ce rôle !`,
         `${emote.others.no} • Ce rôle n'est pas dans la liste de l'autorole !`,
@@ -299,10 +299,8 @@ module.exports = class {
       BADWORDS_EXAMPLE: prefix => `\`${prefix}badwords set-sanction 2\` \n\`${prefix}badwords\` \n\`${prefix}badwords add-role @moderateur\` \n\`${prefix}badwords remove-role 669986011861745672\` \n\`${prefix}badwords add-channel #shitpost\` \n\`${prefix}badwords remove-channel 669967519942967306\` \n\`${prefix}badwords add-word merde\` \n\`${prefix}badwords remove-word merde\``,
 
       BADWORDS: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà immunisé !`,
         `${emote.others.no} • Ce rôle n'est pas immunisé !`,
-        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
@@ -347,10 +345,8 @@ module.exports = class {
       MASSMENTIONS_EXAMPLE: prefix => `\`${prefix}mass-mentions set-sanction 2\` \n\`${prefix}mass-mentions set-limit 5\` \n\`${prefix}mass-mentions add-role @moderateur\` \n\`${prefix}mass-mentions remove-role 669986011861745672\` \n\`${prefix}mass-mentions add-channel #shitpost\` \n\`${prefix}mass-mentions remove-channel 669967519942967306\``,
 
       MASSMENTION: [
-        `${emote.others.no} • Tu dois m'indiquer un rôle valide !`,
         `${emote.others.no} • Ce rôle est déjà immunisé !`,
         `${emote.others.no} • Ce rôle n'est pas immunisé !`,
-        `${emote.others.no} • Tu dois m'indiquer un salon valide !`,
         `${emote.others.no} • Ce salon est déjà immunisé !`,
         `${emote.others.no} • Le salon doit être uniquement textuel !`,
         `${emote.others.no} • Ce salon n'est pas immunisé !`,
@@ -551,6 +547,21 @@ module.exports = class {
         'Bande passante :',
         'Bande passante non ajustée :'
       ],
+
+      // suggest.js
+      SUGGEST_USAGE: prefix => `• \`${prefix}suggest <suggestion>\` - Envoi la suggestion dans le serveur support d'Hydrobot \n${emote.others.caution} • Attention ! Tout abus de cette commande entrainera un bannissement d'Hydrobot`,
+      SUGGEST_EXAMPLE: prefix => `\`${prefix}suggestion Rajouter une commande de jeu\``,
+
+      SUGGEST: [
+        `${emote.others.no} • Tu dois m'indiquer une suggestion !`,
+        `${emote.others.yes} • Ta suggestion a bien été envoyé !`
+      ],
+
+      // support.js
+      SUPPORT_USAGE: prefix => `• \`${prefix}support\` - Envoi un lien d'invitation pour le serveur support d'Hydrobot`,
+      SUPPORT_EXAMPLE: prefix => `\`${prefix}support\``,
+
+      SUPPORT: 'Pour rejoindre le serveur support, [[cliquez ici !]](https://discord.gg/25Q8UdU)',
 
       // IMAGES //
 
