@@ -15,7 +15,10 @@ module.exports = class Rps extends Command {
   }
 
   async run (message, args) {
-    if (!args[0] || (args[0] !== 'rock' && args[0] !== 'paper' && args[0] === 'scissors')) return message.channel.send(message.language.get('RPS')[0])
+    if (!args[0] || (args[0] !== 'rock' && args[0] !== 'paper' && args[0] === 'scissors')) {
+      message.channel.send(message.language.get('RPS')[0])
+      return
+    }
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
@@ -62,7 +65,7 @@ module.exports = class Rps extends Command {
           break
       }
 
-      return message.channel.send(embed)
+      message.channel.send(embed)
     }
   }
 }
