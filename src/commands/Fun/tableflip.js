@@ -26,6 +26,5 @@ module.exports = class Tableflip extends Command {
     for (const frame of frames) {
       await msg.edit(frame)
     }
-    return message
   }
 }
