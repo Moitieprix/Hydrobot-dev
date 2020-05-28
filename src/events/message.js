@@ -7,6 +7,7 @@ module.exports = async (client, message) => {
   if (message.author.bot) return
   if (!message.guild) return
   if (message.attachments.size !== 0) return
+  if (!message.guild.available) return
 
   if (message.partial) await message.fetch()
 
@@ -23,11 +24,11 @@ module.exports = async (client, message) => {
         if (dataBadwords.words.length > 0) {
           const array = dataBadwords.words
           const words = message.content.toLowerCase().trim().split(' ')
-          for (let i = 0; i < array.length; i++) {
+          for (const element of array) {
             const test = words.some(word => {
-              return array[i].toLowerCase().includes(word)
+              return element.toLowerCase().includes(word)
             })
-            if (test && words.includes(array[i].toLowerCase())) {
+            if (test && words.includes(element.toLowerCase())) {
               message.delete()
               return message.author.send(message.language.get('UTILS').BADWORDS_WARN).catch()
             }
@@ -75,7 +76,10 @@ module.exports = async (client, message) => {
   }
 
   const botMention = new RegExp(`^<@!?${client.user.id}>( |)$`)
-  if (message.content.match(botMention) || message.content === 'h!guide') return message.channel.send(language.get('INFO_PREFIX', res.rows[0].prefix))
+  if (message.content.match(botMention) || message.content === 'h!guide') {
+    message.channel.send(language.get('INFO_PREFIX', res.rows[0].prefix))
+    return
+  }
 
   if (message.content.indexOf(res.rows[0].prefix) !== 0) return
 
@@ -92,15 +96,30 @@ module.exports = async (client, message) => {
   // Commands options //
   if ((cmd.conf.plugin.toString() === 'images' && !res.rows[0].system.images) || (cmd.conf.plugin.toString() === 'nsfw' && !res.rows[0].system.nsfw)) return
 
-  if (!cmd.conf.enabled) return message.channel.send(message.language.get('COMMANDE_DISABLED'))
+  if (!cmd.conf.enabled) {
+    message.channel.send(message.language.get('COMMANDE_DISABLED'))
+    return
+  }
 
-  if (client.functions.checkBotPerm(message, cmd).length !== 0) return message.channel.send(message.language.get('BOT_PERMISSION', client.functions.checkBotPerm(message, cmd)))
+  if (client.functions.checkBotPerm(message, cmd).length !== 0) {
+    message.channel.send(message.language.get('BOT_PERMISSION', client.functions.checkBotPerm(message, cmd)))
+    return
+  }
 
-  if (client.functions.checkUserPerm(message, message.author, cmd).length !== 0) return message.channel.send(message.language.get('USER_PERMISSION'), client.functions.checkUserPerm(message, message.author, cmd))
+  if (client.functions.checkUserPerm(message, message.author, cmd).length !== 0) {
+    message.channel.send(message.language.get('USER_PERMISSION'), client.functions.checkUserPerm(message, message.author, cmd))
+    return
+  }
 
-  if (cmd.conf.owner && !client.config.owners.includes(message.author.id)) return message.channel.send(message.language.get('OWNER'))
+  if (cmd.conf.owner && !client.config.owners.includes(message.author.id)) {
+    message.channel.send(message.language.get('OWNER'))
+    return
+  }
 
-  if (cmd.conf.plugin.toString() === 'nsfw' && !message.channel.nsfw) return message.channel.send(message.language.get('NSFW'))
+  if (cmd.conf.plugin.toString() === 'nsfw' && !message.channel.nsfw) {
+    message.channel.send(message.language.get('NSFW'))
+    return
+  }
 
   if (cmd.conf.cooldown !== 0) {
     let userCooldowns = commandsCooldowns[message.member.user.id]
@@ -113,7 +132,8 @@ module.exports = async (client, message) => {
     const cooldown = userCooldowns[cmd.help.name] || 0
 
     if (Math.round(cooldown - Date.now()) > 0 && cooldown > Date.now()) {
-      return message.channel.send(message.language.get('COOLDOWN', client.functions.getDuration(cooldown - Date.now()))).then(m => m.delete({ timeout: 5000 }))
+      message.channel.send(message.language.get('COOLDOWN', client.functions.getDuration(cooldown - Date.now()))).then(m => m.delete({ timeout: 5000 }))
+      return
     }
 
     commandsCooldowns[message.member.user.id][cmd.help.name] = Date.now() + cmd.conf.cooldown * 1000
