@@ -1,11 +1,9 @@
 {
   "name": "hydrobot-dev",
   "version": "1.0.0",
-  "description": "",
   "main": "sharder.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Moitié prix",
   "license": "ISC",
@@ -13,14 +11,13 @@
     "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
     "gifencoder": "^2.0.1",
-    "jimp": "^0.9.3",
+    "jimp": "^0.9.8",
     "js-base64": "^2.5.1",
     "node-fetch": "^2.6.0",
-    "pg": "^7.18.2",
+    "pg": "^8.2.1",
     "sha.js": "^2.4.11",
     "speedtest-net": "^1.6.0",
-    "toml": "^3.0.0",
-    "weather-js": "^2.0.0"
+    "toml": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^7.1.0",
@@ -28,5 +25,14 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moitieprix/Hydrobot-dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Moitieprix/Hydrobot-dev/issues"
+  },
+  "homepage": "https://github.com/Moitieprix/Hydrobot-dev#readme",
+  "description": ""
 }
