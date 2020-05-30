@@ -57,7 +57,7 @@ class Shards extends Command {
     for (let i = 0; i < this.client.shard.count; i++) {
       const found = ramArray.find(element => element.id[0] === i)
       console.log(ramArray)
-      array.push(`${message.guild.shard.id !== found.id[0] ? '' : '✔'} Shard ${found.id} | Ping: ${Math.round(found.ping)}ms | ${found.guilds} guilds | ${found.users} users | uptime : ${this.client.functions.getDuration(found.uptime)} | statut : ${shardStatus[found.status]} | ram : ${found.ram}Mo`)
+      array.push(`${message.guild.shard.id !== found.id[0] ? '' : '✔ '}Shard ${found.id} | Ping: ${Math.round(found.ping)}ms | ${found.guilds} guilds | ${found.users} users | uptime : ${this.client.functions.getDuration(found.uptime)} | statut : ${shardStatus[found.status]} | ram : ${found.ram}Mo`)
     }
 
     message.channel.send(`\`\`\`${array.join(' \n')}\`\`\``)
