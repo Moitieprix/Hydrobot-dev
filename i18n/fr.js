@@ -24,6 +24,7 @@ module.exports = class {
         BOTSTAFF_CATEGORY: `${emote.categories.tools} • Administration Hydrobot`,
         GUILDADMIN_CATEGORY: `${emote.categories.settings} • Administration serveur`,
         OTHERS_CATEGORY: `${emote.categories.more} • Autres`,
+        MODERATION_CATEGORY: `${emote.categories.moderation} • Modération`,
         INFORMATION_CATEGORY: `${emote.categories.clipboard} • Informations`,
         FUN_CATEGORY: `${emote.categories.controller} • Divertissement`,
         IMAGE_CATEGORY: `${emote.categories.image} • Images`,
@@ -526,6 +527,12 @@ module.exports = class {
         'Commandes'
       ],
 
+      // invite.js
+      INVITE_USAGE: prefix => `• \`${prefix}support\` - Envoi un lien d'invitation pour le serveur support d'Hydrobot`,
+      INVITE_EXAMPLE: prefix => `\`${prefix}support\``,
+
+      INVITE: id => `Pour inviter Hydrobot, cliquez sur un des liens qui suit : \n• Permissions \`Administrateur\` : [[cliquez ici !]](https://discord.com/oauth2/authorize?client_id=${id}&scope=bot&permissions=8) \nAucune permission : [[cliquez ici !]](https://discord.com/oauth2/authorize?client_id=${id}&scope=bot)`,
+
       // ping.js
       PING_USAGE: prefix => `• \`${prefix}ping\` - Affiche la latence d'Hydrobot ainsi que celle de l'API`,
       PING_EXAMPLE: prefix => `\`${prefix}ping\``,
@@ -646,12 +653,29 @@ module.exports = class {
         'Aucun emote n\'est present sur ce serveur'
       ],
 
+      // fetch-user.js
+      FETCHUSER_USAGE: prefix => `\`${prefix}fetch-user <ID d'utilisateur>\` - Affiche les informations de n'importe quel utilisateur présent sur Discord`,
+      FETCHUSER_EXAMPLE: prefix => `\`${prefix}fetch-user 406135526005932043\``,
+
+      FETCHUSER: [
+        '**Informations de l\'utilisateur**',
+        ':notepad_spiral: • Général',
+        '• Pseudo :',
+        '• ID :',
+        '• Compte crée le :',
+        '• Statut :',
+        ':paperclip: • Privilèges',
+        'Aucun privilège',
+        `${emote.others.no} • Tu dois m'indiquer un ID valide !`,
+        `${emote.others.no} • Cet utilisateur n'existe pas !`
+      ],
+
       // membercount.js
       MEMBERCOUNT_USAGE: prefix => `\`${prefix}membercount\` - Affiche le nombre de membre sur le serveur`,
       MEMBERCOUNT_EXAMPLE: prefix => `\`${prefix}membercount\``,
 
       // permissions.js
-      PERMISSIONS_USAGE: prefix => `${prefix}permissions [@mention | ID d'utisateur | pseudo] - Envoi les permissions de l'utilisateur du salon de la commande`,
+      PERMISSIONS_USAGE: prefix => `\`${prefix}permissions [@mention | ID d'utisateur | pseudo]\` - Envoi les permissions de l'utilisateur du salon de la commande`,
       PERMISSIONS_EXAMPLE: prefix => `\`${prefix}permissions @Moitié prix#4263\` \n\`${prefix}permissions 406135526005932043\` \n\`${prefix}permissions Moitié\``,
 
       // roleinfo.js
@@ -705,7 +729,7 @@ module.exports = class {
 
       // userinfo.js
       USERINFO_USAGE: prefix => `\`${prefix}userinfo [@mention | ID d'utilisateur | pseudo]\` - Envoi les informations générales de l'utilisateur`,
-      USERINFO_EXAMPLE: prefix => `\`${prefix}userinfo @Moitié prix#4263\` \n\`${prefix}userinfo 406135526005932043\` \n${prefix}userinfo Moitié`,
+      USERINFO_EXAMPLE: prefix => `\`${prefix}userinfo @Moitié prix#4263\` \n\`${prefix}userinfo 406135526005932043\` \`\n${prefix}userinfo Moitié\``,
 
       USERINFO: [
         '**Informations de l\'utilisateur**',
@@ -728,6 +752,18 @@ module.exports = class {
       ],
 
       // MODERATION //
+
+      // poll.js
+      POLL_USAGE: prefix => `\`${prefix}poll <question; choix1; choix2; ...; choix10> \` - Envoi un sondage (10 choix maximum) avec question et choix`,
+      POLL_EXAMPLE: prefix => `\`${prefix}poll Quelle couleur pour ce rôle ?; rouge; bleu; vert; jaune\``,
+
+      POLL: [
+        `${emote.others.no} • Tu dois m'indiquer un sondage !`,
+        `${emote.others.no} • Ta question ne doit pas dépasser 200 caractères !`,
+        `${emote.others.no} • Tu dois m'indiquer au moins 2 réponses !`,
+        `${emote.others.no} • Tu as le droit à 10 réponses maximum !`,
+        `${emote.others.no} • Tes réponses ne doivent pas faire plus de 150 caractères !`
+      ],
 
       // NSFW //
 
