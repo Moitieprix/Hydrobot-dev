@@ -7,12 +7,7 @@ module.exports = class Help extends Command {
   constructor (client) {
     super(client, {
       name: 'help',
-      cooldown: 3,
-      enabled: true,
-      owner: false,
-      plugin: false,
       aliases: ['commands'],
-      permission: [],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('HELP_USAGE', prefix),
       category: (language) => language.get('UTILS').HYDROBOT_CATEGORY,
@@ -64,9 +59,9 @@ module.exports = class Help extends Command {
 
     for (const cmd of Object.values(this.client.commands)) {
       if (!categories.includes(cmd.help.category(message.language, res.rows[0].prefix))) {
-        if (cmd.help.category(message.language) === message.language.get('UTILS').BOTSTAFF_CATEGORY && !this.client.config.owners.includes(message.author.id)) return
-        if (cmd.help.category(message.language) === message.language.get('UTILS').IMAGE_CATEGORY && res.rows[0].system.images === false) return
-        if (cmd.help.category(message.language) === message.language.get('UTILS').NSFW_CATEGORY && res.rows[0].system.nsfw === false) return
+        if (cmd.help.category(message.language) === message.language.get('UTILS').BOTSTAFF_CATEGORY && !this.client.config.owners.includes(message.author.id)) continue
+        if (cmd.help.category(message.language) === message.language.get('UTILS').IMAGE_CATEGORY && res.rows[0].system.images === false) continue
+        if (cmd.help.category(message.language) === message.language.get('UTILS').NSFW_CATEGORY && res.rows[0].system.nsfw === false) continue
         categories.push(cmd.help.category(message.language, res.rows[0].prefix))
       }
     }
