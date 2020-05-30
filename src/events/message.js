@@ -6,7 +6,7 @@ const commandsCooldowns = {}
 module.exports = async (client, message) => {
   if (message.author.bot) return
   if (!message.guild) return
-  if (message.attachments.size !== 0) return
+  if (message.attachments.size !== 0 && message.content <= 0) return
   if (!message.guild.available) return
 
   if (message.partial) await message.fetch()
@@ -107,7 +107,7 @@ module.exports = async (client, message) => {
   }
 
   if (client.functions.checkUserPerm(message, message.author, cmd).length !== 0) {
-    message.channel.send(message.language.get('USER_PERMISSION'), client.functions.checkUserPerm(message, message.author, cmd))
+    message.channel.send(message.language.get('USER_PERMISSION', client.functions.checkUserPerm(message, message.author, cmd)))
     return
   }
 
