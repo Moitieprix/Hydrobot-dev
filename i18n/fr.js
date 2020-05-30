@@ -771,43 +771,6 @@ module.exports = class {
 
       // OWNER //
 
-      // Weather
-      WEATHER_DESC: 'Donne la météo d\'un lieu',
-      WEATHER_USAGE: prefix => `${prefix}weather <lieu>`,
-      WEATHER_EXEMPLE: prefix => `${prefix}weather Paris`,
-      WEATHER_TEMPS: {
-        Sunny: 'Soleil',
-        Clear: 'Dégagé',
-        'Mostly Sunny': 'Assez ensoleillé',
-        Cloudy: 'Nuageux',
-        'Mostly Cloudy': 'Plutôt nuageux',
-        'Light Rain': 'Pluie légère',
-        'Partly Sunny': 'Partiellement ensoleillé',
-        'T-Storm': 'Tempêtes',
-        'Partly Cloudy': 'Partiellement nuageux',
-        'Rain Showers': 'Averses de pluie',
-        'Light Snow': 'Neige légère',
-        'Mostly Clear': 'Plutôt dégagé',
-        Rain: 'Pluie',
-        Snow: 'Neige'
-      },
-
-      WEATHER_ARGS: `${emote.others.no} • Tu dois rentrer une localisation !`,
-      WEATHER_VILLE: `${emote.others.no} • Je n'ai pas trouvé cette ville !`,
-      WEATHER_DESCRIPTION: ville => `Météo de **${ville}**`,
-      WEATHER_EMBED: [
-        ':date: • Météo actuelle :',
-        'Température :',
-        'Température ressentie :',
-        'Vent :',
-        'Humidité :',
-        ':calendar_spiral: • Prévision à un jour :',
-        'Temps :',
-        'Température max. :',
-        'Température min. :',
-        'Chance de précipitation :'
-      ],
-
       // Blacklist
       BLACKLIST_DESC: 'Paramètres de la blacklist',
       BLACKLIST_USAGE: prefix => `${prefix}blacklist <add | remove> <@mention | id>`,
