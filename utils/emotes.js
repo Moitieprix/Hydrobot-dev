@@ -22,7 +22,8 @@ module.exports = {
     clipboard: '<:ClipBoard:675672439254024202>',
     controller: '<:Controller:675674638734589962>',
     nsfw: '<:18:692679889643372594>',
-    more: '<:Plus:676042391681105940>'
+    more: '<:Plus:676042391681105940>',
+    moderation: '<:moderation:715886345402318928>'
   },
   others: {
     yes: '<:Yes:670581614819934218>',
