@@ -8,16 +8,11 @@ module.exports = class Fourk extends Command {
   constructor (client) {
     super(client, {
       name: '4k',
-      cooldown: 5,
-      enabled: true,
-      owner: false,
-      nsfw: true,
+      cooldown: 10 ,
       plugin: 'nsfw',
-      aliases: [],
-      permission: [],
       botpermissions: ['ATTACH_FILES'],
       usage: (language, prefix) => language.get('BALANCE_USAGE', prefix),
-      category: (language) => language.get('UTILS').NSFW_CATEGORIE,
+      category: (language) => language.get('UTILS').NSFW_CATEGORY,
       examples: (language, prefix) => language.get('BALANCE_EXEMPLE', prefix)
     })
   }
