@@ -42,7 +42,7 @@ module.exports = class Userinfo extends Command {
       if (perm[1]) return permissionsArray.push(`\`${perm[0]}\``)
     })
 
-    const memberCreatedAt = member.user.createdAt.toString().split(' ')
+    const memberCreatedAt = user.createdAt.toString().split(' ')
     const memberJoinedAt = member.joinedAt.toString().split(' ')
 
     message.channel.send(new MessageEmbed()
@@ -50,9 +50,9 @@ module.exports = class Userinfo extends Command {
       .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .setDescription(message.language.get('USERINFO')[0])
-      .addField(message.language.get('USERINFO')[1], `${message.language.get('USERINFO')[2]} **${user.tag}** \n${message.language.get('USERINFO')[3]} **${user.id}** \n${message.language.get('USERINFO')[4]} **${this.client.functions.getDate(memberCreatedAt, message)}** \n${message.language.get('USERINFO')[5]} **${this.client.functions.getDate(memberJoinedAt, message)}** \n${message.language.get('USERINFO')[6]} **${message.language.get('UTILS').STATUS[member.presence.status]}**`)
+      .addField(message.language.get('USERINFO')[1], `${message.language.get('USERINFO')[2]} **${user.tag}** \n${message.language.get('USERINFO')[3]} **${user.id}** \n${message.language.get('USERINFO')[4]} **${this.client.functions.getDate(memberCreatedAt, message)}** \n${message.language.get('USERINFO')[5]} **${this.client.functions.getDate(memberJoinedAt, message)}** \n${message.language.get('USERINFO')[6]} **${message.language.get('UTILS').STATUS[user.presence.status]}**`)
       .addField(message.language.get('USERINFO')[7], `${message.language.get('USERINFO')[8]} ${member.nickname ? `**${member.nickname}**` : `**${user.username}**`} \n${message.language.get('USERINFO')[9]} **${playing}** \n${message.language.get('USERINFO')[11]} ${member.roles.highest} \n${message.language.get('USERINFO')[12]} ${message.language.get('UTILS').BOOLEAN[member.user.bot]}`)
-      .addField('\u200b', '\u200b', false)
+      .addField('\u200b', '\u200b')
       .addField(`${message.language.get('USERINFO')[14]} (${joinPos + 1})`, nearbyMems.join(' > '))
       .addField(message.language.get('USERINFO')[13], `${(member.roles.cache.array().length > 15 ? `${member.roles.cache.array().slice(0, 15).join(', ')} ${message.language.get('ROLE_MORE_SIZE', member.roles.cache.array().length - 15)}` : member.roles.cache.array().join(', '))}`)
       .addField(message.language.get('USERINFO')[15], permissionsArray ? permissionsArray.join(', ') : message.language.get('USERINFO')[16])
