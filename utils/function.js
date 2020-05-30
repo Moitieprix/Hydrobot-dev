@@ -7,11 +7,11 @@ module.exports = {
   checkUserPerm (message, user, command) {
     let perms = []
 
-    command.conf.permission.forEach((perm) => {
+    for (const perm of command.conf.permission) {
       if (!message.channel.permissionsFor(user.id).has(perm)) {
-        perms = command.conf.permission.map((perm0) => `\`${perm0}\``).join(' ,')
+        perms = command.conf.permission.map((perm0) => `\`${perm0}\``).join(', ')
       }
-    })
+    }
 
     return perms
   },
@@ -384,7 +384,7 @@ module.exports = {
       return res
     } catch (err) {
       if (message) message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
-      return false
+      return null
     }
   },
 
