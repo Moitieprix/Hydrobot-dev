@@ -12,7 +12,7 @@ module.exports = class Logs extends Command {
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('LOGS_USAGE', prefix),
       category: (language) => language.get('UTILS').GUILDADMIN_CATEGORY,
-      examples: (language, prefix) => language.get('LOGS_EXEMPLE', prefix)
+      examples: (language, prefix) => language.get('LOGS_EXAMPLE', prefix)
     })
   }
 
