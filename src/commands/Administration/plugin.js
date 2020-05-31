@@ -26,7 +26,7 @@ module.exports = class Plugin extends Command {
       case 'list': {
         message.channel.send(new MessageEmbed()
           .setColor(this.client.config.embed.color)
-          .setDescription(plugins.map(plugin => res.rows[0].system[plugin] === true ? `**${plugin}** : ${this.client.emote.others.on} \n` : `**${plugin}** : ${this.client.emote.others.off} \n`).join(' \n'))
+          .setDescription(plugins.map(plugin => res.rows[0].system[plugin] === true ? `**${plugin}** : ${this.client.emote.others.on}` : `**${plugin}** : ${this.client.emote.others.off}`).join(' \n'))
           .setTimestamp()
           .setFooter(this.client.user.username, this.client.user.avatarURL()))
         break
