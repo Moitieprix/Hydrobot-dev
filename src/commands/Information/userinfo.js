@@ -36,11 +36,18 @@ module.exports = class Userinfo extends Command {
 
     const playing = user.presence.activities.some(pr => pr.type === 'PLAYING') ? user.presence.activities.find(ch => ch.type === 'PLAYING').name : message.language.get('USERINFO')[10]
 
-    const array = Object.entries(message.channel.permissionsFor(user).serialize())
+    const permissionsArraySerialize = Object.entries(message.channel.permissionsFor(user).serialize())
     const permissionsArray = []
-    array.map(perm => {
+    for (const perm of permissionsArraySerialize) {
       if (perm[1]) return permissionsArray.push(`\`${perm[0]}\``)
-    })
+    }
+
+    const flags = await user.fetchFlags()
+    const flagsArraySerialize = Object.entries(flags.serialize())
+    const flagsArray = []
+    for (const flag of flagsArraySerialize) {
+      if (flag[1]) return flagsArray.push(`\`${flag[0]}\``)
+    }
 
     const memberCreatedAt = user.createdAt.toString().split(' ')
     const memberJoinedAt = member.joinedAt.toString().split(' ')
@@ -56,6 +63,7 @@ module.exports = class Userinfo extends Command {
       .addField(`${message.language.get('USERINFO')[14]} (${joinPos + 1})`, nearbyMems.join(' > '))
       .addField(message.language.get('USERINFO')[13], `${(member.roles.cache.array().length > 15 ? `${member.roles.cache.array().slice(0, 15).join(', ')} ${message.language.get('ROLE_MORE_SIZE', member.roles.cache.array().length - 15)}` : member.roles.cache.array().join(', '))}`)
       .addField(message.language.get('USERINFO')[15], permissionsArray ? permissionsArray.join(', ') : message.language.get('USERINFO')[16])
+      .addField(message.language.get('USERINFO')[17], flagsArray ? flagsArray.join(', ') : message.language.get('USERINFO')[18])
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
     )
