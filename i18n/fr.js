@@ -328,7 +328,7 @@ module.exports = class {
 
       // logs.js
       LOGS_USAGE: prefix => `• \`${prefix}logs\` - Affiche la liste des arguments disponibles pour la commande logs \n• \`${prefix}logs [list]\` - Affiche la liste des logs \n• \`${prefix}logs set-channel <#salon | ID de salon>\` - Configure le salon d'envoi des logs \n• \`${prefix}logs [log]\` - Active / désactive un log \n• \`${prefix}logs enable-all | disable-all\` - Active ou désactive l'intégralité des logs`,
-      LOGS_EXEMPLE: prefix => `\`${prefix}logs setchannel 123456789876543210\` \n\`${prefix}logs messageDelete\``,
+      LOGS_EXAMPLE: prefix => `\`${prefix}logs setchannel 123456789876543210\` \n\`${prefix}logs messageDelete\``,
       LOGS_ENABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été activé !`,
       LOGS_DISABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été désactivé !`,
       LOGS_ARGS: `${emote.others.no} • Argument invalide !`,
@@ -338,7 +338,7 @@ module.exports = class {
         `${emote.others.yes} • Tout les logs ont été activés !`,
         `${emote.others.yes} • Tout les logs ont été désactivés !`,
         '**Arguments disponibles pour la commande logs**',
-        '• `nom du log` - Activer ou désactiver le log mentionné \n• `set-channel` - Configurer le salon d\'envoi des logs \n• `enable-all | disable-all` - Activer ou désactiver l\'intégralité des logs'
+        '• `nom du log` - Activer ou désactiver le log mentionné \n• `list` - Afficher la liste des logs \n• `set-channel` - Configurer le salon d\'envoi des logs \n• `enable-all | disable-all` - Activer ou désactiver l\'intégralité des logs'
       ],
 
       // mass-mentions.js
@@ -376,7 +376,7 @@ module.exports = class {
         `${emote.others.yes} • Tout les plugins ont été activés !`,
         `${emote.others.yes} • Tout les plugins ont été désactivés !`,
         '**Arguments disponibles pour la commande plugin**',
-        '• `nom du plugin` - Activer ou désactiver le plugin mentionné \n• `enable-all | disable-all` - Activer ou désactiver l\'intégralité des plugins'
+        '• `nom du plugin` - Activer ou désactiver le plugin mentionné \n• `list` - Afficher la liste des plugins \n• `enable-all | disable-all` - Activer ou désactiver l\'intégralité des plugins'
       ],
 
       // prefix.js
@@ -748,7 +748,9 @@ module.exports = class {
         ':gear: • Rôles',
         ':busts_in_silhouette: • Ordre d\'arrivée :',
         ':pencil: • Permissions :',
-        'Aucune permission !'
+        'Aucune permission !',
+        ':paperclip: • Privilèges',
+        'Aucun privilège'
       ],
 
       // MODERATION //
@@ -766,6 +768,10 @@ module.exports = class {
       ],
 
       // NSFW //
+      NSFW_USAGE: (prefix, command) => `• \`${prefix}${command}\` - Envoi une image NSFW ${command} !`,
+      NSFW_EXAMPLE: (prefix, command) => `\`${prefix}${command}\``,
+
+      IMAGE_NOT_DISPLAYED: url => `Si l'image ne s'affiche pas, [[Cliquez ici]](${url})`,
 
       // OTHERS //
 
