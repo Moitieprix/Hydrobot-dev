@@ -26,9 +26,9 @@ module.exports = class FetchUser extends Command {
       const flags = await user.fetchFlags()
       const array = Object.entries(flags.serialize())
       const flagsArray = []
-      array.map(flag => {
+      for (const flag of array) {
         if (flag[1]) return flagsArray.push(`\`${flag[0]}\``)
-      })
+      }
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
