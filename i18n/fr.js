@@ -10,7 +10,7 @@ module.exports = class {
       INFO_PREFIX: prefix => `${emote.others.help} • Salut ! Mon préfixe sur ce serveur est \`${prefix}\`. Effectue la commande \`${prefix}help\` pour obtenir la liste de mes commandes !`,
 
       UTILS: {
-        ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réesayer plus tard !`,
+        ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
         API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
@@ -773,7 +773,65 @@ module.exports = class {
 
       IMAGE_NOT_DISPLAYED: url => `Si l'image ne s'affiche pas, [[Cliquez ici]](${url})`,
 
+      NSFW_ERROR: e => `${emote.others.no} • Une erreur est survenue sur la génération de l'image : \`${e}\`, Merci de réessayer plus tard !`,
+
       // OTHERS //
+      // hastebin.js
+      HASTEBIN_USAGE: prefix => `• \`${prefix}hastebin <Extension de fichier> <Texte>\` - Génère un Hastebin`,
+      HASTEBIN_EXAMPLE: prefix => `\`${prefix}hastebin js { key: 'value' }\``,
+
+      HASTEBIN: [
+        `${emote.others.no} • Tu dois m'indiquer une extension de fichier et un texte !`,
+        `${emote.others.no} • Tu dois m'indiquer un texte !`,
+        `${emote.others.no} • Une erreur est survenue sur la génération du Hastebin, merci de réessayer plus tard !`
+      ],
+
+      HASTEBIN_ACCESS: url => `Pour accéder à votre Hasteb.in, [[Cliquez ici]](${url})`,
+
+      // itunes.js
+      ITUNES_USAGE: prefix => `• \`${prefix}itunes <Titre>\` - Affiche les informations d'un titre iTunes`,
+      ITUNES_EXAMPLE: prefix => `\`${prefix}itunes Despacito\``,
+
+      ITUNES: [
+        `${emote.others.no} • Tu dois m'indiquer un titre !`,
+        `${emote.others.no} • Aucun résultat n'a été trouvé !`,
+        'Artiste :',
+        'Album :',
+        'Date de sortie :',
+        'Genre :'
+      ],
+
+      ITUNES_ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
+
+      // mcserver.js
+      MCSERVER_USAGE: prefix => `• \`${prefix}mcserver <IP>\` - Affiche les informations d'un serveur Minecraft`,
+      MCSERVER_EXAMPLE: prefix => `\`${prefix}mcserver mc.hypixel.net\``,
+
+      MCSERVER: [
+        `${emote.others.no} • Tu dois m'indiquer une IP de serveur !`,
+        'Serveur Minecraft',
+        'IP :',
+        'Nombre de joueurs :',
+        'Joueurs max. :',
+        'Version(s) :',
+        'Protocole :',
+        `${emote.others.no} • Serveur à l'arrêt ou inéxistant !`
+      ],
+
+      MCSERVER_ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
+
+      // quote.js
+      QUOTE_USAGE: prefix => `• \`${prefix}quote <Lien d'un message>\` - Affiche le message correspondant au lien`,
+      QUOTE_EXAMPLE: prefix => `\`${prefix}quote https://discordapp.com/channels/669956816632938496/669963795375849491/717025342157750272\``,
+
+      QUOTE: [
+        `${emote.others.no} • Tu dois m'indiquer un lien !`,
+        `${emote.others.no} • Tu dois m'indiquer un lien de message valide !`,
+        `${emote.others.no} • Je ne trouve pas ce message !`
+      ],
+
+      QUOTE_FILE_NOT_DISPLAYED: (fileUrl, messageUrl) => `${emote.others.no} • Visualisation du fichier non disponible. \n- Pour le télécharger, [[Cliquez ici]](${fileUrl}) \n- Pour accéder au message, [[Cliquez ici]](${messageUrl})`,
+      QUOTE_INFO: (messageAuthor, messageQuoted, channel) => `Message de **${messageAuthor.tag}** \nMessage envoyé dans <#${channel}> \nMessage cité par **${messageQuoted.tag}**`,
 
       // OWNER //
 
