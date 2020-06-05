@@ -108,10 +108,10 @@ const init = async () => {
   return client.login(client.config.token)
 }
 
-client.on('error', error => client.logger.error(error.stack))
-client.on('warn', warn => client.logger.warn(warn))
+// client.on('error', error => client.logger.error(error.stack))
+// client.on('warn', warn => client.logger.warn(warn))
 
-process.on('unhandledRejection', rejection => client.logger.error(rejection))
+// process.on('unhandledRejection', rejection => client.logger.error(rejection))
 
 init()
   .then(() => client.logger.info('Connected to the websocket'))
