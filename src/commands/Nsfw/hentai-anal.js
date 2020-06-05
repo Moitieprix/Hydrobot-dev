@@ -18,15 +18,19 @@ module.exports = class Hanal extends Command {
   }
 
   async run (message) {
-    const res = await fetch('https://nekobot.xyz/api/image?type=hanal')
-    const body = await res.json()
+    try {
+      const res = await fetch('https://nekobot.xyz/api/image?type=hanal')
+      const body = await res.json()
 
-    message.channel.send(new MessageEmbed()
-      .setColor(this.client.config.embed.color)
-      .setDescription(message.language.get('IMAGE_NOT_DISPLAYED', body.message))
-      .setImage(body.message)
-      .setTimestamp()
-      .setFooter(this.client.user.username, this.client.user.avatarURL())
-    )
+      message.channel.send(new MessageEmbed()
+        .setColor(this.client.config.embed.color)
+        .setDescription(message.language.get('IMAGE_NOT_DISPLAYED', body.message))
+        .setImage(body.message)
+        .setTimestamp()
+        .setFooter(this.client.user.username, this.client.user.avatarURL())
+      )
+    } catch (e) {
+      message.channel.send(message.language.get('NSFW_ERROR', e))
+    }
   }
 }
