@@ -75,8 +75,7 @@ module.exports = async (client, message) => {
     }
   }
 
-  const botMention = new RegExp(`^<@!?${client.user.id}>( |)$`)
-  if (message.content.match(botMention) || message.content === 'h!guide') {
+  if (message.content.match(/^<@!?${client.user.id}>( |)$/) || message.content === 'h!guide') {
     message.channel.send(language.get('INFO_PREFIX', res.rows[0].prefix))
     return
   }
