@@ -1,50 +1,26 @@
 'use strict'
 
-/**
- * @class Logger
- */
-
 module.exports = class Logger {
-  /**
-     * @param {string} msg
-     */
   static info (msg) {
     console.log(`\u001b[32m${getDate()} | \u001b[0m${msg}`)
   }
 
-  /**
-     * @param {string} msg
-     */
   static shard (msg) {
     console.log(`\u001b[36m${getDate()} | \u001b[0m${msg}`)
   }
 
-  /**
-     * @param {string} msg
-     */
   static warn (msg) {
     console.log(`\u001b[33m${getDate()} | \u001b[0m${msg}`)
   }
 
-  /**
-     * @param {string} msg
-     */
   static error (msg) {
     console.log(`\u001b[31m${getDate()} | \u001b[0m${msg}`)
   }
 
-  /**
-   *
-   * @param {string} msg
-   */
   static database (msg) {
     console.log(`\u001b[34m${getDate()} | \u001b[0m${msg}`)
   }
 }
-
-/**
- * @returns {string}
- */
 
 function getDate () {
   let date = new Date().getDate()
