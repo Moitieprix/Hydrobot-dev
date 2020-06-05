@@ -28,7 +28,7 @@ module.exports = class Antilink extends Command {
         const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
-        if (data.roles.length !== 0 && data.roles.includes(role.id)) {
+        if (data.roles.length && data.roles.includes(role.id)) {
           message.channel.send(message.language.get('ANTILINK')[0])
           return
         }
@@ -47,7 +47,7 @@ module.exports = class Antilink extends Command {
         const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
-        if (data.roles.length === 0 || !data.roles.includes(role.id)) {
+        if (!data.roles.length || !data.roles.includes(role.id)) {
           message.channel.send(message.language.get('ANTILINK')[1])
           return
         }
@@ -61,7 +61,7 @@ module.exports = class Antilink extends Command {
         const channel = await this.client.functions.channelFilter(message, args.shift())
         if (!channel) return
 
-        if (data.channels.length !== 0 && data.channels.includes(channel.id)) {
+        if (data.channels.length && data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTILINK')[2])
           return
         }
@@ -85,7 +85,7 @@ module.exports = class Antilink extends Command {
         const channel = await this.client.functions.channelFilter(message, args.shift())
         if (!channel) return
 
-        if (data.channels.length === 0 && !data.channels.includes(channel.id)) {
+        if (!data.channels.length && !data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTILINK')[4])
           return
         }
