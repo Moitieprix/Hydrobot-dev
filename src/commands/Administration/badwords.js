@@ -27,7 +27,7 @@ module.exports = class Badwords extends Command {
         const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
-        if (data.roles.length !== 0 && data.roles.includes(role.id)) {
+        if (data.roles.length && data.roles.includes(role.id)) {
           message.channel.send(message.language.get('BADWORDS')[0])
           return
         }
@@ -46,7 +46,7 @@ module.exports = class Badwords extends Command {
         const role = await this.client.functions.roleFilter(message, args.shift())
         if (!role) return
 
-        if (data.roles.length === 0 || !data.roles.includes(role.id)) {
+        if (!data.roles.length || !data.roles.includes(role.id)) {
           message.channel.send(message.language.get('BADWORDS')[1])
           return
         }
@@ -60,7 +60,7 @@ module.exports = class Badwords extends Command {
         const channel = await this.client.functions.channelFilter(message, args.shift())
         if (!channel) return
 
-        if (data.channels.length !== 0 && data.channels.includes(channel.id)) {
+        if (data.channels.length && data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('BADWORDS')[2])
           return
         }
@@ -84,7 +84,7 @@ module.exports = class Badwords extends Command {
         const channel = await this.client.functions.channelFilter(message, args.shift())
         if (!channel) return
 
-        if (data.channels.length === 0 && !res.channels.includes(channel.id)) {
+        if (!data.channels.length && !res.channels.includes(channel.id)) {
           message.channel.send(message.language.get('BADWORDS')[4])
           return
         }
@@ -100,7 +100,7 @@ module.exports = class Badwords extends Command {
           return
         }
 
-        if (data.words.length !== 0 && data.words.includes(args[1])) {
+        if (data.words.length && data.words.includes(args[1])) {
           message.channel.send(message.language.get('BADWORDS')[6])
           return
         }
@@ -121,7 +121,7 @@ module.exports = class Badwords extends Command {
           return
         }
 
-        if (data.words.length === 0 && !data.words.includes(args[1])) {
+        if (!data.words.length && !data.words.includes(args[1])) {
           message.channel.send(message.language.get('BADWORDS')[7])
           return
         }
