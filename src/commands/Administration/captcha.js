@@ -16,28 +16,24 @@ module.exports = class Captcha extends Command {
     })
   }
 
-  async run (message, args) {
-    this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id], async (err, res) => {
-      if (err) return message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
+  async run (message, args, res) {
+    const data = res.rows[0].captcha[0]
 
-      const data = JSON.parse(res.rows[0].captcha[0])
+    switch (args[0]) {
+      case 'set-channel':
+        break
 
-      switch (args[0]) {
-        case 'set-channel':
-          break
+      case 'add-role':
+        break
 
-        case 'add-role':
-          break
+      case 'remove-role':
+        break
 
-        case 'remove-role':
-          break
+      case 'set-time':
+        break
 
-        case 'set-time':
-          break
-
-        case 'set-attempts':
-          break
-      }
-    })
+      case 'set-attempts':
+        break
+    }
   }
 }
