@@ -777,7 +777,7 @@ module.exports = class {
 
       // OTHERS //
       // hastebin.js
-      HASTEBIN_USAGE: prefix => `• \`${prefix}hastebin <Extension de fichier> <Texte>\` - Génère un Hastebin`,
+      HASTEBIN_USAGE: prefix => `• \`${prefix}hastebin <extension de fichier> <texte>\` - Génère un Hastebin`,
       HASTEBIN_EXAMPLE: prefix => `\`${prefix}hastebin js { key: 'value' }\``,
 
       HASTEBIN: [
@@ -789,7 +789,7 @@ module.exports = class {
       HASTEBIN_ACCESS: url => `Pour accéder à votre Hasteb.in, [[Cliquez ici]](${url})`,
 
       // itunes.js
-      ITUNES_USAGE: prefix => `• \`${prefix}itunes <Titre>\` - Affiche les informations d'un titre iTunes`,
+      ITUNES_USAGE: prefix => `• \`${prefix}itunes <titre>\` - Affiche les informations d'un titre iTunes`,
       ITUNES_EXAMPLE: prefix => `\`${prefix}itunes Despacito\``,
 
       ITUNES: [
@@ -820,8 +820,37 @@ module.exports = class {
 
       MCSERVER_ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
 
+      // mcuser.js
+      MCUSER_USAGE: prefix => `• \`${prefix}mcuser <pseudo>\` - Affiche les informations d'un utilisateur Minecraft`,
+      MCUSER_EXAMPLE: prefix => `\`${prefix}mcuser Moitie_prix\``,
+
+      MCUSER: [
+        `${emote.others.no} • Tu dois m'indiquer un pseudo !`,
+        'Utilisateur Minecraft',
+        'Pseudo :',
+        'UUID :',
+        'UUID raccourci :',
+        'Historique du pseudo :',
+        'Skin :',
+        `${emote.others.no} • Une erreur est survenu ! Merci de vérifier le pseudo et de réessayer plus tard !`
+      ],
+
+      MCUSER_SKIN: url => `Pour accéder au skin, [[Cliquez ici]](${url})`,
+
+      // mdn.js
+      MDN_USAGE: prefix => `• \`${prefix}mdn <recherche>\` - Affiche les résultat de la recherche sur MDN`,
+      MDN_EXAMPLE: prefix => `\`${prefix}mdn Array\``,
+
+      MDN: [
+        `${emote.others.no} • Tu dois m'indiquer une recherche !`,
+        `${emote.others.no} • Je ne trouve aucun résultat !`,
+        'Cliquez ici',
+        'Références MDN',
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+      ],
+
       // quote.js
-      QUOTE_USAGE: prefix => `• \`${prefix}quote <Lien d'un message>\` - Affiche le message correspondant au lien`,
+      QUOTE_USAGE: prefix => `• \`${prefix}quote <lien d'un message>\` - Affiche le message correspondant au lien`,
       QUOTE_EXAMPLE: prefix => `\`${prefix}quote https://discordapp.com/channels/669956816632938496/669963795375849491/717025342157750272\``,
 
       QUOTE: [
