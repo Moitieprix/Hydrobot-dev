@@ -16,10 +16,7 @@ module.exports = class Logs extends Command {
     })
   }
 
-  async run (message, args) {
-    const res = await this.client.functions.getDataSettings(this.client, message.guild.id, message)
-    if (!res) return
-
+  async run (message, args, res) {
     const logslist = ['channelCreate', 'channelDelete', 'channelPinsUpdate', 'channelUpdate', 'emojiCreate', 'emojiDelete', 'emojiUpdate', 'guildBanAdd', 'guildBanRemove', 'guildMemberAdd', 'guildMemberRemove', 'guildMemberUpdate', 'guildUpdate', 'inviteCreate', 'inviteDelete', 'messageDelete', 'messageDeleteBulk', 'messageUpdate', 'roleCreate', 'roleDelete', 'roleUpdate', 'userUpdate', 'voiceStateUpdate']
 
     switch (args[0]) {
