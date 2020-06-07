@@ -28,16 +28,17 @@ module.exports = class Mcserver extends Command {
 
       if (body.online) {
         message.channel.send(new MessageEmbed()
-          .setTitle(message.language.get('MCSERVER')[1])
+          .setAuthor('Minecraft', 'https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/iso-grassblock.png', 'https://www.minecraft.net')
+          .setTitle(`:desktop: • ${message.language.get('MCSERVER')[1]}`)
           .setColor(this.client.config.embed.color)
           .setThumbnail(body.favicon)
           .setTimestamp()
           .setFooter(this.client.user.username, this.client.user.avatarURL())
-          .addField(message.language.get('MCSERVER')[2], args[0])
-          .addField(message.language.get('MCSERVER')[3], body.players.online)
-          .addField(message.language.get('MCSERVER')[4], body.players.max)
-          .addField(message.language.get('MCSERVER')[5], body.version.name)
-          .addField(message.language.get('MCSERVER')[6], body.version.protocol)
+          .addField(`:label: • ${message.language.get('MCSERVER')[2]}`, args[0])
+          .addField(`:bust_in_silhouette: • ${message.language.get('MCSERVER')[3]}`, body.players.online)
+          .addField(`:busts_in_silhouette: • ${message.language.get('MCSERVER')[4]}`, body.players.max)
+          .addField(`:level_slider: • ${message.language.get('MCSERVER')[5]}`, body.version.name)
+          .addField(`:control_knobs: • ${message.language.get('MCSERVER')[6]}`, body.version.protocol)
         )
       } else {
         message.channel.send(new MessageEmbed()
