@@ -17,10 +17,7 @@ module.exports = class Antilink extends Command {
     })
   }
 
-  async run (message, args) {
-    const res = await this.client.functions.getDataSettings(this.client, message.guild.id, message)
-    if (!res) return
-
+  async run (message, args, res) {
     const data = res.rows[0].antilink
 
     switch (args[0]) {
