@@ -138,7 +138,7 @@ module.exports = async (client, message) => {
     commandsCooldowns[message.member.user.id][cmd.help.name] = Date.now() + cmd.conf.cooldown * 1000
   }
 
-  cmd.run(message, args)
+  cmd.run(message, args, res)
     .then(() => {
       new WebhookClient(client.config.webhooks.commands.id, client.config.webhooks.commands.token).send(client.functions.messageCommandRun(command, message))
     })
