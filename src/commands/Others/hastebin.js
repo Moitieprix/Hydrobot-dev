@@ -52,9 +52,8 @@ module.exports = class Hastebin extends Command {
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
-    } catch (e) {
+    } catch {
       message.channel.send(message.language.get('HASTEBIN')[2])
-      console.log(e)
     }
   }
 }
