@@ -16,10 +16,7 @@ module.exports = class Plugin extends Command {
     })
   }
 
-  async run (message, args) {
-    const res = await this.client.functions.getDataSettings(this.client, message.guild.id, message)
-    if (!res) return
-
+  async run (message, args, res) {
     const plugins = ['logs', 'modlogs', 'autorole', 'welcome', 'goodbye', 'antilink', 'anticaps', 'badwords', 'massmentions', 'captcha', 'nsfw', 'customCommands', 'images']
 
     switch (args[0]) {
