@@ -4,7 +4,7 @@ const Command = require('../../../core/Command.js')
 const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
-module.exports = class Mcuser extends Command {
+module.exports = class Mdn extends Command {
   constructor (client) {
     super(client, {
       name: 'mdn',
@@ -42,7 +42,7 @@ module.exports = class Mcuser extends Command {
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
         .setAuthor('MDN', 'https://developer.mozilla.org/static/img/favicon32.7f3da72dcea1.png', 'https://developer.mozilla.org')
-        .setTitle(`:mag: • ${message.language.get('MDN')[3]}`)
+        .setTitle(message.language.get('MDN')[3])
         .setDescription(array.join(' \n'))
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
