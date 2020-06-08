@@ -35,7 +35,7 @@ module.exports = class Badwords extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET badwords = jsonb_insert(badwords, '{roles, 0}', '"${role.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDROLE', role.id))
+        message.channel.send(message.language.get('ADDROLE', role))
         break
       }
 
@@ -49,7 +49,7 @@ module.exports = class Badwords extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET badwords = jsonb_set(badwords, '{roles}', (badwords->'roles') - '${role.id}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVEROLE', role.id))
+        message.channel.send(message.language.get('REMOVEROLE', role))
         break
       }
 
@@ -73,7 +73,7 @@ module.exports = class Badwords extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET badwords = jsonb_insert(badwords, '{channels, 0}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDCHANNEL', channel.id))
+        message.channel.send(message.language.get('ADDCHANNEL', channel))
         break
       }
 
@@ -87,7 +87,7 @@ module.exports = class Badwords extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET badwords = jsonb_set(badwords, '{channels}', (badwords->'channels') - '${channel.id}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVECHANNEL', channel.id))
+        message.channel.send(message.language.get('REMOVECHANNEL', channel))
         break
       }
 
