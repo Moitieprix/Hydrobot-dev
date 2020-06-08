@@ -21,10 +21,10 @@ module.exports = async (client, message) => {
     if (message.content.length < 1023) {
       const embed = new MessageEmbed()
         .setColor(client.config.embed.color)
-        .setTitle(language.get('LOGS').MSG_DELETED[0])
-        .addField(language.get('LOGS').MSG_DELETED[1], `${message.author.tag} (ID: ${message.author.id})`)
-        .addField(language.get('LOGS').MSG_DELETED[2], `<#${message.channel.id}>`)
-        .addField(language.get('LOGS').MSG_DELETED[3], `${message.content}`)
+        .setTitle(language.get('LOGS_EVENTS').MSG_DELETED[0])
+        .addField(language.get('LOGS_EVENTS').MSG_DELETED[1], `${message.author.tag} (ID: ${message.author.id})`)
+        .addField(language.get('LOGS_EVENTS').MSG_DELETED[2], `<#${message.channel.id}>`)
+        .addField(language.get('LOGS_EVENTS').MSG_DELETED[3], `${message.content}`)
         .setTimestamp()
         .setFooter(client.user.username, client.user.avatarURL())
 
@@ -32,9 +32,9 @@ module.exports = async (client, message) => {
     } else {
       const embed = new MessageEmbed()
         .setColor(client.config.embed.color)
-        .setTitle(language.get('LOGS').MSG_DELETED[0])
-        .addField(language.get('LOGS').MSG_DELETED[1], `${message.author.tag} (ID: ${message.author.id})`)
-        .addField(language.get('LOGS').MSG_DELETED[2], `<#${message.channel.id}>`)
+        .setTitle(language.get('LOGS_EVENTS').MSG_DELETED[0])
+        .addField(language.get('LOGS_EVENTS').MSG_DELETED[1], `${message.author.tag} (ID: ${message.author.id})`)
+        .addField(language.get('LOGS_EVENTS').MSG_DELETED[2], `<#${message.channel.id}>`)
         .attachFiles([{ name: 'messageDelete.txt', attachment: Buffer.from(message.content, 'utf8') }])
         .setTimestamp()
         .setFooter(client.user.username, client.user.avatarURL())
