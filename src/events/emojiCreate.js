@@ -16,10 +16,10 @@ module.exports = async (client, guildEmoji) => {
 
   const embed = new MessageEmbed()
     .setColor(client.config.embed.color)
-    .setTitle(language.get('LOGS').EMOJI_CREATED[0])
+    .setTitle(language.get('LOGS_EVENTS').EMOJI_CREATED[0])
     .setThumbnail(guildEmoji.url)
-    .addField(language.get('LOGS').EMOJI_CREATED[1], guildEmoji.name)
-    .addField(language.get('LOGS').EMOJI_CREATED[2], guildEmoji.id)
+    .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[1], guildEmoji.name)
+    .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[2], guildEmoji.id)
     .setTimestamp()
     .setFooter(client.user.username, client.user.avatarURL())
 
