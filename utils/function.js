@@ -101,7 +101,7 @@ module.exports = {
       return null
     }
 
-    if (channelsFilter.size === 1) return channelsFilter.first().user
+    if (channelsFilter.size === 1) return channelsFilter.first()
 
     if (channelsFilter.size > 15) return message.channel.send(message.language.get('UTILS').TOO_MANY_RESULTS)
 
