@@ -40,7 +40,7 @@ module.exports = class Autorole extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET autorole = array_cat(autorole, '{${role.id}}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('AUTOROLE_ADDROLE', role.id))
+        message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
         break
       }
 
@@ -54,7 +54,7 @@ module.exports = class Autorole extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET autorole = array_remove(autorole, '${role.id}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role.id))
+        message.channel.send(message.language.get('AUTOROLE_REMOVEROLE', role))
         break
       }
 
