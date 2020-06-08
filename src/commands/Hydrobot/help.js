@@ -15,10 +15,7 @@ module.exports = class Help extends Command {
     })
   }
 
-  async run (message, args) {
-    const res = await this.client.functions.getDataSettings(this.client, message.guild.id, message)
-    if (!res) return
-
+  async run (message, args, res) {
     if (args[0]) {
       const cmd = this.client.commands[args[0]] || this.client.commands[this.client.aliases[args[0]]]
 
@@ -33,11 +30,11 @@ module.exports = class Help extends Command {
         .setColor(this.client.config.embed.color)
         .setTitle(`:label: • ${message.language.get('HELP')[0]} \`${cmd.help.name}\``)
         .setDescription(message.language.get('HELP_EMBED_DESCRIPTION', res.rows[0].prefix))
-        .addField('\u200b', '\u200b', false)
+        .addField('\u200b', '\u200b')
         .addField(message.language.get('HELP')[1], cmd.help.usage(message.language, res.rows[0].prefix))
         .addField(message.language.get('HELP')[2], cmd.help.examples(message.language, res.rows[0].prefix), true)
         .addField(message.language.get('HELP')[3], cmd.conf.aliases.length > 0 ? cmd.conf.aliases.map(a => '`' + res.rows[0].prefix + a + '`').join('\n') : message.language.get('HELP')[4], true)
-        .addField('\u200b', '\u200b', false)
+        .addField('\u200b', '\u200b')
         .addField(message.language.get('HELP')[5], `\`${cmd.conf.cooldown} ${message.language.get('HELP')[6]}\``, true)
         .addField(message.language.get('HELP')[7], cmd.conf.permission.length > 0 ? cmd.conf.permission.map(a => '`' + a + '`').join('\n') : message.language.get('HELP')[8], true)
         .setTimestamp()
