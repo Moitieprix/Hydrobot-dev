@@ -219,10 +219,10 @@ module.exports = class {
       // ADMINISTRATION //
 
       // Utils
-      ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté aux rôles ignorés`,
-      REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré des rôles ignorés`,
-      ADDCHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été ajouté aux salons ignorés`,
-      REMOVECHANNEL: channel => `${emote.others.yes} • Le salon <#${channel}> a bien été retiré des salons ignorés`,
+      ADDROLE: role => `${emote.others.yes} • Le rôle ${role} a bien été ajouté aux rôles ignorés`,
+      REMOVEROLE: role => `${emote.others.yes} • Le rôle ${role} a bien été retiré des rôles ignorés`,
+      ADDCHANNEL: channel => `${emote.others.yes} • Le salon ${channel} a bien été ajouté aux salons ignorés`,
+      REMOVECHANNEL: channel => `${emote.others.yes} • Le salon ${channel}ù a bien été retiré des salons ignorés`,
       ADDWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été ajouté à la liste des mots bannis`,
       REMOVEWORD: word => `${emote.others.yes} • Le mot \`${word}\` a bien été retiré de la liste des mots bannis`,
       SETLIMIT: number => `${emote.others.yes} • Le nombre de mentions maximal dans un message a été fixé à \`${number}\``,
@@ -332,7 +332,7 @@ module.exports = class {
       LOGS_ENABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été activé !`,
       LOGS_DISABLE: plugin => `${emote.others.yes} • Le plugin \`${plugin}\` a été désactivé !`,
       LOGS_ARGS: `${emote.others.no} • Argument invalide !`,
-      LOGS_CHANNEL: channel => `${emote.others.yes} • <#${channel}> est désormais le salon d'envoi pour les logs !`,
+      LOGS_CHANNEL: channel => `${emote.others.yes} • ${channel} est désormais le salon d'envoi pour les logs !`,
 
       LOGS: [
         `${emote.others.yes} • Tout les logs ont été activés !`,
@@ -776,6 +776,7 @@ module.exports = class {
       NSFW_ERROR: e => `${emote.others.no} • Une erreur est survenue sur la génération de l'image : \`${e}\`, Merci de réessayer plus tard !`,
 
       // OTHERS //
+
       // hastebin.js
       HASTEBIN_USAGE: prefix => `• \`${prefix}hastebin <extension de fichier> <texte>\` - Génère un Hastebin`,
       HASTEBIN_EXAMPLE: prefix => `\`${prefix}hastebin js { key: 'value' }\``,
@@ -809,12 +810,12 @@ module.exports = class {
 
       MCSERVER: [
         `${emote.others.no} • Tu dois m'indiquer une IP de serveur !`,
-        'Serveur Minecraft',
-        'IP :',
-        'Nombre de joueurs :',
-        'Joueurs max. :',
-        'Version(s) :',
-        'Protocole :',
+        ':desktop: • Serveur Minecraft',
+        ':label: • IP :',
+        ':bust_in_silhouette: • Nombre de joueurs :',
+        ':busts_in_silhouette: • Joueurs max. :',
+        ':level_slider: • Version(s) :',
+        ':control_knobs: • Protocole :',
         `${emote.others.no} • Serveur à l'arrêt ou inéxistant !`
       ],
 
@@ -826,26 +827,47 @@ module.exports = class {
 
       MCUSER: [
         `${emote.others.no} • Tu dois m'indiquer un pseudo !`,
-        'Utilisateur Minecraft',
-        'Pseudo :',
-        'UUID :',
-        'UUID raccourci :',
-        'Historique du pseudo :',
-        'Skin :',
+        ':desktop: • Utilisateur Minecraft',
+        ':label: • Pseudo :',
+        ':credit_card: • UUID :',
+        ':credit_card: • UUID raccourci :',
+        ':film_frames: • Historique du pseudo :',
+        ':busts_in_silhouette: • Skin :',
         `${emote.others.no} • Une erreur est survenu ! Merci de vérifier le pseudo et de réessayer plus tard !`
       ],
 
       MCUSER_SKIN: url => `Pour accéder au skin, [[Cliquez ici]](${url})`,
 
       // mdn.js
-      MDN_USAGE: prefix => `• \`${prefix}mdn <recherche>\` - Affiche les résultat de la recherche sur MDN`,
+      MDN_USAGE: prefix => `• \`${prefix}mdn <référence MDN>\` - Affiche les résultat de la recherche sur MDN`,
       MDN_EXAMPLE: prefix => `\`${prefix}mdn Array\``,
 
       MDN: [
         `${emote.others.no} • Tu dois m'indiquer une recherche !`,
         `${emote.others.no} • Je ne trouve aucun résultat !`,
         'Cliquez ici',
-        'Références MDN',
+        ':mag: • Références MDN',
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+      ],
+
+      // npm.js
+      NPM_USAGE: prefix => `• \`${prefix}npm <package NPM>\` - Affiche les informations du package npm recherché`,
+      NPM_EXAMPLE: prefix => `\`${prefix}npm discord.js\``,
+
+      NPM: [
+        `${emote.others.no} • Tu dois m'indiquer un package !`,
+        `${emote.others.no} • Je ne trouve aucun résultat !`,
+        'Aucune description',
+        ':package: • Dernière version :',
+        ':calendar: • Date de la dernière version :',
+        ':bust_in_silhouette: • Auteur :',
+        ':busts_in_silhouette: • Contributeurs :',
+        ':inbox_tray: • Nombre de téléchargements (semaine dernière) :',
+        ':notepad_spiral: • Mots clés :',
+        ':pushpin: • Liens :',
+        'npm',
+        'Page d\'accueil',
+        'Dépôt GitHub',
         `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
       ],
 
@@ -861,6 +883,18 @@ module.exports = class {
 
       QUOTE_FILE_NOT_DISPLAYED: (fileUrl, messageUrl) => `${emote.others.no} • Visualisation du fichier non disponible. \n- Pour le télécharger, [[Cliquez ici]](${fileUrl}) \n- Pour accéder au message, [[Cliquez ici]](${messageUrl})`,
       QUOTE_INFO: (messageAuthor, messageQuoted, channel) => `Message de **${messageAuthor.tag}** \nMessage envoyé dans <#${channel}> \nMessage cité par **${messageQuoted.tag}**`,
+
+      // wikipedia.js
+      WIKIPEDIA_USAGE: prefix => `• \`${prefix}wikipedia <recherche>\` - Affiche la page Wikipédia correspondante à la recherche`,
+      WIKIPEDIA_EXAMPLE: prefix => `\`${prefix}wikipedia discord (logiciel)\``,
+
+      WIKIPEDIA: [
+        `${emote.others.no} • Tu dois m'indiquer une recherche !`,
+        `${emote.others.no} • Je ne trouve aucun résultat !`,
+        ':pushpin: • Lien',
+        'Cliquez ici',
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+      ],
 
       // OWNER //
 
