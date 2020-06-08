@@ -410,7 +410,7 @@ module.exports = class {
         '42',
         ':thinking:',
         'Aucune idée...',
-        'Johnathan',
+        'Jonathan',
         'Vous savez, moi je ne crois pas qu\'il y ait de bonne ou de mauvaise situation',
         'Je vais demander à Internet Explorer ! Je te donne la réponse dans 3 semaines',
         'La réponse D',
@@ -756,7 +756,7 @@ module.exports = class {
       // MODERATION //
 
       // poll.js
-      POLL_USAGE: prefix => `\`${prefix}poll <question; choix1; choix2; ...; choix10> \` - Envoi un sondage (10 choix maximum) avec question et choix`,
+      POLL_USAGE: prefix => `\`${prefix}poll <question>; <choix1>; <choix2>; [...]; [choix10] \` - Envoi un sondage (10 choix maximum) avec question et choix`,
       POLL_EXAMPLE: prefix => `\`${prefix}poll Quelle couleur pour ce rôle ?; rouge; bleu; vert; jaune\``,
 
       POLL: [
@@ -883,6 +883,50 @@ module.exports = class {
 
       QUOTE_FILE_NOT_DISPLAYED: (fileUrl, messageUrl) => `${emote.others.no} • Visualisation du fichier non disponible. \n- Pour le télécharger, [[Cliquez ici]](${fileUrl}) \n- Pour accéder au message, [[Cliquez ici]](${messageUrl})`,
       QUOTE_INFO: (messageAuthor, messageQuoted, channel) => `Message de **${messageAuthor.tag}** \nMessage envoyé dans <#${channel}> \nMessage cité par **${messageQuoted.tag}**`,
+
+      // reddit.js
+      REDDIT_USAGE: prefix => `• \`${prefix}reddit <subreddit>\` - Affiche les informations d'un subreddit`,
+      REDDIT_EXAMPLE: prefix => `\`${prefix}reddit meme\``,
+
+      REDDIT: [
+        `${emote.others.no} • Tu dois m'indiquer un subreddit !`,
+        `${emote.others.no} • Je ne trouve aucun résultat !`,
+        'Aucune description',
+        ':busts_in_silhouette: • Abonnés :',
+        ':chart_with_upwards_trend: • Abonnés actifs',
+        ':pushpin: • Lien :',
+        'Cliquez ici',
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+      ],
+
+      // shorturl.js
+      SHORTURL_USAGE: prefix => `• \`${prefix}shorturl <url>\` - Envoi une URL raccourci`,
+      SHORTURL_EXAMPLE: prefix => `\`${prefix}shorturl https://www.youtube.com/\``,
+
+      SHORTURL: [
+        `${emote.others.no} • Tu dois m'indiquer une URL !`,
+        `${emote.others.no} • Tu dois m'indiquer une URL valide !`,
+        ':label: • URL raccourci',
+        ':chart_with_downwards_trend: • URL raccourci :',
+        ':chart_with_upwards_trend: • URL :',
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+      ],
+
+      // strwpoll.js
+      STRAWPOLLL_USAGE: prefix => `• \`${prefix}strawpoll <question>; <choix1>; <choix2>; [...]; [choix30]\` - Crée un sondage Strawpoll (30 choix maximum) avec question et choix`,
+      STRAWPOLL_EXAMPLE: prefix => `\`${prefix}strawpoll Quelle couleur pour ce rôle ?; rouge; bleu; vert; jaune\``,
+
+      STRAWPOLL: [
+        `${emote.others.no} • Tu dois m'indiquer un sondage !`,
+        `${emote.others.no} • Ta question ne doit pas dépasser 400 caractères !`,
+        `${emote.others.no} • Tu dois m'indiquer au moins 2 réponses !`,
+        `${emote.others.no} • Tu as le droit à 30 réponses maximum !`,
+        `${emote.others.no} • Tes réponses ne doivent pas faire plus de 200 caractères !`,
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`,
+        ':clipboard: • Sondage Strawpoll',
+        ':pushpin: • Lien :',
+        'Cliquez ici'
+      ],
 
       // wikipedia.js
       WIKIPEDIA_USAGE: prefix => `• \`${prefix}wikipedia <recherche>\` - Affiche la page Wikipédia correspondante à la recherche`,
