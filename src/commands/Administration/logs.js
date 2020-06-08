@@ -21,11 +21,11 @@ module.exports = class Logs extends Command {
 
     switch (args[0]) {
       case 'set-channel': {
-        const channel = this.client.functions.channelFilter(message, args[1])
+        const channel = await this.client.functions.channelFilter(message, args[1])
         if (!channel) return
 
         this.client.database.query(`UPDATE settings SET channels = jsonb_set(channels, '{logs}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('LOGS_CHANNEL', channel.id))
+        message.channel.send(message.language.get('LOGS_CHANNEL', channel))
         break
       }
 
