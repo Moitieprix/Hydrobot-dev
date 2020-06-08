@@ -6,7 +6,7 @@ class Blacklist extends Command {
       name: 'blacklist',
       usage: language => language.get('BLACKLIST_USAGE'),
       enabled: true,
-      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
+      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORY,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
