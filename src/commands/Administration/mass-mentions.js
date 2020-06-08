@@ -36,7 +36,7 @@ module.exports = class Massmentions extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET massmentions = jsonb_insert(massmentions, '{roles, 0}', '"${role.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDROLE', role.id))
+        message.channel.send(message.language.get('ADDROLE', role))
         break
       }
 
@@ -50,7 +50,7 @@ module.exports = class Massmentions extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{roles}', (massmentions->'roles') - '${role.id}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVEROLE', role.id))
+        message.channel.send(message.language.get('REMOVEROLE', role))
         break
       }
 
@@ -74,7 +74,7 @@ module.exports = class Massmentions extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET massmentions = jsonb_insert(massmentions, '{channels, 0}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDCHANNEL', channel.id))
+        message.channel.send(message.language.get('ADDCHANNEL', channel))
         break
       }
 
@@ -88,7 +88,7 @@ module.exports = class Massmentions extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{channels}', (massmentions->'channels') - '${channel.id}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVECHANNEL', channel.id))
+        message.channel.send(message.language.get('REMOVECHANNEL', channel))
         break
       }
 
