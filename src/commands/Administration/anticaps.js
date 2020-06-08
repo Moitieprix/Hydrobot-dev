@@ -36,7 +36,7 @@ module.exports = class Anticaps extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{roles, 0}', '"${role.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDROLE', role.id))
+        message.channel.send(message.language.get('ADDROLE', role))
         break
       }
 
@@ -50,7 +50,7 @@ module.exports = class Anticaps extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{roles}', (anticaps->'roles') - '${role.id}') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('REMOVEROLE', role.id))
+        message.channel.send(message.language.get('REMOVEROLE', role))
         break
       }
 
@@ -74,7 +74,7 @@ module.exports = class Anticaps extends Command {
         }
 
         this.client.database.query(`UPDATE settings SET anticaps = jsonb_insert(anticaps, '{channels, 0}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
-        message.channel.send(message.language.get('ADDCHANNEL', channel.id))
+        message.channel.send(message.language.get('ADDCHANNEL', channel))
         break
       }
 
