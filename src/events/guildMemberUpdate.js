@@ -19,31 +19,31 @@ module.exports = async (client, oldMember, newMember) => {
 
     const embed = new MessageEmbed()
       .setColor(client.config.embed.color)
-      .setTitle(language.get('LOGS').GUILD_MEMBER_UPDATED[0])
+      .setTitle(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[0])
       .setTimestamp()
       .setFooter(client.user.username, client.user.avatarURL())
 
     if (oldMember.nickname !== newMember.nickname) {
-      const oldNickname = oldMember.nickname ? oldMember.nickname : language.get('LOGS').GUILD_MEMBER_UPDATED[5]
-      const newNickname = newMember.nickname ? newMember.nickname : language.get('LOGS').GUILD_MEMBER_UPDATED[5]
+      const oldNickname = oldMember.nickname ? oldMember.nickname : language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[5]
+      const newNickname = newMember.nickname ? newMember.nickname : language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[5]
 
-      embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[2], `${newMember.user.tag} (ID: ${newMember.user.id})`)
-      embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[1], `${language.get('LOGS').GUILD_MEMBER_UPDATED[3]} **${oldNickname}** \n${language.get('LOGS').GUILD_MEMBER_UPDATED[4]} **${newNickname}**`)
+      embed.addField(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[2], `${newMember.user.tag} (ID: ${newMember.user.id})`)
+      embed.addField(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[1], `${language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[3]} **${oldNickname}** \n${language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[4]} **${newNickname}**`)
     }
 
     if (oldMember.roles.cache.size !== newMember.roles.cache.size) {
       if (oldMember.roles.cache.size < newMember.roles.cache.size) {
         newMember.roles.cache.map(role => {
           if (!oldMember.roles.cache.has(role.id)) {
-            embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[2], `${newMember.user.tag} (ID: ${newMember.user.id})`)
-            embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[6], `**${oldMember.guild.roles.cache.get(role.id).name}**`)
+            embed.addField(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[2], `${newMember.user.tag} (ID: ${newMember.user.id})`)
+            embed.addField(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[6], `**${oldMember.guild.roles.cache.get(role.id).name}**`)
           }
         })
       } else if (oldMember.roles.cache.size > newMember.roles.cache.size) {
         oldMember.roles.cache.map(role => {
           if (!newMember.roles.cache.has(role.id)) {
-            embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[2], `${newMember.user.tag} (ID: ${newMember.user.id})`)
-            embed.addField(language.get('LOGS').GUILD_MEMBER_UPDATED[7], `**${oldMember.guild.roles.cache.get(role.id).name}**`)
+            embed.addField(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[2], `${newMember.user.tag} (ID: ${newMember.user.id})`)
+            embed.addField(language.get('LOGS_EVENTS').GUILD_MEMBER_UPDATED[7], `**${oldMember.guild.roles.cache.get(role.id).name}**`)
           }
         })
       }
