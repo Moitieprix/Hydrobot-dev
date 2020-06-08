@@ -6,7 +6,7 @@ class System extends Command {
       name: 'system',
       usage: 'h!system',
       enabled: true,
-      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
+      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORY,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
