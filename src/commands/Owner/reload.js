@@ -6,7 +6,7 @@ class Reload extends Command {
       name: 'reload',
       usage: 'reload [commande]',
       enabled: true,
-      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORIE,
+      category: (language) => language.get('UTILS').BOTSTAFF_CATEGORY,
       aliases: [],
       permission: [],
       botpermissions: ['EMBED_LINKS'],
