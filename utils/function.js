@@ -65,9 +65,9 @@ module.exports = {
         collector.on('collect', collected => {
           if (collected.content === 'cancel') collector.stop('queryCancelled')
           else {
-            const num = parseInt(collected.content)
+            const num = Number(collected.content)
 
-            if (isNaN(num) || num <= 0 || num > usersList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
+            if (Number.isNaN(num) || num <= 0 || num > usersList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
             else {
               resolve(usersList[num - 1].user)
               collector.stop('collectorResolve')
@@ -122,9 +122,9 @@ module.exports = {
         collector.on('collect', collected => {
           if (collected.content === 'cancel') collector.stop('queryCancelled')
           else {
-            const num = parseInt(collected.content)
+            const num = Number(collected.content)
 
-            if (isNaN(num) || num <= 0 || num > channelsList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
+            if (Number.isNaN(num) || num <= 0 || num > channelsList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
             else {
               resolve(channelsList[num - 1])
               collector.stop('collectorResolve')
@@ -182,9 +182,9 @@ module.exports = {
         collector.on('collect', collected => {
           if (collected.content === 'cancel') collector.stop('queryCancelled')
           else {
-            const num = parseInt(collected.content)
+            const num = Number(collected.content)
 
-            if (isNaN(num) || num <= 0 || num > rolesList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
+            if (Number.isNaN(num) || num <= 0 || num > rolesList.length) message.channel.send(message.language.get('UTILS').FILTER[1])
             else {
               resolve(rolesList[num - 1])
               collector.stop('collectorResolve')
@@ -383,101 +383,9 @@ module.exports = {
 
       return res
     } catch (err) {
-      if (message) message.channel.send(message.language.get('UTILS').DATABASE_ERROR(err))
+      if (message) message.channel.send(message.language.get('ERRORS').DATABASE_ERROR(err))
       return null
     }
-  },
-
-  createDataSettings (id, database) {
-    return new Promise(() => {
-      database.query('INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, captcha, antilink, badwords, anticaps, massmentions, autorole, custom_cmd, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)', [
-        id,
-        false,
-        'h!',
-        'fr',
-        {
-          logs: false,
-          modlogs: false,
-          autorole: false,
-          welcome: false,
-          goodbye: false,
-          antilink: false,
-          anticaps: false,
-          badwords: false,
-          massmentions: false,
-          captcha: false,
-          nsfw: false,
-          customCommands: false,
-          images: false,
-          picture: false,
-          pictureLink: '0'
-        },
-        {
-          welcome: '0',
-          goodbye: '0',
-          logs: '0',
-          modlogs: '0'
-        },
-        'Bienvenue à toi [USERNAME] sur [GUILD] !',
-        'Au revoir [USERNAME] !',
-        {
-          channelCreate: true,
-          channelDelete: true,
-          channelPinsUpdate: true,
-          channelUpdate: true,
-          emojiCreate: true,
-          emojiDelete: true,
-          emojiUpdate: true,
-          guildBanAdd: true,
-          guildBanRemove: true,
-          guildMemberAdd: true,
-          guildMemberRemove: true,
-          guildMemberUpdate: true,
-          guildUpdate: true,
-          inviteCreate: true,
-          inviteDelete: true,
-          messageDelete: true,
-          messageDeleteBulk: true,
-          messageUpdate: true,
-          roleCreate: true,
-          roleDelete: true,
-          roleUpdate: true,
-          userUpdate: true,
-          voiceStateUpdate: true
-        },
-        [{
-          channel: '0',
-          roles: [],
-          time: 30,
-          attempts: 3
-        }],
-        [{
-          roles: [],
-          channels: [],
-          sanction: 1
-        }],
-        [{
-          roles: [],
-          channels: [],
-          words: [],
-          sanction: 1
-        }],
-        {
-          roles: [],
-          channels: [],
-          sanction: 1
-        },
-        [{
-          roles: [],
-          channels: [],
-          max: 5,
-          sanction: 1
-        }],
-        [],
-        [],
-        []
-      ])
-    })
   }
 }
 
