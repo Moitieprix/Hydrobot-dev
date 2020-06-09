@@ -105,9 +105,10 @@ module.exports = class Anticaps extends Command {
           return
         }
 
-        if (args[1] === '1' || args[1] === '2' || args[1] === '3') {
+        const sanctionNumber = ['1', '2', '3']
+        if (sanctionNumber.includes(args[1])) {
           this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
-          message.channel.send(message.language.get('SANCTION')[parseInt(args[1]) - 1])
+          message.channel.send(message.language.get('SANCTION')[Number(args[1]) - 1])
           return
         }
 
@@ -120,7 +121,7 @@ module.exports = class Anticaps extends Command {
           if (!message.guild.roles.cache.get(role)) {
             this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{roles}', (anticaps->'roles') - '${role}') WHERE id = $1`, [message.guild.id])
           } else {
-            return `• <@&${role}>`.toString()
+            return `• <@&${role}>`
           }
         })
 
@@ -128,7 +129,7 @@ module.exports = class Anticaps extends Command {
           if (!message.guild.channels.cache.get(channel)) {
             this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{channels}', (anticaps->'channels') - '${channel}') WHERE id = $1`, [message.guild.id])
           } else {
-            return `• <#${channel}>`.toString()
+            return `• <#${channel}>`
           }
         })
 
