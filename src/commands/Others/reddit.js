@@ -8,6 +8,7 @@ module.exports = class Reddit extends Command {
   constructor (client) {
     super(client, {
       name: 'reddit',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       aliases: ['sebreddit'],
       usage: (language, prefix) => language.get('REDDIT_USAGE', prefix),
@@ -43,7 +44,7 @@ module.exports = class Reddit extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('REDDIT')[7])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
