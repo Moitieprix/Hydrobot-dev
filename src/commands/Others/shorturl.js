@@ -8,6 +8,7 @@ module.exports = class Shorturl extends Command {
   constructor (client) {
     super(client, {
       name: 'shorturl',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('SHORTURL_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
@@ -44,7 +45,7 @@ module.exports = class Shorturl extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('SHORTURL')[6])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
