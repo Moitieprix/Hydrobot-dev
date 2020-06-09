@@ -9,9 +9,9 @@ module.exports = class Strawpoll extends Command {
     super(client, {
       name: 'strawpoll',
       botpermissions: ['EMBED_LINKS'],
-      usage: (language, prefix) => language.get('SHORTURL_USAGE', prefix),
+      usage: (language, prefix) => language.get('STRAWPOLL_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
-      examples: (language, prefix) => language.get('SHORTURL_EXAMPLE', prefix)
+      examples: (language, prefix) => language.get('STRAWPOLL_EXAMPLE', prefix)
     })
   }
 
