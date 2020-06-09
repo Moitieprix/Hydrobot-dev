@@ -8,8 +8,8 @@ module.exports = class Urban extends Command {
   constructor (client) {
     super(client, {
       name: 'urban',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
-      aliases: ['wiki'],
       usage: (language, prefix) => language.get('URBAN_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
       examples: (language, prefix) => language.get('URBAN_EXAMPLE', prefix)
@@ -49,7 +49,7 @@ module.exports = class Urban extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('URBAN')[5])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
