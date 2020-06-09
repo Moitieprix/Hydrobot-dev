@@ -13,7 +13,7 @@ module.exports = class Emojify extends Command {
     })
   }
 
-  run (message, args) {
+  async run (message, args) {
     const mapping = {
       ' ': '   ',
       0: ':zero:',
