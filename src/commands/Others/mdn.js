@@ -8,6 +8,7 @@ module.exports = class Mdn extends Command {
   constructor (client) {
     super(client, {
       name: 'mdn',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('MDN_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
@@ -48,7 +49,7 @@ module.exports = class Mdn extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('MDN')[4])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
