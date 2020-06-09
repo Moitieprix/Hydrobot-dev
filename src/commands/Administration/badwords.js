@@ -140,9 +140,10 @@ module.exports = class Badwords extends Command {
           return
         }
 
-        if (args[1] === '1' || args[1] === '2' || args[1] === '3') {
+        const sanctionNumber = ['1', '2', '3']
+        if (sanctionNumber.includes(args[1])) {
           this.client.database.query(`UPDATE settings SET badwords = jsonb_set(badwords, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
-          message.channel.send(message.language.get('SANCTION')[parseInt(args[1]) - 1])
+          message.channel.send(message.language.get('SANCTION')[Number(args[1]) - 1])
           return
         }
         message.channel.send(message.language.get('SANCTION')[4])
