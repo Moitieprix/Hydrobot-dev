@@ -14,7 +14,7 @@ module.exports = class Invite extends Command {
     })
   }
 
-  run (message) {
+  async run (message) {
     message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setDescription(message.language.get('INVITE', this.client.user.id))
