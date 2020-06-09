@@ -30,16 +30,21 @@ module.exports = class Shorturl extends Command {
         return
       }
 
+      if (body === 'Error: Sorry, the URL you entered is on our internal blacklist. It may have been used abusively in the past, or it may link to another URL redirection service.') {
+        message.channel.send(message.language.get('SHORTURL')[2])
+        return
+      }
+
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setTitle(message.language.get('SHORTURL')[2])
-        .addField(message.language.get('SHORTURL')[3], body)
-        .addField(message.language.get('SHORTURL')[4], args[0])
+        .setTitle(message.language.get('SHORTURL')[3])
+        .addField(message.language.get('SHORTURL')[4], body)
+        .addField(message.language.get('SHORTURL')[5], args[0])
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('SHORTURL')[5])
+      message.channel.send(message.language.get('SHORTURL')[6])
     }
   }
 }
