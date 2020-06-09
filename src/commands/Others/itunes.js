@@ -8,6 +8,7 @@ module.exports = class Itunes extends Command {
   constructor (client) {
     super(client, {
       name: 'itunes',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('ITUNES_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
@@ -45,8 +46,8 @@ module.exports = class Itunes extends Command {
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
-    } catch (e) {
-      message.channel.send(message.language.get('ITUNES_ERROR', e))
+    } catch {
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
