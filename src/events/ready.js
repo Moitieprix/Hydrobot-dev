@@ -42,7 +42,7 @@ module.exports = async (client) => {
   let i = 0
   setInterval(async function () {
     await client.user.setActivity(games[i].name)
-    if (games[parseInt(i + 1)]) i++
+    if (games[i + 1]) i++
     else i = 0
   }, 20000)
 }
