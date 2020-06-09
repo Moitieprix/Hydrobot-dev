@@ -8,6 +8,7 @@ module.exports = class Hastebin extends Command {
   constructor (client) {
     super(client, {
       name: 'hastebin',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('HASTEBIN_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
@@ -53,7 +54,7 @@ module.exports = class Hastebin extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('HASTEBIN')[2])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
