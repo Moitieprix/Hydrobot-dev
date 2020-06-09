@@ -144,7 +144,7 @@ module.exports = async (client, message) => {
       new WebhookClient(client.config.webhooks.commands.id, client.config.webhooks.commands.token).send(client.functions.messageCommandRun(command, message))
     })
     .catch((err) => {
-      message.channel.send(message.language.get('UTILS').ERROR(err))
+      message.channel.send(message.language.get('ERRORS').ERROR(err))
       new WebhookClient(client.config.webhooks.errors.id, client.config.webhooks.errors.token).send(client.functions.messageCommandError(command, message, err))
     })
 }
