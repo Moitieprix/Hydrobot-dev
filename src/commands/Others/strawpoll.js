@@ -8,6 +8,7 @@ module.exports = class Strawpoll extends Command {
   constructor (client) {
     super(client, {
       name: 'strawpoll',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('STRAWPOLL_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
@@ -66,20 +67,20 @@ module.exports = class Strawpoll extends Command {
       const body = await res.json()
 
       if (!body.id) {
-        message.channel.send(message.language.get('STRAWPOLL')[5])
+        message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
         return
       }
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
         .setAuthor('Strawpoll', 'https://d2.alternativeto.net/dist/icons/strawpoll_153439.png?width=200&height=200&mode=crop&upscale=false', 'https://www.strawpoll.me/')
-        .setTitle(message.language.get('STRAWPOLL')[6])
-        .addField(message.language.get('STRAWPOLL')[7], `[[${message.language.get('STRAWPOLL')[8]}]](https://www.strawpoll.me/${body.id})`)
+        .setTitle(message.language.get('STRAWPOLL')[5])
+        .addField(message.language.get('STRAWPOLL')[6], `[[${message.language.get('STRAWPOLL')[7]}]](https://www.strawpoll.me/${body.id})`)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('STRAWPOLL')[5])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
