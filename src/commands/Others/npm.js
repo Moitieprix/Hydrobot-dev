@@ -8,6 +8,7 @@ module.exports = class Npm extends Command {
   constructor (client) {
     super(client, {
       name: 'npm',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('NPM_USAGE', prefix),
       category: (language) => language.get('UTILS').OTHERS_CATEGORY,
@@ -48,9 +49,8 @@ module.exports = class Npm extends Command {
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
-    } catch (e) {
-      console.log(e)
-      message.channel.send(message.language.get('NPM')[15])
+    } catch {
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
