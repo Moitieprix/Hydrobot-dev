@@ -531,7 +531,7 @@ module.exports = class {
       INVITE_USAGE: prefix => `• \`${prefix}support\` - Envoi un lien d'invitation pour le serveur support d'Hydrobot`,
       INVITE_EXAMPLE: prefix => `\`${prefix}support\``,
 
-      INVITE: id => `Pour inviter Hydrobot, cliquez sur un des liens qui suit : \n• Permissions \`Administrateur\` : [[cliquez ici !]](https://discord.com/oauth2/authorize?client_id=${id}&scope=bot&permissions=8) \nAucune permission : [[cliquez ici !]](https://discord.com/oauth2/authorize?client_id=${id}&scope=bot)`,
+      INVITE: id => `Pour inviter Hydrobot, cliquez sur un des liens qui suit : \n• Permissions \`Administrateur\` : [[cliquez ici !]](https://discord.com/oauth2/authorize?client_id=${id}&scope=bot&permissions=8) \n• Aucune permission : [[cliquez ici !]](https://discord.com/oauth2/authorize?client_id=${id}&scope=bot)`,
 
       // ping.js
       PING_USAGE: prefix => `• \`${prefix}ping\` - Affiche la latence d'Hydrobot ainsi que celle de l'API`,
@@ -544,6 +544,7 @@ module.exports = class {
       // speedtest.js
       SPEEDTEST_USAGE: prefix => `• \`${prefix}speedtest\` - Affiche la vitesse de connexion ainsi que la latence d'Hydrobot`,
       SPEEDTEST_EXAMPLE: prefix => `\`${prefix}speedtest\``,
+
       SPEEDTEST: [
         `${emote.others.loading} • Chargement...`,
         ':signal_strength: • Latence serveur',
@@ -861,13 +862,15 @@ module.exports = class {
         ':package: • Dernière version :',
         ':calendar: • Date de la dernière version :',
         ':bust_in_silhouette: • Auteur :',
+        'Inconnu',
         ':busts_in_silhouette: • Contributeurs :',
         ':inbox_tray: • Nombre de téléchargements (semaine dernière) :',
         ':notepad_spiral: • Mots clés :',
+        'Aucun mots clés',
         ':pushpin: • Liens :',
         'npm',
         'Page d\'accueil',
-        'Dépôt GitHub',
+        'Dépôt',
         `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
       ],
 
@@ -906,6 +909,7 @@ module.exports = class {
       SHORTURL: [
         `${emote.others.no} • Tu dois m'indiquer une URL !`,
         `${emote.others.no} • Tu dois m'indiquer une URL valide !`,
+        `${emote.others.no} • Cette URL n'est pas disponible !`,
         ':label: • URL raccourci',
         ':chart_with_downwards_trend: • URL raccourci :',
         ':chart_with_upwards_trend: • URL :',
@@ -913,7 +917,7 @@ module.exports = class {
       ],
 
       // strwpoll.js
-      STRAWPOLLL_USAGE: prefix => `• \`${prefix}strawpoll <question>; <choix1>; <choix2>; [...]; [choix30]\` - Crée un sondage Strawpoll (30 choix maximum) avec question et choix`,
+      STRAWPOLL_USAGE: prefix => `• \`${prefix}strawpoll <question>; <choix1>; <choix2>; [...]; [choix30]\` - Crée un sondage Strawpoll (30 choix maximum) avec question et choix`,
       STRAWPOLL_EXAMPLE: prefix => `\`${prefix}strawpoll Quelle couleur pour ce rôle ?; rouge; bleu; vert; jaune\``,
 
       STRAWPOLL: [
@@ -926,6 +930,19 @@ module.exports = class {
         ':clipboard: • Sondage Strawpoll',
         ':pushpin: • Lien :',
         'Cliquez ici'
+      ],
+
+      // urban.js
+      URBAN_USAGE: prefix => `• \`${prefix}strawpoll <mot>\` - Donne le sens d'un mot dans le dictionnaire urbain`,
+      URBAN_EXAMPLE: prefix => `\`${prefix}strawpoll shit\``,
+
+      URBAN: [
+        `${emote.others.no} • Tu dois m'indiquer un mot !`,
+        `${emote.others.no} • Je ne trouve aucun résultat !`,
+        ':book: • Exemple(s) :',
+        ':pushpin: • Lien :',
+        'Cliquez ici',
+        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
       ],
 
       // wikipedia.js
