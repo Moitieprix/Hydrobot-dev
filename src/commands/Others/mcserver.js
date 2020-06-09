@@ -8,6 +8,7 @@ module.exports = class Mcserver extends Command {
   constructor (client) {
     super(client, {
       name: 'mcserver',
+      cooldown: 10,
       aliases: ['minecraftserver', 'minecraft-server', 'mc-server'],
       botpermissions: ['EMBED_LINKS'],
       usage: (language, prefix) => language.get('MCSERVER_USAGE', prefix),
@@ -48,8 +49,8 @@ module.exports = class Mcserver extends Command {
           .setFooter(this.client.user.username, this.client.user.avatarURL())
         )
       }
-    } catch (e) {
-      message.channel.send(message.language.get('MCSERVER_ERROR', e))
+    } catch {
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
