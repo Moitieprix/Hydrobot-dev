@@ -40,16 +40,17 @@ module.exports = class Npm extends Command {
         .setDescription(body.objects[0].package.description ? body.objects[0].package.description : message.language.get('NPM')[2])
         .addField(message.language.get('NPM')[3], body.objects[0].package.version)
         .addField(message.language.get('NPM')[4], this.client.functions.getDate(new Date(body.objects[0].package.date).toString().split(' '), message))
-        .addField(message.language.get('NPM')[5], body.objects[0].package.author.name)
-        .addField(message.language.get('NPM')[6], body.objects[0].package.maintainers.map(element => element.username).join(', '))
-        .addField(message.language.get('NPM')[7], bodyDownload.downloads)
-        .addField(message.language.get('NPM')[8], body.objects[0].package.keywords.join(', '))
-        .addField(message.language.get('NPM')[9], `[[${message.language.get('NPM')[10]}]](${body.objects[0].package.links.npm}) • [[${message.language.get('NPM')[11]}]](${body.objects[0].package.links.homepage}) • [[${message.language.get('NPM')[12]}]](${body.objects[0].package.links.repository})`)
+        .addField(message.language.get('NPM')[5], body.objects[0].package.author ? body.objects[0].package.author.name : message.language.get('NPM')[6])
+        .addField(message.language.get('NPM')[7], body.objects[0].package.maintainers ? body.objects[0].package.maintainers.map(element => element.username).join(', ') : message.language.get('NPM')[6])
+        .addField(message.language.get('NPM')[8], bodyDownload.downloads)
+        .addField(message.language.get('NPM')[9], body.objects[0].package.keywords ? body.objects[0].package.keywords.join(', ') : message.language.get('NPM')[10])
+        .addField(message.language.get('NPM')[11], `${body.objects[0].package.links.npm ? `[[${message.language.get('NPM')[12]}]](${body.objects[0].package.links.npm})` : ''} ${body.objects[0].package.links.homepage ? ` • [[${message.language.get('NPM')[13]}]](${body.objects[0].package.links.homepage})` : ''} ${body.objects[0].package.links.repository ? ` • [[${message.language.get('NPM')[14]}]](${body.objects[0].package.links.repository})` : ''}`)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
-    } catch {
-      message.channel.send(message.language.get('NPM')[13])
+    } catch (e) {
+      console.log(e)
+      message.channel.send(message.language.get('NPM')[15])
     }
   }
 }
