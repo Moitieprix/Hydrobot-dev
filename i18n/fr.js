@@ -9,10 +9,14 @@ module.exports = class {
       // Global
       INFO_PREFIX: prefix => `${emote.others.help} • Salut ! Mon préfixe sur ce serveur est \`${prefix}\`. Effectue la commande \`${prefix}help\` pour obtenir la liste de mes commandes !`,
 
-      UTILS: {
+      ERRORS: {
         ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
-        API_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
+        // IMAGE_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
+        ERROR_WITHOUT_REASON: `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+      },
+
+      UTILS: {
         USER_DEFAUT: `${emote.others.no} • Je ne trouve pas cet utilisateur !`,
         CHANNEL_DEFAUT: `${emote.others.no} • Je ne trouve pas ce salon !`,
         NO_ROLE: `${emote.others.no} • Tu dois m'indiquer un rôle !`,
@@ -784,8 +788,7 @@ module.exports = class {
 
       HASTEBIN: [
         `${emote.others.no} • Tu dois m'indiquer une extension de fichier et un texte !`,
-        `${emote.others.no} • Tu dois m'indiquer un texte !`,
-        `${emote.others.no} • Une erreur est survenue sur la génération du Hastebin, merci de réessayer plus tard !`
+        `${emote.others.no} • Tu dois m'indiquer un texte !`
       ],
 
       HASTEBIN_ACCESS: url => `Pour accéder à votre Hasteb.in, [[Cliquez ici]](${url})`,
@@ -803,8 +806,6 @@ module.exports = class {
         'Genre :'
       ],
 
-      ITUNES_ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
-
       // mcserver.js
       MCSERVER_USAGE: prefix => `• \`${prefix}mcserver <IP>\` - Affiche les informations d'un serveur Minecraft`,
       MCSERVER_EXAMPLE: prefix => `\`${prefix}mcserver mc.hypixel.net\``,
@@ -820,8 +821,6 @@ module.exports = class {
         `${emote.others.no} • Serveur à l'arrêt ou inéxistant !`
       ],
 
-      MCSERVER_ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
-
       // mcuser.js
       MCUSER_USAGE: prefix => `• \`${prefix}mcuser <pseudo>\` - Affiche les informations d'un utilisateur Minecraft`,
       MCUSER_EXAMPLE: prefix => `\`${prefix}mcuser Moitie_prix\``,
@@ -834,7 +833,8 @@ module.exports = class {
         ':credit_card: • UUID raccourci :',
         ':film_frames: • Historique du pseudo :',
         ':busts_in_silhouette: • Skin :',
-        `${emote.others.no} • Une erreur est survenu ! Merci de vérifier le pseudo et de réessayer plus tard !`
+        'Cliquez ici',
+        `${emote.others.no} • Cet utilisateur n'existe pas !`
       ],
 
       MCUSER_SKIN: url => `Pour accéder au skin, [[Cliquez ici]](${url})`,
@@ -847,8 +847,7 @@ module.exports = class {
         `${emote.others.no} • Tu dois m'indiquer une recherche !`,
         `${emote.others.no} • Je ne trouve aucun résultat !`,
         'Cliquez ici',
-        ':mag: • Références MDN',
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        ':mag: • Références MDN'
       ],
 
       // npm.js
@@ -870,8 +869,7 @@ module.exports = class {
         ':pushpin: • Liens :',
         'npm',
         'Page d\'accueil',
-        'Dépôt',
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        'Dépôt'
       ],
 
       // quote.js
@@ -898,8 +896,7 @@ module.exports = class {
         ':busts_in_silhouette: • Abonnés :',
         ':chart_with_upwards_trend: • Abonnés actifs',
         ':pushpin: • Lien :',
-        'Cliquez ici',
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        'Cliquez ici'
       ],
 
       // shorturl.js
@@ -912,8 +909,7 @@ module.exports = class {
         `${emote.others.no} • Cette URL n'est pas disponible !`,
         ':label: • URL raccourci',
         ':chart_with_downwards_trend: • URL raccourci :',
-        ':chart_with_upwards_trend: • URL :',
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        ':chart_with_upwards_trend: • URL :'
       ],
 
       // strwpoll.js
@@ -926,7 +922,6 @@ module.exports = class {
         `${emote.others.no} • Tu dois m'indiquer au moins 2 réponses !`,
         `${emote.others.no} • Tu as le droit à 30 réponses maximum !`,
         `${emote.others.no} • Tes réponses ne doivent pas faire plus de 200 caractères !`,
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`,
         ':clipboard: • Sondage Strawpoll',
         ':pushpin: • Lien :',
         'Cliquez ici'
@@ -941,8 +936,7 @@ module.exports = class {
         `${emote.others.no} • Je ne trouve aucun résultat !`,
         ':book: • Exemple(s) :',
         ':pushpin: • Lien :',
-        'Cliquez ici',
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        'Cliquez ici'
       ],
 
       // wikipedia.js
@@ -953,8 +947,7 @@ module.exports = class {
         `${emote.others.no} • Tu dois m'indiquer une recherche !`,
         `${emote.others.no} • Je ne trouve aucun résultat !`,
         ':pushpin: • Lien',
-        'Cliquez ici',
-        `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        'Cliquez ici'
       ],
 
       // OWNER //
