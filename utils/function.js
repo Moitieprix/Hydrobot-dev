@@ -161,7 +161,7 @@ module.exports = {
       return null
     }
 
-    if (rolesFilter.size === 1) return rolesFilter.first().user
+    if (rolesFilter.size === 1) return rolesFilter.first()
 
     if (rolesFilter.size > 15) return message.channel.send(message.language.get('UTILS').TOO_MANY_RESULTS)
 
