@@ -91,7 +91,7 @@ module.exports = class Quote extends Command {
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
-    } catch (e) {
+    } catch {
       message.channel.send(message.language.get('QUOTE')[2])
     }
   }
