@@ -8,6 +8,7 @@ module.exports = class Wikipedia extends Command {
   constructor (client) {
     super(client, {
       name: 'wikipedia',
+      cooldown: 10,
       botpermissions: ['EMBED_LINKS'],
       aliases: ['wiki'],
       usage: (language, prefix) => language.get('WIKIPEDIA_USAGE', prefix),
@@ -41,7 +42,7 @@ module.exports = class Wikipedia extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch {
-      message.channel.send(message.language.get('WIKIPEDIA')[4])
+      message.channel.send(message.language.get('ERRORS').ERROR_WITHOUT_REASON)
     }
   }
 }
