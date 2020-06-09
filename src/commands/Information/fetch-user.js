@@ -27,7 +27,7 @@ module.exports = class FetchUser extends Command {
       const array = Object.entries(flags.serialize())
       const flagsArray = []
       for (const flag of array) {
-        if (flag[1]) return flagsArray.push(`\`${flag[0]}\``)
+        if (flag[1]) flagsArray.push(`\`${flag[0]}\``)
       }
 
       message.channel.send(new MessageEmbed()
@@ -36,11 +36,11 @@ module.exports = class FetchUser extends Command {
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .setDescription(message.language.get('FETCHUSER')[0])
         .addField(message.language.get('FETCHUSER')[1], `${message.language.get('FETCHUSER')[2]} **${user.tag}** \n${message.language.get('FETCHUSER')[3]} **${user.id}** \n${message.language.get('FETCHUSER')[4]} **${this.client.functions.getDate(user.createdAt.toString().split(' '), message)}** \n${message.language.get('FETCHUSER')[5]} **${message.language.get('UTILS').STATUS[user.presence.status]}**`)
-        .addField(message.language.get('FETCHUSER')[6], flagsArray ? flagsArray.join(', ') : message.language.get('FETCHUSER')[7])
+        .addField(message.language.get('FETCHUSER')[6], flagsArray.length ? flagsArray.join(', ') : message.language.get('FETCHUSER')[7])
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
-    } catch (err) {
+    } catch {
       message.channel.send(message.language.get('FETCHUSER')[9])
     }
   }
