@@ -93,7 +93,9 @@ module.exports = class Massmentions extends Command {
       }
 
       case 'set-limit': {
-        if (!args[1] || isNaN(args[1]) || !Number.isInteger(args[1])) {
+        const limit = Number(args[1])
+
+        if (!limit || Number.isNaN(limit) || !Number.isInteger(limit)) {
           message.channel.send(message.language.get('MASSMENTION')[5])
           return
         }
@@ -120,9 +122,10 @@ module.exports = class Massmentions extends Command {
           return
         }
 
-        if (args[1] === '1' || args[1] === '2' || args[1] === '3') {
+        const sanctionNumber = ['1', '2', '3']
+        if (sanctionNumber.includes(args[1])) {
           this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
-          message.channel.send(message.language.get('SANCTION')[parseInt(args[1]) - 1])
+          message.channel.send(message.language.get('SANCTION')[Number(args[1]) - 1])
           return
         }
 
@@ -135,7 +138,7 @@ module.exports = class Massmentions extends Command {
           if (!message.guild.roles.cache.get(role)) {
             this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{roles}', (antilink->'roles') - '${role}') WHERE id = $1`, [message.guild.id])
           } else {
-            return `• <@&${role}>`.toString()
+            return `• <@&${role}>`
           }
         })
 
@@ -143,7 +146,7 @@ module.exports = class Massmentions extends Command {
           if (!message.guild.channels.cache.get(channel)) {
             this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{channels}', (massmentions->'channels') - '${channel}') WHERE id = $1`, [message.guild.id])
           } else {
-            return `• <#${channel}>`.toString()
+            return `• <#${channel}>`
           }
         })
 
