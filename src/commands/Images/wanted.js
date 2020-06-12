@@ -21,16 +21,23 @@ module.exports = class Wanted extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-      read('./images/wanted.jpg', (_err, image) => {
-        avatar.resize(256, 256)
-        avatar.sepia()
-        image.composite(avatar, 75, 225)
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/wanted.jpg')
 
-        image.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'wanted.png', attachment: buffer }] })
-        })
+      avatar.sepia()
+      template.composite(avatar, 75, 225)
+
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'wanted.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
