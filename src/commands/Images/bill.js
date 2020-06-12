@@ -21,16 +21,23 @@ module.exports = class Bill extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/plate_bill.png')
+
       avatar.resize(177, 177)
+      template.composite(template, 87, 0, { mode: BLEND_DESTINATION_OVER })
 
-      read('./images/plate_bill.png', (_err, image) => {
-        image.composite(avatar, 87, 0, { mode: BLEND_DESTINATION_OVER })
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
-        image.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'bill.png', attachment: buffer }] })
-        })
+      message.channel.send({
+        files: [{
+          name: 'bill.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
