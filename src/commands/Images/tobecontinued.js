@@ -21,18 +21,24 @@ module.exports = class Tobecontinued extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-      avatar.resize(256, 256)
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/tobecontinued.png')
+
       avatar.sepia()
+      template.resize(160, 130)
+      avatar.composite(template, 90, 155)
 
-      read('./images/tobecontinued.png', (_err, image) => {
-        image.resize(160, 130)
-        avatar.composite(image, 90, 155)
+      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
 
-        avatar.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'tobecontinued.png', attachment: buffer }] })
-        })
+      message.channel.send({
+        files: [{
+          name: 'tobecontinued.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
