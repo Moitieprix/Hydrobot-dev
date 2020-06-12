@@ -17,33 +17,39 @@ module.exports = class Slap extends Command {
   }
 
   async run (message, args) {
-    const mask = await read('./images/mask.png')
-
     if (!args[0]) return message.channel.send(message.language.get('SLAP_ARGS'))
 
     const user = await this.client.functions.userFilter(message, args)
 
     if (!user) return
 
-    read('./images/plate_slap.png', (_err, image) => {
-      image.resize(512, 256)
+    try {
+      const mask = await read('./images/mask.png')
+      const avatarAuthor = await read(message.author.displayAvatarURL({ format: 'png', size: 256 }))
+      const avatarMentionned = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/plate_slap.png')
 
-      read(message.author.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-        mask.resize(100, 100)
-        avatar.resize(100, 100)
-        avatar.mask(mask)
-        image.composite(avatar, 205, 35)
+      template.resize(512, 256)
+      mask.resize(100, 100)
+      avatarAuthor.resize(100, 100)
+      avatarMentionned.resize(100, 100)
 
-        read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar2) => {
-          avatar2.resize(100, 100)
-          avatar2.mask(mask)
-          image.composite(avatar2, 85, 90)
+      avatarAuthor.mask(mask)
+      template.composite(avatarAuthor, 205, 35)
 
-          image.getBuffer(MIME_PNG, (_err, buffer) => {
-            return message.channel.send({ files: [{ name: 'slap.png', attachment: buffer }] })
-          })
-        })
+      avatarMentionned.mask(mask)
+      template.composite(avatarMentionned, 85, 90)
+
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'slap.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
