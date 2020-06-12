@@ -21,16 +21,24 @@ module.exports = class Blurple extends Command {
 
     if (!user) return
 
-    const image = new Jimp(256, 256, '#738ADB')
+    try {
+      const template = new Jimp(256, 256, '#738ADB')
 
-    Jimp.read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
+      const avatar = await Jimp.read(user.displayAvatarURL({ format: 'png', size: 256 }))
+
       avatar.resize(256, 256)
+      avatar.composite(template, 0, 0, { opacitySource: 0.4 })
 
-      avatar.composite(image, 0, 0, { opacitySource: 0.4 })
+      const buffer = await avatar.getAsyncBuffer(Jimp.MIME_PNG)
 
-      avatar.getBuffer(Jimp.MIME_PNG, (_err, buffer) => {
-        return message.channel.send({ files: [{ name: 'blur.png', attachment: buffer }] })
+      message.channel.send({
+        files: [{
+          name: 'blurple.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
