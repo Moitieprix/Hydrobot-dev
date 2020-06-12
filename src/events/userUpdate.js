@@ -5,24 +5,27 @@ const { MessageEmbed } = require('discord.js')
 module.exports = async (client, oldUser, newUser) => {
   if (oldUser.bot) return
 
+  const guildsId = []
   for (const [id, guild] of client.guilds.cache) {
     try {
       guild.members.fetch(oldUser.id)
+      guildsId.push(`'${id}'`)
     } catch (e) {
-      continue
+      if (e === 'DiscordAPIError: Unknown User') continue
+      else return
     }
+  }
 
-    const res = await client.database.query('SELECT * FROM settings WHERE id = $1', [id])
+  const res = await client.database.query(`SELECT id, channels, language FROM settings WHERE id IN (${guildsId.join()}) AND system->>'logs' = 'true' AND channels->>'logs' <> '0' AND logs_list->>'userUpdate' = 'true'`)
+  if (res.rows.length === 0) return
 
-    if (res.rows.length === 0) continue
+  for (const element of res.rows) {
+    const channel = element.channels.logs
 
-    const channel = res.rows[0].channels.logs
-
-    if (!res.rows[0].system.logs || !res.rows[0].logs_list.userUpdate || channel === '0') continue
-    if (!guild.channels.cache.some(ch => ch.id === channel)) return console.log('3')
+    if (!client.channels.cache.get(channel)) continue
     if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) continue
 
-    const language = new (require(`../../i18n/${res.rows[0].language}`))()
+    const language = new (require(`../../i18n/${element.language}`))()
 
     const embed = new MessageEmbed()
       .setColor(client.config.embed.color)
@@ -45,7 +48,7 @@ module.exports = async (client, oldUser, newUser) => {
       embed.addField(language.get('LOGS_EVENTS').USER_UPDATED[7], `[[${language.get('LOGS_EVENTS').USER_UPDATED[8]}]](${oldUser.displayAvatarURL({ dynamic: true })}) → [[${language.get('LOGS_EVENTS').USER_UPDATED[9]}]](${newUser.displayAvatarURL({ dynamic: true })})`)
     }
 
-    guild.channels.cache.get(channel).send(embed)
+    client.channels.cache.get(channel).send(embed)
     continue
   }
 }
