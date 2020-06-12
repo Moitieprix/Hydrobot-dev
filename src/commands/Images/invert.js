@@ -21,13 +21,21 @@ module.exports = class Invert extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-      avatar.resize(256, 256)
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+
       avatar.invert()
 
-      avatar.getBuffer(MIME_PNG, (_err, buffer) => {
-        return message.channel.send({ files: [{ name: 'invert.png', attachment: buffer }] })
+      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'invert.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
