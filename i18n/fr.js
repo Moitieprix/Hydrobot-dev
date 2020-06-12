@@ -11,7 +11,7 @@ module.exports = class {
 
       ERRORS: {
         ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
-        // IMAGE_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
+        IMAGE_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
         ERROR_WITHOUT_REASON: `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
       },
@@ -116,6 +116,17 @@ module.exports = class {
       },
 
       LOGS_EVENTS: {
+        CHANNEL_CREATE: [
+          ':speech_balloon: • Salon textuel crée !',
+          ':dollar: • Salon magasin crée !',
+          ':microphone2: • Salon vocal crée !',
+          ':bookmark_tabs: • Catégorie crée !',
+          '• Nom :',
+          '• Type :',
+          '• Catégorie :'
+
+        ],
+
         MSG_DELETED: [
           ':wastebasket: • Message supprimé',
           'Auteur du message :',
