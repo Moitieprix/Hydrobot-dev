@@ -17,25 +17,31 @@ module.exports = class Challenger extends Command {
   }
 
   async run (message, args) {
-    const mask = await read('./images/mask.png')
-
     const user = await this.client.functions.userFilter(message, args)
 
     if (!user) return
 
-    read('./images/new_challenger.png', (_err, image) => {
-      image.resize(455, 256)
+    try {
+      const mask = await read('./images/mask.png')
+      const template = await read('./images/new_challenger.png')
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
 
-      read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-        mask.resize(130, 130)
-        avatar.resize(130, 130)
-        avatar.mask(mask)
-        image.composite(avatar, 255, 65)
+      template.resize(455, 256)
+      mask.resize(130, 130)
+      avatar.resize(130, 130)
+      avatar.mask(mask)
+      template.composite(avatar, 255, 65)
 
-        image.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'challenger.png', attachment: buffer }] })
-        })
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'challenger.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
