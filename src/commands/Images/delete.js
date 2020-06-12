@@ -21,17 +21,24 @@ module.exports = class Delete extends Command {
 
     if (!user) return
 
-    read('./images/plate_delete.png', (_err, image) => {
-      image.resize(537, 256)
+    try {
+      const template = await read('./images/plate_delete.png')
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
 
-      read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-        avatar.resize(137, 137)
-        image.composite(avatar, 88, 98)
+      template.resize(537, 256)
+      avatar.resize(137, 137)
+      template.composite(avatar, 88, 98)
 
-        image.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'delete.png', attachment: buffer }] })
-        })
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'delete.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
