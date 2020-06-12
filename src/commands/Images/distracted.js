@@ -17,34 +17,43 @@ module.exports = class Distracted extends Command {
   }
 
   async run (message, args) {
-    const mask = await read('./images/mask.png')
-
-    if (!args[0]) return message.channel.send(message.language.get('DISTRACTED_ARGS'))
+    if (!args[0]) {
+      message.channel.send(message.language.get('DISTRACTED_ARGS'))
+      return
+    }
 
     const user = await this.client.functions.userFilter(message, args)
 
     if (!user) return
 
-    read('./images/plate_checkout.png', (_err, image) => {
-      image.resize(370, 256)
+    try {
+      const mask = await read('./images/mask.png')
+      const avatarAuthor = await read(message.author.displayAvatarURL({ format: 'png', size: 256 }))
+      const avatarMentionned = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/plate_checkout.png')
 
-      read(message.author.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-        mask.resize(60, 60)
-        avatar.resize(60, 60)
-        avatar.mask(mask)
-        image.composite(avatar, 180, 35)
+      template.resize(370, 256)
+      avatarAuthor.resize(60, 60)
+      avatarMentionned.resize(85, 85)
 
-        read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar2) => {
-          mask.resize(85, 85)
-          avatar2.resize(85, 85)
-          avatar2.mask(mask)
-          image.composite(avatar2, 70, 50)
+      mask.resize(60, 60)
+      avatarAuthor.mask(mask)
+      template.composite(avatarAuthor, 180, 35)
 
-          image.getBuffer(MIME_PNG, (_err, buffer) => {
-            return message.channel.send({ files: [{ name: 'distracted.png', attachment: buffer }] })
-          })
-        })
+      mask.resize(85, 85)
+      avatarMentionned.mask(mask)
+      template.composite(avatarMentionned, 70, 50)
+
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'distracted.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
