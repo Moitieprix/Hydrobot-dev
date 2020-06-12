@@ -21,19 +21,26 @@ module.exports = class Wasted extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-      avatar.resize(256, 256)
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/plate_wasted.png')
+
+      template.resize(150, 150)
+
       avatar.greyscale()
       avatar.gaussian(3)
+      avatar.composite(template, 50, 60)
 
-      read('./images/plate_wasted.png', (_err, image) => {
-        image.resize(150, 150)
-        avatar.composite(image, 50, 60)
+      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
 
-        avatar.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'wasted.png', attachment: buffer }] })
-        })
+      message.channel.send({
+        files: [{
+          name: 'wasted.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
