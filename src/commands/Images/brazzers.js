@@ -21,17 +21,24 @@ module.exports = class Brazzers extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/plate_brazzers.png')
+
       avatar.resize(256, 256)
+      template.resize(100, 50)
+      avatar.composite(template, 150, 210)
 
-      read('./images/plate_brazzers.png', (_err, image) => {
-        image.resize(100, 50)
-        avatar.composite(image, 150, 210)
+      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
 
-        avatar.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'brazzers.png', attachment: buffer }] })
-        })
+      message.channel.send({
+        files: [{
+          name: 'brazzers.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
