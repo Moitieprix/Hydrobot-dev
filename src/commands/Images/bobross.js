@@ -21,17 +21,24 @@ module.exports = class Bobross extends Command {
 
     if (!user) return
 
-    read('./images/bobross.png', (_err, image) => {
-      image.resize(256, 280)
+    try {
+      const template = await read('./images/bobross.png')
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
 
-      read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-        avatar.resize(173, 173)
-        image.composite(avatar, 15, 12, { mode: BLEND_DESTINATION_OVER })
+      template.resize(256, 280)
+      avatar.resize(173, 173)
+      template.composite(avatar, 15, 12, { mode: BLEND_DESTINATION_OVER })
 
-        image.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'bobross.png', attachment: buffer }] })
-        })
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'bobross.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
