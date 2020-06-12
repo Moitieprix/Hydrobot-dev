@@ -39,7 +39,7 @@ module.exports = class Autorole extends Command {
           return
         }
 
-        this.client.database.query(`UPDATE settings SET autorole = array_cat(autorole, '{${role.id}}') WHERE id = $1`, [message.guild.id])
+        this.client.database.query(`UPDATE settings SET autorole = array_append(autorole, '${role.id}') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('AUTOROLE_ADDROLE', role))
         break
       }
