@@ -21,18 +21,26 @@ module.exports = class Rip extends Command {
 
     if (!user) return
 
-    read('./images/plate_rip.png', (_err, image) => {
-      image.resize(400, 256)
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/plate_rip.png')
 
-      read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-        avatar.resize(60, 60)
-        avatar.rotate(3)
-        image.composite(avatar, 55, 25, { mode: BLEND_DESTINATION_OVER })
+      template.resize(400, 256)
+      avatar.resize(60, 60)
+      avatar.rotate(3)
 
-        image.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'rip.png', attachment: buffer }] })
-        })
+      template.composite(avatar, 55, 25, { mode: BLEND_DESTINATION_OVER })
+
+      const buffer = await template.getAsyncBuffer(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'rip.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
