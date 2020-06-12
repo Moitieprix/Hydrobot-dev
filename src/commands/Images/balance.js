@@ -21,16 +21,24 @@ module.exports = class Balance extends Command {
 
     if (!user) return
 
-    read(user.displayAvatarURL({ format: 'png', size: 256 }), (_err, avatar) => {
-      avatar.resize(256, 256)
+    try {
+      const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
+      const template = await read('./images/balance.png')
 
-      read('./images/balance.png', (_err, image) => {
-        image.resize(256, 256)
-        avatar.composite(image, 0, 0)
-        avatar.getBuffer(MIME_PNG, (_err, buffer) => {
-          return message.channel.send({ files: [{ name: 'balance.png', attachment: buffer }] })
-        })
+      avatar.resize(256, 256)
+      template.resize(256, 256)
+      avatar.composite(template, 0, 0)
+
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
+
+      message.channel.send({
+        files: [{
+          name: 'balance.png',
+          attachment: buffer
+        }]
       })
-    })
+    } catch (e) {
+      message.channel.send(message.language.get('ERRORS').IMAGE_ERROR(e))
+    }
   }
 }
