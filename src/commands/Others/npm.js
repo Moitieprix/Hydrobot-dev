@@ -36,7 +36,7 @@ module.exports = class Npm extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('NPM', 'https://i.imgur.com/ErKf5Y0.png', 'https://www.npmjs.com/')
+        .setAuthor('NPM', 'file:///C:/Users/aurel/Desktop/Discord bot', 'https://www.npmjs.com/')
         .setTitle(`:label: • ${body.objects[0].package.name}`)
         .setDescription(body.objects[0].package.description ? body.objects[0].package.description : message.language.get('NPM')[2])
         .addField(message.language.get('NPM')[3], body.objects[0].package.version)
