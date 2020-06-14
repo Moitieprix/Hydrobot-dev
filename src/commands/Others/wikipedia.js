@@ -34,7 +34,8 @@ module.exports = class Wikipedia extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('Wikipedia', 'https://upload.wikimedia.org/wikipedia/commons/7/75/Wikipedia_mobile_app_logo.png', `https://${data.rows[0].language}.wikipedia.org/`)
+        .attachFiles(['images/icons/wikipedia.png'])
+        .setAuthor('Wikipedia', 'attachment://wikipedia.png', `https://${data.rows[0].language}.wikipedia.org/`)
         .setTitle(`:label: • ${body.query.pages[0].title}`)
         .setDescription(body.query.pages[0].extract.substr(0, 1900).replace(/[\n]/g, '\n\n'))
         .addField(message.language.get('WIKIPEDIA')[2], `[[${message.language.get('WIKIPEDIA')[3]}]](https://${data.rows[0].language}.wikipedia.org/wiki/${encodeURIComponent(body.query.pages[0].title)})`)

@@ -73,7 +73,8 @@ module.exports = class Strawpoll extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('Strawpoll', 'https://d2.alternativeto.net/dist/icons/strawpoll_153439.png?width=200&height=200&mode=crop&upscale=false', 'https://www.strawpoll.me/')
+        .attachFiles(['images/icons/strawpoll.png'])
+        .setAuthor('Strawpoll', 'attachment://strawpoll.png', 'https://www.strawpoll.me/')
         .setTitle(message.language.get('STRAWPOLL')[5])
         .addField(message.language.get('STRAWPOLL')[6], `[[${message.language.get('STRAWPOLL')[7]}]](https://www.strawpoll.me/${body.id})`)
         .setTimestamp()

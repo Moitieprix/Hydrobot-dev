@@ -23,7 +23,7 @@ module.exports = class Bill extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_bill.png')
+      const template = await read('./images/templates/plate_bill.png')
 
       avatar.resize(177, 177)
       template.composite(template, 87, 0, { mode: BLEND_DESTINATION_OVER })

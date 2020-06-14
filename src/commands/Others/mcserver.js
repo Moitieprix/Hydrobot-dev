@@ -29,7 +29,8 @@ module.exports = class Mcserver extends Command {
 
       if (body.online) {
         message.channel.send(new MessageEmbed()
-          .setAuthor('Minecraft', 'https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/iso-grassblock.png', 'https://www.minecraft.net')
+          .attachFiles(['images/icons/grassblock.png'])
+          .setAuthor('Minecraft', 'attachment://grassblock.png', 'https://www.minecraft.net')
           .setTitle(message.language.get('MCSERVER')[1])
           .setColor(this.client.config.embed.color)
           .setThumbnail(body.favicon)

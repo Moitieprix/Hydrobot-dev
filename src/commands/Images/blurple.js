@@ -29,7 +29,7 @@ module.exports = class Blurple extends Command {
       avatar.resize(256, 256)
       avatar.composite(template, 0, 0, { opacitySource: 0.4 })
 
-      const buffer = await avatar.getAsyncBuffer(Jimp.MIME_PNG)
+      const buffer = await avatar.getBufferAsync(Jimp.MIME_PNG)
 
       message.channel.send({
         files: [{

@@ -22,8 +22,8 @@ module.exports = class Challenger extends Command {
     if (!user) return
 
     try {
-      const mask = await read('./images/mask.png')
-      const template = await read('./images/new_challenger.png')
+      const mask = await read('./images/templates/mask.png')
+      const template = await read('./images/templates/new_challenger.png')
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
 
       template.resize(455, 256)
@@ -32,7 +32,7 @@ module.exports = class Challenger extends Command {
       avatar.mask(mask)
       template.composite(avatar, 255, 65)
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

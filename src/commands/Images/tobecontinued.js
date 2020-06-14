@@ -23,13 +23,13 @@ module.exports = class Tobecontinued extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/tobecontinued.png')
+      const template = await read('./images/templates/tobecontinued.png')
 
       avatar.sepia()
       template.resize(160, 130)
       avatar.composite(template, 90, 155)
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

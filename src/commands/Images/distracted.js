@@ -27,10 +27,10 @@ module.exports = class Distracted extends Command {
     if (!user) return
 
     try {
-      const mask = await read('./images/mask.png')
+      const mask = await read('./images/templates/mask.png')
       const avatarAuthor = await read(message.author.displayAvatarURL({ format: 'png', size: 256 }))
       const avatarMentionned = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_checkout.png')
+      const template = await read('./images/templates/plate_checkout.png')
 
       template.resize(370, 256)
       avatarAuthor.resize(60, 60)
@@ -44,7 +44,7 @@ module.exports = class Distracted extends Command {
       avatarMentionned.mask(mask)
       template.composite(avatarMentionned, 70, 50)
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

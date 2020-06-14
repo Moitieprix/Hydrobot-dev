@@ -34,7 +34,8 @@ module.exports = class Reddit extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('Reddit', 'https://www.reddit.com/favicon.ico', 'https://www.reddit.com')
+        .attachFiles(['images/icons/reddit.png'])
+        .setAuthor('Reddit', 'attachment://reddit.png', 'https://www.reddit.com')
         .setTitle(`:label: • ${body.data.display_name_prefixed}`)
         .setDescription(body.data.public_description ? body.data.public_description : message.language.get('REDDIT')[2])
         .addField(message.language.get('REDDIT')[3], body.data.subscribers)

@@ -23,13 +23,13 @@ module.exports = class Brazzers extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_brazzers.png')
+      const template = await read('./images/templates/plate_brazzers.png')
 
       avatar.resize(256, 256)
       template.resize(100, 50)
       avatar.composite(template, 150, 210)
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

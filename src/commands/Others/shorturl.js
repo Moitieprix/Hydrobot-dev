@@ -38,6 +38,8 @@ module.exports = class Shorturl extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
+        .attachFiles(['images/icons/shorturl.png'])
+        .setAuthor('URL raccourcie', 'attachment://shorturl.png', 'https://is.gd')
         .setTitle(message.language.get('SHORTURL')[3])
         .addField(message.language.get('SHORTURL')[4], body)
         .addField(message.language.get('SHORTURL')[5], args[0])

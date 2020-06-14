@@ -23,7 +23,7 @@ module.exports = class Rip extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_rip.png')
+      const template = await read('./images/templates/plate_rip.png')
 
       template.resize(400, 256)
       avatar.resize(60, 60)
@@ -31,7 +31,7 @@ module.exports = class Rip extends Command {
 
       template.composite(avatar, 55, 25, { mode: BLEND_DESTINATION_OVER })
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

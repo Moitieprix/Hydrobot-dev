@@ -23,7 +23,7 @@ module.exports = class Balance extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/balance.png')
+      const template = await read('./images/templates/balance.png')
 
       avatar.resize(256, 256)
       template.resize(256, 256)

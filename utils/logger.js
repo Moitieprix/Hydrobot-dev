@@ -23,22 +23,24 @@ module.exports = class Logger {
 }
 
 function getDate () {
-  let date = new Date().getDate()
-  let month = new Date().getMonth() + 1
-  let hour = new Date().getHours()
-  let minute = new Date().getMinutes()
-  let second = new Date().getSeconds()
-  const year = new Date().getFullYear()
+  const date = new Date()
 
-  if (date < 10) date = `0${date}`
+  const year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  let hour = date.getHours()
+  let min = date.getMinutes()
+  let sec = date.getSeconds()
+
+  if (day < 10) day = `0${date}`
 
   if (month < 10) month = `0${month}`
 
   if (hour < 10) hour = `0${hour}`
 
-  if (minute < 10) minute = `0${minute}`
+  if (min < 10) min = `0${min}`
 
-  if (second < 10) second = `0${second}`
+  if (sec < 10) sec = `0${sec}`
 
-  return `${date}/${month}/${year} ${hour}:${minute}:${second}`
+  return `${day}/${month}/${year}, ${hour}:${min}:${sec}`
 }

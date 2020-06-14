@@ -23,12 +23,12 @@ module.exports = class Wanted extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/wanted.jpg')
+      const template = await read('./images/templates/wanted.jpg')
 
       avatar.sepia()
       template.composite(avatar, 75, 225)
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

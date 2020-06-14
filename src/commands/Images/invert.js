@@ -26,7 +26,7 @@ module.exports = class Invert extends Command {
 
       avatar.invert()
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

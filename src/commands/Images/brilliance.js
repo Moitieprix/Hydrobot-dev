@@ -23,12 +23,12 @@ module.exports = class Brilliance extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/brilliance.png')
+      const template = await read('./images/templates/brilliance.png')
 
       template.resize(256, 256)
       avatar.composite(template, 0, 0)
 
-      const buffer = await avatar.getBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

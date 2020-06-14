@@ -26,7 +26,7 @@ module.exports = class Posterize extends Command {
 
       avatar.posterize(10)
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

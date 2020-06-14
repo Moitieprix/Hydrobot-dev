@@ -26,7 +26,7 @@ module.exports = class Sepia extends Command {
 
       avatar.sepia()
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

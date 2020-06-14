@@ -27,10 +27,10 @@ module.exports = class Crush extends Command {
     if (!user) return
 
     try {
-      const mask = await read('./images/mask.png')
+      const mask = await read('./images/templates/mask.png')
       const avatarAuthor = await read(message.author.displayAvatarURL({ format: 'png', size: 256 }))
       const avatarMentionned = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_crush.png')
+      const template = await read('./images/templates/plate_crush.png')
 
       avatarAuthor.resize(50, 50)
       avatarMentionned.resize(165, 165)
@@ -40,9 +40,9 @@ module.exports = class Crush extends Command {
       avatarMentionned.rotate(8)
       template.composite(avatarMentionned, 60, 180, { mode: BLEND_DESTINATION_OVER })
       avatarAuthor.mask(mask)
-      avatarMentionned.composite(avatarAuthor, 175, 22)
+      template.composite(avatarAuthor, 175, 22)
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

@@ -35,7 +35,7 @@ module.exports = class FetchUser extends Command {
         .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .setDescription(message.language.get('FETCHUSER')[0])
-        .addField(message.language.get('FETCHUSER')[1], `${message.language.get('FETCHUSER')[2]} **${user.tag}** \n${message.language.get('FETCHUSER')[3]} **${user.id}** \n${message.language.get('FETCHUSER')[4]} **${this.client.functions.getDate(user.createdAt.toString().split(' '), message)}** \n${message.language.get('FETCHUSER')[5]} **${message.language.get('UTILS').STATUS[user.presence.status]}**`)
+        .addField(message.language.get('FETCHUSER')[1], `${message.language.get('FETCHUSER')[2]} **${user.tag}** \n${message.language.get('FETCHUSER')[3]} **${user.id}** \n${message.language.get('FETCHUSER')[4]} **${this.client.functions.timestampToDate(user.createdTimestamp, message)}** \n${message.language.get('FETCHUSER')[5]} **${message.language.get('UTILS').STATUS[user.presence.status]}**`)
         .addField(message.language.get('FETCHUSER')[6], flagsArray.length ? flagsArray.join(', ') : message.language.get('FETCHUSER')[7])
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())

@@ -23,7 +23,7 @@ module.exports = class Itunes extends Command {
     }
 
     try {
-      const res = await fetch(`https://itunes.apple.com/search?term=${args.join(' ')}&media=music&entity=song&limit=1&explicit=${message.channel.nsfw ? 'yes' : 'no'}`)
+      const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(args.join(' '))}&media=music&entity=song&limit=1&explicit=${message.channel.nsfw ? 'yes' : 'no'}`)
       const body = await res.json()
 
       if (!body.resultCount) {
@@ -35,13 +35,14 @@ module.exports = class Itunes extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('iTunes', 'https://i.imgur.com/PR29ow0.jpg', 'https://www.apple.com/itunes/')
+        .attachFiles(['images/icons/itunes.png'])
+        .setAuthor('iTunes', 'attachment://itunes.png', 'https://www.apple.com/itunes/')
         .setURL(data.trackViewUrl)
         .setThumbnail(data.artworkUrl100)
         .setTitle(data.trackName)
         .addField(message.language.get('ITUNES')[2], data.artistName)
         .addField(message.language.get('ITUNES')[3], data.collectionName)
-        .addField(message.language.get('ITUNES')[4], this.client.functions.getDate(new Date(data.releaseDate).toString().split(' '), message))
+        .addField(message.language.get('ITUNES')[4], this.client.functions.timestampToDate(Date.parse(data.releaseDate), message))
         .addField(message.language.get('ITUNES')[5], data.primaryGenreName)
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())

@@ -48,7 +48,8 @@ module.exports = class Hastebin extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('Hasteb.in', 'https://hasteb.in/favicon.ico', 'https://hasteb.in/')
+        .attachFiles(['images/icons/hastebin.png'])
+        .setAuthor('Hasteb.in', 'attachment://hastebin.png', 'https://hasteb.in/')
         .setDescription(message.language.get('HASTEBIN_ACCESS', url))
         .setTimestamp()
         .setFooter(this.client.user.username, this.client.user.avatarURL())

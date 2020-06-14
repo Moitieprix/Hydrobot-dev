@@ -22,14 +22,14 @@ module.exports = class Delete extends Command {
     if (!user) return
 
     try {
-      const template = await read('./images/plate_delete.png')
+      const template = await read('./images/templates/plate_delete.png')
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
 
       template.resize(537, 256)
       avatar.resize(137, 137)
       template.composite(avatar, 88, 98)
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

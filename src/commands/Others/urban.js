@@ -40,7 +40,8 @@ module.exports = class Urban extends Command {
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('Urban dictionary', 'https://i.imgur.com/Fo0nRTe.png', 'https://www.urbandictionary.com/')
+        .attachFiles(['images/icons/urban.png'])
+        .setAuthor('Urban dictionary', 'attachment://urban.png', 'https://www.urbandictionary.com/')
         .setTitle(`:label: • ${data.word}`)
         .setDescription(data.definition.length > 2048 ? `${data.definition.substr(0, 2000)}...` : data.definition)
         .addField(message.language.get('URBAN')[2], data.example)

@@ -24,10 +24,10 @@ module.exports = class Slap extends Command {
     if (!user) return
 
     try {
-      const mask = await read('./images/mask.png')
+      const mask = await read('./images/templates/mask.png')
       const avatarAuthor = await read(message.author.displayAvatarURL({ format: 'png', size: 256 }))
       const avatarMentionned = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_slap.png')
+      const template = await read('./images/templates/plate_slap.png')
 
       template.resize(512, 256)
       mask.resize(100, 100)
@@ -40,7 +40,7 @@ module.exports = class Slap extends Command {
       avatarMentionned.mask(mask)
       template.composite(avatarMentionned, 85, 90)
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

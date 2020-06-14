@@ -23,7 +23,7 @@ module.exports = class Beautiful extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_beautiful.png')
+      const template = await read('./images/templates/plate_beautiful.png')
 
       template.resize(256, 275)
       avatar.resize(60, 69)

@@ -26,7 +26,7 @@ module.exports = class Greyscale extends Command {
 
       avatar.greyscale()
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

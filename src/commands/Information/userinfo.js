@@ -39,25 +39,22 @@ module.exports = class Userinfo extends Command {
     const permissionsArraySerialize = Object.entries(message.channel.permissionsFor(user).serialize())
     const permissionsArray = []
     for (const perm of permissionsArraySerialize) {
-      if (perm[1]) return permissionsArray.push(`\`${perm[0]}\``)
+      if (perm[1]) permissionsArray.push(`\`${perm[0]}\``)
     }
 
     const flags = await user.fetchFlags()
     const flagsArraySerialize = Object.entries(flags.serialize())
     const flagsArray = []
     for (const flag of flagsArraySerialize) {
-      if (flag[1]) return flagsArray.push(`\`${flag[0]}\``)
+      if (flag[1]) flagsArray.push(`\`${flag[0]}\``)
     }
-
-    const memberCreatedAt = user.createdAt.toString().split(' ')
-    const memberJoinedAt = member.joinedAt.toString().split(' ')
 
     message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .setDescription(message.language.get('USERINFO')[0])
-      .addField(message.language.get('USERINFO')[1], `${message.language.get('USERINFO')[2]} **${user.tag}** \n${message.language.get('USERINFO')[3]} **${user.id}** \n${message.language.get('USERINFO')[4]} **${this.client.functions.getDate(memberCreatedAt, message)}** \n${message.language.get('USERINFO')[5]} **${this.client.functions.getDate(memberJoinedAt, message)}** \n${message.language.get('USERINFO')[6]} **${message.language.get('UTILS').STATUS[user.presence.status]}**`)
+      .addField(message.language.get('USERINFO')[1], `${message.language.get('USERINFO')[2]} **${user.tag}** \n${message.language.get('USERINFO')[3]} **${user.id}** \n${message.language.get('USERINFO')[4]} **${this.client.functions.timestampToDate(user.createdTimestamp, message)}** \n${message.language.get('USERINFO')[5]} **${this.client.functions.timestampToDate(member.joinedTimestamp, message)}** \n${message.language.get('USERINFO')[6]} **${message.language.get('UTILS').STATUS[user.presence.status]}**`)
       .addField(message.language.get('USERINFO')[7], `${message.language.get('USERINFO')[8]} ${member.nickname ? `**${member.nickname}**` : `**${user.username}**`} \n${message.language.get('USERINFO')[9]} **${playing}** \n${message.language.get('USERINFO')[11]} ${member.roles.highest} \n${message.language.get('USERINFO')[12]} ${message.language.get('UTILS').BOOLEAN[member.user.bot]}`)
       .addField('\u200b', '\u200b')
       .addField(`${message.language.get('USERINFO')[14]} (${joinPos + 1})`, nearbyMems.join(' > '))

@@ -27,7 +27,7 @@ module.exports = class Blur extends Command {
       avatar.resize(256, 256)
       avatar.blur(5)
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

@@ -34,14 +34,15 @@ module.exports = class Mcuser extends Command {
       UUID.shift()
 
       const pseudoHistory = bodyHistory.map(element => {
-        return element.changedToAt ? `${element.name} • ${this.client.functions.getDate(new Date(element.changedToAt).toString().split(' '), message)}` : element.name
+        return element.changedToAt ? `${element.name} • ${this.client.functions.timestampToDate(element.changedToAt, message)}` : element.name
       })
 
       pseudoHistory.reverse()
 
       message.channel.send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
-        .setAuthor('Minecraft', 'https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/iso-grassblock.png', 'https://www.minecraft.net')
+        .attachFiles(['images/icons/grassblock.png'])
+        .setAuthor('Minecraft', 'attachment://grassblock.png', 'https://www.minecraft.net')
         .setTitle(message.language.get('MCUSER')[1])
         .addField(message.language.get('MCUSER')[2], args[0])
         .addField(message.language.get('MCUSER')[3], UUID.join('-'))

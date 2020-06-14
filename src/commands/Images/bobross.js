@@ -22,14 +22,14 @@ module.exports = class Bobross extends Command {
     if (!user) return
 
     try {
-      const template = await read('./images/bobross.png')
+      const template = await read('./images/templates/bobross.png')
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
 
       template.resize(256, 280)
       avatar.resize(173, 173)
       template.composite(avatar, 15, 12, { mode: BLEND_DESTINATION_OVER })
 
-      const buffer = await template.getAsyncBuffer(MIME_PNG)
+      const buffer = await template.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

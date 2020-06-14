@@ -29,9 +29,9 @@ module.exports = {
   },
 
   async userFilter (message, args) {
-    const users = await message.guild.members.fetch()
-
     if (!args[0]) return message.author
+
+    const users = await message.guild.members.fetch()
 
     if (users.some(member => member.id === args[0])) return (await message.guild.members.fetch(args[0])).user
 
@@ -229,6 +229,7 @@ module.exports = {
       .setDescription(`An Error occured in command \`${cmd}\``)
       .addField('Error :', `\`${error}\``)
       .addField('Content :', `\`${message.content}\``)
+      .addField('Date :', this.timestampToDate(Date.now(), message))
       .setTimestamp()
   },
 
@@ -242,7 +243,7 @@ module.exports = {
       .addField('Guild :', `${message.guild.name} (${message.guild.id})`, true)
       .addField('Channel :', `${message.channel.name} (${message.channel.id})`, true)
       .addField('Content :', message.content, true)
-      .addField('Date :', getDate(), true)
+      .addField('Date :', this.timestampToDate(Date.now(), message), true)
       .addField('Shard :', message.guild.shard.id, true)
       .setTimestamp()
   },
@@ -281,8 +282,26 @@ module.exports = {
     }
   },
 
-  getDate (date, message) {
-    return date[2] + ' ' + message.language.get('UTILS').MONTHS[date[1]] + ' ' + date[3] + ', ' + date[4]
+  timestampToDate (timestamp, message) {
+    const date = new Date(timestamp)
+    const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    const year = date.getFullYear()
+    const month = message.language.get('UTILS').MONTHS[monthName[date.getMonth()]]
+    let day = date.getDate()
+    let hour = date.getHours()
+    let min = date.getMinutes()
+    let sec = date.getSeconds()
+
+    if (day < 10) day = `0${date}`
+
+    if (hour < 10) hour = `0${hour}`
+
+    if (min < 10) min = `0${min}`
+
+    if (sec < 10) sec = `0${sec}`
+
+    return `${day} ${month} ${year}, ${hour}:${min}:${sec}`
   },
 
   async getDataSettings (client, id, message = false) {
@@ -387,35 +406,4 @@ module.exports = {
       return null
     }
   }
-}
-
-function getDate () {
-  let date = new Date().getDate()
-  let month = new Date().getMonth() + 1
-  let hour = new Date().getHours()
-  let minute = new Date().getMinutes()
-  let second = new Date().getSeconds()
-  const year = new Date().getFullYear()
-
-  if (date < 10) {
-    date = `0${date}`
-  }
-
-  if (month < 10) {
-    month = `0${month}`
-  }
-
-  if (hour < 10) {
-    hour = `0${hour}`
-  }
-
-  if (minute < 10) {
-    minute = `0${minute}`
-  }
-
-  if (second < 10) {
-    second = `0${second}`
-  }
-
-  return `${date}/${month}/${year} ${hour}:${minute}:${second}`
 }

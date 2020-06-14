@@ -23,13 +23,13 @@ module.exports = class Missionpassed extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/missionpassed.png')
+      const template = await read('./images/templates/missionpassed.png')
 
       avatar.gaussian(3)
       template.resize(256, 185)
       avatar.composite(template, 0, 50)
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{

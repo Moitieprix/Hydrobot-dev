@@ -30,8 +30,8 @@ module.exports = class Triggered extends Command {
     try {
       const base = new Jimp(options.size, options.size)
       const avatar = await Jimp.read(user.displayAvatarURL({ format: 'png', size: 2048 }))
-      const text = await Jimp.read('./images/triggered.png')
-      const tint = await Jimp.read('./images/red.png')
+      const text = await Jimp.read('./images/templates/triggered.png')
+      const tint = await Jimp.read('./images/templates/red.png')
 
       avatar.resize(320, 320)
       tint.scaleToFit(base.bitmap.width, base.bitmap.height)

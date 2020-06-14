@@ -23,7 +23,7 @@ module.exports = class Wasted extends Command {
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))
-      const template = await read('./images/plate_wasted.png')
+      const template = await read('./images/templates/plate_wasted.png')
 
       template.resize(150, 150)
 
@@ -31,7 +31,7 @@ module.exports = class Wasted extends Command {
       avatar.gaussian(3)
       avatar.composite(template, 50, 60)
 
-      const buffer = await avatar.getAsyncBuffer(MIME_PNG)
+      const buffer = await avatar.getBufferAsync(MIME_PNG)
 
       message.channel.send({
         files: [{
