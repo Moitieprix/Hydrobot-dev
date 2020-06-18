@@ -38,6 +38,5 @@ module.exports = {
     nodejs: '<:NodeJs:670725859719512074>',
     discordjs: '<:DiscordJs:670725849321832468>',
     caution: '<:caution:694514184133804052>'
-
   }
 }

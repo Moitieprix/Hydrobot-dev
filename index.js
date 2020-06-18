@@ -51,7 +51,9 @@ class Hydrobot extends Client {
       command = this.commands[this.aliases[commandName]]
     }
 
-    if (!command) return `\`${commandName}\` command doesn't exist`
+    if (!command) {
+      return `\`${commandName}\` command doesn't exist`
+    }
 
     delete require.cache[require.resolve(`${commandPath}/${commandName}.js`)]
     return false
@@ -68,14 +70,18 @@ const client = new Hydrobot({
 
 const init = async () => {
   readdir('./src/commands', (err, files) => {
-    if (err) return client.logger.error(err)
+    if (err) {
+      return client.logger.error(err)
+    }
 
     client.logger.info(`${files.length} folders loaded`)
 
     for (const path of files) {
       client.logger.info(`Folder loaded : ${path}`)
       readdir(`./src/commands/${path}/`, (err, commands) => {
-        if (err) return client.logger.error(err)
+        if (err) {
+          return client.logger.error(err)
+        }
 
         for (const command of commands.filter((file) => file.endsWith('.js'))) {
           const response = client.loadCommand(`./src/commands/${path}`, command)
@@ -89,7 +95,9 @@ const init = async () => {
   })
 
   readdir('./src/events/', (err, files) => {
-    if (err) return client.logger.error(err)
+    if (err) {
+      return client.logger.error(err)
+    }
 
     client.logger.info(`${files.length} events loaded`)
 

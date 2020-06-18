@@ -23,7 +23,9 @@ module.exports = class Antilink extends Command {
     switch (args[0]) {
       case 'add-role': {
         const role = await this.client.functions.roleFilter(message, args.shift())
-        if (!role) return
+        if (!role) {
+          return
+        }
 
         if (data.roles.length && data.roles.includes(role.id)) {
           message.channel.send(message.language.get('ANTILINK')[0])
@@ -42,7 +44,9 @@ module.exports = class Antilink extends Command {
 
       case 'remove-role': {
         const role = await this.client.functions.roleFilter(message, args.shift())
-        if (!role) return
+        if (!role) {
+          return
+        }
 
         if (!data.roles.length || !data.roles.includes(role.id)) {
           message.channel.send(message.language.get('ANTILINK')[1])
@@ -56,7 +60,9 @@ module.exports = class Antilink extends Command {
 
       case 'add-channel': {
         const channel = await this.client.functions.channelFilter(message, args.shift())
-        if (!channel) return
+        if (!channel) {
+          return
+        }
 
         if (data.channels.length && data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTILINK')[2])
@@ -80,7 +86,9 @@ module.exports = class Antilink extends Command {
 
       case 'remove-channel': {
         const channel = await this.client.functions.channelFilter(message, args.shift())
-        if (!channel) return
+        if (!channel) {
+          return
+        }
 
         if (!data.channels.length && !data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTILINK')[4])
@@ -106,7 +114,7 @@ module.exports = class Antilink extends Command {
 
         const sanctionNumber = ['1', '2', '3']
         if (sanctionNumber.includes(args[1])) {
-          this.client.database.query(`UPDATE settings SET antilink = jsonb_set(antilink, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
+          this.client.database.query(`UPDATE settings SET antilink = jsonb_set(antilink, '{sanction}', '${Number(args[1])}') WHERE id = $1`, [message.guild.id])
           message.channel.send(message.language.get('SANCTION')[Number(args[1]) - 1])
           return
         }

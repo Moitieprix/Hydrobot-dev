@@ -105,7 +105,7 @@ module.exports = class Massmentions extends Command {
           return
         }
 
-        this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{max}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
+        this.client.database.query(`UPDATE settings SET massmentions = jsonb_set(massmentions, '{max}', '${Number(args[1])}') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('SETLIMIT', args[1]))
         break
       }

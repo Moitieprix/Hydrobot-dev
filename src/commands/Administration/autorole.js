@@ -22,7 +22,9 @@ module.exports = class Autorole extends Command {
     switch (args[0]) {
       case 'add-role': {
         const role = await this.client.functions.roleFilter(message, args.shift())
-        if (!role) return
+        if (!role) {
+          return
+        }
 
         if (data.length && data.includes(role.id)) {
           message.channel.send(message.language.get('AUTOROLE')[0])
@@ -46,7 +48,9 @@ module.exports = class Autorole extends Command {
 
       case 'remove-role': {
         const role = await this.client.functions.roleFilter(message, args.shift())
-        if (!role) return
+        if (!role) {
+          return
+        }
 
         if (!data.length || !data.includes(role.id)) {
           message.channel.send(message.language.get('AUTOROLE')[2])

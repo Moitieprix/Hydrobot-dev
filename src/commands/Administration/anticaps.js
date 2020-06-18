@@ -23,7 +23,9 @@ module.exports = class Anticaps extends Command {
     switch (args[0]) {
       case 'add-role': {
         const role = await this.client.functions.roleFilter(message, args.shift())
-        if (!role) return
+        if (!role) {
+          return
+        }
 
         if (data.roles.length && data.roles.includes(role.id)) {
           message.channel.send(message.language.get('ANTICAPS')[0])
@@ -42,7 +44,9 @@ module.exports = class Anticaps extends Command {
 
       case 'remove-role': {
         const role = await this.client.functions.roleFilter(message, args.shift())
-        if (!role) return
+        if (!role) {
+          return
+        }
 
         if (!data.roles.length || !data.roles.includes(role.id)) {
           message.channel.send(message.language.get('ANTICAPS')[1])
@@ -56,7 +60,9 @@ module.exports = class Anticaps extends Command {
 
       case 'add-channel': {
         const channel = await this.client.functions.channelFilter(message, args.shift())
-        if (!channel) return
+        if (!channel) {
+          return
+        }
 
         if (data.channels.length && data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTICAPS')[2])
@@ -81,7 +87,9 @@ module.exports = class Anticaps extends Command {
       case 'remove-channel': {
         const channel = await this.client.functions.channelFilter(message, args.shift())
 
-        if (!channel) return
+        if (!channel) {
+          return
+        }
 
         if (!data.channels.length && !data.channels.includes(channel.id)) {
           message.channel.send(message.language.get('ANTICAPS')[4])
@@ -107,7 +115,7 @@ module.exports = class Anticaps extends Command {
 
         const sanctionNumber = ['1', '2', '3']
         if (sanctionNumber.includes(args[1])) {
-          this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{sanction}', '${parseInt(args[1])}') WHERE id = $1`, [message.guild.id])
+          this.client.database.query(`UPDATE settings SET anticaps = jsonb_set(anticaps, '{sanction}', '${Number(args[1])}') WHERE id = $1`, [message.guild.id])
           message.channel.send(message.language.get('SANCTION')[Number(args[1]) - 1])
           return
         }

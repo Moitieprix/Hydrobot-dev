@@ -94,7 +94,6 @@ module.exports = class {
           MEDIUM: 'Moyen : Inscrit sur Discord depuis 5 min',
           HIGH: 'Élevé : Doit être sur le serveur depuis 10 min',
           VERY_HIGH: 'Extreme : Double authentification requise !'
-
         },
 
         MORE_SIZE: size => `et \`${size}\` autre(s)...`,
@@ -107,7 +106,8 @@ module.exports = class {
         FILTER: [
           'cancel • Annuler la recherche',
           `${emote.others.no} • Nombre invalide`,
-          `${emote.others.no} • Recherche annulée !`
+          `${emote.others.no} • Recherche annulée !`,
+          `${emote.others.no} • Temps imparti écoulé !`
         ],
 
         USERFILTER: `${emote.categories.clipboard} • Plusieurs utilisateurs ont été trouvés. \nSelectionnez celui que vous desirez en entrant le nombre à sa gauche`,
@@ -124,7 +124,6 @@ module.exports = class {
           '• Nom :',
           '• Type :',
           '• Catégorie :'
-
         ],
 
         MSG_DELETED: [
@@ -250,7 +249,7 @@ module.exports = class {
       ],
 
       // anticaps.js
-      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-majuscules \n• \`${prefix}anticaps add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps add-channel | remove-channel [#salon | ID de salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
+      ANTICAPS_USAGE: prefix => `• \`${prefix}anticaps\` - Affiche la liste des arguments disponibles pour l'anti-majuscules \n• \`${prefix}anticaps setup\` - Affiche la configuration de l'anti-majuscules \n• \`${prefix}anticaps set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-majuscules \n• \`${prefix}anticaps add-role | remove-role <@role | ID de rôle | nom du rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-majuscules \n• \`${prefix}anticaps add-channel | remove-channel [#salon | ID de salon | nom du salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-majuscules`,
       ANTICAPS_EXAMPLE: prefix => `\`${prefix}anticaps set-sanction 2\` \n\`${prefix}anticaps add-role @moderateur\` \n\`${prefix}anticaps remove-role 669986011861745672\` \n\`${prefix}anticaps add-channel #shitpost\` \n\`${prefix}anticaps remove-channel 669967519942967306\``,
 
       ANTICAPS: [
@@ -272,7 +271,7 @@ module.exports = class {
       ],
 
       // antilink.js
-      ANTILINK_USAGE: prefix => `• \`${prefix}antilink\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}antilink setup\` - Affiche la configuration de l'anti-lien \n• \`${prefix}antilink set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-lien \n• \`${prefix}antilink add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink add-channel | remove-channel [#salon | ID de salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
+      ANTILINK_USAGE: prefix => `• \`${prefix}antilink\` - Affiche la liste des arguments disponibles pour l'anti-lien \n• \`${prefix}antilink setup\` - Affiche la configuration de l'anti-lien \n• \`${prefix}antilink set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-lien \n• \`${prefix}antilink add-role | remove-role <@role | ID de rôle | nom du rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-lien \n• \`${prefix}antilink add-channel | remove-channel [#salon | ID de salon | nom du salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-lien`,
       ANTILINK_EXAMPLE: prefix => `\`${prefix}antilink set-sanction 2\` \n\`${prefix}antilink add-role @moderateur\` \n\`${prefix}antilink remove-role 669986011861745672\` \n\`${prefix}antilink add-channel #shitpost\` \n\`${prefix}antilink remove-channel 669967519942967306\``,
 
       ANTILINK: [
@@ -294,7 +293,7 @@ module.exports = class {
       ],
 
       // autorole.js
-      AUTOROLE_USAGE: prefix => `• \`${prefix}autorole\` - Affiche la liste des arguments disponibles pour l'autorole \n• \`${prefix}autorole roles\` - Affiche la liste des rôles de l'autorole \n• \`${prefix}autorole add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ajoutés à l'arrivé d'un membre sur le serveur \n${emote.others.caution} • Attention, pour que l'autorole fonctionne, le bot doit avoir un rôle plus élevé que le rôle donnée. Dans le cas contraire, le bot ne pourra pas donner le rôle à l'arrivée d'un membre.`,
+      AUTOROLE_USAGE: prefix => `• \`${prefix}autorole\` - Affiche la liste des arguments disponibles pour l'autorole \n• \`${prefix}autorole roles\` - Affiche la liste des rôles de l'autorole \n• \`${prefix}autorole add-role | remove-role <@role | ID de rôle | nom du rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ajoutés à l'arrivé d'un membre sur le serveur \n${emote.others.caution} • Attention, pour que l'autorole fonctionne, le bot doit avoir un rôle plus élevé que le rôle donnée. Dans le cas contraire, le bot ne pourra pas donner le rôle à l'arrivée d'un membre.`,
       AUTOROLE_EXAMPLE: prefix => `\`${prefix}autorole add-role @membre\` \n\`${prefix}autorole remove-role 669986011861745672\``,
 
       AUTOROLE: [
@@ -311,7 +310,7 @@ module.exports = class {
       AUTOROLE_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré de la liste de l'autorole`,
 
       // badwords.js
-      BADWORDS_USAGE: prefix => `• \`${prefix}badwords\` - Affiche la liste des arguments disponibles pour l'anti-badwords \n• \`${prefix}badwords setup\` - Affiche la configuration de l'anti-badwords \n• \`${prefix}badwords set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-badwords \n• \`${prefix}badwords add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-channel | remove-channel [#salon | ID de salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-word | remove-word <mot>\` - Ajoute ou supprime des mots bannis`,
+      BADWORDS_USAGE: prefix => `• \`${prefix}badwords\` - Affiche la liste des arguments disponibles pour l'anti-badwords \n• \`${prefix}badwords setup\` - Affiche la configuration de l'anti-badwords \n• \`${prefix}badwords set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-badwords \n• \`${prefix}badwords add-role | remove-role <@role | ID de rôle | nom du rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-channel | remove-channel [#salon | ID de salon | nom du salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-badwords \n• \`${prefix}badwords add-word | remove-word <mot>\` - Ajoute ou supprime des mots bannis`,
       BADWORDS_EXAMPLE: prefix => `\`${prefix}badwords set-sanction 2\` \n\`${prefix}badwords\` \n\`${prefix}badwords add-role @moderateur\` \n\`${prefix}badwords remove-role 669986011861745672\` \n\`${prefix}badwords add-channel #shitpost\` \n\`${prefix}badwords remove-channel 669967519942967306\` \n\`${prefix}badwords add-word merde\` \n\`${prefix}badwords remove-word merde\``,
 
       BADWORDS: [
@@ -337,6 +336,14 @@ module.exports = class {
         '• `setup` : Afficher la configuration de l\'anti-badwords \n• `set-sanction` : Configuer le type de sanction de l\'anti-badwords \n• `add-role | remove-role` : Ajouter ou supprimer des rôles de la liste des rôles ignorés par l\'anti-badwords \n• `add-channel | remove-channel` : Ajouter ou supprimer des salons de la liste des rôles ignorés par l\'anti-badwords \n• `add-word | remove-word` : Ajouter ou supprimer des mots bannis'
       ],
 
+      // captcha.js
+      CAPTCHA_USAGE: prefix => `• \`${prefix}captcha\` - Affiche la liste des arguments disponibles pour le captcha \n• \`${prefix}captcha setup\` - Affiche la configuration du captcha \n• \`${prefix}captcha set-channel [#salon | ID de salon | nom du salon]\` - Configure le salon pour le captcha \n• \`${prefix}captcha add-role | remove-role <@role | ID de rôle | nom du rôle>\` - Ajoute ou supprime des rôles de la liste des rôles du captcha \n• \`${prefix}captcha set-time <Nombre>\` - Configure le temps imparti pour réaliser le captcha (en secondes) \n• \`${prefix}captcha set-time <Nombre>\` - Configure le nombre d'essais disponibles pour réaliser le captcha`,
+      CAPTCHA_EXAMPLE: prefix => `\`${prefix}captcha set-channel 669967519942967306\` \n\`${prefix}antilink add-role @membre\` \n\`${prefix}antilink remove-role 669986011861745672\` \n\`${prefix}antilink set-time 60\` \n\`${prefix}antilink set-attemps 5\``,
+
+      CAPTCHA_CHANNEL: channel => `${emote.others.yes} • ${channel} est désormais le salon d'envoi pour les captcha !`,
+      CAPTCHA_ADDROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été ajouté à la liste du captcha`,
+      CAPTCHA_REMOVEROLE: role => `${emote.others.yes} • Le rôle <@&${role}> a bien été retiré de la liste du captcha`,
+
       // language.js
       LANGUAGE_USAGE: prefix => `• \`${prefix}language\` - Affiche les différentes langues disponibles pour Hydrobot \n• \`${prefix}language [fr | en | reset]\` - Configue la langue pour hydrobot`,
       LANGUAGE_EXAMPLE: prefix => `• \`${prefix}language fr\``,
@@ -357,7 +364,7 @@ module.exports = class {
       ],
 
       // mass-mentions.js
-      MASSMENTIONS_USAGE: prefix => `• \`${prefix}mass-mentions\` - Affiche la liste des arguments disponibles pour l'anti-mass-mentions \n• \`${prefix}mass-mentions setup\` - Affiche la configuration de l'anti-mass-mentions \n• \`${prefix}mass-mentions set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-mass-mentions \n• \`${prefix}mass-mentions set-limit <nombre>\` - Configure le nombre maximal de mentions par message \n• \`${prefix}mass-mentions add-role | remove-role <@role | ID de rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-mass-mentions \n• \`${prefix}mass-mentions add-channel | remove-channel <#salon | ID de salon>\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-mass-mentions`,
+      MASSMENTIONS_USAGE: prefix => `• \`${prefix}mass-mentions\` - Affiche la liste des arguments disponibles pour l'anti-mass-mentions \n• \`${prefix}mass-mentions setup\` - Affiche la configuration de l'anti-mass-mentions \n• \`${prefix}mass-mentions set-sanction [1 | 2 | 3]\` - Configure le type de sanction de l'anti-mass-mentions \n• \`${prefix}mass-mentions set-limit <nombre>\` - Configure le nombre maximal de mentions par message \n• \`${prefix}mass-mentions add-role | remove-role <@role | ID de rôle | nom du rôle>\` - Ajoute ou supprime des rôles de la liste des rôles ignorés par l'anti-mass-mentions \n• \`${prefix}mass-mentions add-channel | remove-channel [#salon | ID de salon | nom du salon]\` - Ajoute ou supprime des salons de la liste des rôles ignorés par l'anti-mass-mentions`,
       MASSMENTIONS_EXAMPLE: prefix => `\`${prefix}mass-mentions set-sanction 2\` \n\`${prefix}mass-mentions set-limit 5\` \n\`${prefix}mass-mentions add-role @moderateur\` \n\`${prefix}mass-mentions remove-role 669986011861745672\` \n\`${prefix}mass-mentions add-channel #shitpost\` \n\`${prefix}mass-mentions remove-channel 669967519942967306\``,
 
       MASSMENTION: [

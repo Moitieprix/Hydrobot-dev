@@ -4,15 +4,22 @@ const { WebhookClient } = require('discord.js')
 const commandsCooldowns = {}
 
 module.exports = async (client, message) => {
-  if (message.author.bot) return
-  if (!message.guild) return
-  if (message.attachments.size !== 0 && message.content <= 0) return
-  if (!message.guild.available) return
+  if (message.author.bot || !message.guild || !message.guild.available) {
+    return
+  }
 
-  if (message.partial) await message.fetch()
+  if (message.attachments.size !== 0 && message.content <= 0) {
+    return
+  }
+
+  if (message.partial) {
+    await message.fetch()
+  }
 
   const res = await client.functions.getDataSettings(client, message.guild.id, message)
-  if (!res) return
+  if (!res) {
+    return
+  }
 
   const language = new (require(`../../i18n/${res.rows[0].language}`))()
   message.language = language
@@ -81,20 +88,28 @@ module.exports = async (client, message) => {
     return
   }
 
-  if (message.content.indexOf(res.rows[0].prefix) !== 0) return
+  if (message.content.indexOf(res.rows[0].prefix) !== 0) {
+    return
+  }
 
   const args = message.content.slice(res.rows[0].prefix.length).split(/ +/g)
 
-  if (!message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) return
+  if (!message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) {
+    return
+  }
 
   const command = args.shift().toLowerCase()
 
   const cmd = client.commands[command] || client.commands[client.aliases[command]]
 
-  if (!cmd) return
+  if (!cmd) {
+    return
+  }
 
   // Commands options //
-  if ((cmd.conf.plugin.toString() === 'images' && !res.rows[0].system.images) || (cmd.conf.plugin.toString() === 'nsfw' && !res.rows[0].system.nsfw)) return
+  if ((cmd.conf.plugin.toString() === 'images' && !res.rows[0].system.images) || (cmd.conf.plugin.toString() === 'nsfw' && !res.rows[0].system.nsfw)) {
+    return
+  }
 
   if (!cmd.conf.enabled) {
     message.channel.send(message.language.get('COMMANDE_DISABLED'))

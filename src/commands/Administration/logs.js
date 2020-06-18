@@ -22,7 +22,9 @@ module.exports = class Logs extends Command {
     switch (args[0]) {
       case 'set-channel': {
         const channel = await this.client.functions.channelFilter(message, args[1])
-        if (!channel) return
+        if (!channel) {
+          return
+        }
 
         this.client.database.query(`UPDATE settings SET channels = jsonb_set(channels, '{logs}', '"${channel.id}"') WHERE id = $1`, [message.guild.id])
         message.channel.send(message.language.get('LOGS_CHANNEL', channel))
@@ -41,7 +43,9 @@ module.exports = class Logs extends Command {
 
       case 'enable-all': {
         for (const log of logslist) {
-          if (res.rows[0].logs_list[log] === false) this.client.database.query(`UPDATE settings SET logs_list = jsonb_set(logs_list, '{${log}}', 'true') WHERE id = $1`, [message.guild.id])
+          if (res.rows[0].logs_list[log] === false) {
+            this.client.database.query(`UPDATE settings SET logs_list = jsonb_set(logs_list, '{${log}}', 'true') WHERE id = $1`, [message.guild.id])
+          }
         }
         message.channel.send(message.language.get('LOGS')[0])
         break
@@ -49,7 +53,9 @@ module.exports = class Logs extends Command {
 
       case 'disable-all': {
         for (const log of logslist) {
-          if (res.rows[0].logs_list[log] === true) this.client.database.query(`UPDATE settings SET logs_list = jsonb_set(logs_list, '{${log}}', 'false') WHERE id = $1`, [message.guild.id])
+          if (res.rows[0].logs_list[log] === true) {
+            this.client.database.query(`UPDATE settings SET logs_list = jsonb_set(logs_list, '{${log}}', 'false') WHERE id = $1`, [message.guild.id])
+          }
         }
         message.channel.send(message.language.get('LOGS')[1])
         break

@@ -26,21 +26,11 @@ function getDate () {
   const date = new Date()
 
   const year = date.getFullYear()
-  let month = date.getMonth() + 1
-  let day = date.getDate()
-  let hour = date.getHours()
-  let min = date.getMinutes()
-  let sec = date.getSeconds()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const min = date.getMinutes()
+  const sec = date.getSeconds()
 
-  if (day < 10) day = `0${date}`
-
-  if (month < 10) month = `0${month}`
-
-  if (hour < 10) hour = `0${hour}`
-
-  if (min < 10) min = `0${min}`
-
-  if (sec < 10) sec = `0${sec}`
-
-  return `${day}/${month}/${year}, ${hour}:${min}:${sec}`
+  return `${day < 10 ? `0${day}` : day}/${month < 10 ? `0${month}` : month}/${year}, ${hour < 10 ? `0${hour}` : hour}:${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`
 }
