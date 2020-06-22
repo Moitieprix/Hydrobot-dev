@@ -3,8 +3,6 @@
 const { Client } = require('discord.js')
 const { readdir, readFileSync } = require('fs')
 const { Client: PgClient } = require('pg')
-// const { parse } = require('toml')
-
 const { parse } = require('./utils/modules/toml')
 
 class Hydrobot extends Client {
@@ -16,7 +14,7 @@ class Hydrobot extends Client {
 
     this.config = parse(readFileSync('./config.toml', 'utf-8'))
     this.logger = require('./utils/logger.js')
-    this.functions = require('./utils/function.js')
+    this.functions = new (require('./utils/function.js'))(this)
     this.emote = require('./utils/emotes.js')
 
     this.database = new PgClient({
@@ -104,9 +102,9 @@ const init = async () => {
     client.logger.info(`${files.length} events loaded`)
 
     for (const events of files.filter(file => file.endsWith('.js'))) {
-      const event = require(`./src/events/${events}`)
+      const event = new (require(`./src/events/${events}`))(this)
 
-      client.on(events.split('.')[0], event.bind(null, client))
+      client.on(events.split('.')[0], (...args) => event.run(...args))
       delete require.cache[require.resolve(`./src/events/${events}`)]
     }
   })

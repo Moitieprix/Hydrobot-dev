@@ -2,7 +2,11 @@
 
 const { MessageEmbed } = require('discord.js')
 
-module.exports = {
+module.exports = class Function {
+  constructor (client) {
+    this.client = client
+  }
+
   checkUserPerm (message, user, command) {
     let perms = []
 
@@ -13,7 +17,7 @@ module.exports = {
     }
 
     return perms
-  },
+  }
 
   checkBotPerm (message, command) {
     let perms = []
@@ -25,7 +29,7 @@ module.exports = {
     }
 
     return perms
-  },
+  }
 
   async userFilter (message, args) {
     if (!args[0]) {
@@ -64,11 +68,11 @@ module.exports = {
 
       message.channel.send(
         new MessageEmbed()
-          .setColor(message.client.config.embed.color)
+          .setColor(this.client.config.embed.color)
           .setTitle(message.language.get('UTILS').USERFILTER)
           .setDescription(`${usersList.map((user, i) => `${i + 1} • ${user.displayName} - ${user.user}`).join(' \n')} \n\n${message.language.get('UTILS').FILTER[0]}`)
           .setTimestamp()
-          .setFooter(message.client.user.username, message.client.user.avatarURL())
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
 
       const userCollector = await new Promise(resolve => {
@@ -101,7 +105,7 @@ module.exports = {
       })
       return userCollector
     }
-  },
+  }
 
   async channelFilter (message, args) {
     const channels = message.guild.channels.cache
@@ -142,11 +146,11 @@ module.exports = {
 
       message.channel.send(
         new MessageEmbed()
-          .setColor(message.client.config.embed.color)
+          .setColor(this.client.config.embed.color)
           .setTitle(message.language.get('UTILS').CHANNELFILTER)
           .setDescription(`${channelsList.map((channel, i) => `${i + 1} • ${channel} - **${channel.parent.name}**`).join(' \n')} \n\n${message.language.get('UTILS').FILTER[0]}`)
           .setTimestamp()
-          .setFooter(message.client.user.username, message.client.user.avatarURL())
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
 
       const channelCollector = await new Promise(resolve => {
@@ -179,7 +183,7 @@ module.exports = {
       })
       return channelCollector
     }
-  },
+  }
 
   async roleFilter (message, args) {
     const roles = message.guild.roles.cache
@@ -221,11 +225,11 @@ module.exports = {
 
       message.channel.send(
         new MessageEmbed()
-          .setColor(message.client.config.embed.color)
+          .setColor(this.client.config.embed.color)
           .setTitle(message.language.get('UTILS').ROLEFILTER)
           .setDescription(`${rolesList.map((role, i) => `${i + 1} • ${role}`).join(' \n')} \n\n${message.language.get('UTILS').FILTER[0]}`)
           .setTimestamp()
-          .setFooter(message.client.user.username, message.client.user.avatarURL())
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
 
       const channelCollector = await new Promise(resolve => {
@@ -258,7 +262,7 @@ module.exports = {
       })
       return channelCollector
     }
-  },
+  }
 
   getCpuUsagePercent () {
     const time = process.hrtime()
@@ -269,7 +273,7 @@ module.exports = {
     const elapSyst = usage.system / 1000000
 
     return ((100 * (elapUser + elapSyst)) / elapTime).toFixed(2)
-  },
+  }
 
   parseEmoji (text) {
     if (text.includes('%')) {
@@ -287,7 +291,7 @@ module.exports = {
       name: m[2],
       id: m[3]
     }
-  },
+  }
 
   messageCommandError (cmd, message, error) {
     return new MessageEmbed()
@@ -297,11 +301,11 @@ module.exports = {
       .addField('Content :', `\`${message.content}\``)
       .addField('Date :', this.timestampToDate(Date.now(), message))
       .setTimestamp()
-  },
+  }
 
   messageCommandRun (cmd, message) {
     return new MessageEmbed()
-      .setColor(message.client.config.embed.color)
+      .setColor(this.client.config.embed.color)
       .setDescription(`Command \`${cmd}\` executed`)
       .setThumbnail(message.author.displayAvatarURL())
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
@@ -312,11 +316,11 @@ module.exports = {
       .addField('Date :', this.timestampToDate(Date.now(), message), true)
       .addField('Shard :', message.guild.shard.id, true)
       .setTimestamp()
-  },
+  }
 
   getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
-  },
+  }
 
   getDuration (milliseconds) {
     const date = new Date(milliseconds)
@@ -333,7 +337,7 @@ module.exports = {
     }
 
     return `${years ? `${years}y, ` : ''}${month ? `${month}m, ` : ''}${day ? `${day}d, ` : ''}${hours ? `${hours}h, ` : ''}${minutes ? `${minutes}min, ` : ''}${seconds ? `${seconds}s` : ''}`
-  },
+  }
 
   timestampToDate (timestamp, message) {
     const date = new Date(timestamp)
@@ -360,17 +364,17 @@ module.exports = {
     const sec = date.getSeconds()
 
     return `${day < 10 ? `0${day}` : day} ${month} ${year}, ${hour < 10 ? `0${hour}` : hour}:${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`
-  },
+  }
 
-  async getDataSettings (client, id, message = false) {
+  async getDataSettings (id, message = false) {
     try {
-      const res = await client.database.query(
+      const res = await this.client.database.query(
         'SELECT * FROM settings WHERE id = $1',
         [id]
       )
 
       if (res.rows.length === 0) {
-        await client.database.query(
+        await this.client.database.query(
           'INSERT INTO settings (id, premium, prefix, language, system, channels, welcome_message, goodbye_message, logs_list, captcha, antilink, badwords, anticaps, massmentions, autorole, custom_cmd, user_logs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)',
           [
             id,
@@ -461,7 +465,7 @@ module.exports = {
           ]
         )
 
-        return await client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id])
+        return await this.client.database.query('SELECT * FROM settings WHERE id = $1', [message.guild.id])
       }
 
       return res
