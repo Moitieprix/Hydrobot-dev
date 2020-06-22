@@ -1,7 +1,6 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const Base64 = require('js-base64').Base64
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class Encode extends Command {
@@ -26,12 +25,12 @@ module.exports = class Encode extends Command {
       return
     }
 
-    const text = args.join(' ')
-    const encodeText = Base64.encode(text)
+    const buf = Buffer.from(args.join(' '), 'utf8')
+    const encodeText = buf.toString('base64')
 
     return message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
-      .addField(`${message.language.get('ENCODE')[2]}`, `\`\`\`${text}\`\`\``)
+      .addField(`${message.language.get('ENCODE')[2]}`, `\`\`\`${args.join(' ')}\`\`\``)
       .addField(`${message.language.get('ENCODE')[3]}`, `\`\`\`${encodeText}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())

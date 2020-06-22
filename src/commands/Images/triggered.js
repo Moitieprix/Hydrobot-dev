@@ -2,7 +2,7 @@
 
 const Command = require('../../../core/Command.js')
 const Jimp = require('jimp')
-const GIFEncoder = require('gifencoder')
+const GIFEncoder = require('../../../utils/modules/gifencoder')
 
 const options = {
   size: 256,
@@ -25,7 +25,9 @@ module.exports = class Triggered extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     try {
       const base = new Jimp(options.size, options.size)
@@ -65,8 +67,11 @@ module.exports = class Triggered extends Command {
 
         temp.composite(tint, 0, 0)
 
-        if (i === 0) temp.composite(text, -10, 200)
-        else temp.composite(text, -12 + this.client.functions.getRandomInt(-8, 8), 200 + this.client.functions.getRandomInt(-0, 12))
+        if (i === 0) {
+          temp.composite(text, -10, 200)
+        } else {
+          temp.composite(text, -12 + this.client.functions.getRandomInt(-8, 8), 200 + this.client.functions.getRandomInt(-0, 12))
+        }
 
         frames.push(temp.bitmap.data)
       }

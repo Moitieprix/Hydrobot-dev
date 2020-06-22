@@ -10,14 +10,9 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
-    "gifencoder": "^2.0.1",
     "jimp": "^0.9.8",
-    "js-base64": "^2.5.1",
     "node-fetch": "^2.6.0",
-    "pg": "^8.2.1",
-    "sha.js": "^2.4.11",
-    "speedtest-net": "^1.6.0",
-    "toml": "^3.0.0"
+    "pg": "^8.2.1"
   },
   "devDependencies": {
     "eslint": "^7.1.0",

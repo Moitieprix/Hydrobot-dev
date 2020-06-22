@@ -1,8 +1,8 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const shajs = require('sha.js')
 const { MessageEmbed } = require('discord.js')
+const { createHash } = require('crypto')
 
 module.exports = class Sha256 extends Command {
   constructor (client) {
@@ -29,7 +29,7 @@ module.exports = class Sha256 extends Command {
     message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
       .addField(`${message.language.get('SHA')[2]}`, `\`\`\`${args.join(' ')}\`\`\``)
-      .addField(`${message.language.get('SHA')[3]}`, `\`\`\`${shajs('sha256').update(args.join(' ')).digest('hex')}\`\`\``)
+      .addField(`${message.language.get('SHA')[3]}`, `\`\`\`${createHash('sha256').update(args.join(' ')).digest('hex')}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())
     )

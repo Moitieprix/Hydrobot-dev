@@ -563,21 +563,6 @@ module.exports = class {
         ':satellite: • Latence API'
       ],
 
-      // speedtest.js
-      SPEEDTEST_USAGE: prefix => `• \`${prefix}speedtest\` - Affiche la vitesse de connexion ainsi que la latence d'Hydrobot`,
-      SPEEDTEST_EXAMPLE: prefix => `\`${prefix}speedtest\``,
-
-      SPEEDTEST: [
-        `${emote.others.loading} • Chargement...`,
-        ':signal_strength: • Latence serveur',
-        ':robot: • Latence Bot',
-        ':satellite: • Latence API',
-        ':arrow_down: • Download',
-        ':arrow_up: • Upload',
-        'Bande passante :',
-        'Bande passante non ajustée :'
-      ],
-
       // suggest.js
       SUGGEST_USAGE: prefix => `• \`${prefix}suggest <suggestion>\` - Envoi la suggestion dans le serveur support d'Hydrobot \n${emote.others.caution} • Attention ! Tout abus de cette commande entrainera un bannissement d'Hydrobot`,
       SUGGEST_EXAMPLE: prefix => `\`${prefix}suggestion Rajouter une commande de jeu\``,

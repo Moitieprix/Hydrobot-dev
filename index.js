@@ -3,7 +3,9 @@
 const { Client } = require('discord.js')
 const { readdir, readFileSync } = require('fs')
 const { Client: PgClient } = require('pg')
-const { parse } = require('toml')
+// const { parse } = require('toml')
+
+const { parse } = require('./utils/modules/toml')
 
 class Hydrobot extends Client {
   constructor () {
@@ -94,7 +96,7 @@ const init = async () => {
     }
   })
 
-  readdir('./src/events/', (err, files) => {
+  readdir('./src/events/', async (err, files) => {
     if (err) {
       return client.logger.error(err)
     }

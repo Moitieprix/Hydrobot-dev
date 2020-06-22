@@ -1,7 +1,6 @@
 'use strict'
 
 const Command = require('../../../core/Command.js')
-const Base64 = require('js-base64').Base64
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class Decode extends Command {
@@ -26,14 +25,16 @@ module.exports = class Decode extends Command {
       return
     }
 
-    const text = args.join(' ')
-    let decodeText = decodeURIComponent(Base64.decode(text))
+    const buf = Buffer.from(decodeURIComponent(args.join(' ')), 'base64')
+    let decodeText = buf.toString('base64')
 
-    if (decodeText.length === 0) decodeText = message.language.get('DECODE')[2]
+    if (decodeText.length === 0) {
+      decodeText = message.language.get('DECODE')[2]
+    }
 
     return message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)
-      .addField(`${message.language.get('DECODE')[3]}`, `\`\`\`${text}\`\`\``)
+      .addField(`${message.language.get('DECODE')[3]}`, `\`\`\`${args.join(' ')}\`\`\``)
       .addField(`${message.language.get('DECODE')[4]}`, `\`\`\`${decodeText}\`\`\``)
       .setTimestamp()
       .setFooter(this.client.user.username, this.client.user.avatarURL())

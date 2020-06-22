@@ -1,7 +1,9 @@
 'use strict'
 
 const { readFileSync } = require('fs')
-const { parse } = require('toml')
+// const { parse } = require('toml')
+
+const { parse } = require('./utils/modules/toml')
 
 if (Number(process.version.slice(1).split('.')[0]) < 10) { throw new Error('Node 10.0.0 or higher is required. Update Node on your system.') }
 
