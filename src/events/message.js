@@ -1,13 +1,10 @@
 'use strict'
 
+const Event = require('../classes/Event')
 const { WebhookClient } = require('discord.js')
 const commandsCooldowns = {}
 
-module.exports = class Message {
-  constructor (client) {
-    this.client = client
-  }
-
+module.exports = class Message extends Event {
   async run (message) {
     if (message.author.bot || !message.guild || !message.guild.available) {
       return

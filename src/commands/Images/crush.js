@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { read, MIME_PNG, BLEND_DESTINATION_OVER } = require('jimp')
 
 module.exports = class Crush extends Command {
@@ -24,7 +24,9 @@ module.exports = class Crush extends Command {
 
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     try {
       const mask = await read('./images/templates/mask.png')

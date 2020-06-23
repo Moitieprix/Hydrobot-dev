@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
@@ -30,7 +30,7 @@ module.exports = class Ass extends Command {
         .setFooter(this.client.user.username, this.client.user.avatarURL())
       )
     } catch (e) {
-      message.channel.send(message.language.get('NSFW_ERROR', e))
+      message.channel.send(message.language.get('ERRORS').NSFW_ERROR(e))
     }
   }
 }

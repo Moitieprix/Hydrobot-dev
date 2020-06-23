@@ -1,8 +1,8 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const Jimp = require('jimp')
-const GIFEncoder = require('../../../utils/modules/gifencoder')
+const GIFEncoder = require('../../utils/modules/gifencoder')
 
 const options = {
   size: 256,

@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const Jimp = require('jimp')
 
 module.exports = class Blurple extends Command {
@@ -19,7 +19,9 @@ module.exports = class Blurple extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     try {
       const template = new Jimp(256, 256, '#738ADB')

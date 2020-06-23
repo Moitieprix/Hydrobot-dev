@@ -69,7 +69,7 @@ const client = new Hydrobot({
 })
 
 const init = async () => {
-  readdir('./src/commands', (err, files) => {
+  readdir('./commands', (err, files) => {
     if (err) {
       return client.logger.error(err)
     }
@@ -78,13 +78,13 @@ const init = async () => {
 
     for (const path of files) {
       client.logger.info(`Folder loaded : ${path}`)
-      readdir(`./src/commands/${path}/`, (err, commands) => {
+      readdir(`./commands/${path}/`, (err, commands) => {
         if (err) {
           return client.logger.error(err)
         }
 
         for (const command of commands.filter((file) => file.endsWith('.js'))) {
-          const response = client.loadCommand(`./src/commands/${path}`, command)
+          const response = client.loadCommand(`./commands/${path}`, command)
 
           if (response) {
             client.logger.error(response)
@@ -94,7 +94,7 @@ const init = async () => {
     }
   })
 
-  readdir('./src/events/', async (err, files) => {
+  readdir('./events/', async (err, files) => {
     if (err) {
       return client.logger.error(err)
     }
@@ -102,10 +102,10 @@ const init = async () => {
     client.logger.info(`${files.length} events loaded`)
 
     for (const events of files.filter(file => file.endsWith('.js'))) {
-      const event = new (require(`./src/events/${events}`))(this)
+      const event = new (require(`./events/${events}`))(client)
 
       client.on(events.split('.')[0], (...args) => event.run(...args))
-      delete require.cache[require.resolve(`./src/events/${events}`)]
+      delete require.cache[require.resolve(`./events/${events}`)]
     }
   })
 

@@ -1,6 +1,6 @@
 .idea/
 db.sql
-config.toml
+src/config.toml
 
 # Node modules
 node_modules

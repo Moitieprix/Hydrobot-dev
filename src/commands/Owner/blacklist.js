@@ -1,4 +1,4 @@
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 
 class Blacklist extends Command {
   constructor (client) {

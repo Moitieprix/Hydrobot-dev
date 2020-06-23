@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 
 module.exports = class Achievement extends Command {
   constructor (client) {
@@ -19,9 +19,13 @@ module.exports = class Achievement extends Command {
     try {
       const number = this.client.functions.getRandomInt(1, 39)
 
-      if (!args[0]) return message.channel.send(message.language.get('ACHIEVEMENT')[0])
+      if (!args[0]) {
+        return message.channel.send(message.language.get('ACHIEVEMENT')[0])
+      }
 
-      if (args.join(' ').length > 24) return message.channel.send(message.language.get('ACHIEVEMENT')[1])
+      if (args.join(' ').length > 24) {
+        return message.channel.send(message.language.get('ACHIEVEMENT')[1])
+      }
 
       const text = encodeURIComponent(args.join(' ')).replace('%20', '+')
 

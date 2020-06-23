@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class Userinfo extends Command {
@@ -18,7 +18,9 @@ module.exports = class Userinfo extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     const member = message.guild.member(user)
 
@@ -30,7 +32,9 @@ module.exports = class Userinfo extends Command {
     const joinPos = guildarray.findIndex(mem => mem.joinedTimestamp === member.joinedTimestamp)
     const nearbyMems = []
     for (let i = joinPos - 2; i < joinPos + 3; i++) {
-      if (i < 0 || i >= message.guild.memberCount) continue
+      if (i < 0 || i >= message.guild.memberCount) {
+        continue
+      }
       nearbyMems.push(i === joinPos ? `**${guildarray[i].user.username}**` : guildarray[i].user.username)
     }
 
@@ -39,14 +43,18 @@ module.exports = class Userinfo extends Command {
     const permissionsArraySerialize = Object.entries(message.channel.permissionsFor(user).serialize())
     const permissionsArray = []
     for (const perm of permissionsArraySerialize) {
-      if (perm[1]) permissionsArray.push(`\`${perm[0]}\``)
+      if (perm[1]) {
+        permissionsArray.push(`\`${perm[0]}\``)
+      }
     }
 
     const flags = await user.fetchFlags()
     const flagsArraySerialize = Object.entries(flags.serialize())
     const flagsArray = []
     for (const flag of flagsArraySerialize) {
-      if (flag[1]) flagsArray.push(`\`${flag[0]}\``)
+      if (flag[1]) {
+        flagsArray.push(`\`${flag[0]}\``)
+      }
     }
 
     message.channel.send(new MessageEmbed()

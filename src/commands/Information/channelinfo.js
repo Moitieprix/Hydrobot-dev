@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class Channelinfo extends Command {
@@ -18,7 +18,9 @@ module.exports = class Channelinfo extends Command {
   async run (message, args) {
     const channel = await this.client.functions.channelFilter(message, args)
 
-    if (!channel) return
+    if (!channel) {
+      return
+    }
 
     if (channel.type === 'text' || channel.type === 'news') {
       message.channel.send(new MessageEmbed()

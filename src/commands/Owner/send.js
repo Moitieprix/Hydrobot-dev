@@ -1,4 +1,4 @@
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 
 module.exports = class Send extends Command {
   constructor (client) {

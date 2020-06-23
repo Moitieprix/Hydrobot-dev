@@ -1,12 +1,9 @@
 'use strict'
 
+const Event = require('../classes/Event')
 const { MessageEmbed } = require('discord.js')
 
-module.exports = class ChannelCreate {
-  constructor (client) {
-    this.client = client
-  }
-
+module.exports = class ChannelCreate extends Event {
   async run (channelCreate) {
     const res = await this.client.database.query('SELECT id, language, system, logs_list, channels FROM settings WHERE id = $1', [channelCreate.guild.id])
     if (!res || !res.rows.length) {
@@ -28,6 +25,8 @@ module.exports = class ChannelCreate {
     if (channelCreate.type === 'text' || channelCreate.type === 'news') {
       channelCreate.guild.channels.cache.get(channel).send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
+        .attachFiles(['images/icons/mag.png'])
+        .setAuthor('Logs', 'attachment://mag.png')
         .setTitle(language.get('LOGS_EVENTS').CHANNEL_CREATE[0])
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[4], channelCreate.name)
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[5], language.get('CHANNELINFO_TYPE')[channelCreate.type])
@@ -41,6 +40,8 @@ module.exports = class ChannelCreate {
     if (channelCreate.type === 'store') {
       channelCreate.guild.channels.cache.get(channel).send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
+        .attachFiles(['images/icons/mag.png'])
+        .setAuthor('Logs', 'attachment://mag.png')
         .setTitle(language.get('LOGS_EVENTS').CHANNEL_CREATE[1])
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[4], channelCreate.name)
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[5], language.get('CHANNELINFO_TYPE')[channelCreate.type])
@@ -54,6 +55,8 @@ module.exports = class ChannelCreate {
     if (channelCreate.type === 'voice') {
       channelCreate.guild.channels.cache.get(channel).send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
+        .attachFiles(['images/icons/mag.png'])
+        .setAuthor('Logs', 'attachment://mag.png')
         .setTitle(language.get('LOGS_EVENTS').CHANNEL_CREATE[2])
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[4], channelCreate.name)
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[5], language.get('CHANNELINFO_TYPE')[channelCreate.type])
@@ -67,6 +70,8 @@ module.exports = class ChannelCreate {
     if (channelCreate.type === 'category') {
       channelCreate.guild.channels.cache.get(channel).send(new MessageEmbed()
         .setColor(this.client.config.embed.color)
+        .attachFiles(['images/icons/mag.png'])
+        .setAuthor('Logs', 'attachment://mag.png')
         .setTitle(language.get('LOGS_EVENTS').CHANNEL_CREATE[3])
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[4], channelCreate.name)
         .addField(language.get('LOGS_EVENTS').CHANNEL_CREATE[5], language.get('CHANNELINFO_TYPE')[channelCreate.type])

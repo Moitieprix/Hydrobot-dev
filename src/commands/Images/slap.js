@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { read, MIME_PNG } = require('jimp')
 
 module.exports = class Slap extends Command {
@@ -17,11 +17,15 @@ module.exports = class Slap extends Command {
   }
 
   async run (message, args) {
-    if (!args[0]) return message.channel.send(message.language.get('SLAP_ARGS'))
+    if (!args[0]) {
+      return message.channel.send(message.language.get('SLAP_ARGS'))
+    }
 
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     try {
       const mask = await read('./images/templates/mask.png')

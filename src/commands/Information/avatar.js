@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class Avatar extends Command {
@@ -17,7 +17,9 @@ module.exports = class Avatar extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     message.channel.send(new MessageEmbed()
       .setColor(this.client.config.embed.color)

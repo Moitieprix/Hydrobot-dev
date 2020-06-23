@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { read, MIME_PNG } = require('jimp')
 
 module.exports = class Balance extends Command {
@@ -19,7 +19,9 @@ module.exports = class Balance extends Command {
   async run (message, args) {
     const user = await this.client.functions.userFilter(message, args)
 
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     try {
       const avatar = await read(user.displayAvatarURL({ format: 'png', size: 256 }))

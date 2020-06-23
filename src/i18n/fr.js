@@ -13,7 +13,8 @@ module.exports = class {
         ERROR: e => `${emote.others.no} • Une erreur est survenue : \`${e}\`, Merci de réessayer plus tard !`,
         IMAGE_ERROR: e => `${emote.others.no} • Une erreur est survenue à la génération de l'image : \`${e}\``,
         DATABASE_ERROR: e => `${emote.others.no} • Une erreur est survenu sur la base de donnée : \`${e}\`, Merci de réesayer plus tard !`,
-        ERROR_WITHOUT_REASON: `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`
+        ERROR_WITHOUT_REASON: `${emote.others.no} • Une erreur est survenu ! Merci de réessayer plus tard !`,
+        NSFW_ERROR: e => `${emote.others.no} • Une erreur est survenue sur la génération de l'image : \`${e}\`, Merci de réessayer plus tard !`
       },
 
       UTILS: {
@@ -780,8 +781,6 @@ module.exports = class {
       NSFW_EXAMPLE: (prefix, command) => `\`${prefix}${command}\``,
 
       IMAGE_NOT_DISPLAYED: url => `Si l'image ne s'affiche pas, [[Cliquez ici]](${url})`,
-
-      NSFW_ERROR: e => `${emote.others.no} • Une erreur est survenue sur la génération de l'image : \`${e}\`, Merci de réessayer plus tard !`,
 
       // OTHERS //
 

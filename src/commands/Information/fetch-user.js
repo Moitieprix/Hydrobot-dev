@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class FetchUser extends Command {
@@ -27,7 +27,9 @@ module.exports = class FetchUser extends Command {
       const array = Object.entries(flags.serialize())
       const flagsArray = []
       for (const flag of array) {
-        if (flag[1]) flagsArray.push(`\`${flag[0]}\``)
+        if (flag[1]) {
+          flagsArray.push(`\`${flag[0]}\``)
+        }
       }
 
       message.channel.send(new MessageEmbed()

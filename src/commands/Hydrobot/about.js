@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { version, MessageEmbed } = require('discord.js')
 
 module.exports = class About extends Command {

@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 

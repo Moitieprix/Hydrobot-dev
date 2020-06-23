@@ -1,6 +1,6 @@
 'use strict'
 
-const Command = require('../../../core/Command.js')
+const Command = require('../../classes/Command')
 const { MessageEmbed } = require('discord.js')
 
 module.exports = class Roleinfo extends Command {
@@ -18,12 +18,16 @@ module.exports = class Roleinfo extends Command {
   async run (message, args) {
     const role = await this.client.functions.roleFilter(message, args)
 
-    if (!role) return
+    if (!role) {
+      return
+    }
 
     const array = Object.entries(role.permissions.serialize())
     const permissionsArray = []
     array.map(perm => {
-      if (perm[1]) return permissionsArray.push(`\`${perm[0]}\``)
+      if (perm[1]) {
+        return permissionsArray.push(`\`${perm[0]}\``)
+      }
     })
 
     message.channel.send(new MessageEmbed()
