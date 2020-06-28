@@ -1,27 +1,51 @@
 'use strict'
 
+const Event = require('../classes/Event')
 const { MessageEmbed } = require('discord.js')
 
-module.exports = async (client, guildEmoji) => {
-  const res = await client.functions.getDataSettings(client, guildEmoji.guild.id)
-  if (!res) return
+module.exports = class EmojiCreate extends Event {
+  async run (guildEmoji) {
+    const res = await this.client.database.query('SELECT language, system, logs_list, channels FROM settings WHERE id = $1', [guildEmoji.guild.id])
+    if (!res || !res.rows.length) {
+      return
+    }
 
-  const channel = res.rows[0].channels.logs
+    if (!res.rows[0].system.logs || !res.rows[0].logs_list.emojiCreate) {
+      return
+    }
 
-  if (!res.rows[0].system.logs || !res.rows[0].logs_list.emojiCreate || channel === '0') return
-  if (!guildEmoji.guild.channels.cache.some(ch => ch.id === channel)) return
-  if (!client.channels.cache.get(channel).permissionsFor(client.user.id).has('SEND_MESSAGES')) return
+    const channel = res.rows[0].channels.logs
 
-  const language = new (require(`../../i18n/${res.rows[0].language}`))()
+    if (channel === '0' || !guildEmoji.guild.channels.cache.some(ch => ch.id === channel) || !this.client.channels.cache.get(channel).permissionsFor(this.client.user.id).has('SEND_MESSAGES')) {
+      return
+    }
 
-  const embed = new MessageEmbed()
-    .setColor(client.config.embed.color)
-    .setTitle(language.get('LOGS_EVENTS').EMOJI_CREATED[0])
-    .setThumbnail(guildEmoji.url)
-    .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[1], guildEmoji.name)
-    .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[2], guildEmoji.id)
-    .setTimestamp()
-    .setFooter(client.user.username, client.user.avatarURL())
+    const language = new (require(`../i18n/${res.rows[0].language}`))()
 
-  return guildEmoji.guild.channels.cache.get(channel).send(embed)
+    if (guildEmoji.guild.me.hasPermission('MANAGE_EMOJIS')) {
+      guildEmoji.fetchAuthor().then(author => {
+        guildEmoji.guild.channels.cache.get(channel).send(new MessageEmbed()
+          .setColor(this.client.config.embed.color)
+          .setTitle(language.get('LOGS_EVENTS').EMOJI_CREATED[0])
+          .setThumbnail(guildEmoji.url)
+          .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[1], guildEmoji.name)
+          .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[2], guildEmoji.id)
+          .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[3], author.tag)
+          .setTimestamp()
+          .setFooter(this.client.user.username, this.client.user.avatarURL())
+        )
+      })
+      return
+    }
+
+    guildEmoji.guild.channels.cache.get(channel).send(new MessageEmbed()
+      .setColor(this.client.config.embed.color)
+      .setTitle(language.get('LOGS_EVENTS').EMOJI_CREATED[0])
+      .setThumbnail(guildEmoji.url)
+      .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[1], guildEmoji.name)
+      .addField(language.get('LOGS_EVENTS').EMOJI_CREATED[2], guildEmoji.id)
+      .setTimestamp()
+      .setFooter(this.client.user.username, this.client.user.avatarURL())
+    )
+  }
 }

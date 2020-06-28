@@ -396,7 +396,8 @@ module.exports = class Function {
               customCommands: false,
               images: false,
               picture: false,
-              pictureLink: '0'
+              pictureLink: '0',
+              muteRole: '0'
             },
             {
               welcome: '0',
@@ -409,7 +410,6 @@ module.exports = class Function {
             {
               channelCreate: true,
               channelDelete: true,
-              channelPinsUpdate: true,
               channelUpdate: true,
               emojiCreate: true,
               emojiDelete: true,

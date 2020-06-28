@@ -105,7 +105,7 @@ module.exports = class Message extends Event {
     const cmd = this.client.commands[command] || this.client.commands[this.client.aliases[command]]
 
     if (!cmd) {
-      return
+      return console.log('3')
     }
 
     // Commands options //

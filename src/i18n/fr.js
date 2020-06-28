@@ -118,13 +118,64 @@ module.exports = class {
 
       LOGS_EVENTS: {
         CHANNEL_CREATE: [
-          ':speech_balloon: • Salon textuel crée !',
-          ':dollar: • Salon magasin crée !',
-          ':microphone2: • Salon vocal crée !',
-          ':bookmark_tabs: • Catégorie crée !',
+          ':bulb: • Salon crée !',
+          ':bulb: • Catégorie créee !',
           '• Nom :',
           '• Type :',
           '• Catégorie :'
+        ],
+
+        CHANNEL_DELETE: [
+          ':wastebasket: • Salon supprimé !',
+          ':wastebasket: • Catégorie supprimée !',
+          '• Nom :',
+          '• Type :',
+          '• Catégorie :'
+        ],
+
+        CHANNEL_UPDATE: [
+          ':pencil2: • Salon mis à jour !',
+          ':pencil2: • Catégorie mise à jour !',
+          '• Salon :',
+          '• Changement de nom :',
+          'Nom avant :',
+          'Nom après :',
+          '• Changement du slowmode :',
+          'Ancien slowmode :',
+          'Nouveau slowmode :',
+          '• NSFW :',
+          `${emote.others.on} • Activé`,
+          `${emote.others.off} • Désactivé`,
+          '• Chagement de catégorie :',
+          'Ancienne catégorie :',
+          'Nouvelle catégorie :',
+          '• Changement de permissions :',
+          'Permission ajoutée sur le rôle :',
+          'Permission retirée sur le rôle :',
+          'Permission(s) accordée(s) :',
+          'Permission(s) neutralisée(s) :',
+          'Permission(s) refusée(s) :',
+          '• Changement de limite de personnes :',
+          'Ancienne limite :',
+          'Nouvelle limite :',
+          '• Changement de sujet du salon :',
+          'Ancien sujet :',
+          'Nouveau sujet :',
+          '• Changement de la qualité audio :',
+          'Ancienne qualité :',
+          'Nouvelle qualité :',
+          'Aucune limite',
+          'Aucun slowmode',
+          'Aucun topic',
+          'Voir fichier',
+          '• Catégorie :'
+        ],
+
+        EMOJI_CREATED: [
+          ':inbox_tray: • Emoji ajouté',
+          'Nom :',
+          'ID :',
+          'Auteur :'
         ],
 
         MSG_DELETED: [
@@ -214,12 +265,6 @@ module.exports = class {
           'Ancienne photo',
           'Nouvelle photo',
           'Utilisateur :'
-        ],
-
-        EMOJI_CREATED: [
-          ':inbox_tray: • Emoji ajouté',
-          'Nom :',
-          'ID :'
         ]
       },
 

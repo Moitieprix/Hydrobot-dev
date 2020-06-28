@@ -17,7 +17,7 @@ module.exports = class Logs extends Command {
   }
 
   async run (message, args, res) {
-    const logslist = ['channelCreate', 'channelDelete', 'channelPinsUpdate', 'channelUpdate', 'emojiCreate', 'emojiDelete', 'emojiUpdate', 'guildBanAdd', 'guildBanRemove', 'guildMemberAdd', 'guildMemberRemove', 'guildMemberUpdate', 'guildUpdate', 'inviteCreate', 'inviteDelete', 'messageDelete', 'messageDeleteBulk', 'messageUpdate', 'roleCreate', 'roleDelete', 'roleUpdate', 'userUpdate', 'voiceStateUpdate']
+    const logslist = ['channelCreate', 'channelDelete', 'channelUpdate', 'emojiCreate', 'emojiDelete', 'emojiUpdate', 'guildBanAdd', 'guildBanRemove', 'guildMemberAdd', 'guildMemberRemove', 'guildMemberUpdate', 'guildUpdate', 'inviteCreate', 'inviteDelete', 'messageDelete', 'messageDeleteBulk', 'messageUpdate', 'roleCreate', 'roleDelete', 'roleUpdate', 'userUpdate', 'voiceStateUpdate']
 
     switch (args[0]) {
       case 'set-channel': {
