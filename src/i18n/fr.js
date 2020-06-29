@@ -134,8 +134,8 @@ module.exports = class {
         ],
 
         CHANNEL_UPDATE: [
-          ':pencil2: • Salon mis à jour !',
-          ':pencil2: • Catégorie mise à jour !',
+          ':pencil2: • Salon modifié !',
+          ':pencil2: • Catégorie modifiée !',
           '• Salon :',
           '• Changement de nom :',
           'Nom avant :',
@@ -172,10 +172,33 @@ module.exports = class {
         ],
 
         EMOJI_CREATED: [
-          ':inbox_tray: • Emoji ajouté',
-          'Nom :',
-          'ID :',
-          'Auteur :'
+          ':bulb: • Emoji ajouté',
+          '• Nom :',
+          '• ID :',
+          '• Auteur :',
+          '• Restriction :',
+          'Aucune restriction',
+          'Emoji utilisatable avec le(s) rôle(s) :'
+        ],
+
+        EMOJI_DELETE: [
+          ':wastebasket: • Emoji supprimé',
+          '• Nom :',
+          '• ID :',
+          '• Changement de nom :',
+          'Nom avant :',
+          'Nom après :',
+          '• Changement de restriction :',
+          'Rôle(s) autorisé(s) avant :',
+          'Rôle(s) autorisé(s) après :'
+        ],
+
+        EMOJI_UPDATE: [
+          ':pencil2: • Emoji modifié !',
+          '• Nom :',
+          '• Changement de nom :',
+          'Nom avant :',
+          'Nom après :'
         ],
 
         MSG_DELETED: [

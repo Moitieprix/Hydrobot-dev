@@ -28,6 +28,8 @@ module.exports = class ChannelUpdate extends Event {
 
     const embed = new MessageEmbed()
       .setColor(this.client.config.embed.color)
+      .attachFiles(['../images/icons/camera.png'])
+      .setAuthor('Logs', 'attachment://camera.png')
       .setTitle(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[1] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[0])
       .addField(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[34] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[2], `${newChannel.name} (${newChannel.id})`)
       .setTimestamp()
@@ -61,7 +63,7 @@ module.exports = class ChannelUpdate extends Event {
       if (oldChannel.topic.length + newChannel.topic.length < 900) {
         embed.addField(language.get('LOGS_EVENTS').CHANNEL_UPDATE[24], `${language.get('LOGS_EVENTS').CHANNEL_UPDATE[25]} \n${oldChannel.topic ? oldChannel.topic : language.get('LOGS_EVENTS').CHANNEL_UPDATE[32]} \n\n${language.get('LOGS_EVENTS').CHANNEL_UPDATE[26]} \n${newChannel.topic ? newChannel.topic : language.get('LOGS_EVENTS').CHANNEL_UPDATE[32]}`)
       } else {
-        embed.attachFiles([{ name: 'messageDelete.txt', attachment: Buffer.from(`${language.get('LOGS_EVENTS').CHANNEL_UPDATE[25]} : \n${oldChannel.topic ? oldChannel.topic : language.get('LOGS_EVENTS').CHANNEL_UPDATE[32]} \n\n${language.get('LOGS_EVENTS').CHANNEL_UPDATE[26]} \n${newChannel.topic ? newChannel.topic : language.get('LOGS_EVENTS').CHANNEL_UPDATE[32]}`, 'utf8') }])
+        embed.attachFiles([{ name: 'Topic_channelUpdate.txt', attachment: Buffer.from(`${language.get('LOGS_EVENTS').CHANNEL_UPDATE[25]} : \n${oldChannel.topic ? oldChannel.topic : language.get('LOGS_EVENTS').CHANNEL_UPDATE[32]} \n\n${language.get('LOGS_EVENTS').CHANNEL_UPDATE[26]} \n${newChannel.topic ? newChannel.topic : language.get('LOGS_EVENTS').CHANNEL_UPDATE[32]}`, 'utf8') }])
         embed.addField(language.get('LOGS_EVENTS').CHANNEL_UPDATE[24], language.get('LOGS_EVENTS').CHANNEL_UPDATE[33])
       }
     }
@@ -77,6 +79,8 @@ module.exports = class ChannelUpdate extends Event {
           if (!newChannel.permissionOverwrites.has(role.id)) {
             oldChannel.guild.channels.cache.get(channel).send(new MessageEmbed()
               .setColor(this.client.config.embed.color)
+              .attachFiles(['../images/icons/camera.png'])
+              .setAuthor('Logs', 'attachment://camera.png')
               .setTitle(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[1] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[0])
               .addField(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[34] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[2], `${newChannel.name} (${newChannel.id})`)
               .addField(language.get('LOGS_EVENTS').CHANNEL_UPDATE[15], `${language.get('LOGS_EVENTS').CHANNEL_UPDATE[17]} ${oldChannel.guild.roles.cache.get(role.id).toString()}`)
@@ -92,6 +96,8 @@ module.exports = class ChannelUpdate extends Event {
           if (!oldChannel.permissionOverwrites.has(role.id)) {
             oldChannel.guild.channels.cache.get(channel).send(new MessageEmbed()
               .setColor(this.client.config.embed.color)
+              .attachFiles(['../images/icons/camera.png'])
+              .setAuthor('Logs', 'attachment://camera.png')
               .setTitle(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[1] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[0])
               .addField(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[34] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[2], `${newChannel.name} (${newChannel.id})`)
               .addField(language.get('LOGS_EVENTS').CHANNEL_UPDATE[15], `${language.get('LOGS_EVENTS').CHANNEL_UPDATE[16]} ${oldChannel.guild.roles.cache.get(role.id).toString()}`)
@@ -108,6 +114,8 @@ module.exports = class ChannelUpdate extends Event {
           if (role !== oldChannel.permissionOverwrites.get(role.id)) {
             const embed = new MessageEmbed()
               .setColor(this.client.config.embed.color)
+              .attachFiles(['../images/icons/camera.png'])
+              .setAuthor('Logs', 'attachment://camera.png')
               .setTitle(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[1] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[0])
               .addField(oldChannel.type === 'category' ? language.get('LOGS_EVENTS').CHANNEL_UPDATE[34] : language.get('LOGS_EVENTS').CHANNEL_UPDATE[2], `${newChannel.name} (${newChannel.id})`)
               .setTimestamp()

@@ -66,7 +66,7 @@ module.exports = class Userinfo extends Command {
       .addField(message.language.get('USERINFO')[7], `${message.language.get('USERINFO')[8]} ${member.nickname ? `**${member.nickname}**` : `**${user.username}**`} \n${message.language.get('USERINFO')[9]} **${playing}** \n${message.language.get('USERINFO')[11]} ${member.roles.highest} \n${message.language.get('USERINFO')[12]} ${message.language.get('UTILS').BOOLEAN[member.user.bot]}`)
       .addField('\u200b', '\u200b')
       .addField(`${message.language.get('USERINFO')[14]} (${joinPos + 1})`, nearbyMems.join(' > '))
-      .addField(message.language.get('USERINFO')[13], `${(member.roles.cache.array().length > 15 ? `${member.roles.cache.array().slice(0, 15).join(', ')} ${message.language.get('ROLE_MORE_SIZE', member.roles.cache.array().length - 15)}` : member.roles.cache.array().join(', '))}`)
+      .addField(message.language.get('USERINFO')[13], `${(member.roles.cache.array().length > 10 ? `${member.roles.cache.array().slice(0, 10).join(', ')} ${message.language.get('ROLE_MORE_SIZE', member.roles.cache.array().length - 10)}` : member.roles.cache.array().join(', '))}`)
       .addField(message.language.get('USERINFO')[15], permissionsArray ? permissionsArray.join(', ') : message.language.get('USERINFO')[16])
       .addField(message.language.get('USERINFO')[17], flagsArray ? flagsArray.join(', ') : message.language.get('USERINFO')[18])
       .setTimestamp()
